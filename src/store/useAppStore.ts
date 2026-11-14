@@ -546,6 +546,7 @@ interface AppState {
     displayName?: string;
     username?: string;
     bio?: string;
+    interests?: string[];
     photoURL?: string;
     customAvatar?: string;
     privacySettings?: {
@@ -661,6 +662,7 @@ export const useAppStore = create<AppState>()(
         if (updates.displayName !== undefined) localUpdates.displayName = updates.displayName;
         if (updates.username !== undefined) localUpdates.username = updates.username;
         if (updates.bio !== undefined) localUpdates.bio = updates.bio;
+        if (updates.interests !== undefined) localUpdates.interests = updates.interests;
         if (updates.photoURL !== undefined) localUpdates.photoURL = updates.photoURL;
         if (updates.customAvatar !== undefined) localUpdates.customAvatar = updates.customAvatar;
         if (updates.privacySettings !== undefined) localUpdates.privacySettings = updates.privacySettings;

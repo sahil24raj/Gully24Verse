@@ -47,6 +47,7 @@ export interface UserProfile {
   avatar: string;
   displayName?: string;
   bio?: string;
+  interests?: string[];
   createdAt?: string;
   authType: 'guest' | 'google' | 'email' | 'discord';
   xp: number;

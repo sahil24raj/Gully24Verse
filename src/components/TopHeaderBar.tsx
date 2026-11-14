@@ -11,7 +11,8 @@ import {
   User,
   ShoppingBag,
   Sparkles,
-  LogOut
+  LogOut,
+  LayoutDashboard
 } from 'lucide-react';
 
 export const TopHeaderBar: React.FC = () => {
@@ -102,8 +103,8 @@ export const TopHeaderBar: React.FC = () => {
           </div>
         </Link>
 
-        {/* Center: Desktop Navigation Bar matching screenshot & code.html (Home | All Vibes | Create Squad | Leaderboard) */}
-        <nav className="hidden xl:flex items-center gap-1 p-1 bg-surface-container-low rounded-xl border border-purple-500/10">
+        {/* Center: Desktop Navigation Bar (Home | All Vibes | Dashboard) */}
+        <nav className="hidden xl:flex items-center gap-1.5 p-1 bg-surface-container-low rounded-xl border border-purple-500/10">
           <Link
             href="/"
             onClick={() => soundFx.playClick()}
@@ -126,25 +127,16 @@ export const TopHeaderBar: React.FC = () => {
           >
             All Vibes
           </Link>
-          <button
-            onClick={() => {
-              soundFx.playClick();
-              openMultiplayerModal(GAMES_CATALOG[0]);
-            }}
-            className="px-4 py-1.5 rounded-lg font-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer"
-          >
-            Create Squad
-          </button>
           <Link
-            href="/leaderboard"
+            href="/dashboard"
             onClick={() => soundFx.playClick()}
             className={`px-4 py-1.5 transition-colors rounded-lg font-label-lg ${
-              pathname.startsWith('/leaderboard')
+              pathname.startsWith('/dashboard')
                 ? 'bg-primary-container text-on-primary-container font-bold shadow-[0_0_16px_rgba(139,44,255,0.4)]'
                 : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
             }`}
           >
-            Leaderboard
+            Dashboard
           </Link>
         </nav>
 
@@ -251,6 +243,18 @@ export const TopHeaderBar: React.FC = () => {
                     {user.authType === 'guest' ? 'Guest Player' : 'Verified Gamer'}
                   </div>
                 </div>
+
+                <Link
+                  href="/dashboard"
+                  onClick={() => {
+                    soundFx.playClick();
+                    setUserMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-on-surface hover:bg-surface-container transition-colors"
+                >
+                  <LayoutDashboard className="w-4 h-4 text-neon-cyan" />
+                  <span>Gamer Dashboard</span>
+                </Link>
 
                 <Link
                   href="/profile"
@@ -369,25 +373,15 @@ export const TopHeaderBar: React.FC = () => {
           >
             🎮 All Vibes
           </Link>
-          <button
-            onClick={() => {
-              soundFx.playClick();
-              setMobileMenuOpen(false);
-              openMultiplayerModal(GAMES_CATALOG[0]);
-            }}
-            className="px-3 py-2 rounded-lg font-label-lg text-on-surface hover:bg-surface-container text-left cursor-pointer"
-          >
-            👥 Create Squad
-          </button>
           <Link
-            href="/leaderboard"
+            href="/dashboard"
             onClick={() => {
               soundFx.playClick();
               setMobileMenuOpen(false);
             }}
             className="px-3 py-2 rounded-lg font-label-lg text-on-surface hover:bg-surface-container"
           >
-            🏆 Leaderboard
+            📊 Dashboard
           </Link>
         </div>
       )}
