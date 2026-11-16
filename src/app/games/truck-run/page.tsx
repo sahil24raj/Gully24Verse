@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { ArrowLeft, Flame, Sparkles, Trophy, Fuel, ShieldCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Truck Run 🚛💨 — Desi Truck Highway Racing Game | Vibe Arena',
+  title: 'Truck Run 🚛💨 — Desi Truck Highway Racing Game | GullyVerse',
   description:
-    'Drive the iconic Indian Tata 1613 heavy cargo truck (Desi Lorry) down the Grand Trunk Highway in full 3D Unity graphics! Blast musical horns, collect coins, avoid traffic, and conquer the Punjabi Dhaba corridors on Vibe Arena.'
+    'Drive the iconic Indian Tata 1613 heavy cargo truck (Desi Lorry) down the Grand Trunk Highway in full 3D Unity graphics! Blast musical horns, collect coins, avoid traffic, and conquer the Punjabi Dhaba corridors on GullyVerse.'
 };
 
 export default function TruckRunPage() {

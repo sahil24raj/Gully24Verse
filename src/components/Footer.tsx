@@ -3,163 +3,150 @@
 import React from 'react';
 import Link from 'next/link';
 import { soundFx } from '@/lib/audio';
+import { GullyVerseLogo } from '@/components/GullyVerseLogo';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-surface-container-lowest border-t border-purple-500/20 py-12 text-on-surface-variant mt-16">
+    <footer className="w-full bg-[#0B0B0E] border-t border-amber-500/20 py-12 text-slate-400 mt-16 select-none">
       <div className="max-w-[1720px] px-4 sm:px-8 xl:px-14 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
         {/* Brand Column */}
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(217,70,239,0.45)] border border-purple-500/20 shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt="Vibe Arena Logo"
-                className="w-full h-full object-cover"
-                src="/brand/vibe-arena-icon.png"
-              />
-            </div>
-            <span className="font-headline-sm text-white font-black tracking-wider uppercase">
-              VIBE <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-neon-cyan">ARENA</span>
-            </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-surface-container text-neon-green font-label-sm border border-neon-green/30 font-bold uppercase tracking-wider text-[10px]">
-              YOUR ARENA
-            </span>
-          </div>
-
-          <p className="font-body-sm text-soft-lavender max-w-md leading-relaxed">
-            Your Squad, Your Vibes, Your Arena. The social gaming playground where friends create instant rooms, battle in quick multiplayer matches, settle bets, and vibe together. Zero downloads, instant play.
+          <GullyVerseLogo size="lg" />
+          <p className="font-body-sm text-slate-400 max-w-sm leading-relaxed mt-2">
+            India&apos;s premier browser gaming universe. Play free desi games, challenge your hostel squad, drift auto-rickshaws, and dominate the national street leaderboard. Zero downloads, instant 6-character room codes.
           </p>
-
-          <div className="flex items-center gap-3 text-on-surface-variant pt-1">
-            <span
-              className="material-symbols-outlined text-lg hover:text-primary transition-colors cursor-pointer"
-              title="Games"
-            >
-              sports_esports
-            </span>
-            <span
-              className="material-symbols-outlined text-lg hover:text-primary transition-colors cursor-pointer"
-              title="Squad Chat"
-            >
-              forum
-            </span>
-            <span
-              className="material-symbols-outlined text-lg hover:text-primary transition-colors cursor-pointer"
-              title="Voice Lobby"
-            >
-              headset_mic
-            </span>
-            <span
-              className="material-symbols-outlined text-lg hover:text-primary transition-colors cursor-pointer"
-              title="Leaderboards"
-            >
-              trophy
-            </span>
+          <div className="flex items-center gap-3 text-xs text-amber-400/90 font-bold tracking-wider uppercase">
+            <span>🇮🇳 Made with pride for Indian Gamers</span>
           </div>
         </div>
 
-        {/* Pick Your Vibe */}
-        <div className="flex flex-col gap-2.5">
-          <span className="font-label-lg text-on-surface uppercase tracking-wider font-bold">
-            Pick Your Vibe
-          </span>
+        {/* Quick Links */}
+        <div className="flex flex-col gap-3">
+          <h4 className="font-label-lg text-white font-black tracking-wider uppercase">Navigation</h4>
           <Link
-            href="/categories?vibe=meme"
+            href="/"
             onClick={() => soundFx.playClick()}
-            className="font-body-sm text-soft-lavender hover:text-neon-cyan transition-colors"
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
           >
-            🔥 Meme Vibes
+            Gully Home
           </Link>
           <Link
-            href="/categories?vibe=school"
+            href="/games"
             onClick={() => soundFx.playClick()}
-            className="font-body-sm text-soft-lavender hover:text-neon-cyan transition-colors"
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
           >
-            🎒 School Vibes
+            All Games Vault
           </Link>
           <Link
-            href="/categories?vibe=squad"
+            href="/dashboard"
             onClick={() => soundFx.playClick()}
-            className="font-body-sm text-soft-lavender hover:text-neon-cyan transition-colors"
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
           >
-            👥 Squad Vibes
-          </Link>
-          <Link
-            href="/categories?vibe=brain"
-            onClick={() => soundFx.playClick()}
-            className="font-body-sm text-soft-lavender hover:text-neon-cyan transition-colors"
-          >
-            🧠 Mind Game Vibes
-          </Link>
-        </div>
-
-        {/* Platform Links */}
-        <div className="flex flex-col gap-2.5">
-          <span className="font-label-lg text-on-surface uppercase tracking-wider font-bold">
-            Platform
-          </span>
-          <Link
-            href="/multiplayer"
-            onClick={() => soundFx.playClick()}
-            className="font-body-sm text-soft-lavender hover:text-secondary transition-colors"
-          >
-            Play with Friends
+            Gamer Dashboard
           </Link>
           <Link
             href="/leaderboard"
             onClick={() => soundFx.playClick()}
-            className="font-body-sm text-soft-lavender hover:text-secondary transition-colors"
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
           >
-            Vibe Leaderboard
-          </Link>
-          <Link
-            href="/profile"
-            onClick={() => soundFx.playClick()}
-            className="font-body-sm text-soft-lavender hover:text-secondary transition-colors"
-          >
-            Gamer Profile &amp; Stats
+            Legends Leaderboard
           </Link>
           <Link
             href="/shop"
             onClick={() => soundFx.playClick()}
-            className="font-body-sm text-soft-lavender hover:text-secondary transition-colors"
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
           >
-            Rewards Store
+            Gully Coin Shop
           </Link>
         </div>
 
-        {/* Squad Code Card */}
-        <div className="flex flex-col gap-2.5">
-          <span className="font-label-lg text-on-surface uppercase tracking-wider font-bold">
-            Squad Code
-          </span>
-          <div className="p-4 rounded-xl bg-surface-container-low border border-purple-500/20 flex flex-col gap-1 shadow-md">
-            <span className="font-headline-sm text-tertiary italic font-bold">
-              &ldquo;Bas ek aur game.&rdquo;
-            </span>
-            <span className="font-label-sm text-soft-lavender">
-              The holy gaming vow. Never break the squad circle.
-            </span>
+        {/* Desi Games Showcase */}
+        <div className="flex flex-col gap-3">
+          <h4 className="font-label-lg text-white font-black tracking-wider uppercase">Featured Games</h4>
+          <Link
+            href="/games/truck-run"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
+          >
+            🚛 Truck Run (3D)
+          </Link>
+          <Link
+            href="/games/auto-rush"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
+          >
+            🛺 Auto Rush (3D)
+          </Link>
+          <Link
+            href="/games/chor-sipahi"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
+          >
+            👑 Chor Sipahi (Multiplayer)
+          </Link>
+          <Link
+            href="/games/indian-politics-arena"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
+          >
+            🗳️ Politics Arena (1v1)
+          </Link>
+          <Link
+            href="/games/spin-cricket"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
+          >
+            🏏 Spin Cricket (Book Cricket)
+          </Link>
+        </div>
+
+        {/* Community & Legal */}
+        <div className="flex flex-col gap-3">
+          <h4 className="font-label-lg text-white font-black tracking-wider uppercase">Community</h4>
+          <a
+            href="https://discord.gg"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-teal-400 transition-colors w-fit flex items-center gap-1.5"
+          >
+            <span>💬 Gully Discord</span>
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-teal-400 transition-colors w-fit flex items-center gap-1.5"
+          >
+            <span>📸 Instagram Reels</span>
+          </a>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-teal-400 transition-colors w-fit flex items-center gap-1.5"
+          >
+            <span>🐦 Twitter / X</span>
+          </a>
+          <div className="pt-2 text-xs text-slate-500 flex flex-col gap-1">
+            <span>Fair Play Certified</span>
+            <span>Zero Real Money Gambling</span>
           </div>
         </div>
       </div>
 
-      {/* Subfooter */}
-      <div className="max-w-7xl px-4 sm:px-6 lg:px-12 mx-auto mt-10 pt-4 border-t border-purple-500/10 flex flex-col sm:flex-row items-center justify-between gap-3 font-label-md text-soft-lavender">
-        <span>© 2026 Vibe Arena. Made for friends who game together.</span>
-        <div className="flex items-center gap-4">
-          <Link href="/categories" className="hover:text-on-surface transition-colors">
-            Rules of Engagement
-          </Link>
-          <Link href="/leaderboard" className="hover:text-on-surface transition-colors">
-            Fair Play Code
-          </Link>
-          <Link href="/profile" className="hover:text-on-surface transition-colors">
-            Privacy
-          </Link>
+      <div className="max-w-[1720px] px-4 sm:px-8 xl:px-14 mx-auto mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>© 2026 GULLYVERSE. Gully Se Gaming Tak. All rights reserved.</p>
+        <div className="flex items-center gap-6">
+          <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
+          <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms of Play</Link>
+          <Link href="/contact" className="hover:text-slate-300 transition-colors">Hostel Squad Support</Link>
         </div>
       </div>
     </footer>
   );
 };
+
+export default Footer;

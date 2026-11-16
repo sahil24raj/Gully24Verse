@@ -1,0 +1,23 @@
+{
+  "name": "GullyVerse – India's Desi Browser Gaming Universe",
+  "short_name": "GullyVerse",
+  "description": "Play free Indian-style browser games instantly. Challenge friends, create squads and enjoy multiplayer gaming on GullyVerse. Gully Se Gaming Tak.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#101014",
+  "theme_color": "#101014",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/brand/gullyverse-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/brand/gullyverse-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

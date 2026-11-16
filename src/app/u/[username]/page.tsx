@@ -100,7 +100,7 @@ export default function PublicProfilePage() {
     return (
       <div className="py-24 text-center space-y-4">
         <Loader2 className="w-8 h-8 animate-spin text-[#00F0FF] mx-auto" />
-        <p className="text-sm font-mono text-slate-400">Loading Vibe Arena Gamer Card...</p>
+        <p className="text-sm font-mono text-slate-400">Loading GullyVerse Gamer Card...</p>
       </div>
     );
   }
@@ -217,7 +217,7 @@ export default function PublicProfilePage() {
               </div>
 
               <p className="text-sm text-slate-300 max-w-md italic font-sans">
-                &ldquo;{profile.bio || 'Ready to compete in the Vibe Arena!'}&rdquo;
+                &ldquo;{profile.bio || 'Ready to compete in the GullyVerse!'}&rdquo;
               </p>
 
               <div className="flex items-center justify-center sm:justify-start gap-4 text-xs font-mono text-slate-400 pt-2 flex-wrap">

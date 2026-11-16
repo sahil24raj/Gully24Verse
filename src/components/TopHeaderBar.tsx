@@ -7,12 +7,14 @@ import { useAppStore, GAMES_CATALOG } from '@/store/useAppStore';
 import { soundFx } from '@/lib/audio';
 import { isImageSource } from '@/components/profile/GamerAvatar';
 import { normalizeRoomCode } from '@/lib/multiplayer/roomCodeGenerator';
+import { GullyVerseLogo } from '@/components/GullyVerseLogo';
 import {
   User,
   ShoppingBag,
   Sparkles,
   LogOut,
-  LayoutDashboard
+  LayoutDashboard,
+  Users
 } from 'lucide-react';
 
 export const TopHeaderBar: React.FC = () => {
@@ -41,154 +43,145 @@ export const TopHeaderBar: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Close dropdown on click outside
+  // Close user dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
         setUserMenuOpen(false);
       }
     };
-    if (userMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [userMenuOpen]);
+  }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!searchQuery.trim()) return;
+    const q = searchQuery.trim();
+    if (!q) return;
+
     soundFx.playClick();
-    router.push(`/categories?q=${encodeURIComponent(searchQuery.trim())}`);
-    setMobileMenuOpen(false);
+    const upper = q.toUpperCase();
+    if (upper.length === 6 && /^[A-Z0-9]{6}$/.test(upper)) {
+      router.push(`/play/room/${normalizeRoomCode(upper)}`);
+      setSearchQuery('');
+      return;
+    }
+
+    const matched = GAMES_CATALOG.find(
+      (g) =>
+        g.title.toLowerCase().includes(q.toLowerCase()) ||
+        g.slug.toLowerCase().includes(q.toLowerCase()) ||
+        g.tags.some((t) => t.toLowerCase().includes(q.toLowerCase()))
+    );
+
+    if (matched) {
+      router.push(`/game/${matched.id}`);
+    } else {
+      router.push(`/games?q=${encodeURIComponent(q)}`);
+    }
+    setSearchQuery('');
   };
 
-  const currentLevel = user.level || 24;
-  const currentXP = user.xp || 1450;
-  const currentCoins = user.coins || 420;
-  const xpInLevel = currentXP % 1000;
-  const xpPercent = Math.min(100, Math.max(15, Math.round((xpInLevel / 1000) * 100)));
+  const currentLevel = user.level || 1;
+  const currentXP = user.xp || 0;
+  const currentCoins = user.coins || 0;
+  const nextLevelXP = currentLevel * 1000;
+  const xpPercent = Math.min(100, Math.floor((currentXP / nextLevelXP) * 100));
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-surface-purple/90 backdrop-blur-xl border-b border-purple-500/20 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-      <div className="h-20 w-full px-4 sm:px-6 lg:px-12 flex items-center justify-between gap-4">
-        {/* Brand Logo & Professional Esports Tagline */}
-        <Link
-          href="/"
-          onClick={() => soundFx.playClick()}
-          className="flex items-center gap-3.5 shrink-0 group focus:outline-none select-none"
-        >
-          {/* Logo Emblem Container - Full bleed high-res squircle badge */}
-          <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(217,70,239,0.55)] group-hover:shadow-[0_0_25px_rgba(0,240,255,0.7)] group-hover:scale-105 transition-all duration-300 shrink-0 border border-purple-500/20">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt="Vibe Arena Logo"
-              className="w-full h-full object-cover"
-              src="/brand/vibe-arena-icon.png"
-            />
-          </div>
+    <header className="sticky top-0 z-50 w-full bg-[#101014]/90 backdrop-blur-xl border-b border-amber-500/20 select-none shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+      <div className="max-w-[1720px] mx-auto px-4 sm:px-8 xl:px-14 h-16 flex items-center justify-between gap-4">
+        {/* Left Section: GullyVerse 3D Brand Logo */}
+        <div className="flex items-center gap-2">
+          <GullyVerseLogo size="md" />
+        </div>
 
-          <div className="flex flex-col justify-center">
-            <div className="flex items-center gap-1.5 leading-none">
-              <span className="font-headline-sm font-black text-xl sm:text-2xl tracking-wider text-white uppercase drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]">
-                VIBE
-              </span>
-              <span className="font-headline-sm font-black text-xl sm:text-2xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-primary via-neon-cyan to-neon-green uppercase drop-shadow-[0_0_15px_rgba(0,240,255,0.4)]">
-                ARENA
-              </span>
-              <span className="w-2 h-2 rounded-full bg-neon-green shadow-[0_0_10px_#48F078] animate-pulse ml-0.5" />
-            </div>
-            <span className="font-label-sm text-[10px] sm:text-[11px] text-soft-lavender font-bold tracking-[0.18em] uppercase mt-1 leading-none">
-              YOUR SQUAD, YOUR VIBES, YOUR ARENA
-            </span>
-          </div>
-        </Link>
-
-        {/* Center: Desktop Navigation Bar (Home | All Vibes | Dashboard) */}
-        <nav className="hidden xl:flex items-center gap-1.5 p-1 bg-surface-container-low rounded-xl border border-purple-500/10">
+        {/* Center: Desktop Navigation Bar (Home | All Games | Dashboard) */}
+        <nav className="hidden xl:flex items-center gap-1.5 p-1 bg-[#1B1B22] rounded-xl border border-white/10">
           <Link
             href="/"
             onClick={() => soundFx.playClick()}
-            className={`px-4 py-1.5 transition-colors rounded-lg font-label-lg ${
+            className={`px-4 py-1.5 transition-colors rounded-lg font-bold text-xs uppercase tracking-wider ${
               pathname === '/'
-                ? 'bg-primary-container text-on-primary-container font-bold shadow-[0_0_16px_rgba(139,44,255,0.4)]'
-                : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+                ? 'bg-amber-500 text-slate-950 font-black shadow-[0_0_16px_rgba(255,159,28,0.4)]'
+                : 'text-slate-300 hover:text-white hover:bg-white/5'
             }`}
           >
             Home
           </Link>
           <Link
-            href="/categories"
+            href="/games"
             onClick={() => soundFx.playClick()}
-            className={`px-4 py-1.5 transition-colors rounded-lg font-label-lg ${
-              pathname.startsWith('/categories')
-                ? 'bg-primary-container text-on-primary-container font-bold shadow-[0_0_16px_rgba(139,44,255,0.4)]'
-                : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+            className={`px-4 py-1.5 transition-colors rounded-lg font-bold text-xs uppercase tracking-wider ${
+              pathname.startsWith('/games')
+                ? 'bg-amber-500 text-slate-950 font-black shadow-[0_0_16px_rgba(255,159,28,0.4)]'
+                : 'text-slate-300 hover:text-white hover:bg-white/5'
             }`}
           >
-            All Vibes
+            All Games
           </Link>
           <Link
             href="/dashboard"
             onClick={() => soundFx.playClick()}
-            className={`px-4 py-1.5 transition-colors rounded-lg font-label-lg ${
+            className={`px-4 py-1.5 transition-colors rounded-lg font-bold text-xs uppercase tracking-wider ${
               pathname.startsWith('/dashboard')
-                ? 'bg-primary-container text-on-primary-container font-bold shadow-[0_0_16px_rgba(139,44,255,0.4)]'
-                : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+                ? 'bg-amber-500 text-slate-950 font-black shadow-[0_0_16px_rgba(255,159,28,0.4)]'
+                : 'text-slate-300 hover:text-white hover:bg-white/5'
             }`}
           >
             Dashboard
           </Link>
         </nav>
 
-        {/* Right Section: Exact Screenshot Tools (Search, LVL XP, Coins, Bell, Avatar) */}
+        {/* Right Section: Tools (Search, LVL XP, Coins, Bell, Avatar) */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* Quick Search with ⌘K badge */}
           <form
             onSubmit={handleSearchSubmit}
-            className="hidden lg:flex items-center bg-surface-container-low px-3 py-1.5 rounded-lg border border-purple-500/20 focus-within:border-primary-container transition-colors"
+            className="hidden lg:flex items-center bg-[#1B1B22] px-3 py-1.5 rounded-xl border border-white/10 focus-within:border-amber-500/50 transition-colors"
           >
-            <span className="material-symbols-outlined text-soft-lavender text-lg mr-1.5">search</span>
+            <span className="material-symbols-outlined text-slate-400 text-lg mr-1.5">search</span>
             <input
               ref={searchInputRef}
               type="text"
-              placeholder="Search vibes, rooms..."
+              placeholder="Search gully games, rooms..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-transparent border-none outline-none font-body-sm text-on-surface placeholder:text-soft-lavender/60 w-36 xl:w-44"
+              className="bg-transparent border-none outline-none font-body-sm text-white placeholder:text-slate-400/70 w-36 xl:w-44"
             />
-            <kbd className="font-label-sm text-soft-lavender bg-surface-container-high px-1.5 py-0.5 rounded ml-1 border border-white/5">
+            <kbd className="font-label-sm text-slate-400 bg-black/40 px-1.5 py-0.5 rounded ml-1 border border-white/10">
               ⌘K
             </kbd>
           </form>
 
-          {/* Level & XP Progress Chip from code.html */}
+          {/* Level & XP Progress Chip */}
           <Link
             href="/profile"
             onClick={() => soundFx.playClick()}
-            className="hidden sm:flex flex-col gap-1 bg-surface-container-low px-3 py-1.5 rounded-lg border border-purple-500/20 hover:border-primary/40 transition-colors"
-            title="View Level & Progress"
+            className="hidden sm:flex flex-col gap-1 bg-[#1B1B22] px-3 py-1.5 rounded-xl border border-white/10 hover:border-amber-500/40 transition-colors"
+            title="Gully Level & Progress"
           >
             <div className="flex items-center justify-between gap-3">
-              <span className="font-label-sm text-primary font-bold">LVL {currentLevel}</span>
-              <span className="font-label-sm text-soft-lavender">{currentXP.toLocaleString()} XP</span>
+              <span className="font-label-sm text-amber-400 font-bold">LVL {currentLevel}</span>
+              <span className="font-label-sm text-slate-400">{currentXP.toLocaleString()} XP</span>
             </div>
-            <div className="w-24 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+            <div className="w-24 h-1.5 bg-black/50 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-primary-container to-secondary rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-amber-500 to-teal-400 rounded-full transition-all duration-500"
                 style={{ width: `${xpPercent}%` }}
               />
             </div>
           </Link>
 
-          {/* Coin Badge Chip from code.html */}
+          {/* Coin Badge Chip */}
           <Link
             href="/shop"
             onClick={() => soundFx.playCoin()}
-            className="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-lg border border-tertiary-container/30 hover:border-tertiary transition-colors"
-            title="Vibe Coins"
+            className="flex items-center gap-1.5 bg-[#1B1B22] px-3 py-1.5 rounded-xl border border-amber-500/30 hover:border-amber-400 transition-colors"
+            title="Gully Coins"
           >
             <span className="text-base leading-none">🪙</span>
-            <span className="font-label-md text-tertiary font-bold">{currentCoins.toLocaleString()}</span>
+            <span className="font-label-md text-amber-400 font-black">{currentCoins.toLocaleString()}</span>
           </Link>
 
           {/* Daily Spin / Notifications Trigger with Pulsing Neon Dot */}
@@ -197,12 +190,12 @@ export const TopHeaderBar: React.FC = () => {
               soundFx.playClick();
               useAppStore.getState().openSpinModal();
             }}
-            className="relative p-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer"
+            className="relative p-2 rounded-xl bg-[#1B1B22] text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer border border-white/10"
             title="Daily Free Spin"
             aria-label="Daily Spin"
           >
             <span className="material-symbols-outlined text-xl">notifications</span>
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-neon-green shadow-[0_0_8px_#48F078]" />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_#00BFA6]" />
           </button>
 
           {/* User Profile Avatar with safe image check & ring */}
@@ -215,7 +208,7 @@ export const TopHeaderBar: React.FC = () => {
               className="flex items-center gap-1 pl-1 cursor-pointer group"
               title="User Menu"
             >
-              <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-primary-container group-hover:ring-secondary transition-all flex items-center justify-center bg-surface-container-high">
+              <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-amber-500/80 group-hover:ring-teal-400 transition-all flex items-center justify-center bg-[#1B1B22]">
                 {isImageSource(user.avatar) || isImageSource(user.photoURL) ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -224,23 +217,23 @@ export const TopHeaderBar: React.FC = () => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <span className="text-sm select-none">{user.avatar || '🚀'}</span>
+                  <span className="text-sm select-none">{user.avatar || '🕹️'}</span>
                 )}
               </div>
-              <span className="material-symbols-outlined text-soft-lavender text-sm group-hover:text-on-surface transition-transform duration-200">
+              <span className="material-symbols-outlined text-slate-400 text-sm group-hover:text-white transition-transform duration-200">
                 {userMenuOpen ? 'expand_less' : 'expand_more'}
               </span>
             </div>
 
             {/* Dropdown Menu */}
             {userMenuOpen && (
-              <div className="absolute right-0 mt-3 w-56 rounded-2xl bg-surface-purple/95 backdrop-blur-2xl border border-purple-500/30 p-2 shadow-[0_10px_40px_rgba(0,0,0,0.8)] z-50 animate-in fade-in zoom-in-95 duration-150">
-                <div className="px-3 py-2 border-b border-purple-500/20 mb-1">
-                  <div className="font-label-lg text-on-surface font-bold truncate">
+              <div className="absolute right-0 mt-3 w-56 rounded-2xl bg-[#1B1B22]/95 backdrop-blur-2xl border border-white/15 p-2 shadow-[0_10px_40px_rgba(0,0,0,0.85)] z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div className="px-3 py-2 border-b border-white/10 mb-1">
+                  <div className="font-label-lg text-white font-bold truncate">
                     {user.displayName || user.username}
                   </div>
-                  <div className="font-label-sm text-neon-green">
-                    {user.authType === 'guest' ? 'Guest Player' : 'Verified Gamer'}
+                  <div className="font-label-sm text-teal-400 font-bold">
+                    {user.authType === 'guest' ? 'Desi Guest Player' : 'Verified Gully Gamer'}
                   </div>
                 </div>
 
@@ -250,9 +243,9 @@ export const TopHeaderBar: React.FC = () => {
                     soundFx.playClick();
                     setUserMenuOpen(false);
                   }}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-on-surface hover:bg-surface-container transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-white hover:bg-white/10 transition-colors"
                 >
-                  <LayoutDashboard className="w-4 h-4 text-neon-cyan" />
+                  <LayoutDashboard className="w-4 h-4 text-amber-400" />
                   <span>Gamer Dashboard</span>
                 </Link>
 
@@ -262,9 +255,9 @@ export const TopHeaderBar: React.FC = () => {
                     soundFx.playClick();
                     setUserMenuOpen(false);
                   }}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-on-surface hover:bg-surface-container transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-white hover:bg-white/10 transition-colors"
                 >
-                  <User className="w-4 h-4 text-primary" />
+                  <User className="w-4 h-4 text-teal-400" />
                   <span>My Profile &amp; Stats</span>
                 </Link>
 
@@ -274,9 +267,9 @@ export const TopHeaderBar: React.FC = () => {
                     soundFx.playClick();
                     setUserMenuOpen(false);
                   }}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-on-surface hover:bg-surface-container transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-white hover:bg-white/10 transition-colors"
                 >
-                  <ShoppingBag className="w-4 h-4 text-tertiary" />
+                  <ShoppingBag className="w-4 h-4 text-amber-400" />
                   <span>Rewards Shop</span>
                 </Link>
 
@@ -286,13 +279,13 @@ export const TopHeaderBar: React.FC = () => {
                     setUserMenuOpen(false);
                     openMultiplayerModal(GAMES_CATALOG[0]);
                   }}
-                  className="w-full flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-on-surface hover:bg-surface-container transition-colors text-left cursor-pointer"
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-white hover:bg-white/10 transition-colors text-left cursor-pointer"
                 >
-                  <Sparkles className="w-4 h-4 text-neon-cyan" />
+                  <Users className="w-4 h-4 text-teal-400" />
                   <span>Host Squad Lobby</span>
                 </button>
 
-                <div className="pt-1 mt-1 border-t border-purple-500/20">
+                <div className="pt-1 mt-1 border-t border-white/10">
                   {user.authType === 'guest' ? (
                     <button
                       onClick={() => {
@@ -300,7 +293,7 @@ export const TopHeaderBar: React.FC = () => {
                         setUserMenuOpen(false);
                         openAuthModal();
                       }}
-                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-on-primary-container bg-primary-container hover:bg-secondary-container transition-colors cursor-pointer"
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-slate-950 bg-amber-500 hover:bg-amber-400 font-bold transition-colors cursor-pointer"
                     >
                       <Sparkles className="w-4 h-4" />
                       <span>Sign In / Save Progress</span>
@@ -312,7 +305,7 @@ export const TopHeaderBar: React.FC = () => {
                         setUserMenuOpen(false);
                         logout();
                       }}
-                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-error hover:bg-error-container/20 transition-colors text-left cursor-pointer"
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg font-label-md text-red-400 hover:bg-red-500/20 transition-colors text-left cursor-pointer"
                     >
                       <LogOut className="w-4 h-4" />
                       <span>Sign Out</span>
@@ -329,7 +322,7 @@ export const TopHeaderBar: React.FC = () => {
               soundFx.playClick();
               setMobileMenuOpen(!mobileMenuOpen);
             }}
-            className="xl:hidden p-2 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer"
+            className="xl:hidden p-2 rounded-xl bg-[#1B1B22] text-white hover:bg-white/10 transition-colors cursor-pointer border border-white/10"
             aria-label="Toggle navigation"
           >
             <span className="material-symbols-outlined text-xl">
@@ -341,15 +334,15 @@ export const TopHeaderBar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-surface-purple/95 backdrop-blur-2xl border-b border-purple-500/30 px-4 py-4 flex flex-col gap-3 animate-in slide-in-from-top-2 duration-150">
-          <form onSubmit={handleSearchSubmit} className="flex items-center bg-surface-container px-3 py-2 rounded-lg border border-purple-500/20">
-            <span className="material-symbols-outlined text-soft-lavender text-lg mr-2">search</span>
+        <div className="xl:hidden bg-[#101014]/98 backdrop-blur-2xl border-b border-amber-500/20 px-4 py-4 flex flex-col gap-3 animate-in slide-in-from-top-2 duration-150">
+          <form onSubmit={handleSearchSubmit} className="flex items-center bg-[#1B1B22] px-3 py-2 rounded-xl border border-white/10">
+            <span className="material-symbols-outlined text-slate-400 text-lg mr-2">search</span>
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search vibes, rooms..."
-              className="bg-transparent border-none outline-none font-body-sm text-on-surface w-full"
+              placeholder="Search gully games, rooms..."
+              className="bg-transparent border-none outline-none font-body-sm text-white w-full placeholder:text-slate-400"
             />
           </form>
 
@@ -359,19 +352,19 @@ export const TopHeaderBar: React.FC = () => {
               soundFx.playClick();
               setMobileMenuOpen(false);
             }}
-            className="px-3 py-2 rounded-lg font-label-lg text-on-surface hover:bg-surface-container"
+            className="px-3 py-2 rounded-xl font-bold text-sm text-white hover:bg-white/10"
           >
             🏠 Home
           </Link>
           <Link
-            href="/categories"
+            href="/games"
             onClick={() => {
               soundFx.playClick();
               setMobileMenuOpen(false);
             }}
-            className="px-3 py-2 rounded-lg font-label-lg text-on-surface hover:bg-surface-container"
+            className="px-3 py-2 rounded-xl font-bold text-sm text-white hover:bg-white/10"
           >
-            🎮 All Vibes
+            🎮 All Games
           </Link>
           <Link
             href="/dashboard"
@@ -379,10 +372,22 @@ export const TopHeaderBar: React.FC = () => {
               soundFx.playClick();
               setMobileMenuOpen(false);
             }}
-            className="px-3 py-2 rounded-lg font-label-lg text-on-surface hover:bg-surface-container"
+            className="px-3 py-2 rounded-xl font-bold text-sm text-white hover:bg-white/10"
           >
             📊 Dashboard
           </Link>
+
+          <button
+            onClick={() => {
+              soundFx.playClick();
+              setMobileMenuOpen(false);
+              openMultiplayerModal();
+            }}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider mt-2 cursor-pointer"
+          >
+            <Users className="w-4 h-4" />
+            CREATE SQUAD ROOM
+          </button>
         </div>
       )}
     </header>

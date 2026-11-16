@@ -91,7 +91,7 @@ export default function ShopPage() {
           <span>REWARDS &amp; SKINS</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-headline-xl font-bold text-on-surface uppercase tracking-tight">
-          VIBE ARENA REWARDS STORE
+          GULLYVERSE REWARDS STORE
         </h1>
         <p className="font-body-md text-soft-lavender leading-relaxed">
           Unlock exclusive avatar skins, crowns, and cyber cosmetics using your earned Vibe Coins.

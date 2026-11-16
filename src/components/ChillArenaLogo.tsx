@@ -1,11 +1,4 @@
 'use client';
 
-import React from 'react';
-import { VibeArenaLogo, VibeArenaLogoProps } from './VibeArenaLogo';
-
-export const ChillArenaLogo: React.FC<VibeArenaLogoProps> = (props) => {
-  return <VibeArenaLogo {...props} />;
-};
-
-export default ChillArenaLogo;
-
+export { GullyVerseLogo as ChillArenaLogo, GullyVerseLogo } from './GullyVerseLogo';
+export { default } from './GullyVerseLogo';
