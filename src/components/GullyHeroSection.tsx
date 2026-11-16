@@ -2,12 +2,24 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useAppStore, GAMES_CATALOG } from '@/store/useAppStore';
 import { soundFx } from '@/lib/audio';
 import confetti from 'canvas-confetti';
-import { Gully3DHeroCanvas } from './Gully3DHeroCanvas';
 import { Play, Users, Sparkles, ChevronRight, Zap, ShieldCheck } from 'lucide-react';
+
+const Gully3DHeroCanvas = dynamic(
+  () => import('./Gully3DHeroCanvas').then((mod) => mod.Gully3DHeroCanvas),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center min-h-[300px]">
+        <div className="w-8 h-8 rounded-full border-2 border-amber-400 border-t-transparent animate-spin" />
+      </div>
+    )
+  }
+);
 
 interface HeroSpotlightItem {
   id: string;
