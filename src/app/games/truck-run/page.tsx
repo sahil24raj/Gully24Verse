@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { TruckRunGame } from '@/components/games/truck-run/TruckRunGame';
 import Link from 'next/link';
-import { ArrowLeft, Flame, Sparkles, Trophy, Fuel, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Flame } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Truck Run 🚛💨 — Desi Truck Highway Racing Game | GullyVerse',

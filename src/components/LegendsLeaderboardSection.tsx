@@ -6,7 +6,7 @@ import { subscribeToCloudLeaderboard } from '@/lib/firebaseService';
 import { LeaderboardEntry } from '@/types';
 import { soundFx } from '@/lib/audio';
 import { isImageSource } from '@/components/profile/GamerAvatar';
-import { Trophy, ChevronRight, Award, Flame } from 'lucide-react';
+import { Trophy, Flame } from 'lucide-react';
 
 export const LegendsLeaderboardSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<'today' | 'week' | 'all'>('today');

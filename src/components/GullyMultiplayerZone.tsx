@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAppStore, GAMES_CATALOG, GameItem } from '@/store/useAppStore';
+import { useAppStore, GAMES_CATALOG } from '@/store/useAppStore';
 import { soundFx } from '@/lib/audio';
 import { normalizeRoomCode } from '@/lib/multiplayer/roomCodeGenerator';
-import { GamerAvatar } from '@/components/profile/GamerAvatar';
 import {
   Users,
   KeyRound,

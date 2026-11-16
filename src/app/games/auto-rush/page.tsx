@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { AutoRushGame } from '@/components/games/auto-rush/AutoRushGame';
 import Link from 'next/link';
-import { ArrowLeft, Flame, Share2, ThumbsUp } from 'lucide-react';
+import { ArrowLeft, Flame } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Tirri Run 🛺💨 — Indian Auto-Rickshaw Racing Game | GullyVerse',

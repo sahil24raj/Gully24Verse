@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { useAppStore, GAMES_CATALOG } from '@/store/useAppStore';
+import { useAppStore } from '@/store/useAppStore';
 import { soundFx } from '@/lib/audio';
 import confetti from 'canvas-confetti';
 import { Play, Users, Sparkles, ChevronRight, Zap, ShieldCheck } from 'lucide-react';
