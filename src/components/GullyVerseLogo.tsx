@@ -25,17 +25,14 @@ export const GullyVerseLogo: React.FC<GullyVerseLogoProps> = ({
   onClick
 }) => {
   const sizeMap = {
-    sm: { icon: 'w-9 h-9', imgW: 135, imgH: 46, fullW: 135, fullH: 46 },
-    md: { icon: 'w-12 h-12', imgW: 195, imgH: 64, fullW: 195, fullH: 64 },
-    lg: { icon: 'w-16 h-16', imgW: 260, imgH: 86, fullW: 260, fullH: 86 },
-    xl: { icon: 'w-24 h-24', imgW: 360, imgH: 120, fullW: 360, fullH: 120 }
+    sm: { icon: 'w-9 h-9', fullW: 58, fullH: 42 },
+    md: { icon: 'w-12 h-12', fullW: 72, fullH: 52 },
+    lg: { icon: 'w-16 h-16', fullW: 110, fullH: 80 },
+    xl: { icon: 'w-24 h-24', fullW: 165, fullH: 120 }
   };
 
   const current = sizeMap[size];
-  const logoSrc =
-    variant === 'badge'
-      ? '/brand/gullyverse-badge-logo.png'
-      : '/brand/gullyverse-logo.png';
+  const logoSrc = '/brand/gullyverse-badge-logo.png';
 
   const handleClick = () => {
     try {
@@ -77,8 +74,8 @@ export const GullyVerseLogo: React.FC<GullyVerseLogoProps> = ({
                 src={logoSrc}
                 alt="GullyVerse — Gully Se Gaming Tak"
                 fill
-                sizes="(max-width: 768px) 160px, 260px"
-                className="object-contain object-left group-hover:brightness-110 transition-all duration-300"
+                sizes="(max-width: 768px) 120px, 160px"
+                className="object-contain object-center group-hover:scale-105 group-hover:brightness-110 transition-all duration-300"
                 priority
               />
             </div>
