@@ -3,7 +3,6 @@
 import React, { useEffect, useRef } from 'react';
 
 export const GullySpotlightBackground: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const brightLayerRef = useRef<HTMLDivElement>(null);
   const glowLightRef = useRef<HTMLDivElement>(null);
 
@@ -17,14 +16,24 @@ export const GullySpotlightBackground: React.FC = () => {
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Target and current interpolated coordinates
-    let currentX = window.innerWidth / 2;
-    let currentY = window.innerHeight * 0.35;
+    let radius = Math.min(Math.max(window.innerWidth * 0.28, 360), 540);
+
+    // Initial position: center of viewport
+    let currentX = window.innerWidth * 0.5;
+    let currentY = window.innerHeight * 0.38;
     let targetX = currentX;
     let targetY = currentY;
     let isUserActive = false;
     let lastActiveTime = Date.now();
     let animId: number;
+
+    const handleResize = () => {
+      radius = Math.min(Math.max(window.innerWidth * 0.28, 360), 540);
+      if (glowLight) {
+        glowLight.style.width = `${radius * 2}px`;
+        glowLight.style.height = `${radius * 2}px`;
+      }
+    };
 
     const handlePointerMove = (e: PointerEvent) => {
       targetX = e.clientX;
@@ -34,7 +43,7 @@ export const GullySpotlightBackground: React.FC = () => {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
+      if (e.touches && e.touches[0]) {
         targetX = e.touches[0].clientX;
         targetY = e.touches[0].clientY;
         isUserActive = true;
@@ -42,43 +51,40 @@ export const GullySpotlightBackground: React.FC = () => {
       }
     };
 
+    window.addEventListener('resize', handleResize, { passive: true });
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
-    // Render loop with smooth damping (lerp)
-    const radius = Math.min(Math.max(window.innerWidth * 0.3, 340), 520);
-
+    // 60 FPS Render loop with smooth lerp physics
     const updateLoop = () => {
       const now = Date.now();
       const elapsed = now * 0.001;
 
-      // If idle for more than 2 seconds or on touch device, subtly glide spotlight
+      // Subtle ambient roving drift when user is idle or on touch device
       if (!isUserActive || now - lastActiveTime > 2500) {
         if (!prefersReducedMotion) {
           const cx = window.innerWidth * 0.5;
-          const cy = window.innerHeight * 0.4;
-          const rx = window.innerWidth * 0.22;
-          const ry = window.innerHeight * 0.15;
-          targetX = cx + Math.sin(elapsed * 0.8) * rx;
-          targetY = cy + Math.cos(elapsed * 0.6) * ry;
+          const cy = window.innerHeight * 0.38;
+          const rx = window.innerWidth * 0.16;
+          const ry = window.innerHeight * 0.11;
+          targetX = cx + Math.sin(elapsed * 0.75) * rx;
+          targetY = cy + Math.cos(elapsed * 0.55) * ry;
         }
       }
 
       // Smooth interpolation factor
-      const factor = isUserActive ? 0.12 : 0.05;
+      const factor = isUserActive ? 0.15 : 0.06;
       currentX += (targetX - currentX) * factor;
       currentY += (targetY - currentY) * factor;
 
-      // Update mask position on Layer B (bright layer)
-      const maskStr = `radial-gradient(circle ${radius}px at ${currentX.toFixed(1)}px ${currentY.toFixed(1)}px, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 42%, rgba(0,0,0,0) 100%)`;
+      // Update dynamic mask on bright layer
+      const maskStr = `radial-gradient(circle ${radius}px at ${currentX.toFixed(1)}px ${currentY.toFixed(1)}px, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)`;
       brightLayer.style.maskImage = maskStr;
       brightLayer.style.webkitMaskImage = maskStr;
 
-      // Update ambient glow overlay ring
+      // Update warm accent glow overlay ring
       if (glowLight) {
         glowLight.style.transform = `translate3d(${(currentX - radius).toFixed(1)}px, ${(currentY - radius).toFixed(1)}px, 0)`;
-        glowLight.style.width = `${radius * 2}px`;
-        glowLight.style.height = `${radius * 2}px`;
       }
 
       animId = requestAnimationFrame(updateLoop);
@@ -88,6 +94,7 @@ export const GullySpotlightBackground: React.FC = () => {
 
     return () => {
       cancelAnimationFrame(animId);
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('touchmove', handleTouchMove);
     };
@@ -95,45 +102,58 @@ export const GullySpotlightBackground: React.FC = () => {
 
   return (
     <div
-      ref={containerRef}
       aria-hidden="true"
-      className="fixed inset-0 w-full h-full pointer-events-none select-none -z-20 overflow-hidden bg-[#101014]"
+      className="fixed inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden"
     >
-      {/* LAYER A: Darkened / Cinematic Gully Environment Base */}
+      {/* 
+        LAYER 1 (NORMAL JAGAH - HALKA HALKA DIKHEGA):
+        The user's Indian Gully Mohalla artwork clearly visible everywhere at a moody, 
+        atmospheric cinematic brightness (Chai Tapri, Auto, Arcade Gateway, Graffiti, Sunset).
+      */}
       <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-1000 scale-[1.02]"
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-[1.01]"
         style={{
           backgroundImage: "url('/brand/gully-environment.jpg')",
-          filter: 'brightness(0.32) contrast(1.15) saturate(0.65)'
+          filter: 'brightness(0.52) contrast(1.1) saturate(0.95)'
         }}
       />
 
-      {/* Atmospheric Vignette & Midnight Gradient Overlays */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-[#101014] via-[#101014]/60 to-transparent opacity-90" />
-      <div className="absolute inset-0 w-full h-full bg-radial-vignette opacity-70" />
+      {/* 
+        Soft Transparent Scrim (Keeps UI typography 100% crisp while letting the street shine through)
+      */}
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#101014]/30 via-transparent to-[#101014]/55" />
 
-      {/* LAYER B: Original Vibrant Full-Brightness Gully Environment (Revealed via Cursor Spotlight Mask) */}
+      {/* 
+        LAYER 2 (JAHA PE CURSOR KARO WO BRIGHT DIKHEGA):
+        Full-brightness, saturated, glowing original Gully artwork revealed precisely under the cursor spotlight.
+      */}
       <div
         ref={brightLayerRef}
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-[1.02] will-change-[mask-image]"
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-[1.01] will-change-[mask-image]"
         style={{
           backgroundImage: "url('/brand/gully-environment.jpg')",
-          filter: 'brightness(1.12) saturate(1.2) contrast(1.05)'
+          filter: 'brightness(1.28) contrast(1.18) saturate(1.35)',
+          WebkitMaskImage:
+            'radial-gradient(circle 380px at 50% 38%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
+          maskImage:
+            'radial-gradient(circle 380px at 50% 38%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)'
         }}
       />
 
-      {/* AMBIENT CURSOR LIGHT GLOW (Soft warm Saffron & Teal halo) */}
+      {/* 
+        ACCENT CURSOR LIGHT GLOW (Soft warm Saffron & Teal street-arcade halo)
+      */}
       <div
         ref={glowLightRef}
-        className="absolute top-0 left-0 rounded-full pointer-events-none opacity-60 mix-blend-screen will-change-transform"
+        className="absolute top-0 left-0 rounded-full pointer-events-none mix-blend-screen opacity-70 will-change-transform"
         style={{
+          width: '760px',
+          height: '760px',
+          transform: 'translate3d(calc(50vw - 380px), calc(38vh - 380px), 0)',
           background:
-            'radial-gradient(circle, rgba(255, 159, 28, 0.22) 0%, rgba(0, 191, 166, 0.12) 45%, rgba(0,0,0,0) 75%)'
+            'radial-gradient(circle, rgba(255, 159, 28, 0.28) 0%, rgba(0, 191, 166, 0.16) 40%, rgba(0,0,0,0) 70%)'
         }}
       />
-
-      {/* Micro-Ember Ambient Floating Lighting */}
-      <div className="absolute inset-0 w-full h-full opacity-30 mix-blend-screen pointer-events-none bg-[radial-gradient(#ff9f1c_1px,transparent_1px)] [background-size:48px_48px]" />
     </div>
   );
 };

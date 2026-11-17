@@ -7,7 +7,7 @@ import { GullyVerseLogo } from '@/components/GullyVerseLogo';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[#0B0B0E] border-t border-amber-500/20 py-12 text-slate-400 mt-16 select-none">
+    <footer className="w-full bg-[#0B0B0E]/80 backdrop-blur-md border-t border-amber-500/20 py-12 text-slate-400 mt-16 select-none">
       <div className="max-w-[1720px] px-4 sm:px-8 xl:px-14 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
         {/* Brand Column */}
         <div className="lg:col-span-2 flex flex-col gap-4">

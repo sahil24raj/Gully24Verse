@@ -23,14 +23,14 @@ export function AppDashboardLayout({ children }: AppDashboardLayoutProps) {
   }, [initAuthListener]);
 
   return (
-    <div className="min-h-screen w-full bg-[#101014] text-on-surface flex flex-col font-body selection:bg-amber-500 selection:text-slate-950 relative overflow-x-hidden antialiased">
-      {/* 3D Cinematic Indian Gully Environment with Interactive Cursor Spotlight Reveal */}
+    <div className="min-h-screen w-full text-on-surface flex flex-col font-body selection:bg-amber-500 selection:text-slate-950 relative overflow-x-hidden antialiased">
+      {/* 3D Indian Gully Environment with Interactive Cursor Spotlight Reveal */}
       <GullySpotlightBackground />
 
       {/* Pinned Top Navigation Bar */}
       <TopHeaderBar />
 
-      {/* Main Full-Width Content Area Floating Elegantly Above Gully Environment */}
+      {/* Main Full-Width Content Area Floating Above Gully Environment */}
       <main className="flex-1 w-full pt-20 min-h-screen relative z-10">
         <div className="flex flex-col w-full relative">
           {children}
