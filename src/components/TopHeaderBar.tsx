@@ -135,21 +135,21 @@ export const TopHeaderBar: React.FC = () => {
 
         {/* Right Section: Tools (Search, LVL XP, Coins, Bell, Avatar) */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* Quick Search with ⌘K badge */}
+          {/* Quick Search with ⌘K badge - Expanded Searchbar */}
           <form
             onSubmit={handleSearchSubmit}
-            className="hidden lg:flex items-center bg-[#1B1B22] px-3 py-1.5 rounded-xl border border-white/10 focus-within:border-amber-500/50 transition-colors"
+            className="hidden md:flex items-center bg-[#1B1B22] px-4 py-2 rounded-2xl border border-white/10 focus-within:border-amber-400 focus-within:shadow-[0_0_20px_rgba(255,159,28,0.25)] transition-all"
           >
-            <span className="material-symbols-outlined text-slate-400 text-lg mr-1.5">search</span>
+            <span className="material-symbols-outlined text-amber-400 text-xl mr-2">search</span>
             <input
               ref={searchInputRef}
               type="text"
-              placeholder="Search gully games, rooms..."
+              placeholder="Search gully games, room code..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-transparent border-none outline-none font-body-sm text-white placeholder:text-slate-400/70 w-36 xl:w-44"
+              className="bg-transparent border-none outline-none text-white placeholder:text-slate-400/70 w-52 lg:w-72 xl:w-96 text-sm font-medium"
             />
-            <kbd className="font-label-sm text-slate-400 bg-black/40 px-1.5 py-0.5 rounded ml-1 border border-white/10">
+            <kbd className="font-label-sm text-slate-300 bg-black/60 px-2 py-0.5 rounded-lg ml-2 border border-white/15 text-[11px] font-semibold">
               ⌘K
             </kbd>
           </form>

@@ -150,8 +150,8 @@ export const HeroTrendingCarousel: React.FC = () => {
   };
 
   return (
-    <section className="w-full px-4 sm:px-8 xl:px-14 py-14 bg-[#0B0B0E]/30 backdrop-blur-sm relative select-none">
-      <div className="max-w-[1720px] mx-auto flex flex-col gap-6">
+    <section className="w-full px-4 sm:px-8 xl:px-14 py-8 relative select-none">
+      <div className="max-w-[1720px] mx-auto p-6 sm:p-8 xl:p-10 rounded-3xl sm:rounded-[36px] bg-[#121217]/80 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.55)] flex flex-col gap-6">
         {/* Section Header with Carousel Navigation */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
