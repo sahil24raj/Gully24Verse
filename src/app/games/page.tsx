@@ -7,6 +7,11 @@ import { GameCard } from '@/components/GameCard';
 import { MultiplayerLobbyModal } from '@/components/MultiplayerLobbyModal';
 import { soundFx } from '@/lib/audio';
 import {
+  GULLY_CATEGORIES,
+  normalizeCategoryKey,
+  GullyCategoryKey
+} from '@/lib/gullyCategories';
+import {
   Sparkles,
   Search,
   SlidersHorizontal,
@@ -18,7 +23,8 @@ import {
 
 function GamesContent() {
   const searchParams = useSearchParams();
-  const initialCat = searchParams.get('cat') || 'ALL';
+  const rawCat = searchParams.get('cat') || 'ALL';
+  const initialCat = normalizeCategoryKey(rawCat);
   const initialQuery = searchParams.get('q') || '';
 
   const { openMultiplayerModal } = useAppStore();
@@ -27,11 +33,14 @@ function GamesContent() {
   const [onlyMultiplayer, setOnlyMultiplayer] = useState(false);
   const [sortBy, setSortBy] = useState<'popular' | 'rating' | 'plays' | 'duration'>('popular');
 
+  // Unified categories mirroring the Home page exactly
   const filterTabs = [
     { id: 'ALL', label: '🌟 ALL GULLY GAMES', count: GAMES_CATALOG.length },
-    { id: 'meme', label: '🔥 MEME & ACTION', count: 3 },
-    { id: 'school', label: '🎒 SCHOOL NOSTALGIA', count: 3 },
-    { id: 'squad', label: '👥 MULTIPLAYER MASTI', count: 3 }
+    ...GULLY_CATEGORIES.map((c) => ({
+      id: c.key,
+      label: `${c.emoji} ${c.label.toUpperCase()}`,
+      count: c.gameIds.length
+    }))
   ];
 
   const filteredGames = useMemo(() => {
@@ -47,7 +56,13 @@ function GamesContent() {
       if (onlyMultiplayer && !game.multiplayer) return false;
 
       if (selectedFilter === 'ALL') return true;
-      return game.categoryKey === selectedFilter;
+
+      const norm = normalizeCategoryKey(selectedFilter);
+      const category = GULLY_CATEGORIES.find((c) => c.key === norm);
+      if (category) {
+        return category.gameIds.includes(game.id);
+      }
+      return true;
     });
 
     // Sorting
@@ -66,7 +81,7 @@ function GamesContent() {
       <MultiplayerLobbyModal />
 
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 p-6 sm:p-8 rounded-3xl bg-[#1B1B22] border border-amber-500/25 shadow-xl relative overflow-hidden">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 p-6 sm:p-8 rounded-3xl bg-[#1B1B22]/90 backdrop-blur-md border border-amber-500/25 shadow-xl relative overflow-hidden">
         <div className="space-y-2 z-10">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/20 text-xs font-black text-amber-400 border border-amber-500/30 uppercase tracking-widest">
             <Sparkles className="w-3.5 h-3.5" />
@@ -80,16 +95,24 @@ function GamesContent() {
           </p>
         </div>
 
-        {/* Search Bar */}
+        {/* Search input */}
         <div className="relative w-full md:w-80 z-10">
-          <Search className="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400 pointer-events-none" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
           <input
             type="text"
             placeholder="Search titles, tags, memes..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-black/60 border border-white/10 rounded-2xl pl-10 pr-4 py-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-400"
+            className="w-full pl-11 pr-4 py-3 rounded-2xl bg-black/40 border border-white/10 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-amber-400/80 transition-colors shadow-inner"
           />
+          {search && (
+            <button
+              onClick={() => setSearch('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white px-1.5 py-0.5 rounded-full hover:bg-white/10"
+            >
+              ✕
+            </button>
+          )}
         </div>
 
         {/* Ambient Glow */}
@@ -97,25 +120,37 @@ function GamesContent() {
       </div>
 
       {/* Filter Tabs, Multiplayer Toggle & Sort Controls */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-[#1B1B22]/60 p-3 rounded-2xl border border-white/10">
-        {/* Pills */}
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-[#1B1B22]/70 backdrop-blur-md p-3.5 rounded-2xl border border-white/10 shadow-lg">
+        {/* Pills - Exact same categories as Home */}
         <div className="flex flex-wrap gap-2">
-          {filterTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => {
-                soundFx.playClick();
-                setSelectedFilter(tab.id);
-              }}
-              className={`px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all cursor-pointer ${
-                selectedFilter === tab.id
-                  ? 'bg-amber-500 text-slate-950 shadow-md font-black'
-                  : 'bg-black/30 border border-white/5 text-slate-300 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+          {filterTabs.map((tab) => {
+            const isSelected =
+              selectedFilter === tab.id ||
+              (selectedFilter !== 'ALL' && normalizeCategoryKey(selectedFilter) === tab.id);
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  soundFx.playClick();
+                  setSelectedFilter(tab.id);
+                }}
+                className={`px-3.5 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
+                  isSelected
+                    ? 'bg-amber-500 text-slate-950 shadow-md font-black'
+                    : 'bg-black/30 border border-white/5 text-slate-300 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <span>{tab.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
+                    isSelected ? 'bg-black/20 text-slate-950' : 'bg-white/10 text-amber-400'
+                  }`}
+                >
+                  {tab.count}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Controls: Multiplayer toggle + Sort */}
@@ -152,7 +187,7 @@ function GamesContent() {
 
       {/* Games Catalog Grid */}
       {filteredGames.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredGames.map((game) => (
             <GameCard
               key={game.id}
@@ -163,7 +198,7 @@ function GamesContent() {
           ))}
         </div>
       ) : (
-        <div className="p-16 rounded-3xl bg-[#1B1B22] border border-white/10 text-center space-y-4">
+        <div className="p-16 rounded-3xl bg-[#1B1B22]/80 backdrop-blur-md border border-white/10 text-center space-y-4 shadow-xl">
           <span className="text-5xl">🔍</span>
           <h3 className="text-lg font-black text-white uppercase">No Gully Games Matched Your Search</h3>
           <p className="text-xs text-slate-400">

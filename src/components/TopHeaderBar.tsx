@@ -91,47 +91,47 @@ export const TopHeaderBar: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#101014]/90 backdrop-blur-xl border-b border-amber-500/20 select-none shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
       <div className="max-w-[1720px] mx-auto px-4 sm:px-8 xl:px-14 h-16 flex items-center justify-between gap-4">
-        {/* Left Section: GullyVerse 3D Brand Logo */}
-        <div className="flex items-center gap-2">
+        {/* Left Section: GullyVerse 3D Brand Logo + Left-Aligned Navigation Links */}
+        <div className="flex items-center gap-5 lg:gap-7">
           <GullyVerseLogo size="md" />
-        </div>
 
-        {/* Center: Desktop Navigation Bar (Home | All Games | Dashboard) */}
-        <nav className="hidden xl:flex items-center gap-1.5 p-1 bg-[#1B1B22] rounded-xl border border-white/10">
-          <Link
-            href="/"
-            onClick={() => soundFx.playClick()}
-            className={`px-4 py-1.5 transition-colors rounded-lg font-bold text-xs uppercase tracking-wider ${
-              pathname === '/'
-                ? 'bg-amber-500 text-slate-950 font-black shadow-[0_0_16px_rgba(255,159,28,0.4)]'
-                : 'text-slate-300 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            Home
-          </Link>
-          <Link
-            href="/games"
-            onClick={() => soundFx.playClick()}
-            className={`px-4 py-1.5 transition-colors rounded-lg font-bold text-xs uppercase tracking-wider ${
-              pathname.startsWith('/games')
-                ? 'bg-amber-500 text-slate-950 font-black shadow-[0_0_16px_rgba(255,159,28,0.4)]'
-                : 'text-slate-300 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            All Games
-          </Link>
-          <Link
-            href="/dashboard"
-            onClick={() => soundFx.playClick()}
-            className={`px-4 py-1.5 transition-colors rounded-lg font-bold text-xs uppercase tracking-wider ${
-              pathname.startsWith('/dashboard')
-                ? 'bg-amber-500 text-slate-950 font-black shadow-[0_0_16px_rgba(255,159,28,0.4)]'
-                : 'text-slate-300 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            Dashboard
-          </Link>
-        </nav>
+          {/* Desktop Navigation Links aligned to logo side */}
+          <nav className="hidden md:flex items-center gap-1.5 p-1 bg-[#1B1B22]/90 backdrop-blur-md rounded-xl border border-white/10 shadow-sm">
+            <Link
+              href="/"
+              onClick={() => soundFx.playClick()}
+              className={`px-4 py-1.5 transition-all rounded-lg font-bold text-xs uppercase tracking-wider ${
+                pathname === '/'
+                  ? 'bg-amber-500 text-slate-950 font-black shadow-[0_0_16px_rgba(255,159,28,0.4)]'
+                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/games"
+              onClick={() => soundFx.playClick()}
+              className={`px-4 py-1.5 transition-all rounded-lg font-bold text-xs uppercase tracking-wider ${
+                pathname.startsWith('/games')
+                  ? 'bg-amber-500 text-slate-950 font-black shadow-[0_0_16px_rgba(255,159,28,0.4)]'
+                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              All Games
+            </Link>
+            <Link
+              href="/dashboard"
+              onClick={() => soundFx.playClick()}
+              className={`px-4 py-1.5 transition-all rounded-lg font-bold text-xs uppercase tracking-wider ${
+                pathname.startsWith('/dashboard')
+                  ? 'bg-amber-500 text-slate-950 font-black shadow-[0_0_16px_rgba(255,159,28,0.4)]'
+                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              Dashboard
+            </Link>
+          </nav>
+        </div>
 
         {/* Right Section: Tools (Search, LVL XP, Coins, Bell, Avatar) */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
