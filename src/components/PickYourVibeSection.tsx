@@ -222,82 +222,87 @@ export const PickYourVibeSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Games Slider */}
+          {/* Games Slider - Center Aligned Across All Categories */}
           <div
             ref={carouselRef}
-            className="flex gap-6 overflow-x-auto pb-4 pt-1 scroll-smooth snap-x snap-mandatory no-scrollbar"
+            className="w-full overflow-x-auto pb-4 pt-1 scroll-smooth snap-x snap-mandatory no-scrollbar"
           >
-            {currentConfig.gameIds.map((gameId) => {
-              const game =
-                GAMES_CATALOG.find((g) => g.id === gameId) || GAMES_CATALOG[0];
-              return (
-                <div
-                  key={game.id}
-                  className="min-w-[320px] sm:min-w-[380px] max-w-[400px] snap-start shrink-0 rounded-3xl bg-[#1B1B22] p-5 sm:p-6 flex flex-col justify-between shadow-xl border border-white/10 hover:border-amber-500/40 transition-all duration-300 group"
-                >
-                  <div className="flex flex-col gap-3">
-                    <Link
-                      href={`/games/${game.slug || game.id}`}
-                      onClick={() => soundFx.playClick()}
-                      className="w-full aspect-[16/9] rounded-2xl bg-black/50 overflow-hidden relative flex items-center justify-center block group border border-white/5"
-                    >
-                      {game.bannerImage ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
-                          src={game.bannerImage}
-                          alt={game.title}
-                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <span className="text-7xl">{game.thumbnail}</span>
-                      )}
-                    </Link>
-
-                    <div className="flex items-center justify-between text-slate-400 text-xs pt-1 px-1 font-bold">
-                      <span>{game.multiplayer ? '👥 MULTIPLAYER' : '🕹️ SOLO ARCADE'} • {game.duration}</span>
-                      <span className="text-teal-400 uppercase tracking-wider">{game.difficulty} IQ</span>
-                    </div>
-
-                    <div className="px-1 flex flex-col gap-1">
+            <div className="flex items-stretch justify-start sm:justify-center gap-6 w-fit min-w-full sm:min-w-fit mx-auto px-2">
+              {currentConfig.gameIds.map((gameId) => {
+                const game =
+                  GAMES_CATALOG.find((g) => g.id === gameId) || GAMES_CATALOG[0];
+                return (
+                  <div
+                    key={game.id}
+                    className="w-[320px] sm:w-[380px] lg:w-[410px] snap-center shrink-0 rounded-3xl bg-[#1B1B22]/90 backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl border border-white/10 hover:border-amber-500/50 hover:shadow-[0_0_35px_rgba(255,159,28,0.25)] transition-all duration-300 group"
+                  >
+                    <div className="flex flex-col gap-3">
                       <Link
                         href={`/games/${game.slug || game.id}`}
                         onClick={() => soundFx.playClick()}
+                        className="w-full aspect-[16/9] rounded-2xl bg-black/50 overflow-hidden relative flex items-center justify-center block group border border-white/5"
                       >
-                        <h4 className="text-xl sm:text-2xl font-black text-white truncate group-hover:text-amber-400 transition-colors">
-                          {game.title}
-                        </h4>
+                        {game.bannerImage ? (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img
+                            src={game.bannerImage}
+                            alt={game.title}
+                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <span className="text-7xl">{game.thumbnail}</span>
+                        )}
                       </Link>
-                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-2 min-h-[36px]">
-                        {game.tagline || game.description}
-                      </p>
+
+                      <div className="flex items-center justify-center gap-2 text-slate-400 text-xs pt-1 px-1 font-bold text-center">
+                        <span className="flex items-center gap-1">
+                          {game.multiplayer ? '👥 MULTIPLAYER' : '🕹️ SOLO ARCADE'} • {game.duration}
+                        </span>
+                        <span className="text-teal-400 uppercase tracking-wider font-extrabold">• {game.difficulty} IQ</span>
+                      </div>
+
+                      <div className="px-1 flex flex-col items-center text-center gap-1.5">
+                        <Link
+                          href={`/games/${game.slug || game.id}`}
+                          onClick={() => soundFx.playClick()}
+                          className="w-full"
+                        >
+                          <h4 className="text-xl sm:text-2xl font-black text-white truncate group-hover:text-amber-400 transition-colors text-center">
+                            {game.title}
+                          </h4>
+                        </Link>
+                        <p className="text-xs text-slate-300 leading-relaxed line-clamp-2 min-h-[36px] text-center max-w-sm">
+                          {game.tagline || game.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-2.5 mt-5 pt-3 border-t border-white/10 w-full">
+                      <Link
+                        href={`/games/${game.slug || game.id}`}
+                        onClick={() => soundFx.playClick()}
+                        className="flex-1 py-3 px-4 rounded-xl bg-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md text-center flex items-center justify-center gap-1.5"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-slate-950" />
+                        <span>PLAY NOW</span>
+                      </Link>
+                      {game.multiplayer && (
+                        <button
+                          onClick={() => {
+                            soundFx.playClick();
+                            openMultiplayerModal(game);
+                          }}
+                          className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.02] cursor-pointer flex items-center justify-center gap-1.5 border border-white/10"
+                        >
+                          <Users className="w-3.5 h-3.5 text-teal-400" />
+                          <span>SQUAD</span>
+                        </button>
+                      )}
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-2.5 mt-5 pt-3 border-t border-white/10">
-                    <Link
-                      href={`/games/${game.slug || game.id}`}
-                      onClick={() => soundFx.playClick()}
-                      className="flex-1 py-3 px-4 rounded-xl bg-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md text-center flex items-center justify-center gap-1.5"
-                    >
-                      <Play className="w-3.5 h-3.5 fill-slate-950" />
-                      <span>PLAY NOW</span>
-                    </Link>
-                    {game.multiplayer && (
-                      <button
-                        onClick={() => {
-                          soundFx.playClick();
-                          openMultiplayerModal(game);
-                        }}
-                        className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.02] cursor-pointer flex items-center gap-1.5 border border-white/10"
-                      >
-                        <Users className="w-3.5 h-3.5 text-teal-400" />
-                        <span>SQUAD</span>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
