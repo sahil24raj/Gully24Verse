@@ -121,13 +121,6 @@ export const GullyHeroSection: React.FC = () => {
     }
   ];
 
-  // Trending mini games for the right-side widget
-  const trendingMiniList = [
-    { id: 'truck-run', name: 'Truck Run 3D 🚛', route: '/game/truck-run', img: '/games/truck-run.jpg' },
-    { id: 'chor-sipahi', name: 'Chor Sipahi 👑', route: '/game/chor-sipahi', img: '/games/chor-sipahi.jpg' },
-    { id: 'auto-rush', name: 'Auto Rush 🛺', route: '/game/auto-rush', img: '/games/auto-rush.jpg' }
-  ];
-
   return (
     <section className="relative w-full overflow-hidden pt-6 pb-12 px-4 sm:px-8 xl:px-14">
       <div className="max-w-[1720px] mx-auto flex flex-col gap-10 relative z-10">
@@ -194,8 +187,8 @@ export const GullyHeroSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Hero Floating Widgets (Daily Challenge, Online Now, Trending Games) */}
-          <div className="w-full lg:w-80 flex flex-col gap-3.5 shrink-0">
+          {/* Right Column: Hero Floating Widgets (Daily Challenge & Online Now shifted to the bottom) */}
+          <div className="w-full lg:w-80 flex flex-col gap-3.5 shrink-0 lg:self-end">
             {/* 1. Daily Challenge Widget */}
             <div
               onClick={() => openDailySpinModal()}
@@ -231,36 +224,6 @@ export const GullyHeroSection: React.FC = () => {
                 <span className="text-xs font-black text-emerald-400">
                   2,840 Players
                 </span>
-              </div>
-            </div>
-
-            {/* 3. Trending Games Mini List */}
-            <div className="p-4 rounded-2xl bg-[#1B1B22]/85 border border-white/10 backdrop-blur-md shadow-xl flex flex-col gap-2.5">
-              <div className="flex items-center gap-2 text-xs font-black text-amber-400 uppercase tracking-wider">
-                <Flame className="w-4 h-4 fill-amber-400" />
-                <span>TRENDING GAMES</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                {trendingMiniList.map((g) => (
-                  <div
-                    key={g.id}
-                    onClick={() => handleLaunchGame(g.route)}
-                    className="p-2 rounded-xl bg-black/30 hover:bg-white/10 border border-white/5 transition-all flex items-center justify-between gap-3 cursor-pointer group"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg overflow-hidden bg-black/50 shrink-0">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={g.img} alt={g.name} className="w-full h-full object-cover" />
-                      </div>
-                      <span className="text-xs font-bold text-white group-hover:text-amber-400 transition-colors">
-                        {g.name}
-                      </span>
-                    </div>
-                    <div className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Play className="w-3 h-3 fill-slate-950 ml-0.5" />
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
