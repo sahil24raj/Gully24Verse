@@ -7,6 +7,7 @@ import { soundFx } from '@/lib/audio';
 
 export interface GullyVerseLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'badge' | 'banner';
   showTagline?: boolean;
   iconOnly?: boolean;
   useImage?: boolean;
@@ -16,6 +17,7 @@ export interface GullyVerseLogoProps {
 
 export const GullyVerseLogo: React.FC<GullyVerseLogoProps> = ({
   size = 'md',
+  variant = 'badge',
   showTagline = true,
   iconOnly = false,
   useImage = true,
@@ -23,13 +25,17 @@ export const GullyVerseLogo: React.FC<GullyVerseLogoProps> = ({
   onClick
 }) => {
   const sizeMap = {
-    sm: { icon: 'w-8 h-8', imgW: 130, imgH: 42, fullW: 130, fullH: 42 },
-    md: { icon: 'w-10 h-10', imgW: 180, imgH: 56, fullW: 180, fullH: 56 },
-    lg: { icon: 'w-14 h-14', imgW: 240, imgH: 76, fullW: 240, fullH: 76 },
-    xl: { icon: 'w-20 h-20', imgW: 340, imgH: 108, fullW: 340, fullH: 108 }
+    sm: { icon: 'w-9 h-9', imgW: 135, imgH: 46, fullW: 135, fullH: 46 },
+    md: { icon: 'w-12 h-12', imgW: 195, imgH: 64, fullW: 195, fullH: 64 },
+    lg: { icon: 'w-16 h-16', imgW: 260, imgH: 86, fullW: 260, fullH: 86 },
+    xl: { icon: 'w-24 h-24', imgW: 360, imgH: 120, fullW: 360, fullH: 120 }
   };
 
   const current = sizeMap[size];
+  const logoSrc =
+    variant === 'badge'
+      ? '/brand/gullyverse-badge-logo.png'
+      : '/brand/gullyverse-logo.png';
 
   const handleClick = () => {
     try {
@@ -44,32 +50,34 @@ export const GullyVerseLogo: React.FC<GullyVerseLogoProps> = ({
     <Link
       href="/"
       onClick={handleClick}
-      className={`group flex items-center gap-2 select-none transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] ${className}`}
+      className={`group flex items-center gap-2.5 select-none transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] ${className}`}
       aria-label="GullyVerse — Gully Se Gaming Tak"
     >
       {useImage ? (
         <div className="relative flex items-center">
           {iconOnly ? (
-            <div className={`relative ${current.icon} rounded-xl overflow-hidden shadow-[0_0_15px_rgba(255,159,28,0.45)] border border-amber-500/30 shrink-0 bg-[#101014]`}>
+            <div
+              className={`relative ${current.icon} rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(255,159,28,0.5)] border border-amber-500/40 shrink-0 bg-[#101014]`}
+            >
               <Image
-                src="/brand/gullyverse-logo.png"
+                src={logoSrc}
                 alt="GullyVerse Icon"
                 fill
-                sizes="80px"
+                sizes="96px"
                 className="object-cover object-center group-hover:scale-110 transition-transform duration-500"
                 priority
               />
             </div>
           ) : (
             <div
-              className="relative flex items-center justify-center shrink-0 drop-shadow-[0_0_18px_rgba(255,159,28,0.35)]"
+              className="relative flex items-center justify-center shrink-0 drop-shadow-[0_0_22px_rgba(255,159,28,0.4)]"
               style={{ width: current.fullW, height: current.fullH }}
             >
               <Image
-                src="/brand/gullyverse-logo.png"
+                src={logoSrc}
                 alt="GullyVerse — Gully Se Gaming Tak"
                 fill
-                sizes="(max-width: 768px) 150px, 240px"
+                sizes="(max-width: 768px) 160px, 260px"
                 className="object-contain object-left group-hover:brightness-110 transition-all duration-300"
                 priority
               />
@@ -79,14 +87,14 @@ export const GullyVerseLogo: React.FC<GullyVerseLogoProps> = ({
       ) : (
         /* Fallback SVG / Geometric vector badge */
         <div className="flex items-center gap-2.5">
-          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 via-orange-500 to-teal-400 p-[1.5px] shadow-[0_0_15px_rgba(255,159,28,0.45)]">
-            <div className="w-full h-full bg-[#101014] rounded-[10px] flex items-center justify-center font-black text-amber-400 text-base">
+          <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 via-orange-500 to-teal-400 p-[1.5px] shadow-[0_0_18px_rgba(255,159,28,0.5)]">
+            <div className="w-full h-full bg-[#101014] rounded-[14px] flex items-center justify-center font-black text-amber-400 text-lg">
               G
             </div>
           </div>
           {!iconOnly && (
             <div className="flex flex-col">
-              <span className="font-black text-lg text-white tracking-wider flex items-center">
+              <span className="font-black text-xl text-white tracking-wider flex items-center">
                 GULLY<span className="text-amber-400">VERSE</span>
               </span>
               {showTagline && (

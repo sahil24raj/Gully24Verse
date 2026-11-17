@@ -15,22 +15,22 @@ export default function HomePage() {
       {/* Real-time Multiplayer Modal */}
       <MultiplayerLobbyModal />
 
-      {/* 1. SECTION 2: HERO EXPERIENCE — India Ka Apna Gaming Adda & 3D Street Arcade */}
+      {/* 1. HERO EXPERIENCE — India Ka Apna Gaming Adda */}
       <GullyHeroSection />
 
-      {/* 2. SECTION 3: TRENDING GAMES — "Aaj Kya Khelein?" */}
+      {/* 2. TRENDING GAMES — "Aaj Kya Khelein?" */}
       <HeroTrendingCarousel />
 
-      {/* 3. SECTION 4: GAME CATEGORIES — Choose Your Gully Vibe */}
+      {/* 3. GAME CATEGORIES — Choose Your Gully Vibe */}
       <PickYourVibeSection />
 
-      {/* 4. SECTION 5 & 6: MULTIPLAYER ZONE — "Apna Squad Banao!" & "Gully Mein Kaun Online Hai?" */}
+      {/* 4. MULTIPLAYER ZONE — "Apna Squad Banao!" & "Gully Mein Kaun Online Hai?" */}
       <GullyMultiplayerZone />
 
-      {/* 5. SECTION 7: LEADERBOARD — "Gully Ke Top Players" */}
+      {/* 5. LEADERBOARD — "Gully Ke Top Players" */}
       <LegendsLeaderboardSection />
 
-      {/* 6. SECTION 8: VIRAL BANNER — "Bas Ek Aur Match" */}
+      {/* 6. VIRAL BANNER — "Bas Ek Aur Match" */}
       <ViralSquadBanner />
     </div>
   );
