@@ -32,39 +32,84 @@ export class CollectiblesManager {
     this.items = [];
     this.meshes = [];
 
-    const startZ = 16;
-    const endZ = level.trackLength - 15;
-    const stepZ = 4.5; // Every 4.5 meters
-
     let idCount = 0;
     const allowedColors = level.colorsAllowed;
+    const gateInterval = 90;
+    const gateCount = Math.max(2, Math.floor(level.trackLength / gateInterval) - (level.trackLength % gateInterval === 0 ? 1 : 0));
 
-    for (let z = startZ; z < endZ; z += stepZ) {
-      // 3 Lanes across runway (-3.2, 0, +3.2) + slight random jitter
-      const laneCount = Math.random() > 0.35 ? 3 : 2;
-      const lanes = [-3.2, 0, 3.2];
+    // Define sections with corresponding expected player colors
+    // Section 0: 0 to 90m -> color allowedColors[0] ('red')
+    // Section 1: 90m to 180m -> color allowedColors[1 % allowedColors.length]
+    // ...
+    const sections: Array<{ startZ: number; endZ: number; activeColor: ColorType }> = [];
+    for (let s = 0; s <= gateCount; s++) {
+      const startZ = s * gateInterval;
+      const endZ = (s < gateCount) ? (s + 1) * gateInterval : level.trackLength;
+      const activeColor = allowedColors[s % allowedColors.length];
+      sections.push({ startZ, endZ, activeColor });
+    }
 
-      for (let l = 0; l < laneCount; l++) {
-        const laneX = lanes[l] + (Math.random() - 0.5) * 0.8;
-        // Don't spawn on exact same lane simultaneously
-        const color = allowedColors[Math.floor(Math.random() * allowedColors.length)];
+    const lanes = [-2.8, 0, 2.8]; // Left, Center, Right lanes
 
-        const item: CollectibleItem = {
+    for (const sec of sections) {
+      // 8m entry breathing space after gate, 10m exit buffer before next gate
+      const secStart = sec.startZ + (sec.startZ === 0 ? 14 : 9);
+      const secEnd = sec.endZ - 10;
+      const targetColor = sec.activeColor;
+      const otherColors = allowedColors.filter((c) => c !== targetColor);
+
+      const stepZ = 3.6; // Regular readable rhythm
+      let currentMatchingLaneIdx = Math.floor(Math.random() * 3);
+      let rowsInCurrentCluster = 0;
+      const clusterLength = 5 + Math.floor(Math.random() * 3); // 5-7 rows per stream (18m-25m run)
+
+      for (let z = secStart; z < secEnd; z += stepZ) {
+        rowsInCurrentCluster++;
+        if (rowsInCurrentCluster > clusterLength) {
+          rowsInCurrentCluster = 0;
+          // Switch matching stream to a different lane
+          const otherLanes = [0, 1, 2].filter((idx) => idx !== currentMatchingLaneIdx);
+          currentMatchingLaneIdx = otherLanes[Math.floor(Math.random() * otherLanes.length)];
+        }
+
+        // Spawn matching micro-runner in matching stream lane
+        const matchItem: CollectibleItem = {
           id: `collectible_${idCount++}`,
-          x: laneX,
+          x: lanes[currentMatchingLaneIdx],
           y: 0,
-          z: z,
-          color,
+          z,
+          color: targetColor,
           isCollected: false,
           scale: 0.65
         };
+        const matchMesh = this.createMicroRunnerMesh(targetColor);
+        matchMesh.position.set(matchItem.x, 0, matchItem.z);
+        this.group.add(matchMesh);
+        this.items.push(matchItem);
+        this.meshes.push(matchMesh);
 
-        const mesh = this.createMicroRunnerMesh(color);
-        mesh.position.set(item.x, 0, item.z);
-        this.group.add(mesh);
+        // Spawn contrasting color in at least one other lane
+        const nonMatchingLanes = [0, 1, 2].filter((idx) => idx !== currentMatchingLaneIdx);
+        // Randomly pick 1 or 2 obstacle/contrasting lanes
+        const contrastLaneIdx = nonMatchingLanes[Math.floor(Math.random() * nonMatchingLanes.length)];
+        const contrastColor = otherColors.length > 0
+          ? otherColors[Math.floor(Math.random() * otherColors.length)]
+          : targetColor;
 
-        this.items.push(item);
-        this.meshes.push(mesh);
+        const contrastItem: CollectibleItem = {
+          id: `collectible_${idCount++}`,
+          x: lanes[contrastLaneIdx],
+          y: 0,
+          z,
+          color: contrastColor,
+          isCollected: false,
+          scale: 0.65
+        };
+        const contrastMesh = this.createMicroRunnerMesh(contrastColor);
+        contrastMesh.position.set(contrastItem.x, 0, contrastItem.z);
+        this.group.add(contrastMesh);
+        this.items.push(contrastItem);
+        this.meshes.push(contrastMesh);
       }
     }
   }

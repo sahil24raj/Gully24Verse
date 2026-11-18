@@ -26,10 +26,10 @@ export class RunwayTrackManager {
     this.obstacleMeshes = [];
 
     this.finishLineZ = level.trackLength;
-    this.bossArenaZ = level.trackLength + 25;
+    this.bossArenaZ = level.trackLength + 24;
 
     // 1. Main Asphalt Runway
-    const runwayLength = level.trackLength + 320; // Extends into multiplier launch strip
+    const runwayLength = level.trackLength + 360; // Extends into multiplier launch strip
     const runwayGeo = new THREE.PlaneGeometry(RUNWAY_WIDTH, runwayLength);
     runwayGeo.rotateX(-Math.PI / 2);
 
@@ -84,12 +84,14 @@ export class RunwayTrackManager {
   }
 
   private generateColorGates(level: LevelConfig): void {
-    const gateCount = Math.max(2, Math.floor(level.trackLength / 45));
-    const step = level.trackLength / (gateCount + 1);
+    // Space gates every 90m for long, meaningful color sections
+    const gateInterval = 90;
+    const gateCount = Math.max(2, Math.floor(level.trackLength / gateInterval) - (level.trackLength % gateInterval === 0 ? 1 : 0));
     const allowed = level.colorsAllowed;
 
     for (let i = 1; i <= gateCount; i++) {
-      const z = Math.round(step * i);
+      const z = i * gateInterval;
+      // Cycle through allowed colors distinct from previous
       const targetColor = allowed[i % allowed.length];
       const colorDef = COLOR_DEFINITIONS[targetColor];
 
@@ -105,31 +107,38 @@ export class RunwayTrackManager {
       const gateGroup = new THREE.Group();
       gateGroup.position.set(0, 0, z);
 
-      // Pillars
-      const pillarGeo = new THREE.CylinderGeometry(0.35, 0.45, 6, 12);
-      const pillarMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.5 });
+      // Pillars with neon accent bands
+      const pillarGeo = new THREE.CylinderGeometry(0.4, 0.5, 6.5, 12);
+      const pillarMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.4, metalness: 0.6 });
       const leftPillar = new THREE.Mesh(pillarGeo, pillarMat);
-      leftPillar.position.set(-RUNWAY_HALF_WIDTH, 3, 0);
+      leftPillar.position.set(-RUNWAY_HALF_WIDTH, 3.25, 0);
       const rightPillar = new THREE.Mesh(pillarGeo, pillarMat);
-      rightPillar.position.set(RUNWAY_HALF_WIDTH, 3, 0);
+      rightPillar.position.set(RUNWAY_HALF_WIDTH, 3.25, 0);
 
       // Top Crossbar
-      const crossbarGeo = new THREE.BoxGeometry(RUNWAY_WIDTH + 1.2, 0.6, 0.7);
+      const crossbarGeo = new THREE.BoxGeometry(RUNWAY_WIDTH + 1.4, 0.8, 0.9);
       const crossbar = new THREE.Mesh(crossbarGeo, pillarMat);
-      crossbar.position.set(0, 6, 0);
+      crossbar.position.set(0, 6.5, 0);
 
       // Translucent Glowing Energy Curtain
-      const curtainGeo = new THREE.PlaneGeometry(RUNWAY_WIDTH, 5.8);
+      const curtainGeo = new THREE.PlaneGeometry(RUNWAY_WIDTH - 0.4, 6.2);
       const curtainMat = new THREE.MeshBasicMaterial({
         color: colorDef.hex,
         transparent: true,
-        opacity: 0.55,
+        opacity: 0.65,
         side: THREE.DoubleSide
       });
       const curtain = new THREE.Mesh(curtainGeo, curtainMat);
-      curtain.position.set(0, 3, 0);
+      curtain.position.set(0, 3.2, 0);
 
-      gateGroup.add(leftPillar, rightPillar, crossbar, curtain);
+      // Glowing Arch Light
+      const archNeon = new THREE.Mesh(
+        new THREE.BoxGeometry(RUNWAY_WIDTH, 0.15, 0.15),
+        new THREE.MeshBasicMaterial({ color: colorDef.hex })
+      );
+      archNeon.position.set(0, 6.1, 0.4);
+
+      gateGroup.add(leftPillar, rightPillar, crossbar, curtain, archNeon);
       this.group.add(gateGroup);
 
       this.gates.push(gateItem);
@@ -138,16 +147,84 @@ export class RunwayTrackManager {
   }
 
   private generateObstacles(level: LevelConfig): void {
-    const numObstacles = Math.floor((level.trackLength / 35) * level.hazardFrequency);
+    // Generate obstacles only in middle of sections with generous reaction distance
+    const gateInterval = 90;
+    const gateCount = Math.max(2, Math.floor(level.trackLength / gateInterval) - (level.trackLength % gateInterval === 0 ? 1 : 0));
     const types: ObstacleItem['type'][] = ['spinning_blade', 'spike_roller', 'barrier_wall'];
+    let obsId = 0;
 
-    for (let i = 0; i < numObstacles; i++) {
-      const z = 32 + i * (level.trackLength / (numObstacles + 1));
-      const type = types[i % types.length];
-      const initialX = (Math.random() - 0.5) * (RUNWAY_WIDTH - 4);
+    // For each section between gates (and initial/final sections):
+    const sectionStarts = [0];
+    for (let i = 1; i <= gateCount; i++) sectionStarts.push(i * gateInterval);
 
-      const item: ObstacleItem = {
-        id: `obstacle_${i}`,
+    for (let s = 0; s < sectionStarts.length; s++) {
+      const secStart = sectionStarts[s];
+      const secEnd = (s < sectionStarts.length - 1) ? sectionStarts[s + 1] : level.trackLength;
+      
+      // Place 1 or 2 obstacles per section, ensuring at least 25m buffer from gates
+      const obsCount = Math.round(1 + level.hazardFrequency);
+      const obsStep = (secEnd - secStart - 40) / (obsCount + 1);
+
+      for (let k = 1; k <= obsCount; k++) {
+        const z = secStart + 22 + k * obsStep;
+        if (z >= level.trackLength - 20) continue;
+
+        const type = types[(obsId) % types.length];
+        // Restrict obstacle X so at least 1 lane is always clearly passable
+        const laneOffsets = [-2.8, 2.8, 0];
+        const initialX = laneOffsets[(obsId) % laneOffsets.length];
+
+        const item: ObstacleItem = {
+          id: `obstacle_${obsId++}`,
+          x: initialX,
+          y: 0.5,
+          z,
+          type,
+          width: type === 'barrier_wall' ? 3.6 : 2.2,
+          height: 1.5,
+          depth: 1.2,
+          rotSpeed: 3.5,
+          moveAmplitude: type === 'spinning_blade' ? 1.6 : 0,
+          moveSpeed: 1.5 + Math.random() * 1.0,
+          initialX,
+          isHit: false
+        };
+
+        const obsGroup = new THREE.Group();
+        obsGroup.position.set(item.x, item.y, item.z);
+
+        const hazardMat = new THREE.MeshStandardMaterial({
+          color: 0xdc2626,
+          roughness: 0.35,
+          metalness: 0.6
+        });
+
+        if (type === 'spinning_blade') {
+          const bladeGeo = new THREE.CylinderGeometry(1.4, 1.4, 0.15, 6);
+          bladeGeo.rotateX(Math.PI / 2);
+          const blade = new THREE.Mesh(bladeGeo, hazardMat);
+          blade.castShadow = true;
+          obsGroup.add(blade);
+        } else if (type === 'spike_roller') {
+          const rollerGeo = new THREE.CylinderGeometry(0.7, 0.7, 3.2, 12);
+          rollerGeo.rotateZ(Math.PI / 2);
+          const roller = new THREE.Mesh(rollerGeo, hazardMat);
+          roller.castShadow = true;
+          obsGroup.add(roller);
+        } else {
+          const wallGeo = new THREE.BoxGeometry(item.width, 2.0, 0.8);
+          const wall = new THREE.Mesh(wallGeo, hazardMat);
+          wall.position.y = 0.5;
+          wall.castShadow = true;
+          obsGroup.add(wall);
+        }
+
+        this.group.add(obsGroup);
+        this.obstacles.push(item);
+        this.obstacleMeshes.push(obsGroup);
+      }
+    }
+  }
         x: initialX,
         y: 0.5,
         z,

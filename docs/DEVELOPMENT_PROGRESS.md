@@ -1,15 +1,26 @@
-# DEVELOPMENT_PROGRESS.md — Giant Rush Re-engineering
+# Giant Rush! — Development Progress & Roadmap
 
-## Mission Status: Phase 3 Complete (Production Implementation & Integration)
+## Milestones Achieved
 
-### Milestone Tracker
-- [x] **Step 1: Skill Discovery & Registry Audit** — Discovered all installed skills in `.agents/skills`, `.gemini/config/skills`, and `.gemini/config/plugins`.
-- [x] **Step 2: Skill Execution Matrix** — Formatted and assigned roles for Reverse Engineering, Game Design, 3D Rendering, Physics, Animation, Audio, UI/UX, and QA.
-- [x] **Step 3: Deep Reverse Engineering** — Decompiled and analyzed Giant Rush (TapNation / MSN Casual Games / PlayCanvas WebGL).
-- [x] **Step 4: Comprehensive Game Mechanics Report** — Documented in `REVERSE_ENGINEERING_REPORT.md` with complete state machine diagram.
-- [x] **Step 5: Core 3D Gameplay Engine Construction** — Built Three.js engine (`GiantRushEngine.ts`), procedural runway (`RunwayTrackManager.ts`), 3D character mesh (`PlayerCharacter.ts`), and color gates.
-- [x] **Step 6: Physics, Dynamic Growth & Color Logic** — Implemented same-color absorption, penalty shrinking, and strict lateral runway containment.
-- [x] **Step 7: Boss Battle & QTE Launch System** — Implemented Titan Boss mesh (`BossCombatManager.ts`), rapid-tap QTE brawl, and ragdoll launch distance multiplier.
-- [x] **Step 8: UI/UX, Audio & Visual Juice** — Built anti-slop HUD (`GiantRushHUD.tsx`), sound effects (`AudioEffects.ts`), particle bursts, and camera shake.
-- [x] **Step 9: Testing, Reality Verification & QA** — Validated 60FPS performance, collision boundaries, and zero-glitch gameplay.
-- [x] **Step 10: Production Deployment & GitHub Sync** — Staged, committed, and pushed to `origin main`.
+- [x] **Phase 1: SR24Plus Skill Activation**
+  - Activated skills: `reverse-engineer-anything`, `browser-testing-with-devtools`, `agency-game-development-game-designer`, `agency-engineering-frontend-developer`, `howler-js-audio`, `antislop-ui`, `debugging-and-error-recovery`.
+- [x] **Phase 2: Root-Cause Bug Audit**
+  - Traced keyboard input loss, stale React closure position clobbering, premature effect teardown, and track dimension imbalances.
+- [x] **Phase 3: Controller Overhaul**
+  - Velocity-based acceleration and damping for `A`, `D`, `ArrowLeft`, and `ArrowRight`.
+  - Window blur detection and active element isolation (no typing collisions).
+  - SPACEBAR / ENTER support for boss punch frenzy.
+- [x] **Phase 4: Procedural Lane Architecture**
+  - 360m / 460m / 560m multi-phase runway layouts.
+  - 90m color corridors with dedicated entry and exit buffer zones.
+  - Alternating 3-lane matching streams with contrasting avoidance clusters.
+- [x] **Phase 5: Finish Line & Boss Combat FSM**
+  - Seamless `RUNNING` -> `FINISH_APPROACH` -> `BOSS_INTRO` -> `BOSS_QTE` -> `BOSS_PUNCH` -> `BOSS_LAUNCH` -> `VICTORY` pipeline.
+  - Real-time reactive QTE UI with live countdown and Rush Power bar.
+  - Ragdoll flight physics along 320m multiplier strip ($1.2\times$ to $15.0\times$).
+- [x] **Phase 6: Audio & Visual Polish**
+  - Procedural Web Audio API sound synthesis.
+  - Idle breathing animations for colossal Titan boss.
+  - Dynamic follow camera with FOV shockwaves and screen shake.
+- [x] **Phase 7: Git & CI/CD Deployment**
+  - Git sync and auto-push to `origin main`.

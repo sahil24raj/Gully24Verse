@@ -85,8 +85,8 @@ export const BossQTEOverlay: React.FC<BossQTEOverlayProps> = ({
       </div>
 
       {/* Bottom hint */}
-      <div className="text-xs text-slate-400 font-bold bg-black/50 px-4 py-1.5 rounded-xl border border-white/10 backdrop-blur-md">
-        Click or Tap as fast as you can before the timer runs out!
+      <div className="text-xs text-slate-300 font-bold bg-black/60 px-4 py-2 rounded-xl border border-white/10 backdrop-blur-md shadow-lg">
+        Click, Tap, or Smash SPACEBAR as fast as you can to charge your punch!
       </div>
     </div>
   );

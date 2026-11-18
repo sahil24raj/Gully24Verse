@@ -51,29 +51,29 @@ export const MULTIPLIERS = [
 export const LEVELS: LevelConfig[] = [
   {
     levelNum: 1,
-    trackLength: 130,
-    forwardSpeed: 17,
-    bossHp: 240,
+    trackLength: 360,
+    forwardSpeed: 16,
+    bossHp: 280,
     bossScale: 2.2,
     bossColor: 'red',
     colorsAllowed: ['red', 'green', 'blue'],
-    hazardFrequency: 0.3
+    hazardFrequency: 0.35
   },
   {
     levelNum: 2,
-    trackLength: 170,
-    forwardSpeed: 19,
-    bossHp: 420,
+    trackLength: 460,
+    forwardSpeed: 18,
+    bossHp: 480,
     bossScale: 2.6,
     bossColor: 'blue',
     colorsAllowed: ['red', 'green', 'blue', 'yellow'],
-    hazardFrequency: 0.5
+    hazardFrequency: 0.55
   },
   {
     levelNum: 3,
-    trackLength: 210,
-    forwardSpeed: 21,
-    bossHp: 650,
+    trackLength: 560,
+    forwardSpeed: 20,
+    bossHp: 720,
     bossScale: 3.0,
     bossColor: 'yellow',
     colorsAllowed: ['red', 'green', 'blue', 'yellow'],

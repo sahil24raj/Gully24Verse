@@ -1,6 +1,7 @@
 export type GamePhase =
   | 'MENU'
   | 'RUNNING'
+  | 'FINISH_APPROACH'
   | 'BOSS_INTRO'
   | 'BOSS_QTE'
   | 'BOSS_PUNCH'

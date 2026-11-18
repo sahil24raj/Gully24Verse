@@ -10,7 +10,7 @@ import { GiantRushHUD } from './ui/GiantRushHUD';
 import { BossQTEOverlay } from './ui/BossQTEOverlay';
 import { VictoryModal } from './ui/VictoryModal';
 import { DefeatModal } from './ui/DefeatModal';
-import { Play, RotateCcw, Volume2, VolumeX, Shield, Sparkles } from 'lucide-react';
+import { Play, Sparkles } from 'lucide-react';
 
 export const GiantRushGame: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -23,10 +23,21 @@ export const GiantRushGame: React.FC = () => {
 
   // Game Lifecycle State
   const [phase, setPhase] = useState<GamePhase>('MENU');
+  const phaseRef = useRef<GamePhase>('MENU');
+  phaseRef.current = phase;
+
   const [currentLevelIdx, setCurrentLevelIdx] = useState<number>(0);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(false);
+  const isPausedRef = useRef<boolean>(false);
+  isPausedRef.current = isPaused;
+
   const [defeatReason, setDefeatReason] = useState<'CRUSHED' | 'BOSS_DEFEATED'>('CRUSHED');
+
+  // Reactive Boss QTE state for fluid 60FPS UI feedback
+  const [qteTime, setQteTime] = useState<number>(3.0);
+  const [qteTaps, setQteTaps] = useState<number>(0);
+  const [qtePowerRatio, setQtePowerRatio] = useState<number>(1.0);
 
   // Active Player State
   const [playerState, setPlayerState] = useState<PlayerState>({
@@ -37,21 +48,37 @@ export const GiantRushGame: React.FC = () => {
     targetScale: 1.0,
     color: 'red',
     power: 120,
-    speedZ: 17,
+    speedZ: 16,
     streakCount: 0,
     isInvulnerable: false,
     isPunching: false
   });
 
+  // Single Source of Truth for Physics and Locomotion
   const playerStateRef = useRef<PlayerState>(playerState);
-  playerStateRef.current = playerState;
+  const playerVxRef = useRef<number>(0); // Velocity interpolation
+
+  // FSM Timers & flags
+  const phaseTimerRef = useRef<number>(0);
+  const punchExecutedRef = useRef<boolean>(false);
 
   const currentLevel: LevelConfig = LEVELS[currentLevelIdx % LEVELS.length];
+  const currentLevelRef = useRef<LevelConfig>(currentLevel);
+  currentLevelRef.current = currentLevel;
 
   // Touch & Mouse Lateral Control State
   const isPointerDownRef = useRef<boolean>(false);
   const lastPointerXRef = useRef<number>(0);
   const keysDownRef = useRef<{ [key: string]: boolean }>({});
+
+  // Boss QTE Tap Action (Responsive & Real-time)
+  const handleBossQteTap = useCallback(() => {
+    if (!engineRef.current || phaseRef.current !== 'BOSS_QTE') return;
+    engineRef.current.boss.registerTap();
+    setQteTaps(engineRef.current.boss.qteTaps);
+    setQtePowerRatio(engineRef.current.boss.powerRatio);
+    AudioEffects.playCollectMatch(Math.floor(Math.random() * 6));
+  }, []);
 
   // 1. Initialize Engine
   useEffect(() => {
@@ -77,14 +104,33 @@ export const GiantRushGame: React.FC = () => {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, [currentLevelIdx]);
 
-  // 2. Keyboard & Touch Controls
+  // 2. Continuous Keyboard Controls
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if typing in text inputs
+      const target = e.target as HTMLElement | null;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+        return;
+      }
+
       keysDownRef.current[e.key] = true;
+      keysDownRef.current[e.code] = true;
+
+      // Prevent default page scrolling for gameplay keys
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'Space', 'KeyA', 'KeyD'].includes(e.code) ||
+          ['a', 'A', 'd', 'D', ' '].includes(e.key)) {
+        e.preventDefault();
+      }
+
+      // Space / Enter can also tap in QTE mode!
+      if (phaseRef.current === 'BOSS_QTE' && (e.code === 'Space' || e.key === ' ' || e.code === 'Enter')) {
+        handleBossQteTap();
+      }
+
+      // Pause toggle
       if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') {
         setIsPaused((prev) => !prev);
       }
@@ -92,46 +138,58 @@ export const GiantRushGame: React.FC = () => {
 
     const handleKeyUp = (e: KeyboardEvent) => {
       keysDownRef.current[e.key] = false;
+      keysDownRef.current[e.code] = false;
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    const handleBlur = () => {
+      // Clear key states so player doesn't keep running when window loses focus
+      keysDownRef.current = {};
+      isPointerDownRef.current = false;
+    };
+
+    window.addEventListener('keydown', handleKeyDown, { passive: false });
     window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener('blur', handleBlur);
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('blur', handleBlur);
     };
-  }, []);
+  }, [handleBossQteTap]);
 
   // Pointer Drag Handlers (Both Mouse and Touch)
   const handlePointerDown = (clientX: number) => {
     isPointerDownRef.current = true;
     lastPointerXRef.current = clientX;
+
+    // Direct tap in QTE mode
+    if (phaseRef.current === 'BOSS_QTE') {
+      handleBossQteTap();
+    }
   };
 
   const handlePointerMove = (clientX: number) => {
-    if (!isPointerDownRef.current) return;
+    if (!isPointerDownRef.current || phaseRef.current !== 'RUNNING') return;
     const deltaX = clientX - lastPointerXRef.current;
     lastPointerXRef.current = clientX;
 
-    // Lateral move factor
-    const moveSensitivity = 0.022;
-    setPlayerState((prev) => {
-      const nextX = Math.max(
-        -PLAYER_LATERAL_LIMIT,
-        Math.min(PLAYER_LATERAL_LIMIT, prev.x + deltaX * moveSensitivity)
-      );
-      return { ...prev, x: nextX };
-    });
+    // Smooth lateral movement directly into playerStateRef
+    const moveSensitivity = 0.024;
+    const nextX = Math.max(
+      -PLAYER_LATERAL_LIMIT,
+      Math.min(PLAYER_LATERAL_LIMIT, playerStateRef.current.x + deltaX * moveSensitivity)
+    );
+    playerStateRef.current.x = nextX;
   };
 
   const handlePointerUp = () => {
     isPointerDownRef.current = false;
   };
 
-  // Start Run
+  // Start / Restart Run
   const handleStartRun = () => {
-    setPhase('RUNNING');
-    setPlayerState({
+    const freshState: PlayerState = {
       x: 0,
       y: 0,
       z: 0,
@@ -139,26 +197,35 @@ export const GiantRushGame: React.FC = () => {
       targetScale: 1.0,
       color: 'red',
       power: 120,
-      speedZ: currentLevel.forwardSpeed,
+      speedZ: currentLevelRef.current.forwardSpeed,
       streakCount: 0,
       isInvulnerable: false,
       isPunching: false
-    });
+    };
+
+    playerStateRef.current = freshState;
+    playerVxRef.current = 0;
+    phaseTimerRef.current = 0;
+    punchExecutedRef.current = false;
+
+    setPlayerState(freshState);
+    setQteTime(3.0);
+    setQteTaps(0);
+    setQtePowerRatio(1.0);
+
     if (engineRef.current) {
-      engineRef.current.initLevel(currentLevel);
+      engineRef.current.initLevel(currentLevelRef.current);
+      engineRef.current.boss.resetBoss();
     }
+
+    phaseRef.current = 'RUNNING';
+    setPhase('RUNNING');
   };
 
-  // Boss QTE Tap Action
-  const handleBossQteTap = useCallback(() => {
-    if (!engineRef.current) return;
-    engineRef.current.boss.registerTap();
-    AudioEffects.playCollectMatch(Math.floor(Math.random() * 6));
-  }, []);
-
-  // 3. Master 60FPS Game Loop
+  // 3. MASTER 60FPS GAMEPLAY & PHYSICS LOOP
   useEffect(() => {
     let isMounted = true;
+    let hudSyncCounter = 0;
 
     const loop = (timestamp: number) => {
       if (!isMounted) return;
@@ -168,42 +235,52 @@ export const GiantRushGame: React.FC = () => {
       lastTimeRef.current = timestamp;
 
       const engine = engineRef.current;
-      const currentP = playerStateRef.current;
+      const currentPhase = phaseRef.current;
+      const paused = isPausedRef.current;
 
-      if (engine && !isPaused) {
-        // --- KEYBOARD LATERAL STEERING ---
-        if (phase === 'RUNNING') {
-          let steerDir = 0;
-          if (keysDownRef.current['ArrowLeft'] || keysDownRef.current['a'] || keysDownRef.current['A']) {
-            steerDir -= 1;
+      if (engine && !paused) {
+        // ==========================================
+        // 1. RUNNING PHASE
+        // ==========================================
+        if (currentPhase === 'RUNNING') {
+          // Continuous Lateral Keyboard Steering
+          let targetSteerDir = 0;
+          const k = keysDownRef.current;
+          if (k['ArrowLeft'] || k['a'] || k['A'] || k['KeyA']) {
+            targetSteerDir -= 1;
           }
-          if (keysDownRef.current['ArrowRight'] || keysDownRef.current['d'] || keysDownRef.current['D']) {
-            steerDir += 1;
-          }
-
-          if (steerDir !== 0) {
-            const nextX = Math.max(
-              -PLAYER_LATERAL_LIMIT,
-              Math.min(PLAYER_LATERAL_LIMIT, currentP.x + steerDir * delta * 14.0)
-            );
-            playerStateRef.current.x = nextX;
+          if (k['ArrowRight'] || k['d'] || k['D'] || k['KeyD']) {
+            targetSteerDir += 1;
           }
 
-          // Smooth scale interpolation towards targetScale
-          const nextScale = currentP.scale + (currentP.targetScale - currentP.scale) * Math.min(1, delta * 12);
+          // Acceleration and velocity smoothing
+          const maxLateralSpeed = 15.0; // m/s
+          const targetVx = targetSteerDir * maxLateralSpeed;
+          playerVxRef.current += (targetVx - playerVxRef.current) * Math.min(1, delta * 22);
+
+          const nextX = Math.max(
+            -PLAYER_LATERAL_LIMIT,
+            Math.min(PLAYER_LATERAL_LIMIT, playerStateRef.current.x + playerVxRef.current * delta)
+          );
+          playerStateRef.current.x = nextX;
+
+          // Smooth scale lerp towards targetScale
+          const nextScale = playerStateRef.current.scale + 
+            (playerStateRef.current.targetScale - playerStateRef.current.scale) * Math.min(1, delta * 12);
           playerStateRef.current.scale = nextScale;
 
-          // Forward locomotion
-          playerStateRef.current.z += currentP.speedZ * delta;
+          // Constant forward runner speed
+          playerStateRef.current.z += playerStateRef.current.speedZ * delta;
 
-          // Check if crushed (scale dropped below threshold)
-          if (nextScale < 0.45) {
+          // Check Crushed Defeat Condition
+          if (nextScale < 0.42) {
+            phaseRef.current = 'DEFEAT';
             setDefeatReason('CRUSHED');
             setPhase('DEFEAT');
             AudioEffects.playDefeat();
           }
 
-          // 1. Check Collectible Collisions
+          // A. Collectible Pickups
           const colResult = engine.collectibles.checkCollisions(
             playerStateRef.current.x,
             playerStateRef.current.z,
@@ -214,29 +291,19 @@ export const GiantRushGame: React.FC = () => {
 
           if (colResult.collected) {
             engine.player.triggerSquashStretch();
-            const nextTarget = Math.max(0.4, Math.min(3.8, currentP.targetScale + colResult.deltaScale));
-            const nextPower = Math.max(20, currentP.power + colResult.deltaPower);
-            const nextStreak = colResult.matched ? currentP.streakCount + 1 : 0;
-
-            setPlayerState((prev) => ({
-              ...prev,
-              targetScale: nextTarget,
-              power: nextPower,
-              streakCount: nextStreak
-            }));
+            playerStateRef.current.targetScale = Math.max(0.4, Math.min(3.8, playerStateRef.current.targetScale + colResult.deltaScale));
+            playerStateRef.current.power = Math.max(20, playerStateRef.current.power + colResult.deltaPower);
+            playerStateRef.current.streakCount = colResult.matched ? playerStateRef.current.streakCount + 1 : 0;
           }
 
-          // 2. Check Color Gate Crossings
+          // B. Color Gate Crossings
           const crossedColor = engine.track.checkGateCrossings(playerStateRef.current.z);
           if (crossedColor) {
             engine.triggerScreenShake(0.35);
-            setPlayerState((prev) => ({
-              ...prev,
-              color: crossedColor
-            }));
+            playerStateRef.current.color = crossedColor;
           }
 
-          // 3. Check Obstacle Hits
+          // C. Obstacle Hazard Hits
           const hitHazard = engine.track.checkObstacleCollisions(
             playerStateRef.current.x,
             playerStateRef.current.z,
@@ -244,67 +311,127 @@ export const GiantRushGame: React.FC = () => {
           );
           if (hitHazard) {
             engine.triggerScreenShake(0.6);
-            setPlayerState((prev) => ({
-              ...prev,
-              targetScale: Math.max(0.4, prev.targetScale - 0.25),
-              power: Math.max(20, prev.power - 40),
-              streakCount: 0
-            }));
+            playerStateRef.current.targetScale = Math.max(0.4, playerStateRef.current.targetScale - 0.25);
+            playerStateRef.current.power = Math.max(20, playerStateRef.current.power - 45);
+            playerStateRef.current.streakCount = 0;
           }
 
-          // 4. Check Finish Line Crossing -> Transition to Boss Fight!
+          // D. Finish Line Detection -> Transition to Arena Approach
           if (playerStateRef.current.z >= engine.track.finishLineZ) {
-            setPhase('BOSS_INTRO');
-            // Stop lateral steer, guide to center
-            playerStateRef.current.x = 0;
-            playerStateRef.current.speedZ = 12;
-
-            // Wait 1.2s for cinematic camera swing then start QTE
-            setTimeout(() => {
-              if (isMounted) {
-                setPhase('BOSS_QTE');
-                engine.boss.startQte();
-              }
-            }, 1200);
+            phaseRef.current = 'FINISH_APPROACH';
+            setPhase('FINISH_APPROACH');
+            AudioEffects.playColorGate();
           }
         }
 
-        // --- BOSS ARENA PHASES ---
-        if (phase === 'BOSS_QTE') {
-          // Check if QTE countdown expired -> Trigger punch!
+        // ==========================================
+        // 2. FINISH APPROACH (Sprint into Arena)
+        // ==========================================
+        else if (currentPhase === 'FINISH_APPROACH') {
+          // Guide player automatically to center runway
+          playerStateRef.current.x += (0 - playerStateRef.current.x) * Math.min(1, delta * 6);
+          // Decelerate smoothly as runner enters arena
+          playerStateRef.current.z += playerStateRef.current.speedZ * 0.75 * delta;
+
+          const arenaConfrontZ = engine.track.bossArenaZ - 4.2;
+          if (playerStateRef.current.z >= arenaConfrontZ) {
+            playerStateRef.current.z = arenaConfrontZ;
+            playerStateRef.current.x = 0;
+
+            phaseRef.current = 'BOSS_INTRO';
+            phaseTimerRef.current = 1.4; // 1.4s dramatic camera swing
+            setPhase('BOSS_INTRO');
+          }
+        }
+
+        // ==========================================
+        // 3. BOSS INTRO (Dramatic Confrontation)
+        // ==========================================
+        else if (currentPhase === 'BOSS_INTRO') {
+          phaseTimerRef.current -= delta;
+          if (phaseTimerRef.current <= 0) {
+            phaseRef.current = 'BOSS_QTE';
+            engine.boss.startQte();
+            setQteTime(3.0);
+            setQteTaps(0);
+            setQtePowerRatio(1.0);
+            setPhase('BOSS_QTE');
+          }
+        }
+
+        // ==========================================
+        // 4. BOSS QTE (Rapid-Tap Rush Frenzy)
+        // ==========================================
+        else if (currentPhase === 'BOSS_QTE') {
+          setQteTime(engine.boss.qteTimeRemaining);
+          setQtePowerRatio(engine.boss.powerRatio);
+
           if (engine.boss.qteTimeRemaining <= 0) {
-            setPhase('BOSS_PUNCH');
+            phaseRef.current = 'BOSS_PUNCH';
+            phaseTimerRef.current = 0.9;
+            punchExecutedRef.current = false;
             engine.player.triggerPunch();
+            setPhase('BOSS_PUNCH');
+          }
+        }
 
-            // Hit-stop pause for maximum visual impact
-            setTimeout(() => {
-              if (!isMounted) return;
-              engine.triggerScreenShake(0.85);
-              const punchResult = engine.boss.executePunch(currentP.power);
+        // ==========================================
+        // 5. BOSS PUNCH (Colossal Titan Strike)
+        // ==========================================
+        else if (currentPhase === 'BOSS_PUNCH') {
+          phaseTimerRef.current -= delta;
 
-              if (punchResult.isVictory) {
+          // Impact at peak of windup
+          if (!punchExecutedRef.current && phaseTimerRef.current <= 0.45) {
+            punchExecutedRef.current = true;
+            engine.triggerScreenShake(0.85);
+
+            const punchResult = engine.boss.executePunch(playerStateRef.current.power);
+
+            if (punchResult.isVictory) {
+              // Wait until punch follow-through then transition to ragdoll launch
+              setTimeout(() => {
+                if (!isMounted) return;
+                phaseRef.current = 'BOSS_LAUNCH';
+                phaseTimerRef.current = 2.6; // 2.6s tracking launch
                 setPhase('BOSS_LAUNCH');
-                // Calculate rewards
-                setTimeout(() => {
-                  if (isMounted) {
-                    const earned = engine.boss.getEarnedMultiplier();
-                    const rewardCoins = Math.round(250 * earned.mult);
-                    addCoins(rewardCoins);
-                    addXP(400);
-                    setPhase('VICTORY');
-                  }
-                }, 2200);
-              } else {
+              }, 400);
+            } else {
+              setTimeout(() => {
+                if (!isMounted) return;
+                phaseRef.current = 'DEFEAT';
                 setDefeatReason('BOSS_DEFEATED');
                 setPhase('DEFEAT');
                 AudioEffects.playDefeat();
-              }
-            }, 300);
+              }, 400);
+            }
           }
         }
 
-        // Update 3D Engine & Scene Graph
-        engine.update(delta, phase, playerStateRef.current);
+        // ==========================================
+        // 6. BOSS LAUNCH (Multiplier Track Flight)
+        // ==========================================
+        else if (currentPhase === 'BOSS_LAUNCH') {
+          phaseTimerRef.current -= delta;
+
+          if (phaseTimerRef.current <= 0 || !engine.boss.isLaunching) {
+            phaseRef.current = 'VICTORY';
+            const earned = engine.boss.getEarnedMultiplier();
+            const rewardCoins = Math.round(250 * earned.mult);
+            addCoins(rewardCoins);
+            addXP(400);
+            setPhase('VICTORY');
+          }
+        }
+
+        // 3D Scene Update
+        engine.update(delta, phaseRef.current, playerStateRef.current);
+
+        // Sync React HUD state at ~15FPS without clobbering position
+        hudSyncCounter++;
+        if (hudSyncCounter % 4 === 0) {
+          setPlayerState({ ...playerStateRef.current });
+        }
       }
 
       animFrameRef.current = requestAnimationFrame(loop);
@@ -315,7 +442,7 @@ export const GiantRushGame: React.FC = () => {
       isMounted = false;
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
-  }, [phase, isPaused, addCoins, addXP]);
+  }, [addCoins, addXP]);
 
   const progressPercent = Math.min(
     100,
@@ -336,7 +463,7 @@ export const GiantRushGame: React.FC = () => {
       <canvas ref={canvasRef} className="w-full h-full block cursor-grab active:cursor-grabbing" />
 
       {/* IN-GAME HUD */}
-      {(phase === 'RUNNING' || phase === 'BOSS_INTRO') && (
+      {(phase === 'RUNNING' || phase === 'FINISH_APPROACH' || phase === 'BOSS_INTRO') && (
         <GiantRushHUD
           player={playerState}
           levelNum={currentLevel.levelNum}
@@ -351,13 +478,13 @@ export const GiantRushGame: React.FC = () => {
         />
       )}
 
-      {/* BOSS QTE OVERLAY */}
+      {/* BOSS QTE OVERLAY (Reactive state bindings) */}
       {phase === 'BOSS_QTE' && engineRef.current?.boss.boss && (
         <BossQTEOverlay
           boss={engineRef.current.boss.boss}
-          timeRemaining={engineRef.current.boss.qteTimeRemaining}
-          powerRatio={engineRef.current.boss.powerRatio}
-          tapCount={engineRef.current.boss.qteTaps}
+          timeRemaining={qteTime}
+          powerRatio={qtePowerRatio}
+          tapCount={qteTaps}
           onTap={handleBossQteTap}
         />
       )}
@@ -393,8 +520,8 @@ export const GiantRushGame: React.FC = () => {
             {/* Instructions */}
             <div className="flex items-center justify-center gap-6 text-[11px] font-bold text-slate-400 pt-2 border-t border-white/10 w-full">
               <span>🖱️ Drag to Steer</span>
-              <span>↔️ Left / Right Keys</span>
-              <span>👊 Tap Fast on Boss</span>
+              <span>↔️ A / D or Arrows</span>
+              <span>👊 Space / Tap to Punch</span>
             </div>
           </div>
         </div>
@@ -410,7 +537,9 @@ export const GiantRushGame: React.FC = () => {
           baseCoins={250}
           onNextLevel={() => {
             setCurrentLevelIdx((prev) => prev + 1);
-            handleStartRun();
+            setTimeout(() => {
+              handleStartRun();
+            }, 50);
           }}
           onReplay={handleStartRun}
         />

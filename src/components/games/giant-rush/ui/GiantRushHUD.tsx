@@ -111,8 +111,8 @@ export const GiantRushHUD: React.FC<GiantRushHUDProps> = ({
           </div>
         </div>
 
-        <div className="text-[11px] font-bold text-slate-400 bg-black/50 px-3 py-1.5 rounded-xl border border-white/10 backdrop-blur-md hidden sm:block">
-          Swipe Left / Right to Move
+        <div className="text-[11px] font-bold text-slate-300 bg-black/60 px-3.5 py-1.5 rounded-xl border border-white/10 backdrop-blur-md hidden sm:block">
+          ↔️ A / D or Arrow Keys to Steer
         </div>
       </div>
     </div>

@@ -204,6 +204,14 @@ export class BossCombatManager {
       this.qteTimeRemaining = Math.max(0, this.qteTimeRemaining - delta);
     }
 
+    // Menacing Idle Animation when standing in arena
+    if (!this.isLaunching && !this.boss.isKnockedOut) {
+      const t = performance.now() * 0.003;
+      // Menacing chest heave and ground pulse
+      this.bossMesh.position.y = Math.sin(t * 2.5) * 0.1 * this.boss.scale;
+      this.bossMesh.rotation.y = Math.PI + Math.sin(t * 1.5) * 0.08;
+    }
+
     // Ragdoll Launch Simulation
     if (this.isLaunching) {
       this.boss.y += this.boss.launchVy * delta;
@@ -233,6 +241,25 @@ export class BossCombatManager {
 
       this.boss.launchDistance = Math.max(0, this.boss.z - this.launchOriginZ);
       this.bossMesh.position.set(this.boss.x, this.boss.y, this.boss.z);
+    }
+  }
+
+  public resetBoss(): void {
+    this.isQteActive = false;
+    this.isLaunching = false;
+    this.qteTimeRemaining = 3.0;
+    this.qteTaps = 0;
+    this.powerRatio = 1.0;
+    if (this.boss) {
+      this.boss.currentHp = this.boss.maxHp;
+      this.boss.isKnockedOut = false;
+      this.boss.launchDistance = 0;
+      this.boss.launchVy = 0;
+      this.boss.launchVz = 0;
+      this.boss.y = 0;
+      this.boss.z = this.launchOriginZ;
+      this.bossMesh.position.set(0, 0, this.launchOriginZ);
+      this.bossMesh.rotation.set(0, Math.PI, 0);
     }
   }
 }

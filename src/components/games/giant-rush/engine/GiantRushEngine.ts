@@ -94,7 +94,8 @@ export class GiantRushEngine {
     // 1. Update Player 3D Mesh
     this.player.group.position.set(playerState.x, 0, playerState.z);
     this.player.setColor(playerState.color);
-    this.player.update(delta, phase === 'RUNNING', playerState.scale);
+    const isPlayerRunning = phase === 'RUNNING' || phase === 'FINISH_APPROACH';
+    this.player.update(delta, isPlayerRunning, playerState.scale);
 
     // 2. Update Subsystems
     this.track.update(delta);
@@ -125,7 +126,7 @@ export class GiantRushEngine {
 
     const s = playerState.scale;
 
-    if (phase === 'RUNNING' || phase === 'MENU') {
+    if (phase === 'RUNNING' || phase === 'MENU' || phase === 'FINISH_APPROACH') {
       // Dynamic Chase Camera: Pulls back smoothly as character grows!
       const followDist = 8.5 * Math.pow(s, 0.35);
       const followHeight = 3.6 + s * 1.2;
