@@ -11,7 +11,6 @@ import {
   Users,
   Compass,
   Gift,
-  Flame,
   Target
 } from 'lucide-react';
 
@@ -142,30 +141,7 @@ export const GullyHeroSection: React.FC = () => {
     }
   ];
 
-  // 3 Right-side Trending Games with thumbnails and Play buttons
-  const trendingGames = [
-    {
-      id: 'truck-run',
-      name: 'Truck Run 3D',
-      emoji: '🚛',
-      image: '/games/truck-run.jpg',
-      route: '/game/truck-run'
-    },
-    {
-      id: 'chor-sipahi',
-      name: 'Chor Sipahi',
-      emoji: '👑',
-      image: '/games/chor-sipahi.jpg',
-      route: '/game/chor-sipahi'
-    },
-    {
-      id: 'auto-rush',
-      name: 'Auto Rush',
-      emoji: '🛺',
-      image: '/games/auto-rush.jpg',
-      route: '/game/auto-rush'
-    }
-  ];
+
 
   return (
     <section className="relative w-full overflow-hidden pt-4 pb-10 px-4 sm:px-8 xl:px-14">
@@ -205,8 +181,8 @@ export const GullyHeroSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Hero Floating Glass Widgets (Daily Challenge, Online Now, Trending Games) */}
-          <div className="w-full lg:w-80 flex flex-col gap-3 shrink-0 lg:self-end">
+          {/* Right Column: Hero Floating Glass Widgets (Daily Challenge, Online Now) positioned neatly at the bottom right */}
+          <div className="w-full lg:w-80 flex flex-col gap-3 shrink-0 lg:self-end mt-auto pb-4">
             
             {/* 1. Daily Challenge Widget */}
             <div
@@ -246,41 +222,6 @@ export const GullyHeroSection: React.FC = () => {
                 <span className="text-xs font-black text-emerald-400">
                   2,840 Players
                 </span>
-              </div>
-            </div>
-
-            {/* 3. Trending Games Widget */}
-            <div className="p-3.5 rounded-2xl bg-[#1B1B22]/85 border border-white/10 backdrop-blur-md shadow-xl flex flex-col gap-2.5">
-              <div className="flex items-center gap-1.5 text-xs font-black text-amber-400 uppercase tracking-wider">
-                <Flame className="w-3.5 h-3.5 fill-amber-400" />
-                <span>Trending Games</span>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                {trendingGames.map((game) => (
-                  <div
-                    key={game.id}
-                    onClick={() => handleLaunchGame(game.route)}
-                    className="flex items-center justify-between p-1.5 rounded-xl bg-black/40 hover:bg-black/60 border border-white/5 hover:border-amber-500/30 transition-all cursor-pointer group"
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-8 h-8 rounded-lg overflow-hidden bg-slate-800 shrink-0 border border-white/10">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={game.image}
-                          alt={game.name}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform"
-                        />
-                      </div>
-                      <span className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors truncate">
-                        {game.name} {game.emoji}
-                      </span>
-                    </div>
-                    <div className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
-                      <Play className="w-3 h-3 fill-slate-950 ml-0.5" />
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
 
