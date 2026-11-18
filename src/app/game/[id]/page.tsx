@@ -25,6 +25,7 @@ import { GenZProtestRunCanvas } from '@/components/games/genz-protest-run/GenZPr
 import { IndianPoliticsArenaGame } from '@/components/games/indian-politics-arena/IndianPoliticsArenaGame';
 import { AutoRushGame } from '@/components/games/auto-rush/AutoRushGame';
 import { TruckRunGame } from '@/components/games/truck-run/TruckRunGame';
+import { GiantRushGame } from '@/components/games/giant-rush/GiantRushGame';
 
 import { SingleUnifiedMultiplayerModal } from '@/components/game-shell/SingleUnifiedMultiplayerModal';
 import {
@@ -147,6 +148,12 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
 
   const renderGameCanvas = () => {
     switch (game.id) {
+      case 'giant-rush':
+        return (
+          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-amber-400">Loading Giant Rush 3D...</div>}>
+            <GiantRushGame />
+          </React.Suspense>
+        );
       case 'truck-run':
         return (
           <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-amber-400">Loading Truck Run 3D Highway...</div>}>

@@ -122,6 +122,40 @@ export const INITIAL_RECENT_MATCHES: RecentMatch[] = [];
 
 export const GAMES_CATALOG: GameItem[] = [
   {
+    id: 'giant-rush',
+    title: 'Giant Rush 3D 👊🔥',
+    slug: 'giant-rush',
+    tagline: 'Absorb same-color runners, grow into a colossal Titan, and punch the boss to the moon!',
+    description: 'The iconic 3D chroma-matching hypercasual runner and brawler! Auto-run forward, steer smoothly across lanes, absorb runners matching your active color to grow massive, pass through color-changing laser gates, dodge spinning hazard blades, and unleash a mega Titan punch in the rapid-tap boss arena!',
+    category: '⚡ Action & Battle',
+    categoryKey: 'action',
+    thumbnail: '👊',
+    bannerImage: '/games/giant-rush.jpg',
+    playCount: 428000,
+    rating: 4.98,
+    difficulty: 'Medium',
+    duration: '1-3 min',
+    multiplayer: false,
+    multiplayerModes: ['ai', 'local'],
+    isTrending: true,
+    isNew: true,
+    isPopular: true,
+    isFeatured: true,
+    tags: ['3D', 'Runner', 'Chroma', 'Giant Rush', 'Color Match', 'Boss Fight', 'Arcade', 'Action'],
+    controls: [
+      'Mouse Drag or Touch: Steer Left & Right',
+      'A / D or ← / →: Lateral Steering',
+      'Space / Click: Rapid Tap Punch in Boss Arena',
+      'P / Esc: Pause Game'
+    ],
+    rules: [
+      'Match Colors: Run into figures that match your active hue to grow larger & stronger (+Size, +Power).',
+      'Avoid Unlike Colors: Absorbing wrong colors shrinks you and drains combat strength.',
+      'Color Gates: Passing through glowing veils shifts your active color immediately.',
+      'Boss Brawl: Rapidly tap the punch button before the timer expires to knock out the Titan boss and multiply coins!'
+    ]
+  },
+  {
     id: 'truck-run',
     title: 'Truck Run 🚛💨',
     slug: 'truck-run',

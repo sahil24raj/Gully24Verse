@@ -39,8 +39,8 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     tagColor: 'bg-teal-500/20 text-teal-300 border border-teal-500/30',
     title: 'ENDLESS RUN',
     description:
-      'Full speed dashes through Grand Trunk highways and Delhi street checkpoints. Collect chai refills, dodge traffic, and break records.',
-    gameIds: ['truck-run', 'genz-protest-run', 'auto-rush']
+      'Full speed dashes through Grand Trunk highways, Chroma runways and Delhi street checkpoints. Collect chai refills, dodge traffic, and break records.',
+    gameIds: ['giant-rush', 'truck-run', 'genz-protest-run', 'auto-rush']
   },
   {
     key: 'multiplayer',
@@ -80,8 +80,8 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     tagColor: 'bg-red-500/20 text-red-400 border border-red-500/30',
     title: 'ACTION & BATTLE',
     description:
-      'Satirical political 1v1 brawl arenas, tense risk-door escape chambers, and high-speed bench combat.',
-    gameIds: ['indian-politics-arena', 'escape-door', 'fake-bomb', 'pen-flip']
+      'Satirical political 1v1 brawl arenas, Giant Rush chroma Titan brawls, tense risk-door escape chambers, and high-speed bench combat.',
+    gameIds: ['giant-rush', 'indian-politics-arena', 'escape-door', 'fake-bomb', 'pen-flip']
   },
   {
     key: 'meme-games',
