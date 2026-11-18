@@ -252,13 +252,9 @@ export const AutoRushGame: React.FC = () => {
         player.update(delta, activeInput);
         setRaceTotalTime(t => t + delta);
 
-        // Check Track Bounds (Off-road penalty)
-        const offRoad = threeEngine.trackManager.isOffRoad(player.state.x, player.state.z);
-        setIsOffRoad(offRoad);
-        if (offRoad && player.state.speedKmh > 35) {
-          player.state.vx *= 0.94;
-          player.state.vz *= 0.94;
-        }
+        // Enforce strict track containment: Auto NEVER leaves the track road!
+        threeEngine.trackManager.constrainToTrack(player.state);
+        setIsOffRoad(false);
 
         // Update Lap and Checkpoint Progression
         const lapProgress = threeEngine.trackManager.updateRacerProgress(

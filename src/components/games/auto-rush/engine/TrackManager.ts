@@ -23,6 +23,7 @@ export class TrackManager {
     this.buildStartFinishGantry();
     this.buildRealisticIndianCityscape();
     this.generateCheckpoints();
+    this.buildTrackSamples();
   }
 
   private generateCheckpoints(): void {
@@ -486,6 +487,113 @@ export class TrackManager {
       lampHead.position.y += 7.4;
       this.trackGroup.add(lampHead);
     }
+  }
+
+  // Pre-sampled track spline for 60FPS high-speed boundary containment
+  public trackSamples: Array<{
+    t: number;
+    pt: THREE.Vector3;
+    tangent: THREE.Vector3;
+    binormal: THREE.Vector3;
+  }> = [];
+
+  private buildTrackSamples(): void {
+    const numSamples = 300;
+    this.trackSamples = [];
+    const up = new THREE.Vector3(0, 1, 0);
+
+    for (let i = 0; i < numSamples; i++) {
+      const t = i / numSamples;
+      const pt = this.spline.getPointAt(t);
+      const tangent = this.spline.getTangentAt(t).normalize();
+      const binormal = new THREE.Vector3().crossVectors(tangent, up).normalize();
+      this.trackSamples.push({ t, pt, tangent, binormal });
+    }
+  }
+
+  /**
+   * Enforces strict track containment so vehicles NEVER escape or fall off the road.
+   * Clamps lateral position inside road borders and applies smooth elastic guardrail deflection.
+   */
+  public constrainToTrack(state: any): { hitWall: boolean; lateralOffset: number } {
+    if (!this.trackSamples || this.trackSamples.length === 0) {
+      return { hitWall: false, lateralOffset: 0 };
+    }
+
+    // 1. Find nearest spline sample
+    let nearestIdx = 0;
+    let minDistSq = Infinity;
+    const sx = state.x;
+    const sz = state.z;
+
+    for (let i = 0; i < this.trackSamples.length; i++) {
+      const s = this.trackSamples[i];
+      const dx = sx - s.pt.x;
+      const dz = sz - s.pt.z;
+      const dSq = dx * dx + dz * dz;
+      if (dSq < minDistSq) {
+        minDistSq = dSq;
+        nearestIdx = i;
+      }
+    }
+
+    const sample = this.trackSamples[nearestIdx];
+
+    // 2. Project vehicle position onto local track tangent
+    const dx = sx - sample.pt.x;
+    const dz = sz - sample.pt.z;
+    const alongTangent = dx * sample.tangent.x + dz * sample.tangent.z;
+
+    // Road centerline at projected position
+    const roadCenterX = sample.pt.x + sample.tangent.x * alongTangent;
+    const roadCenterZ = sample.pt.z + sample.tangent.z * alongTangent;
+
+    // Signed lateral distance from centerline (positive = right edge, negative = left edge)
+    const toVehX = sx - roadCenterX;
+    const toVehZ = sz - roadCenterZ;
+    const lateralOffset = toVehX * sample.binormal.x + toVehZ * sample.binormal.z;
+
+    // 3. Playable road half-width (allowing margin for auto-rickshaw body and curb)
+    const roadWidth = this.config.roadWidth || 16;
+    const halfWidth = roadWidth / 2;
+    const maxPlayableLateral = Math.max(3.5, halfWidth - 1.25);
+
+    // 4. Check if vehicle is trying to exit the track boundaries
+    if (Math.abs(lateralOffset) > maxPlayableLateral) {
+      const wallSide = Math.sign(lateralOffset); // +1 right wall, -1 left wall
+      const clampedLateral = wallSide * maxPlayableLateral;
+
+      // HARD CLAMP position strictly inside the track asphalt
+      state.x = roadCenterX + sample.binormal.x * clampedLateral;
+      state.z = roadCenterZ + sample.binormal.z * clampedLateral;
+
+      // Decompose current velocity into forward (along track) and lateral (into/away from barrier)
+      const forwardVel = state.vx * sample.tangent.x + state.vz * sample.tangent.z;
+      const lateralVel = state.vx * sample.binormal.x + state.vz * sample.binormal.z;
+
+      // If moving outward towards the guardrail, deflect inward with elastic response
+      const isPushingIntoWall = (wallSide > 0 && lateralVel > 0) || (wallSide < 0 && lateralVel < 0);
+      if (isPushingIntoWall) {
+        // Elastic rebound off guardrail (keeps forward momentum, bounces inward)
+        const bouncedLateralVel = -lateralVel * 0.28;
+        // Minor scrape friction along guardrail
+        const preservedForwardVel = Math.max(forwardVel * 0.96, forwardVel - 0.8);
+
+        state.vx = sample.tangent.x * preservedForwardVel + sample.binormal.x * bouncedLateralVel;
+        state.vz = sample.tangent.z * preservedForwardVel + sample.binormal.z * bouncedLateralVel;
+
+        // Align heading (yaw) along track tangent so driver never gets stuck against barrier
+        const trackHeading = Math.atan2(sample.tangent.x, sample.tangent.z);
+        let yawDiff = trackHeading - state.yaw;
+        while (yawDiff > Math.PI) yawDiff -= Math.PI * 2;
+        while (yawDiff < -Math.PI) yawDiff += Math.PI * 2;
+        state.yaw += yawDiff * 0.35;
+      }
+
+      return { hitWall: true, lateralOffset };
+    }
+
+    return { hitWall: false, lateralOffset };
   }
 
   /**

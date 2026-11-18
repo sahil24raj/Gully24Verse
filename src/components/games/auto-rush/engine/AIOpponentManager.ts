@@ -127,6 +127,9 @@ export class AIOpponentManager {
         recover: false
       });
 
+      // Keep AI strictly constrained to the track as well
+      this.trackManager.constrainToTrack(state);
+
       // 5. Update Lap & Checkpoint progress
       const progress = this.trackManager.updateRacerProgress(
         state.x,
