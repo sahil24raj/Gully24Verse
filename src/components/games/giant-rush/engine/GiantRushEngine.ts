@@ -91,8 +91,8 @@ export class GiantRushEngine {
   }
 
   public update(delta: number, phase: GamePhase, playerState: PlayerState): void {
-    // 1. Update Player 3D Mesh
-    this.player.group.position.set(playerState.x, 0, playerState.z);
+    // 1. Update Player 3D Mesh (Negative X maps screen right to Three.js camera NDC)
+    this.player.group.position.set(-playerState.x, 0, playerState.z);
     this.player.setColor(playerState.color);
     const isPlayerRunning = phase === 'RUNNING' || phase === 'FINISH_APPROACH';
     this.player.update(delta, isPlayerRunning, playerState.scale);
@@ -131,7 +131,7 @@ export class GiantRushEngine {
       const followDist = 8.5 * Math.pow(s, 0.35);
       const followHeight = 3.6 + s * 1.2;
 
-      const targetX = playerState.x * 0.45 + shakeX;
+      const targetX = -playerState.x * 0.45 + shakeX;
       const targetY = followHeight + shakeY;
       const targetZ = playerState.z - followDist;
 
@@ -140,7 +140,7 @@ export class GiantRushEngine {
       this.camera.position.z += (targetZ - this.camera.position.z) * Math.min(1, delta * 14);
 
       // Look ahead of runner
-      this.camera.lookAt(playerState.x * 0.3, 1.4 * s, playerState.z + 12);
+      this.camera.lookAt(-playerState.x * 0.3, 1.4 * s, playerState.z + 12);
     } else if (phase === 'BOSS_INTRO' || phase === 'BOSS_QTE' || phase === 'BOSS_PUNCH') {
       // Cinematic 45-degree angle facing the two titans
       const arenaZ = this.track.bossArenaZ;

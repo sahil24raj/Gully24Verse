@@ -10,7 +10,8 @@ import { GiantRushHUD } from './ui/GiantRushHUD';
 import { BossQTEOverlay } from './ui/BossQTEOverlay';
 import { VictoryModal } from './ui/VictoryModal';
 import { DefeatModal } from './ui/DefeatModal';
-import { Play, Sparkles } from 'lucide-react';
+import { GiantRushDebugOverlay } from './ui/GiantRushDebugOverlay';
+import { Play, Sparkles, Terminal } from 'lucide-react';
 
 export const GiantRushGame: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -39,6 +40,11 @@ export const GiantRushGame: React.FC = () => {
   const [qteTaps, setQteTaps] = useState<number>(0);
   const [qtePowerRatio, setQtePowerRatio] = useState<number>(1.0);
 
+  // Development Debug Monitor State
+  const [isDebugOpen, setIsDebugOpen] = useState<boolean>(false);
+  const [fps, setFps] = useState<number>(60);
+  const [transitionLog, setTransitionLog] = useState<string[]>([]);
+
   // Active Player State
   const [playerState, setPlayerState] = useState<PlayerState>({
     x: 0,
@@ -58,9 +64,10 @@ export const GiantRushGame: React.FC = () => {
   const playerStateRef = useRef<PlayerState>(playerState);
   const playerVxRef = useRef<number>(0); // Velocity interpolation
 
-  // FSM Timers & flags
+  // FSM Timers & punch result
   const phaseTimerRef = useRef<number>(0);
   const punchExecutedRef = useRef<boolean>(false);
+  const punchVictoryRef = useRef<boolean>(false);
 
   const currentLevel: LevelConfig = LEVELS[currentLevelIdx % LEVELS.length];
   const currentLevelRef = useRef<LevelConfig>(currentLevel);
@@ -70,6 +77,13 @@ export const GiantRushGame: React.FC = () => {
   const isPointerDownRef = useRef<boolean>(false);
   const lastPointerXRef = useRef<number>(0);
   const keysDownRef = useRef<{ [key: string]: boolean }>({});
+
+  const logTransition = useCallback((from: GamePhase, to: GamePhase, reason?: string) => {
+    const timestamp = new Date().toLocaleTimeString();
+    const entry = `${from} -> ${to}${reason ? ` (${reason})` : ''}`;
+    setTransitionLog((prev) => [...prev.slice(-6), `${timestamp}: ${entry}`]);
+    console.log(`[GiantRush FSM ${timestamp}] ${entry}`);
+  }, []);
 
   // Boss QTE Tap Action (Responsive & Real-time)
   const handleBossQteTap = useCallback(() => {
@@ -123,6 +137,11 @@ export const GiantRushGame: React.FC = () => {
       if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'Space', 'KeyA', 'KeyD'].includes(e.code) ||
           ['a', 'A', 'd', 'D', ' '].includes(e.key)) {
         e.preventDefault();
+      }
+
+      // Toggle Debug Monitor
+      if (e.key === '`' || e.code === 'Backquote' || e.key === 'F3') {
+        setIsDebugOpen((prev) => !prev);
       }
 
       // Space / Enter can also tap in QTE mode!
@@ -207,6 +226,7 @@ export const GiantRushGame: React.FC = () => {
     playerVxRef.current = 0;
     phaseTimerRef.current = 0;
     punchExecutedRef.current = false;
+    punchVictoryRef.current = false;
 
     setPlayerState(freshState);
     setQteTime(3.0);
@@ -218,6 +238,7 @@ export const GiantRushGame: React.FC = () => {
       engineRef.current.boss.resetBoss();
     }
 
+    logTransition(phaseRef.current, 'RUNNING', 'User started run');
     phaseRef.current = 'RUNNING';
     setPhase('RUNNING');
   };
@@ -226,6 +247,8 @@ export const GiantRushGame: React.FC = () => {
   useEffect(() => {
     let isMounted = true;
     let hudSyncCounter = 0;
+    let framesThisSec = 0;
+    let lastFpsCalc = performance.now();
 
     const loop = (timestamp: number) => {
       if (!isMounted) return;
@@ -233,6 +256,14 @@ export const GiantRushGame: React.FC = () => {
       if (!lastTimeRef.current) lastTimeRef.current = timestamp;
       const delta = Math.min((timestamp - lastTimeRef.current) / 1000, 0.08);
       lastTimeRef.current = timestamp;
+
+      // Track FPS
+      framesThisSec++;
+      if (timestamp - lastFpsCalc >= 500) {
+        setFps(Math.round((framesThisSec * 1000) / (timestamp - lastFpsCalc)));
+        framesThisSec = 0;
+        lastFpsCalc = timestamp;
+      }
 
       const engine = engineRef.current;
       const currentPhase = phaseRef.current;
@@ -244,6 +275,8 @@ export const GiantRushGame: React.FC = () => {
         // ==========================================
         if (currentPhase === 'RUNNING') {
           // Continuous Lateral Keyboard Steering
+          // A / Left Arrow = Move Left (decreases screen X)
+          // D / Right Arrow = Move Right (increases screen X)
           let targetSteerDir = 0;
           const k = keysDownRef.current;
           if (k['ArrowLeft'] || k['a'] || k['A'] || k['KeyA']) {
@@ -274,6 +307,7 @@ export const GiantRushGame: React.FC = () => {
 
           // Check Crushed Defeat Condition
           if (nextScale < 0.42) {
+            logTransition('RUNNING', 'DEFEAT', 'Scale dropped below 0.42');
             phaseRef.current = 'DEFEAT';
             setDefeatReason('CRUSHED');
             setPhase('DEFEAT');
@@ -318,6 +352,7 @@ export const GiantRushGame: React.FC = () => {
 
           // D. Finish Line Detection -> Transition to Arena Approach
           if (playerStateRef.current.z >= engine.track.finishLineZ) {
+            logTransition('RUNNING', 'FINISH_APPROACH', `Passed finish line ${engine.track.finishLineZ}m`);
             phaseRef.current = 'FINISH_APPROACH';
             setPhase('FINISH_APPROACH');
             AudioEffects.playColorGate();
@@ -338,6 +373,7 @@ export const GiantRushGame: React.FC = () => {
             playerStateRef.current.z = arenaConfrontZ;
             playerStateRef.current.x = 0;
 
+            logTransition('FINISH_APPROACH', 'BOSS_INTRO', 'Arrived at arena confront distance');
             phaseRef.current = 'BOSS_INTRO';
             phaseTimerRef.current = 1.4; // 1.4s dramatic camera swing
             setPhase('BOSS_INTRO');
@@ -350,6 +386,7 @@ export const GiantRushGame: React.FC = () => {
         else if (currentPhase === 'BOSS_INTRO') {
           phaseTimerRef.current -= delta;
           if (phaseTimerRef.current <= 0) {
+            logTransition('BOSS_INTRO', 'BOSS_QTE', 'Camera swing finished');
             phaseRef.current = 'BOSS_QTE';
             engine.boss.startQte();
             setQteTime(3.0);
@@ -367,9 +404,11 @@ export const GiantRushGame: React.FC = () => {
           setQtePowerRatio(engine.boss.powerRatio);
 
           if (engine.boss.qteTimeRemaining <= 0) {
+            logTransition('BOSS_QTE', 'BOSS_PUNCH', '3.0s QTE expired');
             phaseRef.current = 'BOSS_PUNCH';
             phaseTimerRef.current = 0.9;
             punchExecutedRef.current = false;
+            punchVictoryRef.current = false;
             engine.player.triggerPunch();
             setPhase('BOSS_PUNCH');
           }
@@ -381,29 +420,28 @@ export const GiantRushGame: React.FC = () => {
         else if (currentPhase === 'BOSS_PUNCH') {
           phaseTimerRef.current -= delta;
 
-          // Impact at peak of windup
+          // Impact at peak of windup (0.45s)
           if (!punchExecutedRef.current && phaseTimerRef.current <= 0.45) {
             punchExecutedRef.current = true;
             engine.triggerScreenShake(0.85);
 
             const punchResult = engine.boss.executePunch(playerStateRef.current.power);
+            punchVictoryRef.current = punchResult.isVictory;
+          }
 
-            if (punchResult.isVictory) {
-              // Wait until punch follow-through then transition to ragdoll launch
-              setTimeout(() => {
-                if (!isMounted) return;
-                phaseRef.current = 'BOSS_LAUNCH';
-                phaseTimerRef.current = 2.6; // 2.6s tracking launch
-                setPhase('BOSS_LAUNCH');
-              }, 400);
+          // Complete punch follow-through and transition
+          if (phaseTimerRef.current <= 0) {
+            if (punchVictoryRef.current) {
+              logTransition('BOSS_PUNCH', 'BOSS_LAUNCH', 'Punch connected! Boss launched');
+              phaseRef.current = 'BOSS_LAUNCH';
+              phaseTimerRef.current = 2.6; // 2.6s tracking launch
+              setPhase('BOSS_LAUNCH');
             } else {
-              setTimeout(() => {
-                if (!isMounted) return;
-                phaseRef.current = 'DEFEAT';
-                setDefeatReason('BOSS_DEFEATED');
-                setPhase('DEFEAT');
-                AudioEffects.playDefeat();
-              }, 400);
+              logTransition('BOSS_PUNCH', 'DEFEAT', 'Boss defeated player');
+              phaseRef.current = 'DEFEAT';
+              setDefeatReason('BOSS_DEFEATED');
+              setPhase('DEFEAT');
+              AudioEffects.playDefeat();
             }
           }
         }
@@ -415,6 +453,7 @@ export const GiantRushGame: React.FC = () => {
           phaseTimerRef.current -= delta;
 
           if (phaseTimerRef.current <= 0 || !engine.boss.isLaunching) {
+            logTransition('BOSS_LAUNCH', 'VICTORY', 'Boss landed on multiplier');
             phaseRef.current = 'VICTORY';
             const earned = engine.boss.getEarnedMultiplier();
             const rewardCoins = Math.round(250 * earned.mult);
@@ -442,7 +481,7 @@ export const GiantRushGame: React.FC = () => {
       isMounted = false;
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
-  }, [addCoins, addXP]);
+  }, [addCoins, addXP, logTransition]);
 
   const progressPercent = Math.min(
     100,
@@ -461,6 +500,32 @@ export const GiantRushGame: React.FC = () => {
     >
       {/* 3D WebGL Canvas */}
       <canvas ref={canvasRef} className="w-full h-full block cursor-grab active:cursor-grabbing" />
+
+      {/* DEV DEBUG MONITOR TOGGLE PILL */}
+      <button
+        onClick={() => setIsDebugOpen((prev) => !prev)}
+        className="absolute top-3 left-3 z-50 px-2.5 py-1 rounded-lg bg-black/60 hover:bg-black/90 border border-cyan-500/30 text-[10px] font-mono text-cyan-400 flex items-center gap-1.5 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+        title="Toggle Dev Debug Monitor (Press ~ or F3)"
+      >
+        <Terminal className="w-3 h-3 text-cyan-400" />
+        <span>{isDebugOpen ? 'HIDE DEBUG' : 'DEBUG'}</span>
+      </button>
+
+      {/* DEV DEBUG OVERLAY */}
+      {isDebugOpen && (
+        <GiantRushDebugOverlay
+          fps={fps}
+          phase={phase}
+          player={playerState}
+          finishLineZ={engineRef.current?.track.finishLineZ || currentLevel.trackLength}
+          bossArenaZ={engineRef.current?.track.bossArenaZ || currentLevel.trackLength + 24}
+          boss={engineRef.current?.boss.boss || null}
+          qteTime={qteTime}
+          qteTaps={qteTaps}
+          powerRatio={qtePowerRatio}
+          transitionLog={transitionLog}
+        />
+      )}
 
       {/* IN-GAME HUD */}
       {(phase === 'RUNNING' || phase === 'FINISH_APPROACH' || phase === 'BOSS_INTRO') && (

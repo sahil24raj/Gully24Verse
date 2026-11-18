@@ -53,9 +53,9 @@ export class RunwayTrackManager {
     });
 
     const leftRail = new THREE.Mesh(guardrailGeo, railMat);
-    leftRail.position.set(-RUNWAY_HALF_WIDTH - 0.25, 0.45, runwayLength / 2);
+    leftRail.position.set(RUNWAY_HALF_WIDTH + 0.25, 0.45, runwayLength / 2);
     const rightRail = new THREE.Mesh(guardrailGeo, railMat);
-    rightRail.position.set(RUNWAY_HALF_WIDTH + 0.25, 0.45, runwayLength / 2);
+    rightRail.position.set(-RUNWAY_HALF_WIDTH - 0.25, 0.45, runwayLength / 2);
 
     this.group.add(leftRail, rightRail);
 
@@ -191,7 +191,7 @@ export class RunwayTrackManager {
         };
 
         const obsGroup = new THREE.Group();
-        obsGroup.position.set(item.x, item.y, item.z);
+        obsGroup.position.set(-item.x, item.y, item.z);
 
         const hazardMat = new THREE.MeshStandardMaterial({
           color: 0xdc2626,
@@ -223,55 +223,6 @@ export class RunwayTrackManager {
         this.obstacles.push(item);
         this.obstacleMeshes.push(obsGroup);
       }
-    }
-  }
-        x: initialX,
-        y: 0.5,
-        z,
-        type,
-        width: type === 'barrier_wall' ? 4.5 : 2.5,
-        height: 1.5,
-        depth: 1.2,
-        rotSpeed: 3.5,
-        moveAmplitude: type === 'spinning_blade' ? 2.8 : 0,
-        moveSpeed: 1.8 + Math.random() * 1.5,
-        initialX,
-        isHit: false
-      };
-
-      const obsGroup = new THREE.Group();
-      obsGroup.position.set(item.x, item.y, item.z);
-
-      const hazardMat = new THREE.MeshStandardMaterial({
-        color: 0xdc2626,
-        roughness: 0.4,
-        metalness: 0.7
-      });
-
-      if (type === 'spinning_blade') {
-        const bladeGeo = new THREE.CylinderGeometry(1.6, 1.6, 0.15, 6);
-        bladeGeo.rotateX(Math.PI / 2);
-        const blade = new THREE.Mesh(bladeGeo, hazardMat);
-        blade.castShadow = true;
-        obsGroup.add(blade);
-      } else if (type === 'spike_roller') {
-        const rollerGeo = new THREE.CylinderGeometry(0.8, 0.8, 4.0, 12);
-        rollerGeo.rotateZ(Math.PI / 2);
-        const roller = new THREE.Mesh(rollerGeo, hazardMat);
-        roller.castShadow = true;
-        obsGroup.add(roller);
-      } else {
-        // Barrier Wall with hazard stripes
-        const wallGeo = new THREE.BoxGeometry(item.width, 2.2, 0.8);
-        const wall = new THREE.Mesh(wallGeo, hazardMat);
-        wall.position.y = 0.6;
-        wall.castShadow = true;
-        obsGroup.add(wall);
-      }
-
-      this.group.add(obsGroup);
-      this.obstacles.push(item);
-      this.obstacleMeshes.push(obsGroup);
     }
   }
 
@@ -366,7 +317,7 @@ export class RunwayTrackManager {
       // Oscillate horizontally
       if (obs.moveAmplitude > 0) {
         obs.x = obs.initialX + Math.sin(time * obs.moveSpeed) * obs.moveAmplitude;
-        mesh.position.x = obs.x;
+        mesh.position.x = -obs.x;
       }
 
       // Rotate blades / rollers

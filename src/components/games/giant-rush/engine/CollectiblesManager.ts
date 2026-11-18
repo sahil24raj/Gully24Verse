@@ -83,7 +83,7 @@ export class CollectiblesManager {
           scale: 0.65
         };
         const matchMesh = this.createMicroRunnerMesh(targetColor);
-        matchMesh.position.set(matchItem.x, 0, matchItem.z);
+        matchMesh.position.set(-matchItem.x, 0, matchItem.z);
         this.group.add(matchMesh);
         this.items.push(matchItem);
         this.meshes.push(matchMesh);
@@ -106,7 +106,7 @@ export class CollectiblesManager {
           scale: 0.65
         };
         const contrastMesh = this.createMicroRunnerMesh(contrastColor);
-        contrastMesh.position.set(contrastItem.x, 0, contrastItem.z);
+        contrastMesh.position.set(-contrastItem.x, 0, contrastItem.z);
         this.group.add(contrastMesh);
         this.items.push(contrastItem);
         this.meshes.push(contrastMesh);
