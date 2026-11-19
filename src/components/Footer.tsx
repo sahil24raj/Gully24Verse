@@ -64,11 +64,11 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col gap-3">
           <h4 className="font-label-lg text-white font-black tracking-wider uppercase">Featured Games</h4>
           <Link
-            href="/games/truck-run"
+            href="/games/giant-rush"
             onClick={() => soundFx.playClick()}
             className="font-body-sm hover:text-amber-400 transition-colors w-fit"
           >
-            🚛 Truck Run (3D)
+            👊 Giant Rush (3D)
           </Link>
           <Link
             href="/games/auto-rush"

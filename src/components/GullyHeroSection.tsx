@@ -87,11 +87,11 @@ export const GullyHeroSection: React.FC = () => {
       borderColor: '#EF4444'
     },
     {
-      id: 'truck-run',
-      name: 'TRUCK RUN 3D',
-      category: 'Truck Run 3D 🚛',
-      route: '/game/truck-run',
-      image: '/games/truck-run.jpg',
+      id: 'giant-rush',
+      name: 'GIANT RUSH 3D',
+      category: 'Giant Rush 👊',
+      route: '/game/giant-rush',
+      image: '/games/giant-rush.jpg',
       borderColor: '#FF9F1C'
     },
     {

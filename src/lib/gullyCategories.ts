@@ -40,7 +40,7 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     title: 'ENDLESS RUN',
     description:
       'Full speed dashes through Grand Trunk highways, Chroma runways and Delhi street checkpoints. Collect chai refills, dodge traffic, and break records.',
-    gameIds: ['giant-rush', 'truck-run', 'genz-protest-run', 'auto-rush']
+    gameIds: ['giant-rush', 'genz-protest-run', 'auto-rush']
   },
   {
     key: 'multiplayer',
@@ -70,7 +70,7 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     title: 'DESI RACING',
     description:
       'Drift 3-wheel auto-rickshaws in the Gurugram Grand Prix or commandeer the legendary Tata 1613 heavy lorry with pressure horns.',
-    gameIds: ['truck-run', 'auto-rush']
+    gameIds: ['auto-rush']
   },
   {
     key: 'action',
@@ -92,7 +92,7 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     title: 'MEME GAMES',
     description:
       'Unhinged desi chaos inspired by Indian memes, viral news, dhaba banter, and street humor.',
-    gameIds: ['indian-politics-arena', 'genz-protest-run', 'truck-run', 'auto-rush']
+    gameIds: ['indian-politics-arena', 'genz-protest-run', 'auto-rush']
   },
   {
     key: 'party',

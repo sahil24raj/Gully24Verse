@@ -25,19 +25,19 @@ interface BattleCardData {
 
 const TOP_BATTLES: BattleCardData[] = [
   {
-    id: 'truck-run',
-    title: 'Truck Run 🚛💨',
-    badge: '3D Unity Highway',
+    id: 'giant-rush',
+    title: 'Giant Rush 3D 👊🔥',
+    badge: '3D Chroma Runner',
     badgeBg: 'bg-amber-500 text-slate-950 font-black',
-    rating: '4.99',
-    statsLeft: 'DESI HIGHWAY • 2-5 MIN',
-    statsRight: '2,480 DRIVERS',
+    rating: '4.98',
+    statsLeft: 'CHROMA BRAWLER • 1-3 MIN',
+    statsRight: '3,840 FIGHTERS',
     statsRightColor: 'text-amber-400',
-    description: 'Horn OK Please! Drive the roaring Tata 1613 heavy cargo truck, blast musical horns, grab dhaba chai & dodge traffic on the Grand Trunk Road!',
+    description: 'Absorb same-color runners, grow into a colossal Titan, pass through color gates, and punch the boss to the moon in the rapid-tap arena!',
     buttonActionType: 'SOLO PLAY',
-    image: '/games/truck-run.jpg',
-    fallbackImage: '/games/truck-run.jpg',
-    route: '/games/truck-run',
+    image: '/games/giant-rush.jpg',
+    fallbackImage: '/games/giant-rush.jpg',
+    route: '/games/giant-rush',
     hoverGlow: 'hover:shadow-[0_0_35px_rgba(255,159,28,0.4)]'
   },
   {
