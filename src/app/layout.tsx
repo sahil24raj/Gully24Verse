@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     'India Ka Apna Gaming Adda',
     'desi browser games',
     'Indian multiplayer games',
-    'Truck Run 3D',
+    'Giant Rush 3D',
     'Chor Sipahi online',
     'Indian Politics Arena',
     'Auto Rush 3D',

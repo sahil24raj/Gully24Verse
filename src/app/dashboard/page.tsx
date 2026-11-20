@@ -302,7 +302,7 @@ export default function DashboardPage() {
     });
 
     // If fewer than 4 games, pad with featured favorites
-    const fallbackFavorites = ['truck-run', 'auto-rush', 'genz-protest-run', 'indian-politics-arena', 'chor-sipahi'];
+    const fallbackFavorites = ['auto-rush', 'auto-rush', 'genz-protest-run', 'indian-politics-arena', 'chor-sipahi'];
     for (const favId of fallbackFavorites) {
       if (list.length >= 6) break;
       if (!seenIds.has(favId)) {
@@ -341,7 +341,7 @@ export default function DashboardPage() {
             avatar: p.avatar || '🎮',
             level: 15 + (p.name.length % 20),
             status: 'online',
-            currentlyPlaying: match.gameTitle || 'Truck Run 🚛',
+            currentlyPlaying: match.gameTitle || 'Auto Rush 🚛',
             lastSeen: 'Active now',
             gamesTogether: 12 + (p.score % 25),
             gameId: match.gameId
@@ -358,10 +358,10 @@ export default function DashboardPage() {
         avatar: '🥷',
         level: 18,
         status: 'online',
-        currentlyPlaying: 'Truck Run 🚛',
+        currentlyPlaying: 'Auto Rush 🚛',
         lastSeen: 'Playing now',
         gamesTogether: 42,
-        gameId: 'truck-run'
+        gameId: 'auto-rush'
       },
       {
         id: 'f_delhiracer',
@@ -530,7 +530,7 @@ export default function DashboardPage() {
 
               {/* Bio */}
               <p className="text-xs sm:text-sm text-slate-300 font-sans max-w-xl pt-1">
-                {user.bio || 'Dominating the Grand Trunk Highway in Truck Run & claiming the Supreme Kursi in GullyVerse.'}
+                {user.bio || 'Dominating the Grand Trunk Highway in Auto Rush & claiming the Supreme Kursi in GullyVerse.'}
               </p>
             </div>
           </div>
@@ -722,7 +722,7 @@ export default function DashboardPage() {
             <span className="text-5xl">🎮</span>
             <h3 className="text-lg font-bold text-white font-display">No Games Played Yet</h3>
             <p className="text-xs text-soft-lavender max-w-md mx-auto">
-              Jump into Truck Run or race Tirri auto-rickshaws to start recording high scores!
+              Jump into Auto Rush or race Tirri auto-rickshaws to start recording high scores!
             </p>
             <Link
               href="/categories"

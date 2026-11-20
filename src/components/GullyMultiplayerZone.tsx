@@ -37,7 +37,7 @@ const LIVE_GULLY_FRIENDS: ActivePlayer[] = [
     avatar: '🥷',
     level: 18,
     status: 'playing',
-    playingGame: 'Truck Run 🚛💨',
+    playingGame: 'Auto Rush 🏎️💨',
     gamesTogether: 42
   },
   {
