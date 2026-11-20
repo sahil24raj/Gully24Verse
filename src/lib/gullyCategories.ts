@@ -40,7 +40,7 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     title: 'ENDLESS RUN',
     description:
       'Full speed dashes through Grand Trunk highways, Chroma runways and Delhi street checkpoints. Collect chai refills, dodge traffic, and break records.',
-    gameIds: ['fun-race', 'auto-rush', 'giant-rush', 'genz-protest-run']
+    gameIds: ['jelly-run', 'fun-race', 'auto-rush', 'giant-rush', 'genz-protest-run']
   },
   {
     key: 'multiplayer',

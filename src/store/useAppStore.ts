@@ -122,6 +122,38 @@ export const INITIAL_RECENT_MATCHES: RecentMatch[] = [];
 
 export const GAMES_CATALOG: GameItem[] = [
   {
+    id: 'jelly-run',
+    title: 'Jelly Run 2048 🍮✨',
+    slug: 'jelly-run',
+    tagline: 'Split, merge, and race! Steer squishy numbered jelly cubes, bypass center pillars, and hit 2048 on multiplier runways!',
+    description: 'The definitive 3D jelly runner puzzle! Guide your squishy, glowing numbered cubes down high-speed elevated aquatic tracks. Drag to steer into matching number cubes to merge into higher powers of 2. Tap or press Space to dynamically split your cube in two to bypass center pillars and deadly rotating sawblades, then fuse back together to double your score and launch down the multiplier runway!',
+    category: '⚡ Action & Battle',
+    categoryKey: 'action',
+    thumbnail: '🍮',
+    bannerImage: '/games/jelly-run.jpg',
+    playCount: 468000,
+    rating: 4.98,
+    difficulty: 'Medium',
+    duration: '1-3 min',
+    multiplayer: false,
+    multiplayerModes: ['ai'],
+    isTrending: true,
+    isNew: true,
+    isPopular: true,
+    isFeatured: true,
+    tags: ['3D', 'Jelly Run', '2048', 'Runner', 'Puzzle', 'Hypercasual', 'Action'],
+    controls: [
+      'Drag Mouse / Touch or [A / D] / [Left / Right]: Steer jelly cube laterally',
+      'Tap Screen / Click or [Space / W / S]: Split into twin cubes or Merge back together'
+    ],
+    rules: [
+      'Hit matching number cubes (2+2=4, 4+4=8...) to merge and double value',
+      'Split your cube to navigate around center pillars and split barriers',
+      'Merge your twin cubes together to double their score value',
+      'Cross the finish line to blast down high-multiplier runways up to 50x!'
+    ]
+  },
+  {
     id: 'fun-race',
     title: 'Fun Race 3D 🏃💨',
     slug: 'fun-race',

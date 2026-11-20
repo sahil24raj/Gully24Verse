@@ -81,8 +81,16 @@ export const GullyHeroSection: React.FC = () => {
     }
   };
 
-  // ALL 13 Games in 1-Tap Play Dock: Prioritizing Newest 3D & Highest Played Hits
+  // ALL Games in 1-Tap Play Dock: Prioritizing Newest 3D & Highest Played Hits
   const quickLaunchGames: QuickGameCard[] = [
+    {
+      id: 'jelly-run',
+      name: 'Jelly Run 2048 🍮✨',
+      category: '2048 Runner',
+      route: '/game/jelly-run',
+      image: '/games/jelly-run.jpg',
+      borderColor: '#F43F5E'
+    },
     {
       id: 'fun-race',
       name: 'Fun Race 3D 🏃💨',

@@ -25,6 +25,22 @@ interface BattleCardData {
 
 const TOP_BATTLES: BattleCardData[] = [
   {
+    id: 'jelly-run',
+    title: 'Jelly Run 2048 🍮✨',
+    badge: '3D 2048 Runner',
+    badgeBg: 'bg-rose-500 text-white font-black',
+    rating: '4.99',
+    statsLeft: 'SPLIT & MERGE PUZZLE',
+    statsRight: 'NEW HIT',
+    statsRightColor: 'text-rose-400',
+    description: 'Steer squishy numbered jelly cubes, split around center pillars, merge into 2048, and launch down the 50x multiplier runway!',
+    buttonActionType: 'SOLO PLAY',
+    image: '/games/jelly-run.jpg',
+    fallbackImage: '/games/jelly-run.jpg',
+    route: '/game/jelly-run',
+    hoverGlow: 'hover:shadow-[0_0_35px_rgba(244,63,94,0.4)]'
+  },
+  {
     id: 'fun-race',
     title: 'Fun Race 3D 🏃💨',
     badge: '3D Obstacle Runner',

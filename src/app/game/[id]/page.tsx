@@ -26,6 +26,7 @@ import { IndianPoliticsArenaGame } from '@/components/games/indian-politics-aren
 import { AutoRushGame } from '@/components/games/auto-rush/AutoRushGame';
 import { GiantRushGame } from '@/components/games/giant-rush/GiantRushGame';
 import { FunRaceGame } from '@/components/games/fun-race/FunRaceGame';
+import { JellyRunGame } from '@/components/games/jelly-run/JellyRunGame';
 
 import { SingleUnifiedMultiplayerModal } from '@/components/game-shell/SingleUnifiedMultiplayerModal';
 import {
@@ -148,6 +149,12 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
 
   const renderGameCanvas = () => {
     switch (game.id) {
+      case 'jelly-run':
+        return (
+          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-cyan-400">Loading Jelly Run 2048...</div>}>
+            <JellyRunGame />
+          </React.Suspense>
+        );
       case 'fun-race':
         return (
           <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-cyan-400">Loading Fun Race 3D...</div>}>
