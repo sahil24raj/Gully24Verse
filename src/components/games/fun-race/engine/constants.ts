@@ -1,25 +1,26 @@
 export const FUN_RACE_CONSTANTS = {
   // Movement Physics
-  PLAYER_RUN_SPEED: 8.2, // Units per second along track spline
-  DECELERATION_TIME: 0.04, // Brake time in seconds
-  GRAVITY: -24.0, // Falling gravity
-  KNOCKBACK_UP_VELOCITY: 7.2,
+  PLAYER_RUN_SPEED: 7.8, // Units per second along track spline
+  DECELERATION_TIME: 0.02, // Near-instant brake
+  GRAVITY: -24.0, // Falling gravity during ragdoll
+  KNOCKBACK_UP_VELOCITY: 7.5,
   KNOCKBACK_LATERAL_VELOCITY: 8.5,
   RESPAWN_DELAY: 1.1, // Seconds before checkpoint respawn
-  INVINCIBLE_TIME: 0.8, // Invincibility flash after respawn
+  INVINCIBLE_TIME: 1.0, // Invincibility flash after respawn
+  COUNTDOWN_DURATION: 3.0, // 3-2-1-GO duration in seconds
 
   // Dimensions & Collisions
-  CHARACTER_RADIUS: 0.38,
+  CHARACTER_RADIUS: 0.35,
   CHARACTER_HEIGHT: 1.5,
-  TRACK_WIDTH: 2.6,
+  TRACK_WIDTH: 2.8,
   WATER_SURFACE_Y: -2.8,
 
-  // Camera Settings
-  CAMERA_FOLLOW_DISTANCE: 7.2,
-  CAMERA_HEIGHT: 5.6,
-  CAMERA_LOOKAHEAD: 3.2,
-  CAMERA_LERP: 0.12,
-  CAMERA_FOV: 55,
+  // Camera Settings (Elevated 3rd Person with High Lookahead)
+  CAMERA_FOLLOW_DISTANCE: 8.5,
+  CAMERA_HEIGHT: 6.8,
+  CAMERA_LOOKAHEAD: 4.2,
+  CAMERA_LERP: 0.14,
+  CAMERA_FOV: 52,
 
   // Visual Themes
   COLORS: {

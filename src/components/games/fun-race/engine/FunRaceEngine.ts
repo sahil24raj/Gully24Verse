@@ -4,6 +4,7 @@ import { ObstacleManager } from './ObstacleManager';
 import { ParticleManager } from './ParticleManager';
 import { PlayerRunner } from './PlayerRunner';
 import { OpponentRunner } from './OpponentRunner';
+import { InputManager } from './InputManager';
 import { funRaceAudio } from './AudioManager';
 import { FUN_RACE_CONSTANTS } from './constants';
 import { FUN_RACE_LEVELS } from './LevelData';
@@ -20,12 +21,15 @@ export class FunRaceEngine {
   public particleManager: ParticleManager;
   public player: PlayerRunner;
   public opponents: OpponentRunner[] = [];
+  public inputManager: InputManager;
 
   public currentLevelIndex: number = 0;
-  public gameState: GameState = 'RACING';
+  public gameState: GameState = 'COUNTDOWN';
   public isHolding: boolean = false;
   public coinsEarned: number = 0;
 
+  private countdownTimer: number = 3.0;
+  private lastAnnouncedSecond: number = 4;
   private waterMesh: THREE.Mesh;
   private waterTime: number = 0;
   private animFrameId: number | null = null;
@@ -66,25 +70,25 @@ export class FunRaceEngine {
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.1;
+    this.renderer.toneMappingExposure = 1.15;
 
     container.appendChild(this.renderer.domElement);
 
     // 3. Lighting Architecture
-    const hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0x0284C7, 0.7);
+    const hemiLight = new THREE.HemisphereLight(0xFFFFFF, 0x0284C7, 0.75);
     this.scene.add(hemiLight);
 
-    const sunLight = new THREE.DirectionalLight(0xFFFFFF, 1.25);
-    sunLight.position.set(25, 45, 20);
+    const sunLight = new THREE.DirectionalLight(0xFFFFFF, 1.3);
+    sunLight.position.set(30, 50, 25);
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 2048;
     sunLight.shadow.mapSize.height = 2048;
     sunLight.shadow.camera.near = 10;
-    sunLight.shadow.camera.far = 120;
-    sunLight.shadow.camera.left = -30;
-    sunLight.shadow.camera.right = 30;
-    sunLight.shadow.camera.top = 30;
-    sunLight.shadow.camera.bottom = -30;
+    sunLight.shadow.camera.far = 130;
+    sunLight.shadow.camera.left = -35;
+    sunLight.shadow.camera.right = 35;
+    sunLight.shadow.camera.top = 35;
+    sunLight.shadow.camera.bottom = -35;
     sunLight.shadow.bias = -0.0005;
     this.scene.add(sunLight);
 
@@ -117,7 +121,13 @@ export class FunRaceEngine {
     this.player = new PlayerRunner(FUN_RACE_CONSTANTS.COLORS.PLAYER);
     this.scene.add(this.player.rig.root);
 
-    // 6. Bind Resize & Start Game Loop
+    // 6. Centralized Input Manager
+    this.inputManager = new InputManager();
+    this.inputManager.attach(container, (holding) => {
+      this.isHolding = holding;
+    });
+
+    // 7. Bind Resize & Start Game Loop
     window.addEventListener('resize', this.handleResize);
     this.loadLevel(0);
     this.startLoop();
@@ -180,15 +190,19 @@ export class FunRaceEngine {
       this.scene.add(bot.rig.root);
     }
 
-    // Initialize Camera Position
+    // Initialize Camera Position with High Lookahead
     const initialTarget = pSample.position.clone();
-    this.camCurrentLookAt.copy(initialTarget);
-    this.camCurrentPos.copy(initialTarget).add(new THREE.Vector3(0, 5.5, -7.0));
+    this.camCurrentLookAt.copy(initialTarget).add(new THREE.Vector3(0, 1.2, FUN_RACE_CONSTANTS.CAMERA_LOOKAHEAD));
+    this.camCurrentPos.copy(initialTarget).add(new THREE.Vector3(0, FUN_RACE_CONSTANTS.CAMERA_HEIGHT, -FUN_RACE_CONSTANTS.CAMERA_FOLLOW_DISTANCE));
     this.camera.position.copy(this.camCurrentPos);
     this.camera.lookAt(this.camCurrentLookAt);
 
-    this.gameState = 'RACING';
+    // Begin with Countdown
+    this.gameState = 'COUNTDOWN';
+    this.countdownTimer = 3.0;
+    this.lastAnnouncedSecond = 4;
     this.isHolding = false;
+    this.inputManager.setEnabled(false);
   }
 
   public nextLevel() {
@@ -199,12 +213,7 @@ export class FunRaceEngine {
     this.loadLevel(this.currentLevelIndex);
   }
 
-  public setHolding(holding: boolean) {
-    if (this.gameState !== 'RACING') return;
-    this.isHolding = holding;
-  }
-
-  private handleResize = () => {
+  public handleResize = () => {
     if (!this.container) return;
     const width = this.container.clientWidth || 800;
     const height = this.container.clientHeight || 600;
@@ -245,8 +254,29 @@ export class FunRaceEngine {
     // 3. Update Particles
     this.particleManager.update(dt);
 
-    if (this.gameState === 'RACING') {
-      // 4. Update Player
+    // 4. Handle Countdown State (3 -> 2 -> 1 -> GO!)
+    if (this.gameState === 'COUNTDOWN') {
+      this.countdownTimer -= dt;
+      const currentSec = Math.ceil(this.countdownTimer);
+
+      if (currentSec > 0 && currentSec !== this.lastAnnouncedSecond) {
+        this.lastAnnouncedSecond = currentSec;
+        funRaceAudio.playCountdownBeep(currentSec);
+      }
+
+      if (this.countdownTimer <= 0) {
+        this.gameState = 'RACING';
+        this.inputManager.setEnabled(true);
+        funRaceAudio.playCountdownGo();
+      }
+
+      // Keep characters idling at starting line
+      this.player.update(dt, false, this.trackManager, this.obstacleManager, this.particleManager);
+      for (const bot of this.opponents) {
+        bot.update(dt, this.trackManager, this.obstacleManager, this.particleManager);
+      }
+    } else if (this.gameState === 'RACING') {
+      // 5. Update Player with InputManager state
       this.player.update(
         dt,
         this.isHolding,
@@ -255,7 +285,7 @@ export class FunRaceEngine {
         this.particleManager
       );
 
-      // 5. Update AI Opponents
+      // 6. Update AI Opponents
       for (const bot of this.opponents) {
         bot.update(
           dt,
@@ -265,14 +295,14 @@ export class FunRaceEngine {
         );
       }
 
-      // 6. Dynamic Rank Calculation
+      // 7. Dynamic Rank Calculation
       const allRunners = [this.player, ...this.opponents];
       allRunners.sort((a, b) => b.s - a.s);
       allRunners.forEach((r, idx) => {
         r.rank = idx + 1;
       });
 
-      // 7. Check Victory or Defeat Condition
+      // 8. Check Victory or Defeat Condition
       if (this.player.finished) {
         if (this.player.rank === 1) {
           this.gameState = 'VICTORY';
@@ -301,10 +331,10 @@ export class FunRaceEngine {
       );
     }
 
-    // 8. Dynamic Camera Tracking
+    // 9. Dynamic Camera Tracking
     this.updateCamera(dt);
 
-    // 9. Dispatch Engine Telemetry to UI HUD
+    // 10. Dispatch Engine Telemetry to UI HUD
     this.dispatchTelemetry();
   }
 
@@ -316,16 +346,15 @@ export class FunRaceEngine {
       // Dramatic Orbit Camera around winner
       const orbitAngle = performance.now() * 0.001;
       const targetCamPos = pPos.clone().add(new THREE.Vector3(
-        Math.cos(orbitAngle) * 4.5,
-        2.8,
-        Math.sin(orbitAngle) * 4.5
+        Math.cos(orbitAngle) * 4.8,
+        3.2,
+        Math.sin(orbitAngle) * 4.8
       ));
       this.camCurrentPos.lerp(targetCamPos, 0.08);
       this.camCurrentLookAt.lerp(pPos.clone().add(new THREE.Vector3(0, 1.2, 0)), 0.1);
     } else {
-      // Isometric Chase Camera aligned with Track Forward Tangent
+      // Elevated Isometric Chase Camera with high lookahead
       const tangent = pSample.tangent;
-      const normal = pSample.normal;
 
       const targetCamPos = pPos.clone()
         .addScaledVector(tangent, -FUN_RACE_CONSTANTS.CAMERA_FOLLOW_DISTANCE)
@@ -348,6 +377,12 @@ export class FunRaceEngine {
 
     const totalLen = this.trackManager.totalLength || 1.0;
     const playerProg = Math.min(100, Math.max(0, (this.player.s / totalLen) * 100));
+
+    let countdownVal: number | string | null = null;
+    if (this.gameState === 'COUNTDOWN') {
+      const ceil = Math.ceil(this.countdownTimer);
+      countdownVal = ceil > 0 ? ceil : 'GO!';
+    }
 
     const runnerTelemetries: RunnerTelemetry[] = [
       {
@@ -390,6 +425,7 @@ export class FunRaceEngine {
 
     this.onTelemetryCallback({
       gameState: this.gameState,
+      countdown: countdownVal,
       level: currentLvl.levelNumber,
       totalLevels: FUN_RACE_LEVELS.length,
       playerRank: this.player.rank,
@@ -413,6 +449,7 @@ export class FunRaceEngine {
       cancelAnimationFrame(this.animFrameId);
     }
     window.removeEventListener('resize', this.handleResize);
+    this.inputManager.destroy();
 
     if (this.renderer && this.renderer.domElement.parentElement) {
       this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);

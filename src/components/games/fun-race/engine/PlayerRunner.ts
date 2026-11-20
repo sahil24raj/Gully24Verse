@@ -126,9 +126,10 @@ export class PlayerRunner {
     // Align Rig with Spline Track
     const sample = track.sampleAtDistance(this.s);
     const targetPos = sample.position.clone().addScaledVector(sample.normal, this.lateralOffset);
+    targetPos.y = sample.position.y; // Strictly lock to deck surface
     this.rig.root.position.copy(targetPos);
 
-    // Orientation along Track Tangent
+    // Orientation along Track Tangent (locked yaw, no ungrounded tilt)
     const forward = sample.tangent.clone();
     const targetRotY = Math.atan2(forward.x, forward.z);
     this.rig.root.rotation.set(0, targetRotY, 0);

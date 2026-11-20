@@ -136,6 +136,7 @@ export class OpponentRunner {
     // Align with Spline Track
     const sample = track.sampleAtDistance(this.s);
     const targetPos = sample.position.clone().addScaledVector(sample.normal, this.lateralOffset);
+    targetPos.y = sample.position.y; // Strictly lock to deck surface
     this.rig.root.position.copy(targetPos);
 
     const forward = sample.tangent.clone();

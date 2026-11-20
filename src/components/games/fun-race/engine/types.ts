@@ -33,6 +33,7 @@ export interface RunnerTelemetry {
 
 export interface EngineTelemetry {
   gameState: GameState;
+  countdown: number | string | null;
   level: number;
   totalLevels: number;
   playerRank: number;

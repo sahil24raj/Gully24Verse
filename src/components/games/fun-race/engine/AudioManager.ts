@@ -19,6 +19,58 @@ export class FunRaceAudio {
     }
   }
 
+  public playCountdownBeep(num: number) {
+    if (this.isMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const t = this.ctx.currentTime;
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(440, t); // A4
+      gain.gain.setValueAtTime(0.2, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + 0.16);
+    } catch {
+      // Audio safety
+    }
+  }
+
+  public playCountdownGo() {
+    if (this.isMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const t = this.ctx.currentTime;
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(880, t); // A5
+      osc.frequency.exponentialRampToValueAtTime(1108.73, t + 0.1); // C#6
+
+      gain.gain.setValueAtTime(0.35, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + 0.36);
+    } catch {
+      // Audio safety
+    }
+  }
+
   public setMuted(muted: boolean) {
     this.isMuted = muted;
   }

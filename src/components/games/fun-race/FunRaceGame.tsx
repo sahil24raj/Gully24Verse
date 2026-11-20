@@ -9,19 +9,21 @@ import { FunRaceDefeatModal } from './ui/FunRaceDefeatModal';
 import { funRaceAudio } from './engine/AudioManager';
 
 export const FunRaceGame: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const gameContainerRef = useRef<HTMLDivElement>(null);
+  const canvasMountRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<FunRaceEngine | null>(null);
 
   const [telemetry, setTelemetry] = useState<EngineTelemetry | null>(null);
   const [isMuted, setIsMuted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [victoryData, setVictoryData] = useState<{ level: number; coins: number } | null>(null);
   const [defeatRank, setDefeatRank] = useState<number | null>(null);
 
-  // Initialize Three.js Engine
+  // Initialize Three.js Engine with Centralized Input Manager
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!canvasMountRef.current) return;
 
-    const engine = new FunRaceEngine(containerRef.current);
+    const engine = new FunRaceEngine(canvasMountRef.current);
     engineRef.current = engine;
 
     engine.setCallbacks(
@@ -45,59 +47,33 @@ export const FunRaceGame: React.FC = () => {
     };
   }, []);
 
-  // Input Handlers: Pointer & Keyboard (Spacebar)
-  const handlePointerDown = useCallback((e: React.PointerEvent | React.MouseEvent | React.TouchEvent) => {
-    // Only trigger if not clicking HUD buttons
-    const target = e.target as HTMLElement;
-    if (target.closest('button')) return;
+  // Fullscreen Management
+  const handleToggleFullscreen = useCallback(() => {
+    if (!gameContainerRef.current) return;
 
-    if (engineRef.current) {
-      engineRef.current.setHolding(true);
+    if (!document.fullscreenElement) {
+      gameContainerRef.current.requestFullscreen().catch((err) => {
+        console.warn('[FunRace Fullscreen] Failed to enter fullscreen:', err);
+      });
+    } else {
+      document.exitFullscreen().catch(() => {});
     }
   }, []);
 
-  const handlePointerUp = useCallback(() => {
-    if (engineRef.current) {
-      engineRef.current.setHolding(false);
-    }
-  }, []);
-
-  // Global window listeners to catch pointerup outside canvas
   useEffect(() => {
-    const onWindowPointerUp = () => {
-      if (engineRef.current) {
-        engineRef.current.setHolding(false);
-      }
-    };
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Space' && !e.repeat) {
-        e.preventDefault();
+    const onFullscreenChange = () => {
+      const active = Boolean(document.fullscreenElement);
+      setIsFullscreen(active);
+      setTimeout(() => {
         if (engineRef.current) {
-          engineRef.current.setHolding(true);
+          engineRef.current.handleResize();
         }
-      }
+      }, 50);
     };
 
-    const onKeyUp = (e: KeyboardEvent) => {
-      if (e.code === 'Space') {
-        e.preventDefault();
-        if (engineRef.current) {
-          engineRef.current.setHolding(false);
-        }
-      }
-    };
-
-    window.addEventListener('pointerup', onWindowPointerUp);
-    window.addEventListener('touchend', onWindowPointerUp);
-    window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('keyup', onKeyUp);
-
+    document.addEventListener('fullscreenchange', onFullscreenChange);
     return () => {
-      window.removeEventListener('pointerup', onWindowPointerUp);
-      window.removeEventListener('touchend', onWindowPointerUp);
-      window.removeEventListener('keydown', onKeyDown);
-      window.removeEventListener('keyup', onKeyUp);
+      document.removeEventListener('fullscreenchange', onFullscreenChange);
     };
   }, []);
 
@@ -127,22 +103,23 @@ export const FunRaceGame: React.FC = () => {
 
   return (
     <div
-      className="relative w-full aspect-[16/10] min-h-[480px] max-h-[82vh] rounded-3xl overflow-hidden shadow-2xl bg-slate-950 border-2 border-cyan-500/30 touch-none select-none"
-      onPointerDown={handlePointerDown}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={handlePointerUp}
-      onTouchStart={handlePointerDown}
-      onTouchEnd={handlePointerUp}
-      onTouchCancel={handlePointerUp}
+      ref={gameContainerRef}
+      className={`relative w-full rounded-3xl overflow-hidden shadow-2xl bg-slate-950 border-2 border-cyan-500/30 touch-none select-none ${
+        isFullscreen
+          ? 'fixed inset-0 z-50 rounded-none border-none w-screen h-screen'
+          : 'aspect-[16/10] min-h-[480px] max-h-[82vh]'
+      }`}
     >
       {/* 3D WebGL Canvas Mount */}
-      <div ref={containerRef} className="absolute inset-0 w-full h-full cursor-pointer" />
+      <div ref={canvasMountRef} className="absolute inset-0 w-full h-full cursor-pointer" />
 
       {/* Reactive HUD Overlay */}
       <FunRaceHUD
         telemetry={telemetry}
         isMuted={isMuted}
+        isFullscreen={isFullscreen}
         onToggleMute={handleToggleMute}
+        onToggleFullscreen={handleToggleFullscreen}
         onRestart={handleRetryLevel}
       />
 

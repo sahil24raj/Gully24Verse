@@ -1,26 +1,30 @@
 import React from 'react';
 import { EngineTelemetry } from '../engine/types';
-import { Trophy, Volume2, VolumeX, Flag, Sparkles } from 'lucide-react';
+import { Trophy, Volume2, VolumeX, Flag, Sparkles, Maximize, Minimize } from 'lucide-react';
 import { funRaceAudio } from '../engine/AudioManager';
 
 interface FunRaceHUDProps {
   telemetry: EngineTelemetry | null;
   isMuted: boolean;
+  isFullscreen: boolean;
   onToggleMute: () => void;
+  onToggleFullscreen: () => void;
   onRestart: () => void;
 }
 
 export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
   telemetry,
   isMuted,
+  isFullscreen,
   onToggleMute,
+  onToggleFullscreen,
   onRestart
 }) => {
   if (!telemetry) return null;
 
   const rankColor =
     telemetry.playerRank === 1
-      ? 'from-amber-400 to-yellow-500 text-slate-950 border-amber-300'
+      ? 'from-amber-400 to-yellow-500 text-slate-950 border-amber-300 shadow-[0_0_20px_rgba(251,191,36,0.5)]'
       : telemetry.playerRank === 2
       ? 'from-slate-200 to-slate-400 text-slate-950 border-slate-300'
       : 'from-orange-500 to-rose-600 text-white border-rose-400';
@@ -33,8 +37,8 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
       {/* --- TOP BAR --- */}
       <div className="w-full flex items-center justify-between gap-3">
         {/* Level Indicator */}
-        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 shadow-lg pointer-events-auto">
-          <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 shadow-xl pointer-events-auto">
+          <span className="text-xs font-mono font-black text-cyan-400 uppercase tracking-wider">
             LEVEL {telemetry.level} / {telemetry.totalLevels}
           </span>
         </div>
@@ -42,7 +46,7 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
         {/* Center Rank Badge */}
         <div className="flex items-center gap-2">
           <div
-            className={`px-5 py-2 rounded-2xl bg-gradient-to-r ${rankColor} border-2 shadow-xl font-black text-sm tracking-wider flex items-center gap-1.5 transition-all duration-300`}
+            className={`px-5 py-2 rounded-2xl bg-gradient-to-r ${rankColor} border-2 font-black text-sm tracking-wider flex items-center gap-1.5 transition-all duration-300`}
           >
             <Trophy className="w-4 h-4 fill-current" />
             <span>
@@ -52,19 +56,21 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
           </div>
         </div>
 
-        {/* Right Controls: Coins & Audio */}
-        <div className="flex items-center gap-2 pointer-events-auto">
-          <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 font-black text-xs shadow-lg">
+        {/* Right Controls: Coins, Audio & Fullscreen */}
+        <div className="flex items-center gap-2 pointer-events-auto" data-hud-control="true">
+          {/* Coin Counter */}
+          <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-black/70 backdrop-blur-md border border-amber-500/30 text-amber-400 font-black text-xs shadow-xl">
             <Sparkles className="w-3.5 h-3.5" />
             <span>{telemetry.coinsEarned}</span>
           </div>
 
+          {/* Sound Mute Toggle */}
           <button
             onClick={() => {
               funRaceAudio.playCoin();
               onToggleMute();
             }}
-            className="w-10 h-10 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 hover:border-cyan-400/50 text-white flex items-center justify-center transition-all cursor-pointer shadow-lg active:scale-95"
+            className="w-10 h-10 rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 hover:border-cyan-400/50 text-white flex items-center justify-center transition-all cursor-pointer shadow-xl active:scale-95"
             title={isMuted ? 'Unmute Audio' : 'Mute Audio'}
           >
             {isMuted ? (
@@ -73,15 +79,45 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
               <Volume2 className="w-4 h-4 text-cyan-400" />
             )}
           </button>
+
+          {/* Dedicated Fullscreen Toggle Button */}
+          <button
+            onClick={onToggleFullscreen}
+            className="w-10 h-10 rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 hover:border-amber-400/60 text-white flex items-center justify-center transition-all cursor-pointer shadow-xl active:scale-95"
+            title={isFullscreen ? 'Exit Fullscreen (Esc)' : 'Enter Fullscreen'}
+          >
+            {isFullscreen ? (
+              <Minimize className="w-4 h-4 text-amber-400" />
+            ) : (
+              <Maximize className="w-4 h-4 text-amber-400" />
+            )}
+          </button>
         </div>
       </div>
 
+      {/* --- CENTER: ANIMATED 3-2-1-GO! COUNTDOWN OVERLAY --- */}
+      {telemetry.gameState === 'COUNTDOWN' && telemetry.countdown && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="flex flex-col items-center justify-center">
+            <span
+              key={String(telemetry.countdown)}
+              className="text-8xl sm:text-9xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-amber-300 via-amber-400 to-yellow-600 drop-shadow-[0_0_40px_rgba(251,191,36,0.8)] animate-in zoom-in-50 duration-300"
+            >
+              {telemetry.countdown}
+            </span>
+            <span className="text-xs sm:text-sm font-mono font-bold text-cyan-300 uppercase tracking-widest mt-2 bg-black/60 px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">
+              GET READY TO RUN!
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* --- TRACK PROGRESS BAR --- */}
-      <div className="w-full max-w-xl mx-auto px-4 pointer-events-auto">
-        <div className="relative w-full h-4 bg-slate-950/70 backdrop-blur-md rounded-full border border-white/20 p-0.5 shadow-2xl flex items-center">
+      <div className="w-full max-w-xl mx-auto px-4 pointer-events-auto" data-hud-control="true">
+        <div className="relative w-full h-4 bg-slate-950/80 backdrop-blur-md rounded-full border border-white/20 p-0.5 shadow-2xl flex items-center">
           {/* Progress fill */}
           <div
-            className="h-full bg-gradient-to-r from-cyan-500 to-amber-400 rounded-full transition-all duration-100 shadow-[0_0_12px_rgba(0,240,255,0.5)]"
+            className="h-full bg-gradient-to-r from-cyan-500 via-cyan-400 to-amber-400 rounded-full transition-all duration-100 shadow-[0_0_12px_rgba(0,240,255,0.6)]"
             style={{ width: `${Math.max(4, telemetry.playerProgress)}%` }}
           />
 
@@ -115,17 +151,32 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
         </div>
       </div>
 
-      {/* --- BOTTOM PROMPT / HOLD-TO-RUN TUTORIAL --- */}
+      {/* --- BOTTOM PROMPT / HOLD-TO-RUN & VISUAL ACTIVE RUN INDICATOR --- */}
       <div className="w-full flex flex-col items-center gap-2 pb-2">
         {telemetry.gameState === 'RACING' && (
-          <div
-            className={`px-6 py-2.5 rounded-2xl backdrop-blur-md border text-xs sm:text-sm font-black tracking-wider uppercase transition-all duration-300 shadow-2xl flex items-center gap-2 ${
-              telemetry.isHolding
-                ? 'bg-emerald-500/80 border-emerald-300 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] scale-105'
-                : 'bg-black/75 border-amber-400/60 text-amber-300 animate-pulse'
-            }`}
-          >
-            <span>{telemetry.isHolding ? '⚡ RUNNING! RELEASE TO STOP' : '👆 HOLD SCREEN / CLICK / SPACE TO RUN'}</span>
+          <div className="flex flex-col items-center gap-1.5">
+            <div
+              className={`px-6 py-2.5 rounded-2xl backdrop-blur-md border text-xs sm:text-sm font-black tracking-wider uppercase transition-all duration-300 shadow-2xl flex items-center gap-2 ${
+                telemetry.isHolding
+                  ? 'bg-emerald-500/90 border-emerald-300 text-white shadow-[0_0_25px_rgba(16,185,129,0.5)] scale-105'
+                  : 'bg-black/80 border-amber-400/60 text-amber-300 animate-pulse'
+              }`}
+            >
+              {telemetry.isHolding ? (
+                <>
+                  <span className="w-2.5 h-2.5 rounded-full bg-white animate-ping" />
+                  <span>⚡ SPRINTING! RELEASE TO STOP</span>
+                </>
+              ) : (
+                <span>👆 HOLD SCREEN / CLICK / SPACE TO RUN</span>
+              )}
+            </div>
+            {/* Contextual Pro-Tip when idling near hazards */}
+            {!telemetry.isHolding && (
+              <span className="text-[11px] font-mono text-slate-400 bg-black/60 px-3 py-1 rounded-full border border-white/5 backdrop-blur-sm">
+                Watch the obstacle rotation • Sprint right after it clears!
+              </span>
+            )}
           </div>
         )}
       </div>
