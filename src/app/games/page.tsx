@@ -69,7 +69,12 @@ function GamesContent() {
     list.sort((a, b) => {
       if (sortBy === 'rating') return b.rating - a.rating;
       if (sortBy === 'plays') return b.playCount - a.playCount;
-      if (sortBy === 'popular') return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0) || b.playCount - a.playCount;
+      if (sortBy === 'popular') {
+        const aScore = (a.isNew ? 10 : 0) + (a.isPopular ? 5 : 0) + (a.isTrending ? 3 : 0);
+        const bScore = (b.isNew ? 10 : 0) + (b.isPopular ? 5 : 0) + (b.isTrending ? 3 : 0);
+        if (bScore !== aScore) return bScore - aScore;
+        return b.playCount - a.playCount;
+      }
       return 0;
     });
 

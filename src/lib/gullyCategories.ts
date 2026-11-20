@@ -40,7 +40,7 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     title: 'ENDLESS RUN',
     description:
       'Full speed dashes through Grand Trunk highways, Chroma runways and Delhi street checkpoints. Collect chai refills, dodge traffic, and break records.',
-    gameIds: ['giant-rush', 'genz-protest-run', 'auto-rush']
+    gameIds: ['fun-race', 'auto-rush', 'giant-rush', 'genz-protest-run']
   },
   {
     key: 'multiplayer',
@@ -52,8 +52,9 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     description:
       'Settle hostel arguments, bluff with your squad, and battle friends across India with instant 6-character room codes.',
     gameIds: [
-      'chor-sipahi',
+      'fun-race',
       'auto-rush',
+      'chor-sipahi',
       'spin-cricket',
       'pen-flip',
       'indian-politics-arena',
@@ -70,7 +71,7 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     title: 'DESI RACING',
     description:
       'Drift 3-wheel auto-rickshaws in the Gurugram Grand Prix or commandeer the legendary Tata 1613 heavy lorry with pressure horns.',
-    gameIds: ['auto-rush']
+    gameIds: ['fun-race', 'auto-rush']
   },
   {
     key: 'action',
@@ -81,7 +82,7 @@ export const GULLY_CATEGORIES: GullyCategory[] = [
     title: 'ACTION & BATTLE',
     description:
       'Satirical political 1v1 brawl arenas, Giant Rush chroma Titan brawls, tense risk-door escape chambers, and high-speed bench combat.',
-    gameIds: ['giant-rush', 'indian-politics-arena', 'escape-door', 'fake-bomb', 'pen-flip']
+    gameIds: ['fun-race', 'giant-rush', 'indian-politics-arena', 'escape-door', 'fake-bomb', 'pen-flip']
   },
   {
     key: 'meme-games',

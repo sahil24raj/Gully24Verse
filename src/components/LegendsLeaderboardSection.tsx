@@ -6,7 +6,7 @@ import { subscribeToCloudLeaderboard } from '@/lib/firebaseService';
 import { LeaderboardEntry } from '@/types';
 import { soundFx } from '@/lib/audio';
 import { isImageSource } from '@/components/profile/GamerAvatar';
-import { Trophy, Flame, Rocket, Zap, ShieldCheck } from 'lucide-react';
+import { Trophy, Rocket, Zap, ShieldCheck, Play, ArrowRight } from 'lucide-react';
 
 interface PlayerRank {
   rank: number;
@@ -18,66 +18,10 @@ interface PlayerRank {
   badge?: string;
 }
 
-const DEFAULT_PLAYERS: PlayerRank[] = [
-  {
-    rank: 1,
-    username: 'sr24',
-    gameTitle: 'All Arena Games',
-    score: 42000,
-    wins: 59,
-    avatar: '🚀',
-    badge: '#1 ARENA SULTAN'
-  },
-  {
-    rank: 2,
-    username: 'sahil24',
-    gameTitle: 'All Arena Games',
-    score: 42000,
-    wins: 49,
-    avatar: '🚀',
-    badge: '#2 RUNNER-UP'
-  },
-  {
-    rank: 3,
-    username: 'Gamer_HNEH',
-    gameTitle: 'All Arena Games',
-    score: 0,
-    wins: 0,
-    avatar: '🚀',
-    badge: '#3 CONTENDER'
-  },
-  {
-    rank: 4,
-    username: 'SAHIL RAJ',
-    gameTitle: 'All Arena Games',
-    score: 0,
-    wins: 0,
-    avatar: '⚡',
-    badge: 'TOP 5 RUMBLER'
-  },
-  {
-    rank: 5,
-    username: 'Aarav_Gamer',
-    gameTitle: 'All Arena Games',
-    score: 0,
-    wins: 0,
-    avatar: '🎮',
-    badge: 'CHAI TAPRI WARRIOR'
-  },
-  {
-    rank: 6,
-    username: 'Priya_Vibes',
-    gameTitle: 'All Arena Games',
-    score: 0,
-    wins: 0,
-    avatar: '🎯',
-    badge: 'SQUAD DRIFTER'
-  }
-];
-
 export const LegendsLeaderboardSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<'today' | 'week' | 'all'>('today');
   const [cloudLeaderboard, setCloudLeaderboard] = useState<LeaderboardEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsub = subscribeToCloudLeaderboard((entries) => {
@@ -87,31 +31,28 @@ export const LegendsLeaderboardSection: React.FC = () => {
       } else {
         setCloudLeaderboard([]);
       }
+      setIsLoading(false);
     });
     return () => {
       if (typeof unsub === 'function') unsub();
     };
   }, []);
 
-  // Merge cloud data with fallback players
-  const playersList: PlayerRank[] =
-    cloudLeaderboard.length >= 3
-      ? cloudLeaderboard.map((c, i) => ({
-          rank: i + 1,
-          username: c.username || `Player_${i + 1}`,
-          gameTitle: (c as any).gameName || (c as any).gameId || 'All Arena Games',
-          score: c.score || 0,
-          wins: (c as any).wins ?? Math.max(0, Math.floor(c.score / 800)),
-          avatar: c.avatar || (i === 0 ? '🚀' : i === 1 ? '🚀' : '🚀'),
-          badge: i === 0 ? '#1 ARENA SULTAN' : i === 1 ? '#2 RUNNER-UP' : '#3 CONTENDER'
-        }))
-      : DEFAULT_PLAYERS;
+  const playersList: PlayerRank[] = cloudLeaderboard.map((c, i) => ({
+    rank: i + 1,
+    username: c.username || `Gamer_${i + 1}`,
+    gameTitle: (c as any).gameName || (c as any).gameId || 'All Arena Games',
+    score: c.score || 0,
+    wins: (c as any).wins ?? Math.max(0, Math.floor(c.score / 800)),
+    avatar: c.avatar || '🚀',
+    badge: i === 0 ? '👑 #1 ARENA SULTAN' : i === 1 ? '🥈 #2 RUNNER-UP' : i === 2 ? '🥉 #3 CONTENDER' : `TOP ${i + 1} RUMBLER`
+  }));
 
   const rank1 = playersList[0];
   const rank2 = playersList[1];
   const rank3 = playersList[2];
 
-  const renderAvatar = (avatar?: string, fallback = '🚀') => {
+  const renderAvatar = (avatar?: string) => {
     if (avatar && isImageSource(avatar)) {
       // eslint-disable-next-line @next/next/no-img-element
       return <img src={avatar} alt="avatar" className="w-full h-full object-cover" />;
@@ -136,7 +77,7 @@ export const LegendsLeaderboardSection: React.FC = () => {
               GULLY KE TOP PLAYERS 👑
             </h2>
             <p className="font-body-md text-slate-300">
-              Real verified rankings and battle scores across all squad rooms today.
+              Real verified rankings and battle scores from authentic matches.
             </p>
           </div>
 
@@ -184,163 +125,117 @@ export const LegendsLeaderboardSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 1. TOP 3 PODIUM CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end pt-4 max-w-5xl mx-auto w-full">
-          {/* Rank 2: Silver / Left */}
-          <div className="order-2 md:order-1 p-6 rounded-3xl bg-[#1B1B22]/90 backdrop-blur-md flex flex-col items-center text-center relative shadow-xl border border-white/10 hover:border-teal-500/40 transition-all duration-300">
-            <div className="text-2xl mb-2">🥈</div>
-            <div className="w-16 h-16 rounded-2xl bg-[#101014] border-2 border-teal-400/60 p-2 flex items-center justify-center text-2xl mb-3 shadow-[0_0_15px_rgba(0,191,166,0.3)]">
-              {renderAvatar(rank2.avatar)}
-            </div>
-            <h3 className="font-black text-white text-xl">{rank2.username}</h3>
-            <span className="text-xs text-slate-400 font-semibold mt-0.5">{rank2.gameTitle}</span>
-            <div className="mt-4 flex flex-col items-center gap-1">
-              <span className="text-2xl font-black text-emerald-400">
-                {rank2.score.toLocaleString()} pts
-              </span>
-              <span className="text-xs text-emerald-400/90 font-bold">
-                {rank2.wins ?? 0} Wins
-              </span>
-            </div>
-          </div>
-
-          {/* Rank 1: Gold / Elevated Center */}
-          <div className="order-1 md:order-2 p-8 rounded-3xl bg-gradient-to-b from-[#252532] to-[#1B1B22] backdrop-blur-md flex flex-col items-center text-center relative shadow-[0_0_50px_rgba(255,159,28,0.35)] -mt-4 md:-mt-8 border-2 border-amber-500/70">
-            <div className="text-3xl mb-2 animate-bounce">👑</div>
-            <div className="w-20 h-20 rounded-2xl bg-[#101014] border-2 border-amber-400 p-2 flex items-center justify-center text-3xl mb-3 shadow-[0_0_25px_rgba(255,159,28,0.5)]">
-              {renderAvatar(rank1.avatar)}
-            </div>
-            <h3 className="font-black text-white text-2xl">{rank1.username}</h3>
-            <span className="text-xs text-slate-400 font-semibold mt-0.5">{rank1.gameTitle}</span>
-            <div className="mt-4 flex flex-col items-center gap-1">
-              <span className="text-3xl sm:text-4xl font-black text-amber-400 tracking-tight">
-                {rank1.score.toLocaleString()} pts
-              </span>
-              <span className="text-xs text-emerald-400 font-bold">
-                {rank1.wins ?? 0} Wins
-              </span>
-            </div>
-            <span className="mt-4 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-400 text-[11px] font-black uppercase tracking-wider shadow-sm">
-              {rank1.badge || '#1 ARENA SULTAN'}
-            </span>
-          </div>
-
-          {/* Rank 3: Bronze / Right */}
-          <div className="order-3 md:order-3 p-6 rounded-3xl bg-[#1B1B22]/90 backdrop-blur-md flex flex-col items-center text-center relative shadow-xl border border-white/10 hover:border-orange-500/40 transition-all duration-300">
-            <div className="text-2xl mb-2">🥉</div>
-            <div className="w-16 h-16 rounded-2xl bg-[#101014] border-2 border-cyan-400/60 p-2 flex items-center justify-center text-2xl mb-3 shadow-[0_0_15px_rgba(0,191,166,0.25)]">
-              {renderAvatar(rank3.avatar)}
-            </div>
-            <h3 className="font-black text-white text-xl">{rank3.username}</h3>
-            <span className="text-xs text-slate-400 font-semibold mt-0.5">{rank3.gameTitle}</span>
-            <div className="mt-4 flex flex-col items-center gap-1">
-              <span className="text-2xl font-black text-emerald-400">
-                {rank3.score.toLocaleString()} pts
-              </span>
-              <span className="text-xs text-emerald-400/90 font-bold">
-                {rank3.wins ?? 0} Wins
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* 2. LEADERBOARD LIST TABLE (ARENA PLAYERS) */}
-        <div className="w-full max-w-5xl mx-auto rounded-3xl bg-[#1B1B22]/90 backdrop-blur-md border border-white/10 overflow-hidden shadow-2xl">
-          {/* Table Header */}
-          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider bg-black/20">
-            <span>ARENA PLAYERS ({playersList.length})</span>
-            <span>SCORE &amp; STATS</span>
-          </div>
-
-          {/* Table Rows */}
-          <div className="divide-y divide-white/5">
-            {playersList.map((player) => {
-              const rankColor =
-                player.rank === 1
-                  ? 'text-amber-400'
-                  : player.rank === 2
-                  ? 'text-teal-400'
-                  : player.rank === 3
-                  ? 'text-orange-400'
-                  : 'text-slate-400';
-
-              const avatarBorder =
-                player.rank === 1
-                  ? 'border-amber-500/60'
-                  : player.rank === 2
-                  ? 'border-teal-500/60'
-                  : player.rank === 3
-                  ? 'border-cyan-500/60'
-                  : 'border-white/10';
-
-              return (
-                <div
-                  key={player.rank}
-                  className="px-6 py-4 flex items-center justify-between hover:bg-white/[0.03] transition-colors"
-                >
-                  {/* Left: Rank + Avatar + Name */}
-                  <div className="flex items-center gap-4">
-                    <span className={`text-base font-black w-7 ${rankColor}`}>
-                      #{player.rank}
-                    </span>
-                    <div
-                      className={`w-11 h-11 rounded-xl bg-[#101014] border ${avatarBorder} flex items-center justify-center text-lg shrink-0 shadow-inner`}
-                    >
-                      {renderAvatar(player.avatar)}
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="font-black text-white text-sm sm:text-base">
-                        {player.username}
-                      </span>
-                      <span className="text-xs text-slate-400 font-medium">
-                        {player.gameTitle || 'All Arena Games'}
-                      </span>
-                    </div>
+        {/* Real Leaderboard Content or Clean Professional Empty State */}
+        {playersList.length > 0 ? (
+          <>
+            {/* Top 3 Podium (Olympic Standard: 2nd Left, 1st Center, 3rd Right) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end pt-8">
+              {/* RANK 2 */}
+              {rank2 ? (
+                <div className="order-2 md:order-1 rounded-3xl p-6 bg-[#1B1B22] border-2 border-slate-300/40 relative flex flex-col items-center text-center shadow-xl hover:border-slate-300 transition-all group">
+                  <div className="w-16 h-16 rounded-full bg-slate-300/20 border-2 border-slate-300 flex items-center justify-center text-2xl mb-3 shadow-[0_0_20px_rgba(203,213,225,0.3)]">
+                    {renderAvatar(rank2.avatar)}
                   </div>
-
-                  {/* Right: Score + Wins */}
-                  <div className="flex flex-col items-end">
-                    <span
-                      className={`font-black text-base sm:text-lg ${
-                        player.score > 0 ? 'text-amber-400' : 'text-emerald-400'
-                      }`}
-                    >
-                      {player.score.toLocaleString()} pts
-                    </span>
-                    <span className="text-xs text-emerald-400 font-semibold">
-                      {player.wins ?? 0} Wins
-                    </span>
+                  <span className="px-3 py-1 rounded-full bg-slate-400/20 text-slate-300 font-black text-xs uppercase tracking-wider mb-2 border border-slate-400/30">
+                    🥈 RANK #2
+                  </span>
+                  <h3 className="text-xl font-black text-white truncate max-w-[200px]">{rank2.username}</h3>
+                  <span className="text-xs text-slate-400 font-mono mt-0.5">{rank2.gameTitle}</span>
+                  <div className="mt-4 px-4 py-2 rounded-xl bg-black/40 border border-white/5 w-full flex justify-between items-center text-xs">
+                    <span className="text-slate-400">Battle Score:</span>
+                    <span className="font-black text-white font-mono">{rank2.score.toLocaleString()} XP</span>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
+              ) : null}
 
-        {/* Live Activity Ticker & Full Leaderboard CTA */}
-        <div className="p-5 max-w-5xl mx-auto w-full rounded-3xl bg-[#1B1B22]/80 backdrop-blur-md border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
-          <div className="flex items-center gap-3 overflow-x-auto w-full sm:w-auto no-scrollbar">
-            <span className="px-2.5 py-1 rounded-xl bg-amber-500/20 text-amber-400 text-xs font-black uppercase shrink-0 border border-amber-500/30 flex items-center gap-1">
-              <Flame className="w-3.5 h-3.5 fill-amber-400" />
-              LIVE TICKER
-            </span>
-            <span className="text-xs text-slate-300 truncate">
-              🔥 sr24 scored +42,000 in All Arena Games • sahil24 holds 49 wins • Gamer_HNEH joined squad
-            </span>
-          </div>
+              {/* RANK 1: Sultan / Grand Champion */}
+              {rank1 ? (
+                <div className="order-1 md:order-2 rounded-3xl p-8 bg-gradient-to-b from-amber-500/20 to-[#1B1B22] border-2 border-amber-400 relative flex flex-col items-center text-center shadow-[0_0_40px_rgba(251,191,36,0.25)] hover:border-amber-300 transition-all md:-translate-y-4">
+                  <div className="absolute -top-5 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-xs uppercase tracking-widest shadow-lg flex items-center gap-1.5">
+                    <Trophy className="w-3.5 h-3.5 fill-current" />
+                    <span>#1 ARENA SULTAN</span>
+                  </div>
+                  <div className="w-20 h-20 rounded-full bg-amber-400/20 border-2 border-amber-400 flex items-center justify-center text-3xl mb-3 shadow-[0_0_25px_rgba(251,191,36,0.4)] mt-2">
+                    {renderAvatar(rank1.avatar)}
+                  </div>
+                  <h3 className="text-2xl font-black text-white truncate max-w-[220px]">{rank1.username}</h3>
+                  <span className="text-xs text-amber-300/80 font-mono mt-0.5">{rank1.gameTitle}</span>
+                  <div className="mt-5 px-5 py-2.5 rounded-xl bg-black/50 border border-amber-400/30 w-full flex justify-between items-center text-sm">
+                    <span className="text-amber-200">Champion Score:</span>
+                    <span className="font-black text-amber-400 font-mono text-base">{rank1.score.toLocaleString()} XP</span>
+                  </div>
+                </div>
+              ) : null}
 
-          <Link
-            href="/leaderboard"
-            onClick={() => soundFx.playClick()}
-            className="px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white font-black text-xs uppercase tracking-wider shrink-0 transition-all flex items-center gap-2 border border-white/10 hover:border-amber-500/40 cursor-pointer"
-          >
-            <span>VIEW FULL LEADERBOARD</span>
-            <Trophy className="w-4 h-4 text-amber-400" />
-          </Link>
-        </div>
+              {/* RANK 3 */}
+              {rank3 ? (
+                <div className="order-3 md:order-3 rounded-3xl p-6 bg-[#1B1B22] border-2 border-amber-700/40 relative flex flex-col items-center text-center shadow-xl hover:border-amber-700 transition-all group">
+                  <div className="w-16 h-16 rounded-full bg-amber-700/20 border-2 border-amber-700 flex items-center justify-center text-2xl mb-3 shadow-[0_0_20px_rgba(180,83,9,0.3)]">
+                    {renderAvatar(rank3.avatar)}
+                  </div>
+                  <span className="px-3 py-1 rounded-full bg-amber-700/20 text-amber-300 font-black text-xs uppercase tracking-wider mb-2 border border-amber-700/30">
+                    🥉 RANK #3
+                  </span>
+                  <h3 className="text-xl font-black text-white truncate max-w-[200px]">{rank3.username}</h3>
+                  <span className="text-xs text-slate-400 font-mono mt-0.5">{rank3.gameTitle}</span>
+                  <div className="mt-4 px-4 py-2 rounded-xl bg-black/40 border border-white/5 w-full flex justify-between items-center text-xs">
+                    <span className="text-slate-400">Battle Score:</span>
+                    <span className="font-black text-white font-mono">{rank3.score.toLocaleString()} XP</span>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            {/* Ranks 4 to 10 Table */}
+            {playersList.length > 3 && (
+              <div className="rounded-3xl bg-[#1B1B22]/90 border border-white/10 p-4 sm:p-6 shadow-xl flex flex-col gap-2">
+                {playersList.slice(3).map((p) => (
+                  <div
+                    key={p.rank}
+                    className="flex items-center justify-between p-3 sm:p-4 rounded-2xl bg-black/30 hover:bg-black/50 border border-white/5 transition-all"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="w-7 h-7 rounded-xl bg-white/5 flex items-center justify-center font-black text-xs text-slate-400 font-mono">
+                        #{p.rank}
+                      </span>
+                      <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-lg">
+                        {renderAvatar(p.avatar)}
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-extrabold text-white truncate max-w-[140px] sm:max-w-xs">{p.username}</span>
+                        <span className="text-[11px] text-slate-400 font-mono">{p.badge}</span>
+                      </div>
+                    </div>
+                    <span className="font-black font-mono text-xs sm:text-sm text-amber-400">
+                      {p.score.toLocaleString()} XP
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          /* Clean Professional Empty State */
+          <div className="rounded-3xl bg-[#1B1B22]/90 border border-amber-500/20 p-8 sm:p-12 text-center flex flex-col items-center justify-center gap-4 shadow-xl">
+            <div className="w-16 h-16 rounded-3xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-lg">
+              <Trophy className="w-8 h-8" />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight">BE THE FIRST SULTAN 👑</h3>
+              <p className="text-sm text-slate-300 max-w-md mx-auto">
+                No match scores registered today yet. Play any game, set a record, and claim Rank #1 on the live leaderboard!
+              </p>
+            </div>
+            <Link
+              href="/games"
+              className="mt-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-xs uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-xl flex items-center gap-2"
+            >
+              <Play className="w-4 h-4 fill-current" />
+              <span>PLAY A GAME NOW</span>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
 };
-
-export default LegendsLeaderboardSection;

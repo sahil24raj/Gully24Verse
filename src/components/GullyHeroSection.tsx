@@ -68,15 +68,15 @@ export const GullyHeroSection: React.FC = () => {
     router.push(route);
   };
 
-  // The 6 Quick Launch Games matching the Reference Screenshot
+    // The 6 Quick Launch Games: Prioritizing Newest 3D Hits & Highest Played Games
   const quickLaunchGames: QuickGameCard[] = [
     {
-      id: 'spin-cricket',
-      name: 'SPIN CRICKET',
-      category: 'Cricket Zone 🏏',
-      route: '/game/spin-cricket',
-      image: '/games/spin-cricket.jpg',
-      borderColor: '#22C55E'
+      id: 'fun-race',
+      name: 'FUN RACE 3D',
+      category: 'Obstacle Run 🏃',
+      route: '/game/fun-race',
+      image: '/games/fun-race.jpg',
+      borderColor: '#00F0FF'
     },
     {
       id: 'auto-rush',
@@ -95,14 +95,6 @@ export const GullyHeroSection: React.FC = () => {
       borderColor: '#FF9F1C'
     },
     {
-      id: 'chor-sipahi',
-      name: 'CHOR SIPAHI',
-      category: 'Chor Sipahi 👑',
-      route: '/game/chor-sipahi',
-      image: '/games/chor-sipahi.jpg',
-      borderColor: '#A855F7'
-    },
-    {
       id: 'indian-politics-arena',
       name: 'POLITICS ARENA',
       category: 'Politics Arena ⚔️',
@@ -111,12 +103,20 @@ export const GullyHeroSection: React.FC = () => {
       borderColor: '#3B82F6'
     },
     {
-      id: 'escape-door',
-      name: 'ESCAPE DOOR',
-      category: 'Escape Door 🚪',
-      route: '/game/escape-door',
-      image: '/games/escape-door.jpg',
-      borderColor: '#EAB308'
+      id: 'chor-sipahi',
+      name: 'CHOR SIPAHI',
+      category: 'Chor Sipahi 👑',
+      route: '/game/chor-sipahi',
+      image: '/games/chor-sipahi.jpg',
+      borderColor: '#A855F7'
+    },
+    {
+      id: 'spin-cricket',
+      name: 'SPIN CRICKET',
+      category: 'Cricket Zone 🏏',
+      route: '/game/spin-cricket',
+      image: '/games/spin-cricket.jpg',
+      borderColor: '#22C55E'
     }
   ];
 
