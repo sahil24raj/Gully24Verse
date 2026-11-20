@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/store/useAppStore';
@@ -14,7 +14,8 @@ import {
   Flame,
   Zap,
   Sparkles,
-  ChevronRight
+  ChevronRight,
+  ChevronLeft
 } from 'lucide-react';
 
 interface QuickGameCard {
@@ -28,7 +29,8 @@ interface QuickGameCard {
 
 export const GullyHeroSection: React.FC = () => {
   const router = useRouter();
-  const { openMultiplayerModal, openDailySpinModal } = useAppStore();
+  const { openDailySpinModal, user } = useAppStore();
+  const dockScrollRef = useRef<HTMLDivElement>(null);
 
   const handlePlayNow = () => {
     try {
@@ -42,7 +44,7 @@ export const GullyHeroSection: React.FC = () => {
       origin: { y: 0.8 },
       colors: ['#FF9F1C', '#00BFA6', '#F04438', '#FACC15']
     });
-    router.push('/game/auto-rush');
+    router.push('/game/fun-race');
   };
 
   const handleExploreGully = () => {
@@ -68,60 +70,130 @@ export const GullyHeroSection: React.FC = () => {
     router.push(route);
   };
 
-    // The 6 Quick Launch Games: Prioritizing Newest 3D Hits & Highest Played Games
+  const handleDockScroll = (amount: number) => {
+    try {
+      soundFx.playClick();
+    } catch {
+      // Audio safety
+    }
+    if (dockScrollRef.current) {
+      dockScrollRef.current.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+  };
+
+  // ALL 13 Games in 1-Tap Play Dock: Prioritizing Newest 3D & Highest Played Hits
   const quickLaunchGames: QuickGameCard[] = [
     {
       id: 'fun-race',
-      name: 'FUN RACE 3D',
-      category: 'Obstacle Run 🏃',
+      name: 'Fun Race 3D 🏃💨',
+      category: 'Obstacle Run',
       route: '/game/fun-race',
       image: '/games/fun-race.jpg',
       borderColor: '#00F0FF'
     },
     {
       id: 'auto-rush',
-      name: 'AUTO RUSH',
-      category: 'Racing Hub 🏎️',
+      name: 'Auto Rush 🛺💨',
+      category: 'Desi Racing',
       route: '/game/auto-rush',
       image: '/games/auto-rush.jpg',
       borderColor: '#EF4444'
     },
     {
       id: 'giant-rush',
-      name: 'GIANT RUSH 3D',
-      category: 'Giant Rush 👊',
+      name: 'Giant Rush 3D 👊🔥',
+      category: 'Chroma Brawler',
       route: '/game/giant-rush',
       image: '/games/giant-rush.jpg',
       borderColor: '#FF9F1C'
     },
     {
       id: 'indian-politics-arena',
-      name: 'POLITICS ARENA',
-      category: 'Politics Arena ⚔️',
+      name: 'Politics Arena ⚔️🏛️',
+      category: 'Satirical Brawl',
       route: '/game/indian-politics-arena',
       image: '/games/indian-politics-arena.jpg',
       borderColor: '#3B82F6'
     },
     {
       id: 'chor-sipahi',
-      name: 'CHOR SIPAHI',
-      category: 'Chor Sipahi 👑',
+      name: 'Chor Sipahi 👑🥷',
+      category: 'Hostel Classic',
       route: '/game/chor-sipahi',
       image: '/games/chor-sipahi.jpg',
       borderColor: '#A855F7'
     },
     {
       id: 'spin-cricket',
-      name: 'SPIN CRICKET',
-      category: 'Cricket Zone 🏏',
+      name: 'Spin Cricket 🏏',
+      category: 'Book Cricket',
       route: '/game/spin-cricket',
       image: '/games/spin-cricket.jpg',
       borderColor: '#22C55E'
+    },
+    {
+      id: 'genz-protest-run',
+      name: 'GenZ Protest Run 🏃📢',
+      category: 'Meme Runner',
+      route: '/game/genz-protest-run',
+      image: '/games/genz-protest-run.jpg',
+      borderColor: '#EC4899'
+    },
+    {
+      id: 'escape-door',
+      name: 'Escape The Door 🚪',
+      category: 'Risk Puzzle',
+      route: '/game/escape-door',
+      image: '/games/escape-door.jpg',
+      borderColor: '#EAB308'
+    },
+    {
+      id: 'fake-bomb',
+      name: 'Fake Bomb 💣⚛️',
+      category: 'Chaos Defusal',
+      route: '/game/fake-bomb',
+      image: '/games/fake-bomb.jpg',
+      borderColor: '#F97316'
+    },
+    {
+      id: 'tic-tac-toe',
+      name: 'Neon Tic-Tac-Toe ❌⭕',
+      category: 'PvP Duel',
+      route: '/game/tic-tac-toe',
+      image: '/games/tic-tac-toe.jpg',
+      borderColor: '#06B6D4'
+    },
+    {
+      id: 'word-builder',
+      name: 'Word Builder Pro 🔠',
+      category: 'Vocabulary Clash',
+      route: '/game/word-builder',
+      image: '/games/word-builder.jpg',
+      borderColor: '#8B5CF6'
+    },
+    {
+      id: 'pen-flip',
+      name: 'Pen Flip Battle 🖊️',
+      category: 'Classroom Duel',
+      route: '/game/pen-flip',
+      image: '/games/pen-flip.jpg',
+      borderColor: '#10B981'
+    },
+    {
+      id: 'brain-pot',
+      name: 'Brain Pot IQ 🧠',
+      category: 'Rapid IQ Arena',
+      route: '/game/brain-pot',
+      image: '/games/brain-pot.jpg',
+      borderColor: '#6366F1'
     }
   ];
 
+  const gamesPlayed = user?.stats?.gamesPlayed || 0;
+  const challengeProgress = Math.min(100, Math.max(15, (gamesPlayed / 3) * 100));
+
   return (
-    <section className="relative w-full overflow-hidden pt-4 pb-8 px-4 sm:px-8 xl:px-14">
+    <section className="relative w-full overflow-hidden pt-4 pb-8 px-4 sm:px-8 xl:px-14 select-none">
       <div className="max-w-[1720px] mx-auto flex flex-col gap-8 relative z-10">
         
         {/* Main Hero Row: Headline on Left, Widgets on Right */}
@@ -178,7 +250,7 @@ export const GullyHeroSection: React.FC = () => {
                 <Zap className="w-4 h-4 fill-amber-400" /> Instant Codes
               </span>
               <span className="flex items-center gap-1.5 text-teal-400 drop-shadow">
-                <Sparkles className="w-4 h-4 text-teal-400" /> 12+ Desi Games
+                <Sparkles className="w-4 h-4 text-teal-400" /> 13 Desi Games
               </span>
               <span className="flex items-center gap-1.5 text-emerald-400 drop-shadow">
                 <Users className="w-4 h-4 text-emerald-400" /> Real Multiplayer
@@ -186,7 +258,7 @@ export const GullyHeroSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Hero Floating Glass Widgets (Daily Challenge, Online Now) positioned cleanly at bottom right */}
+          {/* Right Column: Hero Floating Glass Widgets (Clean Authentic Professional Status) */}
           <div className="w-full lg:w-80 flex flex-col gap-3 shrink-0 lg:self-end">
             
             {/* 1. Daily Challenge Widget */}
@@ -204,7 +276,10 @@ export const GullyHeroSection: React.FC = () => {
                 </p>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="w-28 bg-black/60 h-2 rounded-full overflow-hidden">
-                    <div className="bg-[#FFB703] h-full rounded-full w-1/3" />
+                    <div
+                      className="bg-[#FFB703] h-full rounded-full transition-all duration-300"
+                      style={{ width: `${challengeProgress}%` }}
+                    />
                   </div>
                 </div>
               </div>
@@ -213,18 +288,18 @@ export const GullyHeroSection: React.FC = () => {
               </div>
             </div>
 
-            {/* 2. Online Now Status */}
-            <div className="px-4 py-2.5 rounded-2xl bg-[#1B1B22]/90 border border-teal-500/30 backdrop-blur-md shadow-lg flex items-center justify-between">
+            {/* 2. Platform Status (NO MOCK USER COUNTS) */}
+            <div className="px-4 py-2.5 rounded-2xl bg-[#1B1B22]/90 border border-emerald-500/30 backdrop-blur-md shadow-lg flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-teal-400" />
+                <Zap className="w-4 h-4 text-amber-400" />
                 <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                  ONLINE NOW
+                  INSTANT PLAY
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span className="text-xs font-black text-emerald-400">
-                  2,840 Players
+                <span className="text-xs font-black text-emerald-400 font-mono">
+                  ZERO DOWNLOADS 🟢
                 </span>
               </div>
             </div>
@@ -232,29 +307,51 @@ export const GullyHeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY --- */}
+        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (SWIPE ALL 13 GAMES) --- */}
         <div className="w-full flex flex-col gap-3 pt-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs uppercase font-black text-white tracking-wider">
               <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
-              <span>QUICK LAUNCH GAMES • 1-TAP PLAY</span>
+              <span>QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
             </div>
-            <Link
-              href="/games"
-              className="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 transition-colors"
-            >
-              <span>View All 12 Games</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
+
+            <div className="flex items-center gap-2">
+              {/* Left / Right Carousel Buttons */}
+              <button
+                onClick={() => handleDockScroll(-340)}
+                className="w-7 h-7 rounded-lg bg-black/70 hover:bg-black/95 border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
+                title="Scroll Left"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => handleDockScroll(340)}
+                className="w-7 h-7 rounded-lg bg-black/70 hover:bg-black/95 border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
+                title="Scroll Right"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+
+              <Link
+                href="/games"
+                className="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 transition-colors ml-2"
+              >
+                <span>View Vault</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
 
-          {/* 6 Game Cards in Grid matching Screenshot */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4">
+          {/* Horizontally Scrollable & Swipeable Cards Container */}
+          <div
+            ref={dockScrollRef}
+            className="flex items-center gap-3.5 sm:gap-4 overflow-x-auto scrollbar-none pb-2 pt-1 scroll-smooth snap-x snap-mandatory"
+          >
             {quickLaunchGames.map((game) => (
               <div
                 key={game.id}
                 onClick={() => handleLaunchGame(game.route)}
-                className="group relative rounded-2xl overflow-hidden cursor-pointer aspect-[16/10] border-2 transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] shadow-xl hover:shadow-[0_0_24px_rgba(255,183,3,0.35)]"
+                className="group relative shrink-0 w-[190px] sm:w-[220px] md:w-[240px] aspect-[16/10] rounded-2xl overflow-hidden cursor-pointer border-2 transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] shadow-xl hover:shadow-[0_0_24px_rgba(255,183,3,0.35)] snap-start"
                 style={{ borderColor: game.borderColor }}
               >
                 {/* Game Cover Image */}
@@ -266,10 +363,11 @@ export const GullyHeroSection: React.FC = () => {
                 />
 
                 {/* Dark Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent flex flex-col justify-end p-2.5">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent flex flex-col justify-end p-2.5">
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-xs font-black text-white group-hover:text-amber-300 transition-colors truncate drop-shadow">
-                      {game.category}
+                    {/* Actual Game Name on Each Card */}
+                    <span className="text-xs sm:text-[13px] font-black text-white group-hover:text-amber-300 transition-colors truncate drop-shadow">
+                      {game.name}
                     </span>
                     <div className="w-6 h-6 rounded-full bg-[#FFB703] text-slate-950 flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
                       <Play className="w-3 h-3 fill-slate-950 ml-0.5" />
