@@ -152,11 +152,6 @@ export const GAMES_CATALOG: GameItem[] = [
       'Dynamic AI rivals with hazard anticipation, timing windows, and variance models',
       'Physics knockback, ragdoll tumbling flight, and realistic water plunge splash particles',
       'Multi-level progression: Lagoon Sprint, Archipelago Slalom, and Colosseum Gauntlet'
-    ],
-    howToPlay: [
-      'Press and hold mouse click, screen touch, or Spacebar to run forward along the track.',
-      'Release your hold immediately to stop in place when an obstacle is swinging across your path.',
-      'Time your dashes between hazard sweeps and cross the finish line before rival bots!'
     ]
   },
   {
