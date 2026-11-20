@@ -70,8 +70,11 @@ export class PlayerJellyController {
 
   public setSteering(normX: number) {
     // normX: -1 (far left) to +1 (far right)
-    const maxSafeX = TRACK_HALF_WIDTH - (this.isSplit ? SPLIT_DISTANCE : JELLY_BASE_SIZE * 0.6);
-    this.targetCentralX = THREE.MathUtils.clamp(normX * (TRACK_HALF_WIDTH * 0.8), -maxSafeX, maxSafeX);
+    // Intelligent track-width calculation: ensures split cubes never clip into side rails
+    const maxSafeX = this.isSplit
+      ? Math.max(0.6, TRACK_HALF_WIDTH - (SPLIT_DISTANCE / 2) - 0.7)
+      : TRACK_HALF_WIDTH - 0.8;
+    this.targetCentralX = THREE.MathUtils.clamp(normX * maxSafeX, -maxSafeX, maxSafeX);
   }
 
   public toggleSplit() {
@@ -238,6 +241,10 @@ export class PlayerJellyController {
 
   public getLeadingPosition(): THREE.Vector3 {
     return new THREE.Vector3(this.centralX, JELLY_Y_POS, this.forwardZ);
+  }
+
+  public getCubeCollisionRadius(cube: JellyCubeState): number {
+    return (cube.scale.x * JELLY_BASE_SIZE * 0.42);
   }
 
   public getMaxNumber(): number {

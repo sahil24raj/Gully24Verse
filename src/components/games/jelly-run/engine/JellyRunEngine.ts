@@ -219,10 +219,11 @@ export class JellyRunEngine {
     this.obstacles.update(delta);
 
     if (!this.isPastFinish) {
-      // Check hazards against every alive cube
+      // Check hazards against every alive cube with dynamic, intelligent radius
       for (const cube of this.player.cubes) {
         if (!cube.alive) continue;
-        const hitObs = this.obstacles.checkCollisions(cube.position);
+        const radius = this.player.getCubeCollisionRadius(cube);
+        const hitObs = this.obstacles.checkCollisions(cube.position, radius);
         if (hitObs) {
           this.player.damageCube(cube);
           break;
@@ -235,11 +236,12 @@ export class JellyRunEngine {
         return;
       }
 
-      // 3. Collectibles Detection
+      // 3. Collectibles Detection with generous magnetic pickup
       this.collectibles.update(delta, this.elapsed);
       for (const cube of this.player.cubes) {
         if (!cube.alive) continue;
-        const collectible = this.collectibles.checkCollisions(cube.position);
+        const radius = this.player.getCubeCollisionRadius(cube);
+        const collectible = this.collectibles.checkCollisions(cube.position, radius + 0.25);
         if (collectible) {
           const res = this.player.absorbCollectible(cube, collectible.value);
           this.collectibles.removeCollectible(collectible);
@@ -291,19 +293,19 @@ export class JellyRunEngine {
   private updateCamera(delta: number) {
     const lead = this.player.getLeadingPosition();
 
-    // Smooth camera trailing
-    const targetCamX = lead.x * 0.45;
-    const targetCamY = 4.6 + (this.isPastFinish ? 1.0 : 0);
-    const targetCamZ = lead.z - 7.5;
+    // Smooth camera trailing with panoramic framing for wide corridors
+    const targetCamX = lead.x * 0.40;
+    const targetCamY = 5.2 + (this.isPastFinish ? 1.2 : (this.player.isSplit ? 0.4 : 0));
+    const targetCamZ = lead.z - 8.4;
 
     this.camera.position.x = THREE.MathUtils.lerp(this.camera.position.x, targetCamX, 8.0 * delta);
     this.camera.position.y = THREE.MathUtils.lerp(this.camera.position.y, targetCamY, 6.0 * delta);
     this.camera.position.z = THREE.MathUtils.lerp(this.camera.position.z, targetCamZ, 12.0 * delta);
 
     const lookTarget = new THREE.Vector3(
-      lead.x * 0.25,
-      1.3,
-      lead.z + 5.0
+      lead.x * 0.20,
+      1.2,
+      lead.z + 5.5
     );
     this.camera.lookAt(lookTarget);
   }

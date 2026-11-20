@@ -29,8 +29,8 @@ export class JellyObstacleManager {
     let rotationSpeed = 0;
 
     if (type === 'DIVIDER') {
-      // Center dividing post that requires splitting
-      const postGeo = new THREE.CylinderGeometry(0.45, 0.45, 2.8, 16);
+      // Sleek center dividing pillar that forces split
+      const postGeo = new THREE.CylinderGeometry(0.24, 0.24, 2.8, 16);
       const postMat = new THREE.MeshStandardMaterial({
         color: 0x1E293B,
         roughness: 0.3,
@@ -42,27 +42,28 @@ export class JellyObstacleManager {
       group.add(post);
 
       // Warning hazard stripes on divider
-      const stripeGeo = new THREE.CylinderGeometry(0.48, 0.48, 0.6, 16);
+      const stripeGeo = new THREE.CylinderGeometry(0.26, 0.26, 0.6, 16);
       const stripeMat = new THREE.MeshBasicMaterial({ color: 0xFACC15 });
       const stripe = new THREE.Mesh(stripeGeo, stripeMat);
       stripe.position.y = 1.4;
       group.add(stripe);
 
+      // Tight, realistic bounds: leaves massive space on left (down to -3.9) and right (up to +3.9)
       bounds = {
-        minX: x - 0.5,
-        maxX: x + 0.5,
-        minZ: z - 0.6,
-        maxZ: z + 0.6
+        minX: x - 0.26,
+        maxX: x + 0.26,
+        minZ: z - 0.35,
+        maxZ: z + 0.35
       };
     } else if (type === 'SPINNING_SAW') {
       // Rotating circular saw blade
-      const baseGeo = new THREE.CylinderGeometry(0.2, 0.2, 1.2, 8);
+      const baseGeo = new THREE.CylinderGeometry(0.18, 0.18, 1.2, 8);
       const baseMat = new THREE.MeshStandardMaterial({ color: 0x334155 });
       const base = new THREE.Mesh(baseGeo, baseMat);
       base.position.y = 0.6;
       group.add(base);
 
-      const sawGeo = new THREE.CylinderGeometry(1.1, 1.1, 0.08, 16);
+      const sawGeo = new THREE.CylinderGeometry(0.9, 0.9, 0.08, 16);
       const sawMat = new THREE.MeshStandardMaterial({
         color: 0xEF4444,
         roughness: 0.2,
@@ -77,38 +78,38 @@ export class JellyObstacleManager {
 
       rotationSpeed = 8.0;
       bounds = {
-        minX: x - 1.05,
-        maxX: x + 1.05,
-        minZ: z - 1.05,
-        maxZ: z + 1.05
+        minX: x - 0.82,
+        maxX: x + 0.82,
+        minZ: z - 0.82,
+        maxZ: z + 0.82
       };
     } else if (type === 'SPIKE_BARRIER') {
-      // Row of dangerous spikes
-      const barGeo = new THREE.BoxGeometry(1.8, 0.2, 0.6);
+      // Row of dangerous spikes with clear corridor
+      const barGeo = new THREE.BoxGeometry(1.4, 0.2, 0.5);
       const barMat = new THREE.MeshStandardMaterial({ color: 0x0F172A });
       const bar = new THREE.Mesh(barGeo, barMat);
       bar.position.y = 0.1;
       group.add(bar);
 
-      const coneGeo = new THREE.ConeGeometry(0.25, 0.8, 8);
+      const coneGeo = new THREE.ConeGeometry(0.2, 0.7, 8);
       const coneMat = new THREE.MeshStandardMaterial({
         color: 0xDC2626,
         metalness: 0.6,
         roughness: 0.3
       });
 
-      for (let i = -2; i <= 2; i++) {
+      for (let i = -1; i <= 1; i++) {
         const spike = new THREE.Mesh(coneGeo, coneMat);
-        spike.position.set(i * 0.38, 0.5, 0);
+        spike.position.set(i * 0.4, 0.45, 0);
         spike.castShadow = true;
         group.add(spike);
       }
 
       bounds = {
-        minX: x - 0.95,
-        maxX: x + 0.95,
-        minZ: z - 0.5,
-        maxZ: z + 0.5
+        minX: x - 0.68,
+        maxX: x + 0.68,
+        minZ: z - 0.4,
+        maxZ: z + 0.4
       };
     }
 
@@ -133,13 +134,15 @@ export class JellyObstacleManager {
     });
   }
 
-  public checkCollisions(cubePos: THREE.Vector3, cubeRadius: number = 0.55): TrackObstacle | null {
+  public checkCollisions(cubePos: THREE.Vector3, cubeRadius: number = 0.45): TrackObstacle | null {
+    // Forgiving arcade margin (82% of visual radius) for satisfying near-misses
+    const r = cubeRadius * 0.82;
     for (const obs of this.obstacles) {
       if (
-        cubePos.x + cubeRadius > obs.bounds.minX &&
-        cubePos.x - cubeRadius < obs.bounds.maxX &&
-        cubePos.z + cubeRadius > obs.bounds.minZ &&
-        cubePos.z - cubeRadius < obs.bounds.maxZ
+        cubePos.x + r > obs.bounds.minX &&
+        cubePos.x - r < obs.bounds.maxX &&
+        cubePos.z + r > obs.bounds.minZ &&
+        cubePos.z - r < obs.bounds.maxZ
       ) {
         return obs;
       }
