@@ -122,6 +122,44 @@ export const INITIAL_RECENT_MATCHES: RecentMatch[] = [];
 
 export const GAMES_CATALOG: GameItem[] = [
   {
+    id: 'fun-race',
+    title: 'Fun Race 3D 🏃💨',
+    slug: 'fun-race',
+    tagline: 'Hold to run, release to stop! Outsmart swinging hammers, rotating blades, and race rival bots to the finish line!',
+    description: 'The definitive 3D parkour obstacle racing game! Hold your touch or click to sprint along vibrant elevated tracks over turquoise lagoons. Time your stops to evade spinning windmills, sinusoidal hammers, rotating drums, and pneumatic crushers. Outrun intelligent AI opponents and cross the finish line first!',
+    category: '⚡ Action & Battle',
+    categoryKey: 'action',
+    thumbnail: '🏃',
+    bannerImage: '/games/fun-race.jpg',
+    playCount: 412000,
+    rating: 4.97,
+    difficulty: 'Medium',
+    duration: '1-2 min',
+    multiplayer: false,
+    multiplayerModes: ['ai'],
+    isTrending: true,
+    isNew: true,
+    isPopular: true,
+    isFeatured: true,
+    tags: ['3D', 'Fun Race', 'Obstacle', 'Parkour', 'Racing', 'Hypercasual', 'Action'],
+    controls: [
+      { key: 'Hold Click / Touch / Space', action: 'Sprint forward along track' },
+      { key: 'Release Click / Touch / Space', action: 'Brake & wait for obstacles to clear' }
+    ],
+    features: [
+      'Realistic single-touch timing gameplay reverse-engineered from Fun Race 3D',
+      'Dynamic obstacles: 4-arm rotating sweepers, sinusoidal pendulum hammers, pneumatic crushers, and rolling drums',
+      'Dynamic AI rivals with hazard anticipation, timing windows, and variance models',
+      'Physics knockback, ragdoll tumbling flight, and realistic water plunge splash particles',
+      'Multi-level progression: Lagoon Sprint, Archipelago Slalom, and Colosseum Gauntlet'
+    ],
+    howToPlay: [
+      'Press and hold mouse click, screen touch, or Spacebar to run forward along the track.',
+      'Release your hold immediately to stop in place when an obstacle is swinging across your path.',
+      'Time your dashes between hazard sweeps and cross the finish line before rival bots!'
+    ]
+  },
+  {
     id: 'giant-rush',
     title: 'Giant Rush 3D 👊🔥',
     slug: 'giant-rush',

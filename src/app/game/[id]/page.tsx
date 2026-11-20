@@ -26,6 +26,7 @@ import { IndianPoliticsArenaGame } from '@/components/games/indian-politics-aren
 import { AutoRushGame } from '@/components/games/auto-rush/AutoRushGame';
 import { TruckRunGame } from '@/components/games/auto-rush/TruckRunGame';
 import { GiantRushGame } from '@/components/games/giant-rush/GiantRushGame';
+import { FunRaceGame } from '@/components/games/fun-race/FunRaceGame';
 
 import { SingleUnifiedMultiplayerModal } from '@/components/game-shell/SingleUnifiedMultiplayerModal';
 import {
@@ -148,6 +149,12 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
 
   const renderGameCanvas = () => {
     switch (game.id) {
+      case 'fun-race':
+        return (
+          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-cyan-400">Loading Fun Race 3D...</div>}>
+            <FunRaceGame />
+          </React.Suspense>
+        );
       case 'giant-rush':
         return (
           <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-amber-400">Loading Giant Rush 3D...</div>}>
