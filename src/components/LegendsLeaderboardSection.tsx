@@ -99,7 +99,7 @@ export const LegendsLeaderboardSection: React.FC = () => {
       ? cloudLeaderboard.map((c, i) => ({
           rank: i + 1,
           username: c.username || `Player_${i + 1}`,
-          gameTitle: c.gameName || 'All Arena Games',
+          gameTitle: (c as any).gameName || (c as any).gameId || 'All Arena Games',
           score: c.score || 0,
           wins: (c as any).wins ?? Math.max(0, Math.floor(c.score / 800)),
           avatar: c.avatar || (i === 0 ? '🚀' : i === 1 ? '🚀' : '🚀'),

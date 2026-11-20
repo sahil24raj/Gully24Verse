@@ -209,6 +209,18 @@ class SoundEngine {
     this.synthTone(150, 80, 0.25, 'sawtooth', 0.2);
   }
 
+  public playGameStart() {
+    this.playClick();
+  }
+
+  public playError() {
+    this.playBuzzer();
+  }
+
+  public playPowerUp() {
+    this.playCombo(3);
+  }
+
   // --- Escape From The Door SFX ---
   public playDoorHover() {
     this.synthTone(800, 1000, 0.04, 'sine', 0.06);

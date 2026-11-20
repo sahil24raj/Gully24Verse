@@ -10,6 +10,7 @@ export type CategoryKey =
   | 'school'
   | 'squad'
   | 'brain'
+  | 'action'
   | 'all';
 
 export interface GameItem {

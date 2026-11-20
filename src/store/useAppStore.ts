@@ -143,10 +143,10 @@ export const GAMES_CATALOG: GameItem[] = [
     isFeatured: true,
     tags: ['3D', 'Fun Race', 'Obstacle', 'Parkour', 'Racing', 'Hypercasual', 'Action'],
     controls: [
-      { key: 'Hold Click / Touch / Space', action: 'Sprint forward along track' },
-      { key: 'Release Click / Touch / Space', action: 'Brake & wait for obstacles to clear' }
+      'Hold Click / Touch / Space: Sprint forward along track',
+      'Release Click / Touch / Space: Brake & wait for obstacles to clear'
     ],
-    features: [
+    rules: [
       'Realistic single-touch timing gameplay reverse-engineered from Fun Race 3D',
       'Dynamic obstacles: 4-arm rotating sweepers, sinusoidal pendulum hammers, pneumatic crushers, and rolling drums',
       'Dynamic AI rivals with hazard anticipation, timing windows, and variance models',
@@ -565,6 +565,7 @@ interface AppState {
   openAuthModal: () => void;
   closeAuthModal: () => void;
   openSpinModal: () => void;
+  openDailySpinModal: () => void;
   closeSpinModal: () => void;
   openMultiplayerModal: (game?: GameItem) => void;
   closeMultiplayerModal: () => void;
@@ -635,6 +636,7 @@ export const useAppStore = create<AppState>()(
       openAuthModal: () => set({ activeAuthModal: true }),
       closeAuthModal: () => set({ activeAuthModal: false }),
       openSpinModal: () => set({ activeSpinModal: true }),
+      openDailySpinModal: () => set({ activeSpinModal: true }),
       closeSpinModal: () => set({ activeSpinModal: false }),
       openMultiplayerModal: (game) => set({ activeMultiplayerModal: true, selectedMultiplayerGame: game || GAMES_CATALOG[0] }),
       closeMultiplayerModal: () => set({ activeMultiplayerModal: false, selectedMultiplayerGame: null }),
