@@ -214,6 +214,25 @@ export class OpponentRunner {
       }
     }
 
+        } else if (type === 'ROLLER') {
+      // Hydraulic Crusher Stamp: safe when elevated high (cycle < 0.6)
+      const cycle = (phase % (Math.PI * 2)) / (Math.PI * 2);
+      const isElevated = cycle < 0.58;
+      if (!isElevated && nearestDist < 2.6) {
+        if (Math.random() < this.accuracy) {
+          return false; // Wait until crusher lifts back up
+        }
+      }
+    } else if (type === 'GATE') {
+      const gateCycle = (phase % Math.PI) / Math.PI;
+      const inDanger = gateCycle < 0.35;
+      if (inDanger && nearestDist < 2.5) {
+        if (Math.random() < this.accuracy) {
+          return false;
+        }
+      }
+    }
+
     return true;
   }
 

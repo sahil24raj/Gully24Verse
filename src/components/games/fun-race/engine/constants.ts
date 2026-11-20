@@ -6,12 +6,12 @@ export const FUN_RACE_CONSTANTS = {
   KNOCKBACK_UP_VELOCITY: 7.5,
   KNOCKBACK_LATERAL_VELOCITY: 8.5,
   RESPAWN_DELAY: 1.1, // Seconds before checkpoint respawn
-  INVINCIBLE_TIME: 1.0, // Invincibility flash after respawn
+  INVINCIBLE_TIME: 1.5, // Generous invincibility flash after respawn
   COUNTDOWN_DURATION: 3.0, // 3-2-1-GO duration in seconds
 
-  // Dimensions & Collisions
-  CHARACTER_RADIUS: 0.35,
-  CHARACTER_HEIGHT: 1.5,
+  // Dimensions & Collisions (Tuned for Fair, Thrilling Dodges)
+  CHARACTER_RADIUS: 0.28,
+  CHARACTER_HEIGHT: 1.45,
   TRACK_WIDTH: 2.8,
   WATER_SURFACE_Y: -2.8,
 
