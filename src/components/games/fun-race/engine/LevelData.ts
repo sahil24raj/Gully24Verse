@@ -1,7 +1,7 @@
 import { LevelConfig } from './types';
 
 export const FUN_RACE_LEVELS: LevelConfig[] = [
-  // LEVEL 1: Lagoon Sprint (Beginner-Friendly, 2 Generous Checkpoints)
+  // LEVEL 1: Lagoon Sprint (Relaxed, Easy-to-Play, Wide Openings)
   {
     levelNumber: 1,
     name: 'Lagoon Sprint',
@@ -23,24 +23,24 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_1_1',
         type: 'SWEEPER',
         s: 16,
-        speed: 1.25, // Relaxed rotation (plenty of time to run through)
+        speed: 0.9, // Very slow, generous 3.5s window
         arms: 2,
-        width: 2.4
+        width: 2.3
       },
       {
         id: 'obs_1_2',
         type: 'HAMMER',
         s: 36,
-        speed: 1.6,
-        amplitude: 1.05
+        speed: 1.15, // Gentle pendulum swing
+        amplitude: 1.0
       },
       {
         id: 'obs_1_3',
         type: 'SWEEPER',
         s: 58,
-        speed: 1.35,
+        speed: 0.95,
         arms: 2,
-        width: 2.4,
+        width: 2.3,
         reverse: true
       }
     ],
@@ -50,14 +50,14 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         name: 'Crimson Rush',
         color: '#EF4444',
         lateralOffset: 0.7,
-        speedFactor: 0.90,
-        aggression: 0.4,
+        speedFactor: 0.88,
+        aggression: 0.35,
         accuracy: 0.90
       }
     ]
   },
 
-  // LEVEL 2: Archipelago Slalom (Intermediate, Hydraulic Crusher, 3 Checkpoints)
+  // LEVEL 2: Archipelago Slalom (Easy & Balanced, Crusher + Sweeper)
   {
     levelNumber: 2,
     name: 'Archipelago Slalom',
@@ -79,37 +79,37 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_2_1',
         type: 'HAMMER',
         s: 16,
-        speed: 1.7,
-        amplitude: 1.1
+        speed: 1.2,
+        amplitude: 1.05
       },
       {
         id: 'obs_2_2',
         type: 'PUSHER',
         s: 34,
-        speed: 2.0,
-        amplitude: 1.7
+        speed: 1.35,
+        amplitude: 1.6
       },
       {
         id: 'obs_2_3',
         type: 'SWEEPER',
         s: 44,
-        speed: 1.45,
-        arms: 2, // 2 arms (was 3 arms which blocked everyone)
-        width: 2.4
+        speed: 1.0, // Slow rotation, only 2 arms
+        arms: 2,
+        width: 2.3
       },
       {
         id: 'obs_2_4',
         type: 'ROLLER', // Hydraulic Overhead Crusher Stamp
         s: 64,
-        speed: 1.8,
-        width: 2.4
+        speed: 1.25, // Stays up long, very easy to run under
+        width: 2.3
       },
       {
         id: 'obs_2_5',
         type: 'HAMMER',
         s: 88,
-        speed: 1.8,
-        amplitude: 1.15,
+        speed: 1.25,
+        amplitude: 1.1,
         phaseOffset: 1.2
       }
     ],
@@ -119,8 +119,8 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         name: 'Crimson Rush',
         color: '#EF4444',
         lateralOffset: -0.7,
-        speedFactor: 0.92,
-        aggression: 0.5,
+        speedFactor: 0.89,
+        aggression: 0.45,
         accuracy: 0.92
       },
       {
@@ -128,14 +128,14 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         name: 'Golden Bolt',
         color: '#F59E0B',
         lateralOffset: 0.7,
-        speedFactor: 0.94,
-        aggression: 0.55,
+        speedFactor: 0.91,
+        aggression: 0.5,
         accuracy: 0.90
       }
     ]
   },
 
-  // LEVEL 3: The Colosseum Gauntlet (Master Challenge, Fair Timing, 4 Checkpoints)
+  // LEVEL 3: The Colosseum Gauntlet (Accessible, 2-Arm Sweepers, Slower Speeds)
   {
     levelNumber: 3,
     name: 'The Colosseum Gauntlet',
@@ -158,52 +158,52 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_3_1',
         type: 'SWEEPER',
         s: 16,
-        speed: 1.6,
+        speed: 1.1, // 2 arms only, slow & easy!
         arms: 2,
-        width: 2.4
+        width: 2.3
       },
       {
         id: 'obs_3_2',
         type: 'PUSHER',
         s: 35,
-        speed: 2.2,
-        amplitude: 1.8
+        speed: 1.4,
+        amplitude: 1.7
       },
       {
         id: 'obs_3_3',
         type: 'HAMMER',
         s: 46,
-        speed: 1.9,
-        amplitude: 1.15
+        speed: 1.3,
+        amplitude: 1.1
       },
       {
         id: 'obs_3_4',
         type: 'GATE',
         s: 66,
-        speed: 1.6
+        speed: 1.15
       },
       {
         id: 'obs_3_5',
         type: 'ROLLER', // Hydraulic Crusher
         s: 88,
-        speed: 1.9,
-        width: 2.4
+        speed: 1.3,
+        width: 2.3
       },
       {
         id: 'obs_3_6',
         type: 'PUSHER',
         s: 100,
-        speed: 2.4,
-        amplitude: 1.8,
+        speed: 1.45,
+        amplitude: 1.7,
         reverse: true
       },
       {
         id: 'obs_3_7',
         type: 'SWEEPER',
         s: 118,
-        speed: 1.7,
+        speed: 1.15,
         arms: 2,
-        width: 2.4,
+        width: 2.3,
         reverse: true
       }
     ],
@@ -213,19 +213,20 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         name: 'Crimson Rush',
         color: '#EF4444',
         lateralOffset: -0.7,
-        speedFactor: 0.93,
-        aggression: 0.6,
-        accuracy: 0.94
+        speedFactor: 0.90,
+        aggression: 0.55,
+        accuracy: 0.93
       },
       {
         id: 'bot_gold',
         name: 'Golden Bolt',
         color: '#F59E0B',
         lateralOffset: 0.7,
-        speedFactor: 0.95,
-        aggression: 0.65,
-        accuracy: 0.92
+        speedFactor: 0.92,
+        aggression: 0.6,
+        accuracy: 0.91
       }
     ]
   }
 ];
+

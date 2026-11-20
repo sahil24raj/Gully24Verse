@@ -212,9 +212,7 @@ export class OpponentRunner {
           return false;
         }
       }
-    }
-
-        } else if (type === 'ROLLER') {
+    } else if (type === 'ROLLER') {
       // Hydraulic Crusher Stamp: safe when elevated high (cycle < 0.6)
       const cycle = (phase % (Math.PI * 2)) / (Math.PI * 2);
       const isElevated = cycle < 0.58;

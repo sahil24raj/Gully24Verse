@@ -215,6 +215,10 @@ export class FunRaceEngine {
     this.loadLevel(this.currentLevelIndex);
   }
 
+  public setSteering(dir: number) {
+    this.inputManager.setSteering(dir);
+  }
+
   public handleResize = () => {
     if (!this.container) return;
     const width = this.container.clientWidth || 800;
