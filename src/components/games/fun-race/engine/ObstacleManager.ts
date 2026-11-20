@@ -103,30 +103,60 @@ export class ObstacleManager {
     this.obstacles.push(activeObs);
   }
 
-  // 1. ROTATING SWEEPER: 2 or 4 horizontal arms rotating across the track
+  // 1. ROTATING SWEEPER: Suspended from overhead gantry arch (Ground track is 100% CLEAR)
   private createSweeper(obs: ActiveObstacle) {
     const { root, config } = obs;
     const armsCount = config.arms || 2;
     const armLength = config.width || 2.4;
+    const archHeight = 3.8;
+    const archWidth = 3.4;
 
-    // Central Base Pillar
-    const baseGeom = new THREE.CylinderGeometry(0.28, 0.36, 1.2, 16);
-    const base = new THREE.Mesh(baseGeom, this.metalMat);
-    base.position.y = 0.6;
-    base.castShadow = true;
-    root.add(base);
+    // Left Arch Pillar (located outside the track deck)
+    const legGeom = new THREE.CylinderGeometry(0.14, 0.18, archHeight, 14);
+    const leftLeg = new THREE.Mesh(legGeom, this.metalMat);
+    leftLeg.position.set(-archWidth * 0.5, archHeight * 0.5, 0);
+    leftLeg.castShadow = true;
+    root.add(leftLeg);
 
-    // Rotating Spindle Hub
+    // Right Arch Pillar (located outside the track deck)
+    const rightLeg = new THREE.Mesh(legGeom, this.metalMat);
+    rightLeg.position.set(archWidth * 0.5, archHeight * 0.5, 0);
+    rightLeg.castShadow = true;
+    root.add(rightLeg);
+
+    // Overhead Crossbeam spanning across the track at top
+    const beamGeom = new THREE.CylinderGeometry(0.16, 0.16, archWidth + 0.4, 14);
+    const beam = new THREE.Mesh(beamGeom, this.metalMat);
+    beam.position.y = archHeight;
+    beam.rotation.z = Math.PI / 2;
+    beam.castShadow = true;
+    root.add(beam);
+
+    // Hazard Stripes Marker on Overhead Beam
+    const markerGeom = new THREE.BoxGeometry(0.8, 0.22, 0.22);
+    const marker = new THREE.Mesh(markerGeom, this.accentMat);
+    marker.position.y = archHeight;
+    root.add(marker);
+
+    // Hanging Axle descending from overhead crossbeam
+    const axleLength = 2.4;
+    const axleGeom = new THREE.CylinderGeometry(0.1, 0.1, axleLength, 12);
+    const axle = new THREE.Mesh(axleGeom, this.metalMat);
+    axle.position.set(0, archHeight - axleLength * 0.5, 0);
+    axle.castShadow = true;
+    root.add(axle);
+
+    // Rotating Spindle Hub (suspended at chest height 0.95m, ZERO ground pillar!)
     const hubGroup = new THREE.Group();
-    hubGroup.position.y = 0.55;
+    hubGroup.position.y = 0.95;
     root.add(hubGroup);
     obs.movingParts.push(hubGroup);
 
-    const capGeom = new THREE.CylinderGeometry(0.32, 0.32, 0.35, 16);
+    const capGeom = new THREE.CylinderGeometry(0.3, 0.3, 0.4, 16);
     const cap = new THREE.Mesh(capGeom, this.accentMat);
     hubGroup.add(cap);
 
-    // Spoke Arms
+    // Horizontal Sweeper Spoke Arms
     for (let i = 0; i < armsCount; i++) {
       const armAngle = (i * Math.PI * 2) / armsCount;
       const armGroup = new THREE.Group();
@@ -140,18 +170,18 @@ export class ObstacleManager {
       bar.castShadow = true;
       armGroup.add(bar);
 
-      // Padded Arm Tip
+      // Arm Tip Bumper
       const tipGeom = new THREE.CylinderGeometry(0.2, 0.2, 0.28, 16);
       const tip = new THREE.Mesh(tipGeom, this.accentMat);
       tip.position.x = armLength;
       tip.rotation.z = Math.PI / 2;
       armGroup.add(tip);
 
-      // Add collider reference
+      // Add collider reference (at chest height)
       obs.colliders.push({
         type: 'BOX',
         obj: bar,
-        halfSize: new THREE.Vector3(armLength * 0.5, 0.16, 0.16)
+        halfSize: new THREE.Vector3(armLength * 0.5, 0.18, 0.18)
       });
     }
   }
@@ -303,16 +333,39 @@ export class ObstacleManager {
     });
   }
 
-  // 5. ROTATING REVOLVING GATE
+  // 5. ROTATING REVOLVING GATE (Overhead gantry mounted, completely clear track deck)
   private createGate(obs: ActiveObstacle) {
     const { root } = obs;
-    const spindleGeom = new THREE.CylinderGeometry(0.18, 0.22, 2.0, 16);
-    const spindle = new THREE.Mesh(spindleGeom, this.metalMat);
-    spindle.position.y = 1.0;
-    root.add(spindle);
+    const archHeight = 3.8;
+    const archWidth = 3.4;
+
+    // Left and Right Arch Pillars
+    const legGeom = new THREE.CylinderGeometry(0.14, 0.18, archHeight, 14);
+    const leftLeg = new THREE.Mesh(legGeom, this.metalMat);
+    leftLeg.position.set(-archWidth * 0.5, archHeight * 0.5, 0);
+    leftLeg.castShadow = true;
+    root.add(leftLeg);
+
+    const rightLeg = new THREE.Mesh(legGeom, this.metalMat);
+    rightLeg.position.set(archWidth * 0.5, archHeight * 0.5, 0);
+    rightLeg.castShadow = true;
+    root.add(rightLeg);
+
+    const beamGeom = new THREE.CylinderGeometry(0.16, 0.16, archWidth + 0.4, 14);
+    const beam = new THREE.Mesh(beamGeom, this.metalMat);
+    beam.position.y = archHeight;
+    beam.rotation.z = Math.PI / 2;
+    beam.castShadow = true;
+    root.add(beam);
+
+    // Hanging Axle descending from top beam
+    const axleGeom = new THREE.CylinderGeometry(0.1, 0.1, 2.2, 12);
+    const axle = new THREE.Mesh(axleGeom, this.metalMat);
+    axle.position.set(0, 2.7, 0);
+    root.add(axle);
 
     const gateGroup = new THREE.Group();
-    gateGroup.position.y = 1.0;
+    gateGroup.position.y = 1.1;
     root.add(gateGroup);
     obs.movingParts.push(gateGroup);
 

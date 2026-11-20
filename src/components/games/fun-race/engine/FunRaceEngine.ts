@@ -164,6 +164,8 @@ export class FunRaceEngine {
 
     // Reset Player
     this.player.reset(1.5);
+    this.player.lateralOffset = 0;
+    this.inputManager.reset();
     const pSample = this.trackManager.sampleAtDistance(1.5);
     this.player.rig.root.position.copy(pSample.position);
 
@@ -276,6 +278,14 @@ export class FunRaceEngine {
         bot.update(dt, this.trackManager, this.obstacleManager, this.particleManager);
       }
     } else if (this.gameState === 'RACING') {
+      // Update lateral steering offset (A/D, Arrow keys, Pointer Drag, Touch HUD)
+      const maxLateral = (FUN_RACE_CONSTANTS.TRACK_WIDTH * 0.5) - 0.45;
+      this.player.lateralOffset = this.inputManager.updateLateralOffset(
+        this.player.lateralOffset,
+        dt,
+        maxLateral
+      );
+
       // 5. Update Player with InputManager state
       this.player.update(
         dt,

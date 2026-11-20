@@ -15,6 +15,7 @@ export class PlayerRunner {
   public rig: CharacterRig;
   public s: number = 0; // Distance along track
   public lateralOffset: number = 0; // Center of lane
+  private prevLateralOffset: number = 0;
   public currentCheckpoint: number = 0; // Latest passed checkpoint index
   public rank: number = 1;
   public finished: boolean = false;
@@ -33,6 +34,8 @@ export class PlayerRunner {
 
   public reset(startS: number = 1.5) {
     this.s = startS;
+    this.lateralOffset = 0;
+    this.prevLateralOffset = 0;
     this.state = 'IDLE';
     this.currentCheckpoint = 0;
     this.finished = false;
@@ -132,7 +135,11 @@ export class PlayerRunner {
     // Orientation along Track Tangent (locked yaw, no ungrounded tilt)
     const forward = sample.tangent.clone();
     const targetRotY = Math.atan2(forward.x, forward.z);
-    this.rig.root.rotation.set(0, targetRotY, 0);
+    const lateralDelta = (this.lateralOffset - this.prevLateralOffset) / Math.max(0.001, dt);
+    this.prevLateralOffset = this.lateralOffset;
+    // Dynamic banking tilt when steering left / right
+    const bankAngle = THREE.MathUtils.clamp(-lateralDelta * 0.04, -0.22, 0.22);
+    this.rig.root.rotation.set(0, targetRotY, bankAngle);
 
     // 3. COLLISION DETECTION AGAINST OBSTACLES
     if (this.invincibleTimer <= 0) {

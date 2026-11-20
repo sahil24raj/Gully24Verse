@@ -1,6 +1,6 @@
 import React from 'react';
 import { EngineTelemetry } from '../engine/types';
-import { Trophy, Volume2, VolumeX, Flag, Sparkles, Maximize, Minimize } from 'lucide-react';
+import { Trophy, Volume2, VolumeX, Flag, Sparkles, Maximize, Minimize, ChevronLeft, ChevronRight } from 'lucide-react';
 import { funRaceAudio } from '../engine/AudioManager';
 
 interface FunRaceHUDProps {
@@ -10,6 +10,7 @@ interface FunRaceHUDProps {
   onToggleMute: () => void;
   onToggleFullscreen: () => void;
   onRestart: () => void;
+  onSteer?: (dir: number) => void;
 }
 
 export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
@@ -18,7 +19,8 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
   isFullscreen,
   onToggleMute,
   onToggleFullscreen,
-  onRestart
+  onRestart,
+  onSteer
 }) => {
   if (!telemetry) return null;
 
@@ -151,12 +153,32 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
         </div>
       </div>
 
-      {/* --- BOTTOM PROMPT / HOLD-TO-RUN & VISUAL ACTIVE RUN INDICATOR --- */}
-      <div className="w-full flex flex-col items-center gap-2 pb-2">
+      {/* --- BOTTOM CONTROLS & HUD ACTIONS --- */}
+      <div className="w-full flex flex-col items-center gap-3 pb-2 pointer-events-none">
         {telemetry.gameState === 'RACING' && (
-          <div className="flex flex-col items-center gap-1.5">
+          <div className="w-full max-w-md flex items-center justify-between gap-3 px-2 pointer-events-auto" data-hud-control="true">
+            {/* Tactile Left Steer Button (Mobile / Mouse) */}
+            <button
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onSteer?.(-1);
+              }}
+              onPointerUp={(e) => {
+                e.stopPropagation();
+                onSteer?.(0);
+              }}
+              onPointerLeave={() => onSteer?.(0)}
+              className="flex-1 py-3 px-3 rounded-2xl bg-black/80 hover:bg-black/95 active:bg-cyan-500/20 backdrop-blur-md border-2 border-cyan-400/40 active:border-cyan-400 text-cyan-300 font-black text-xs sm:text-sm tracking-wider flex items-center justify-center gap-1.5 shadow-xl transition-all cursor-pointer active:scale-95"
+              title="Steer Left (A / Left Arrow)"
+            >
+              <ChevronLeft className="w-5 h-5 text-cyan-400" />
+              <span>STEER LEFT</span>
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] bg-white/10 rounded font-mono text-cyan-200">A</kbd>
+            </button>
+
+            {/* Hold to Run Indicator Badge */}
             <div
-              className={`px-6 py-2.5 rounded-2xl backdrop-blur-md border text-xs sm:text-sm font-black tracking-wider uppercase transition-all duration-300 shadow-2xl flex items-center gap-2 ${
+              className={`px-4 py-3 rounded-2xl backdrop-blur-md border text-xs sm:text-sm font-black tracking-wider uppercase transition-all duration-300 shadow-2xl flex items-center justify-center gap-2 ${
                 telemetry.isHolding
                   ? 'bg-emerald-500/90 border-emerald-300 text-white shadow-[0_0_25px_rgba(16,185,129,0.5)] scale-105'
                   : 'bg-black/80 border-amber-400/60 text-amber-300 animate-pulse'
@@ -165,18 +187,38 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
               {telemetry.isHolding ? (
                 <>
                   <span className="w-2.5 h-2.5 rounded-full bg-white animate-ping" />
-                  <span>⚡ SPRINTING! RELEASE TO STOP</span>
+                  <span>RUNNING!</span>
                 </>
               ) : (
-                <span>👆 HOLD SCREEN / CLICK / SPACE TO RUN</span>
+                <span>HOLD SCREEN</span>
               )}
             </div>
-            {/* Contextual Pro-Tip when idling near hazards */}
-            {!telemetry.isHolding && (
-              <span className="text-[11px] font-mono text-slate-400 bg-black/60 px-3 py-1 rounded-full border border-white/5 backdrop-blur-sm">
-                Watch the obstacle rotation • Sprint right after it clears!
-              </span>
-            )}
+
+            {/* Tactile Right Steer Button (Mobile / Mouse) */}
+            <button
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onSteer?.(1);
+              }}
+              onPointerUp={(e) => {
+                e.stopPropagation();
+                onSteer?.(0);
+              }}
+              onPointerLeave={() => onSteer?.(0)}
+              className="flex-1 py-3 px-3 rounded-2xl bg-black/80 hover:bg-black/95 active:bg-cyan-500/20 backdrop-blur-md border-2 border-cyan-400/40 active:border-cyan-400 text-cyan-300 font-black text-xs sm:text-sm tracking-wider flex items-center justify-center gap-1.5 shadow-xl transition-all cursor-pointer active:scale-95"
+              title="Steer Right (D / Right Arrow)"
+            >
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] bg-white/10 rounded font-mono text-cyan-200">D</kbd>
+              <span>STEER RIGHT</span>
+              <ChevronRight className="w-5 h-5 text-cyan-400" />
+            </button>
+          </div>
+        )}
+
+        {/* Global Controls Tip Banner */}
+        {telemetry.gameState === 'RACING' && (
+          <div className="text-[11px] font-mono text-slate-300 bg-black/75 px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-md shadow-lg pointer-events-auto">
+            🎮 Hold Click/Touch/Space to Run • [A / D] or Touch Arrows to Steer Left & Right
           </div>
         )}
       </div>

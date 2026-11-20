@@ -93,6 +93,12 @@ export const FunRaceGame: React.FC = () => {
     }
   };
 
+  const handleSteer = useCallback((dir: number) => {
+    if (engineRef.current) {
+      engineRef.current.setSteering(dir);
+    }
+  }, []);
+
   const handleRetryLevel = () => {
     setVictoryData(null);
     setDefeatRank(null);
@@ -121,6 +127,7 @@ export const FunRaceGame: React.FC = () => {
         onToggleMute={handleToggleMute}
         onToggleFullscreen={handleToggleFullscreen}
         onRestart={handleRetryLevel}
+        onSteer={handleSteer}
       />
 
       {/* Victory Celebration Modal */}
