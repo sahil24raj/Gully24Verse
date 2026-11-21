@@ -55,17 +55,22 @@ function scanAndCopyRoutes(currentDir, relativePrefix = '') {
       }
     } else if (entry.name.endsWith('.html')) {
       const routeName = entry.name.replace('.html', '');
+      let htmlContent = fs.readFileSync(fullPath, 'utf-8');
+      
+      // Clean any residual Next.js dynamic image URLs to direct static asset paths
+      htmlContent = htmlContent.replace(/\/_next\/image\?url=(?:%2F|\/)([^&"'>\s]+)&(?:amp;)?w=\d+&(?:amp;)?q=\d+/g, '/$1');
+      
       if (routeName === 'index') {
-        fs.copyFileSync(fullPath, path.join(distDir, 'index.html'));
+        fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent, 'utf-8');
       } else if (routeName === '_not-found') {
-        fs.copyFileSync(fullPath, path.join(distDir, '404.html'));
-        fs.copyFileSync(fullPath, path.join(distDir, '_not-found.html'));
+        fs.writeFileSync(path.join(distDir, '404.html'), htmlContent, 'utf-8');
+        fs.writeFileSync(path.join(distDir, '_not-found.html'), htmlContent, 'utf-8');
       } else {
         // e.g. about.html -> dist/about.html AND dist/about/index.html
         const routeDir = path.join(distDir, relativePrefix, routeName);
         fs.mkdirSync(routeDir, { recursive: true });
-        fs.copyFileSync(fullPath, path.join(distDir, relativePrefix, entry.name));
-        fs.copyFileSync(fullPath, path.join(routeDir, 'index.html'));
+        fs.writeFileSync(path.join(distDir, relativePrefix, entry.name), htmlContent, 'utf-8');
+        fs.writeFileSync(path.join(routeDir, 'index.html'), htmlContent, 'utf-8');
       }
     } else if (entry.name.endsWith('.rsc')) {
       const targetRscDir = path.join(distDir, relativePrefix);

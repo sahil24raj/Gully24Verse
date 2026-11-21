@@ -31,6 +31,9 @@ const nextConfig: any = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    unoptimized: true,
+  },
   async headers() {
     return [
       {

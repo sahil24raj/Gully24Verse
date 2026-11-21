@@ -61,6 +61,7 @@ export const GullyVerseLogo: React.FC<GullyVerseLogoProps> = ({
                 alt="GullyVerse Icon"
                 fill
                 sizes="96px"
+                unoptimized
                 className="object-cover object-center group-hover:scale-110 transition-transform duration-500"
                 priority
               />
@@ -75,6 +76,7 @@ export const GullyVerseLogo: React.FC<GullyVerseLogoProps> = ({
                 alt="GullyVerse — Gully Se Gaming Tak"
                 fill
                 sizes="(max-width: 768px) 120px, 160px"
+                unoptimized
                 className="object-contain object-center group-hover:scale-105 group-hover:brightness-110 transition-all duration-300"
                 priority
               />
