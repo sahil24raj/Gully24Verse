@@ -163,11 +163,11 @@ export const GullyHeroSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-end pt-[42vh] sm:pt-[44vh] lg:pt-[45vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
-      <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-3 sm:gap-4 relative z-10">
+    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-end pt-[37vh] sm:pt-[38vh] lg:pt-[39vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
+      <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-2 sm:gap-2.5 relative z-10">
         
-        {/* Main Hero Row: Clean, Moderate Russo One Headline Positioned Right Below Gully Verse Graffiti */}
-        <div className="flex flex-col gap-1.5 w-full">
+        {/* Main Hero Row: Bold Headline Positioned Directly Below Gully Verse Wall Graffiti */}
+        <div className="flex flex-col gap-1 w-full">
           {/* Sleek Brand Kicker */}
           <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-black/75 border border-amber-500/35 backdrop-blur-md w-fit shadow-md">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#FF9F1C]" />
@@ -176,16 +176,16 @@ export const GullyHeroSection: React.FC = () => {
             </span>
           </div>
 
-          {/* Moderate Scaled Headline with Light Natural Shadow (Fits 100% on Screen Without Overflow) */}
-          <h1 className="font-['Russo_One',sans-serif] text-[clamp(1.85rem,4vw,4.6rem)] tracking-tight text-white uppercase leading-tight whitespace-nowrap drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          {/* Prominent Russo One Headline with Clean Natural Shadow and No Overflow */}
+          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.2rem,5.2vw,6rem)] tracking-tight text-white uppercase leading-tight whitespace-nowrap drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
             <span className="text-white">APNI GULLY, </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF]">
               APNE GAMES!
             </span>
           </h1>
 
-          <p className="text-slate-200 text-xs sm:text-sm md:text-base font-semibold max-w-2xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-            Zero Downloads • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
+          <p className="text-slate-100 text-xs sm:text-sm md:text-base font-semibold max-w-4xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            Zero Downloads • 100% Free-to-Play Browser-Based Games • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
           </p>
         </div>
 
