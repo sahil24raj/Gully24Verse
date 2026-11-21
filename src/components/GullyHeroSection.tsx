@@ -163,10 +163,13 @@ export const GullyHeroSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between pt-[53vh] sm:pt-[54vh] lg:pt-[55vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
+    <section
+      className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between pb-0 px-4 sm:px-8 xl:px-14 select-none"
+      style={{ paddingTop: 'calc(55vh - 80px)' }}
+    >
       <div className="max-w-[1720px] mx-auto w-full flex flex-col justify-between flex-1 gap-2.5 sm:gap-3 relative z-10">
         
-        {/* Main Hero Row: Starts Right Under User's White Line (~54-55% Viewport Height) */}
+        {/* Main Hero Row: Starts Exactly After 55% of the Screen */}
         <div className="flex flex-col gap-1.5 w-full">
           {/* Bigger Sleek Brand Kicker */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/80 border border-amber-500/40 backdrop-blur-md w-fit shadow-md mb-0.5">
