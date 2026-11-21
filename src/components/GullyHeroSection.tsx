@@ -164,10 +164,10 @@ export const GullyHeroSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between pt-[44vh] sm:pt-[48vh] lg:pt-[50vh] pb-4 px-4 sm:px-8 xl:px-14 select-none">
-      <div className="max-w-[1720px] mx-auto w-full flex flex-col justify-between flex-1 relative z-10">
+    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between pt-[15vh] sm:pt-[17vh] lg:pt-[19vh] pb-6 px-4 sm:px-8 xl:px-14 select-none">
+      <div className="max-w-[1720px] mx-auto w-full flex flex-col justify-between flex-1 relative z-10 gap-6">
         
-        {/* Main Hero Row: Massive Headline on Left, Minimal Platform Badge on Right */}
+        {/* Main Hero Row: Big Bold Headline on Left, Minimal Instant Play Badge on Right */}
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
           
           {/* Left Column: Big Bold Grand Headline — APNI GULLY, APNE GAMES! */}
@@ -195,8 +195,8 @@ export const GullyHeroSection: React.FC = () => {
           </div>
 
           {/* Right Column: Clean Instant Play Badge (NO DAILY CHALLENGES) */}
-          <div className="shrink-0 pb-2">
-            <div className="px-4 py-2.5 rounded-2xl bg-black/70 border border-emerald-500/30 backdrop-blur-md shadow-lg flex items-center gap-2.5">
+          <div className="shrink-0 pb-1">
+            <div className="px-4 py-2 rounded-2xl bg-black/70 border border-emerald-500/30 backdrop-blur-md shadow-lg flex items-center gap-2.5">
               <Zap className="w-4 h-4 text-amber-400" />
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
@@ -209,8 +209,8 @@ export const GullyHeroSection: React.FC = () => {
 
         </div>
 
-        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (PEEKING AT BOTTOM OF SCREEN) --- */}
-        <div className="w-full flex flex-col gap-2.5 pt-8 sm:pt-12">
+        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (FIT VISIBLY ON HOME SCREEN) --- */}
+        <div className="w-full flex flex-col gap-2.5 pt-4 sm:pt-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs uppercase font-black text-white tracking-wider">
               <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
@@ -244,7 +244,7 @@ export const GullyHeroSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Horizontally Scrollable & Swipeable Cards Container (Peeking Dock) */}
+          {/* Horizontally Scrollable & Swipeable Cards Container */}
           <div
             ref={dockScrollRef}
             className="flex items-center gap-3.5 sm:gap-4 overflow-x-auto scrollbar-none pb-2 pt-1 scroll-smooth snap-x snap-mandatory"
@@ -253,7 +253,7 @@ export const GullyHeroSection: React.FC = () => {
               <div
                 key={game.id}
                 onClick={() => handleLaunchGame(game.route)}
-                className="group relative shrink-0 w-[190px] sm:w-[220px] md:w-[240px] aspect-[16/10] rounded-2xl overflow-hidden cursor-pointer border-2 transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] shadow-xl hover:shadow-[0_0_24px_rgba(255,183,3,0.35)] snap-start"
+                className="group relative shrink-0 w-[180px] sm:w-[210px] md:w-[230px] aspect-[16/10] rounded-2xl overflow-hidden cursor-pointer border-2 transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] shadow-xl hover:shadow-[0_0_24px_rgba(255,183,3,0.35)] snap-start"
                 style={{ borderColor: game.borderColor }}
               >
                 {/* Game Cover Image */}
