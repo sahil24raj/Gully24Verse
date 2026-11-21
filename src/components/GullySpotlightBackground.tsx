@@ -16,11 +16,11 @@ export const GullySpotlightBackground: React.FC = () => {
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    let radius = Math.min(Math.max(window.innerWidth * 0.28, 360), 540);
+    let radius = Math.min(Math.max(window.innerWidth * 0.32, 380), 580);
 
     // Initial position: center of viewport
     let currentX = window.innerWidth * 0.5;
-    let currentY = window.innerHeight * 0.38;
+    let currentY = window.innerHeight * 0.36;
     let targetX = currentX;
     let targetY = currentY;
     let isUserActive = false;
@@ -28,7 +28,7 @@ export const GullySpotlightBackground: React.FC = () => {
     let animId: number;
 
     const handleResize = () => {
-      radius = Math.min(Math.max(window.innerWidth * 0.28, 360), 540);
+      radius = Math.min(Math.max(window.innerWidth * 0.32, 380), 580);
       if (glowLight) {
         glowLight.style.width = `${radius * 2}px`;
         glowLight.style.height = `${radius * 2}px`;
@@ -64,7 +64,7 @@ export const GullySpotlightBackground: React.FC = () => {
       if (!isUserActive || now - lastActiveTime > 2500) {
         if (!prefersReducedMotion) {
           const cx = window.innerWidth * 0.5;
-          const cy = window.innerHeight * 0.38;
+          const cy = window.innerHeight * 0.36;
           const rx = window.innerWidth * 0.16;
           const ry = window.innerHeight * 0.11;
           targetX = cx + Math.sin(elapsed * 0.75) * rx;
@@ -106,37 +106,36 @@ export const GullySpotlightBackground: React.FC = () => {
       className="fixed inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden"
     >
       {/* 
-        LAYER 1 (NORMAL JAGAH - HALKA HALKA DIKHEGA):
-        The user's Indian Gully Mohalla artwork clearly visible everywhere at a moody, 
-        atmospheric cinematic brightness (Chai Tapri, Auto, Arcade Gateway, Graffiti, Sunset).
+        LAYER 1: The 3D Indian Gully Mohalla artwork clearly visible everywhere
+        with enhanced base clarity, vibrancy, and cinematic contrast (Chai Tapri, Neon Arcade, Auto, Cycle, Street).
       */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-[1.01]"
         style={{
           backgroundImage: "url('/brand/gully-environment.jpg')",
-          filter: 'brightness(0.52) contrast(1.1) saturate(0.95)'
+          filter: 'brightness(0.72) contrast(1.1) saturate(1.08)'
         }}
       />
 
       {/* 
-        Soft Transparent Scrim (Keeps UI typography 100% crisp while letting the street shine through)
+        Subtle Cinematic Scrim (Keeps header & dock readable while letting 70%+ center background shine through unclouded)
       */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#101014]/30 via-transparent to-[#101014]/55" />
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#101014]/40 via-transparent to-[#101014]/45" />
 
       {/* 
-        LAYER 2 (JAHA PE CURSOR KARO WO BRIGHT DIKHEGA):
-        Full-brightness, saturated, glowing original Gully artwork revealed precisely under the cursor spotlight.
+        LAYER 2 (SPOTLIGHT REVEAL):
+        Super-saturated, glowing original Gully artwork revealed under the cursor spotlight.
       */}
       <div
         ref={brightLayerRef}
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-[1.01] will-change-[mask-image]"
         style={{
           backgroundImage: "url('/brand/gully-environment.jpg')",
-          filter: 'brightness(1.28) contrast(1.18) saturate(1.35)',
+          filter: 'brightness(1.32) contrast(1.2) saturate(1.4)',
           WebkitMaskImage:
-            'radial-gradient(circle 380px at 50% 38%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
+            'radial-gradient(circle 380px at 50% 36%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
           maskImage:
-            'radial-gradient(circle 380px at 50% 38%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)'
+            'radial-gradient(circle 380px at 50% 36%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)'
         }}
       />
 
@@ -149,7 +148,7 @@ export const GullySpotlightBackground: React.FC = () => {
         style={{
           width: '760px',
           height: '760px',
-          transform: 'translate3d(calc(50vw - 380px), calc(38vh - 380px), 0)',
+          transform: 'translate3d(calc(50vw - 380px), calc(36vh - 380px), 0)',
           background:
             'radial-gradient(circle, rgba(255, 159, 28, 0.28) 0%, rgba(0, 191, 166, 0.16) 40%, rgba(0,0,0,0) 70%)'
         }}

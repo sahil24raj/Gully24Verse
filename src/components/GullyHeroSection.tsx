@@ -52,7 +52,7 @@ export const GullyHeroSection: React.FC = () => {
   const quickLaunchGames: QuickGameCard[] = [
     {
       id: 'jelly-run',
-      name: 'Jelly Jalwa 🍮✨',
+      name: 'Jelly Jalwa 🍬✨',
       category: 'Desi 2048 Runner',
       route: '/game/jelly-run',
       image: '/games/jelly-run.jpg',
@@ -76,7 +76,7 @@ export const GullyHeroSection: React.FC = () => {
     },
     {
       id: 'giant-rush',
-      name: 'Pehelwan Rush 👊🔥',
+      name: 'Pehelwan Rush 🥊🔥',
       category: 'Desi Akhaada Brawler',
       route: '/game/giant-rush',
       image: '/games/giant-rush.jpg',
@@ -124,7 +124,7 @@ export const GullyHeroSection: React.FC = () => {
     },
     {
       id: 'fake-bomb',
-      name: 'Fake Bomb 💣⚛️',
+      name: 'Fake Bomb 💣⚡',
       category: 'Chaos Defusal',
       route: '/game/fake-bomb',
       image: '/games/fake-bomb.jpg',
@@ -168,90 +168,78 @@ export const GullyHeroSection: React.FC = () => {
   const challengeProgress = Math.min(100, Math.max(15, (gamesPlayed / 3) * 100));
 
   return (
-    <section className="relative w-full overflow-hidden pt-4 pb-8 px-4 sm:px-8 xl:px-14 select-none">
-      <div className="max-w-[1720px] mx-auto flex flex-col gap-8 relative z-10">
+    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-end pt-[40vh] sm:pt-[45vh] lg:pt-[52vh] pb-6 px-4 sm:px-8 xl:px-14 select-none">
+      {/* Soft bottom vignette to ensure typography and card contrast without dimming the 70% hero view above */}
+      <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-[#0e0e12]/95 via-[#0e0e12]/50 to-transparent pointer-events-none -z-0" />
+
+      <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-4 relative z-10">
         
-        {/* Main Hero Row: Headline on Left, Widgets on Right */}
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-8 pt-6 sm:pt-10 lg:pt-14 min-h-[360px]">
+        {/* COMPACT BOTTOM-ANCHORED BRANDING & STATUS ROW */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           
-          {/* Left Column: Focused High-Impact Branding */}
-          <div className="max-w-3xl flex flex-col gap-3">
-            {/* Minimal Brand Kicker */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-amber-500/30 backdrop-blur-md w-fit shadow-lg">
+          {/* Left: Punchy Compact Headline & Subtitle */}
+          <div className="flex flex-col gap-1.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 border border-amber-500/40 backdrop-blur-md w-fit shadow-md">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#FF9F1C]" />
               <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-amber-300 font-mono">
                 GULLYVERSE • INDIA KA APNA GAMING ADDA
               </span>
             </div>
 
-            {/* Massive Bold Headline — APNI GULLY, APNE GAMES */}
-            <div className="flex flex-col gap-1">
-              <h1 className="text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-black leading-[0.96] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-                APNI GULLY, <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#00E5FF] to-white drop-shadow-[0_0_35px_rgba(0,229,255,0.4)]">
+            <div className="flex flex-wrap items-baseline gap-2 sm:gap-3">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white uppercase font-black leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+                APNI GULLY,{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#00E5FF] to-white drop-shadow-[0_0_28px_rgba(0,229,255,0.45)]">
                   APNE GAMES!
                 </span>
               </h1>
-              <p className="text-slate-200 text-sm sm:text-base font-semibold max-w-xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-1.5">
-                Zero Downloads • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
-              </p>
+              <span className="text-xs sm:text-sm text-slate-300 font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                • Zero Downloads • Instant 1-Tap Play • 14 Desi Hits
+              </span>
             </div>
           </div>
 
-          {/* Right Column: Hero Floating Glass Widgets (Clean Authentic Professional Status) */}
-          <div className="w-full lg:w-80 flex flex-col gap-3 shrink-0 lg:self-end">
-            
-            {/* 1. Daily Challenge Widget */}
-            <div
-              className="p-3.5 rounded-2xl bg-[#1B1B22]/90 border border-amber-500/30 backdrop-blur-md shadow-xl flex items-center justify-between gap-3 group"
-            >
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-1.5 text-amber-400 text-xs font-black uppercase tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-purple-400" />
-                  <span>DAILY CHALLENGE</span>
-                </div>
-                <p className="text-xs text-slate-200 font-semibold">
-                  Play 3 different games today!
-                </p>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="w-28 bg-black/60 h-2 rounded-full overflow-hidden">
-                    <div
-                      className="bg-[#FFB703] h-full rounded-full transition-all duration-300"
-                      style={{ width: `${challengeProgress}%` }}
-                    />
-                  </div>
-                </div>
+          {/* Right: Sleek Compact Status Badges */}
+          <div className="flex items-center gap-2.5 flex-wrap shrink-0">
+            {/* Daily Challenge Pill */}
+            <div className="px-3.5 py-1.5 rounded-xl bg-black/75 border border-amber-500/30 backdrop-blur-md shadow-md flex items-center gap-2.5">
+              <div className="w-6 h-6 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                <Gift className="w-3.5 h-3.5" />
               </div>
-              <div className="w-11 h-11 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-xl group-hover:scale-110 transition-transform shrink-0">
-                <Gift className="w-5 h-5 text-amber-400" />
+              <div className="flex flex-col">
+                <span className="text-[10px] uppercase font-black tracking-wider text-amber-400 leading-none">
+                  Daily Challenge
+                </span>
+                <span className="text-xs text-slate-200 font-medium leading-tight">
+                  Play 3 games ({gamesPlayed}/3)
+                </span>
+              </div>
+              <div className="w-14 bg-black/60 h-1.5 rounded-full overflow-hidden ml-1">
+                <div
+                  className="bg-[#FFB703] h-full rounded-full transition-all duration-300"
+                  style={{ width: `${challengeProgress}%` }}
+                />
               </div>
             </div>
 
-            {/* 2. Platform Status (NO MOCK USER COUNTS) */}
-            <div className="px-4 py-2.5 rounded-2xl bg-[#1B1B22]/90 border border-emerald-500/30 backdrop-blur-md shadow-lg flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-amber-400" />
-                <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                  INSTANT PLAY
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span className="text-xs font-black text-emerald-400 font-mono">
-                  ZERO DOWNLOADS 🟢
-                </span>
-              </div>
+            {/* Instant Play Badge */}
+            <div className="px-3 py-1.5 rounded-xl bg-black/75 border border-emerald-500/30 backdrop-blur-md shadow-md flex items-center gap-2">
+              <Zap className="w-3.5 h-3.5 text-amber-400" />
+              <span className="text-xs font-black text-emerald-400 font-mono flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                INSTANT PLAY
+              </span>
             </div>
-
           </div>
+
         </div>
 
-        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (SWIPE ALL 13 GAMES) --- */}
-        <div className="w-full flex flex-col gap-3 pt-4">
+        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY --- */}
+        <div className="w-full flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs uppercase font-black text-white tracking-wider">
               <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
-              <span>QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
+              <span>QUICK LAUNCH • 1-TAP PLAY ({quickLaunchGames.length} GAMES)</span>
             </div>
 
             <div className="flex items-center gap-2">
@@ -284,13 +272,13 @@ export const GullyHeroSection: React.FC = () => {
           {/* Horizontally Scrollable & Swipeable Cards Container */}
           <div
             ref={dockScrollRef}
-            className="flex items-center gap-3.5 sm:gap-4 overflow-x-auto scrollbar-none pb-2 pt-1 scroll-smooth snap-x snap-mandatory"
+            className="flex items-center gap-3 sm:gap-4 overflow-x-auto scrollbar-none pb-2 pt-1 scroll-smooth snap-x snap-mandatory"
           >
             {quickLaunchGames.map((game) => (
               <div
                 key={game.id}
                 onClick={() => handleLaunchGame(game.route)}
-                className="group relative shrink-0 w-[190px] sm:w-[220px] md:w-[240px] aspect-[16/10] rounded-2xl overflow-hidden cursor-pointer border-2 transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] shadow-xl hover:shadow-[0_0_24px_rgba(255,183,3,0.35)] snap-start"
+                className="group relative shrink-0 w-[180px] sm:w-[210px] md:w-[230px] aspect-[16/10] rounded-2xl overflow-hidden cursor-pointer border-2 transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] shadow-xl hover:shadow-[0_0_24px_rgba(255,183,3,0.35)] snap-start"
                 style={{ borderColor: game.borderColor }}
               >
                 {/* Game Cover Image */}
@@ -304,7 +292,6 @@ export const GullyHeroSection: React.FC = () => {
                 {/* Dark Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent flex flex-col justify-end p-2.5">
                   <div className="flex items-center justify-between gap-1">
-                    {/* Actual Game Name on Each Card */}
                     <span className="text-xs sm:text-[13px] font-black text-white group-hover:text-amber-300 transition-colors truncate drop-shadow">
                       {game.name}
                     </span>
