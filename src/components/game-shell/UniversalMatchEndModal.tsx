@@ -60,7 +60,7 @@ export const UniversalMatchEndModal: React.FC<UniversalMatchEndModalProps> = ({
     soundFx.playClick();
     if (typeof window !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(
-        `🎮 Match Result: ${winnerTitle} in ${gameTitle} on Chill Arena! Can you beat me? https://chill-arena24.vercel.app/game/${gameId}`
+        `🎮 Match Result: ${winnerTitle} in ${gameTitle} on GullyVerse! Can you beat me? https://gully24verse.vercel.app/game/${gameId}`
       );
       alert('Match result copied to clipboard!');
     }

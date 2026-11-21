@@ -136,7 +136,7 @@ export const SingleUnifiedMultiplayerModal: React.FC<SingleUnifiedMultiplayerMod
 
   const copyLink = (code: string) => {
     soundFx.playCoin();
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://chill-arena24.vercel.app';
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://gully24verse.vercel.app';
     const link = `${origin}/play/room/${code}`;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(link);
@@ -160,7 +160,7 @@ export const SingleUnifiedMultiplayerModal: React.FC<SingleUnifiedMultiplayerMod
             </div>
             <div>
               <div className="text-[10px] font-mono text-[#06B6D4] font-bold uppercase tracking-wider">
-                VIBE ARENA • MULTIPLAYER
+                GULLYVERSE • MULTIPLAYER
               </div>
               <h2 className="text-base sm:text-lg font-black text-white font-display truncate">
                 {gameTitle}

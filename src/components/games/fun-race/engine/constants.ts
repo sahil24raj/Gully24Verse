@@ -1,6 +1,6 @@
 export const FUN_RACE_CONSTANTS = {
   // Movement Physics
-  PLAYER_RUN_SPEED: 7.8, // Units per second along track spline
+  PLAYER_RUN_SPEED: 8.4, // Units per second along track spline
   DECELERATION_TIME: 0.02, // Near-instant brake
   GRAVITY: -24.0, // Falling gravity during ragdoll
   KNOCKBACK_UP_VELOCITY: 7.5,
@@ -10,7 +10,7 @@ export const FUN_RACE_CONSTANTS = {
   COUNTDOWN_DURATION: 3.0, // 3-2-1-GO duration in seconds
 
   // Dimensions & Collisions (Tuned for Fair, Thrilling Dodges)
-  CHARACTER_RADIUS: 0.28,
+  CHARACTER_RADIUS: 0.20,
   CHARACTER_HEIGHT: 1.45,
   TRACK_WIDTH: 2.8,
   WATER_SURFACE_Y: -2.8,

@@ -412,7 +412,7 @@ export const signUpWithEmail = async (
       username: cleanUsername,
       displayName: cleanDisplayName,
       avatar: avatar,
-      bio: 'Chill Arena Gamer 🎮',
+      bio: 'GullyVerse Desi Gamer 🎮',
       authType: 'email',
       isCloudSynced: true,
       xp: currentProfile?.xp || 0,

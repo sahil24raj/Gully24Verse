@@ -780,7 +780,7 @@ export const useAppStore = create<AppState>()(
             newBadges.push({
               id: 'b_first_game',
               name: 'First Step',
-              description: 'Completed your first game in Chill Arena',
+              description: 'Completed your first game in GullyVerse',
               icon: '🎮',
               unlockedAt: new Date().toISOString(),
               category: 'gaming'
@@ -810,7 +810,7 @@ export const useAppStore = create<AppState>()(
             newBadges.push({
               id: 'b_ten_wins',
               name: 'Arena Champion',
-              description: 'Achieved 10 victories in Chill Arena',
+              description: 'Achieved 10 victories in GullyVerse',
               icon: '👑',
               unlockedAt: new Date().toISOString(),
               category: 'legend'

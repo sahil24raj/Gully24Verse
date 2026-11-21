@@ -23,7 +23,7 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_1_1',
         type: 'SWEEPER',
         s: 16,
-        speed: 0.9, // Very slow, generous 3.5s window
+        speed: 0.55, // Very slow, generous 3.5s window
         arms: 2,
         width: 2.3
       },
@@ -31,14 +31,14 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_1_2',
         type: 'HAMMER',
         s: 36,
-        speed: 1.15, // Gentle pendulum swing
+        speed: 0.7, // Gentle pendulum swing
         amplitude: 1.0
       },
       {
         id: 'obs_1_3',
         type: 'SWEEPER',
         s: 58,
-        speed: 0.95,
+        speed: 0.55,
         arms: 2,
         width: 2.3,
         reverse: true
@@ -79,21 +79,21 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_2_1',
         type: 'HAMMER',
         s: 16,
-        speed: 1.2,
+        speed: 0.7,
         amplitude: 1.05
       },
       {
         id: 'obs_2_2',
         type: 'PUSHER',
         s: 34,
-        speed: 1.35,
+        speed: 0.8,
         amplitude: 1.6
       },
       {
         id: 'obs_2_3',
         type: 'SWEEPER',
         s: 44,
-        speed: 1.0, // Slow rotation, only 2 arms
+        speed: 0.6, // Slow rotation, only 2 arms
         arms: 2,
         width: 2.3
       },
@@ -101,14 +101,14 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_2_4',
         type: 'ROLLER', // Hydraulic Overhead Crusher Stamp
         s: 64,
-        speed: 1.25, // Stays up long, very easy to run under
+        speed: 0.75, // Stays up long, very easy to run under
         width: 2.3
       },
       {
         id: 'obs_2_5',
         type: 'HAMMER',
         s: 88,
-        speed: 1.25,
+        speed: 0.75,
         amplitude: 1.1,
         phaseOffset: 1.2
       }
@@ -158,7 +158,7 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_3_1',
         type: 'SWEEPER',
         s: 16,
-        speed: 1.1, // 2 arms only, slow & easy!
+        speed: 0.6, // 2 arms only, slow & easy!
         arms: 2,
         width: 2.3
       },
@@ -166,34 +166,34 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_3_2',
         type: 'PUSHER',
         s: 35,
-        speed: 1.4,
+        speed: 0.8,
         amplitude: 1.7
       },
       {
         id: 'obs_3_3',
         type: 'HAMMER',
         s: 46,
-        speed: 1.3,
+        speed: 0.75,
         amplitude: 1.1
       },
       {
         id: 'obs_3_4',
         type: 'GATE',
         s: 66,
-        speed: 1.15
+        speed: 0.7
       },
       {
         id: 'obs_3_5',
         type: 'ROLLER', // Hydraulic Crusher
         s: 88,
-        speed: 1.3,
+        speed: 0.75,
         width: 2.3
       },
       {
         id: 'obs_3_6',
         type: 'PUSHER',
         s: 100,
-        speed: 1.45,
+        speed: 0.8,
         amplitude: 1.7,
         reverse: true
       },
@@ -201,7 +201,7 @@ export const FUN_RACE_LEVELS: LevelConfig[] = [
         id: 'obs_3_7',
         type: 'SWEEPER',
         s: 118,
-        speed: 1.15,
+        speed: 0.6,
         arms: 2,
         width: 2.3,
         reverse: true

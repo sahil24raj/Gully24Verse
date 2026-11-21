@@ -30,7 +30,7 @@ export default function AdminPage() {
     <div className="space-y-8 pb-12">
       <div className="text-center space-y-2">
         <h1 className="text-3xl font-black text-white flex items-center justify-center gap-2">
-          <Shield className="w-8 h-8 text-cyan-400" /> Chill Arena Developer & Studio Dashboard
+          <Shield className="w-8 h-8 text-cyan-400" /> GullyVerse Developer & Studio Dashboard
         </h1>
         <p className="text-xs text-gray-400">Manage catalog games, engines, deployment pipelines, and game features</p>
       </div>

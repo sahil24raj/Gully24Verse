@@ -35,11 +35,12 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
     telemetry.playerRank === 1 ? 'st' : telemetry.playerRank === 2 ? 'nd' : 'rd';
 
   return (
-    <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-3 sm:p-5 select-none font-sans z-10">
+    <div className="absolute inset-0 pointer-events-none select-none font-sans z-10">
       {/* ========================================================= */}
       {/* --- TOP SECTION: BADGES + COMPACT TRACK PROGRESS BAR --- */}
+      {/* (Permanently pinned to the very top, 100% clear of track!) */}
       {/* ========================================================= */}
-      <div className="w-full flex flex-col items-center gap-2 pointer-events-auto" data-hud-control="true">
+      <div className="absolute top-3 left-3 right-3 sm:top-5 sm:left-3 sm:right-3 max-w-xl mx-auto flex flex-col items-center gap-1.5 pointer-events-auto" data-hud-control="true">
         {/* Top Header Row */}
         <div className="w-full flex items-center justify-between gap-2 sm:gap-3">
           {/* Level Indicator */}
@@ -101,7 +102,7 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
           </div>
         </div>
 
-        {/* Compact Race Progress Bar (Cleanly Anchored Under Header!) */}
+        {/* Compact Race Progress Bar (PINNED AT THE TOP UNDER BADGES) */}
         <div className="w-full max-w-sm sm:max-w-md mx-auto pt-0.5">
           <div className="relative w-full h-3 sm:h-3.5 bg-black/85 backdrop-blur-md rounded-full border border-white/20 p-0.5 shadow-2xl flex items-center">
             {/* Progress Fill */}
@@ -163,7 +164,7 @@ export const FunRaceHUD: React.FC<FunRaceHUDProps> = ({
       {/* ========================================================= */}
       {/* --- BOTTOM SECTION: DEDICATED STEERING & SPRINT ACTIONS --- */}
       {/* ========================================================= */}
-      <div className="w-full flex flex-col items-center gap-2 pb-1 sm:pb-2 pointer-events-none">
+      <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-3 sm:right-3 flex flex-col items-center gap-2 pointer-events-none">
         {telemetry.gameState === 'RACING' && (
           <div className="w-full max-w-sm sm:max-w-md flex items-center justify-between gap-2 px-2 pointer-events-auto" data-hud-control="true">
             {/* Tactile Left Steer Button */}

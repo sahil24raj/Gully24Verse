@@ -126,7 +126,7 @@ export const AuthModal = () => {
             </div>
           </div>
           <h3 className="text-xl font-black text-white tracking-wide font-display">
-            Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#ADFF2F]">Chill Arena</span>
+            Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#ADFF2F]">GullyVerse</span>
           </h3>
           <p className="text-xs text-gray-400 mt-1 font-sans">
             Sync your high scores, climb real global leaderboards, earn genuine XP and badges!

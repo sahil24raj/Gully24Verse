@@ -234,7 +234,7 @@ export function useMultiplayerRoom({
 
   const copyInviteLink = useCallback(() => {
     soundFx.playCoin();
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://chill-arena24.vercel.app';
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://gully24verse.vercel.app';
     const link = `${origin}/play/room/${normalizedCode}`;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(link);
@@ -245,13 +245,13 @@ export function useMultiplayerRoom({
 
   const shareNative = useCallback(() => {
     soundFx.playClick();
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://chill-arena24.vercel.app';
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://gully24verse.vercel.app';
     const link = `${origin}/play/room/${normalizedCode}`;
     if (navigator.share) {
       navigator
         .share({
-          title: `Play ${room?.gameTitle || 'Multiplayer Game'} on Chill Arena`,
-          text: `Join my 1v1 battle room (#${normalizedCode}) on Chill Arena!`,
+          title: `Play ${room?.gameTitle || 'Multiplayer Game'} on GullyVerse`,
+          text: `Join my 1v1 battle room (#${normalizedCode}) on GullyVerse!`,
           url: link
         })
         .catch(() => {});
@@ -262,7 +262,7 @@ export function useMultiplayerRoom({
 
   const shareWhatsApp = useCallback(() => {
     soundFx.playClick();
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://chill-arena24.vercel.app';
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://gully24verse.vercel.app';
     const link = `${origin}/play/room/${normalizedCode}`;
     const text = encodeURIComponent(
       `🔥 Challenge me in ${room?.gameTitle || 'Chill Arena'}!\n🔑 Room Code: ${normalizedCode}\n👉 Join here: ${link}`
