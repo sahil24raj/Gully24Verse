@@ -1,0 +1,14 @@
+# ==============================================================================
+# GullyVerse - Cloudflare Pages SPA Routing Rules
+# ==============================================================================
+
+# Dynamic Multiplayer Room URLs
+/play/room/*   /play/room/index.html   200
+
+# Dynamic Gamer Profile URLs
+/profile/*     /profile/index.html     200
+/u/*           /profile/index.html     200
+
+# Game Catch-alls (if unlisted game id requested)
+/game/*        /game/jelly-run/index.html 200
+/games/*       /games/jelly-run/index.html 200

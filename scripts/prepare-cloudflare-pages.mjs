@@ -82,10 +82,14 @@ function scanAndCopyRoutes(currentDir, relativePrefix = '') {
 
 scanAndCopyRoutes(nextServerAppDir);
 
-// 4. Ensure _headers and _routes.json exist in dist
+// 4. Ensure _headers, _redirects and _routes.json exist in dist
 const headersSrc = path.join(publicDir, '_headers');
 if (fs.existsSync(headersSrc)) {
   fs.copyFileSync(headersSrc, path.join(distDir, '_headers'));
+}
+const redirectsSrc = path.join(publicDir, '_redirects');
+if (fs.existsSync(redirectsSrc)) {
+  fs.copyFileSync(redirectsSrc, path.join(distDir, '_redirects'));
 }
 
 console.log('✅ Cloudflare Pages distribution ready in memeverse/cloudflare-dist!');
