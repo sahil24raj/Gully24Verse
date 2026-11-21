@@ -163,36 +163,37 @@ export const GullyHeroSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-end pt-[30vh] sm:pt-[32vh] lg:pt-[33vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
-      <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-2.5 sm:gap-3 relative z-10">
+    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between pt-[53vh] sm:pt-[54vh] lg:pt-[55vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
+      <div className="max-w-[1720px] mx-auto w-full flex flex-col justify-between flex-1 gap-2.5 sm:gap-3 relative z-10">
         
-        {/* Main Hero Row: Bold Headline Positioned Just Below Gully Verse Wall Graffiti */}
-        <div className="flex flex-col gap-1 w-full">
-          {/* Sleek Brand Kicker */}
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-black/80 border border-amber-500/40 backdrop-blur-md w-fit shadow-md mb-1">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#FF9F1C]" />
-            <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-amber-300 font-mono">
+        {/* Main Hero Row: Starts Right Under User's White Line (~54-55% Viewport Height) */}
+        <div className="flex flex-col gap-1.5 w-full">
+          {/* Bigger Sleek Brand Kicker */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/80 border border-amber-500/40 backdrop-blur-md w-fit shadow-md mb-0.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_#FF9F1C]" />
+            <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-amber-300 font-mono">
               GULLYVERSE • INDIA KA APNA GAMING ADDA
             </span>
           </div>
 
-          {/* Prominent Russo One Headline with Clean Natural Shadow and No Overflow */}
-          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.35rem,5.8vw,6.8rem)] tracking-tight text-white uppercase leading-none whitespace-nowrap drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          {/* Prominent Russo One Headline with Enlarged Font Size and Clean Natural Shadow */}
+          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.4rem,6vw,7rem)] tracking-tight text-white uppercase leading-none whitespace-nowrap drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
             <span className="text-white">APNI GULLY, </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF]">
               APNE GAMES!
             </span>
           </h1>
 
-          <p className="text-slate-100 text-xs sm:text-sm md:text-base font-semibold max-w-4xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-1">
+          {/* Bigger Subtitle Text */}
+          <p className="text-slate-100 text-sm sm:text-base md:text-lg font-bold max-w-5xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] pt-1">
             Zero Downloads • 100% Free-to-Play Browser-Based Games • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
           </p>
         </div>
 
-        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (TIGHT GAP, HALF VISIBLE ON HOME SCREEN) --- */}
-        <div className="w-full flex flex-col gap-1.5 pt-1 pb-1">
+        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (HALF VISIBLE ON HOME SCREEN) --- */}
+        <div className="w-full flex flex-col gap-1.5 pt-2 pb-0">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs uppercase font-black text-white tracking-wider">
+            <div className="flex items-center gap-2 text-xs sm:text-sm uppercase font-black text-white tracking-wider">
               <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
               <span>QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
             </div>
