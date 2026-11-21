@@ -163,35 +163,34 @@ export const GullyHeroSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between pt-[33vh] sm:pt-[36vh] lg:pt-[38vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
-      <div className="max-w-[1720px] mx-auto w-full flex flex-col justify-between flex-1 relative z-10 gap-3 sm:gap-4">
+    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-end pt-[34vh] sm:pt-[36vh] lg:pt-[37vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
+      <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-2 sm:gap-2.5 relative z-10">
         
-        {/* Main Hero Row: Focused Branding on a Single Bold Line Below Background "GULLY VERSE" (NO INSTANT PLAY WIDGET) */}
-        <div className="flex flex-col gap-1.5 w-full">
+        {/* Main Hero Row: Massive Grand Headline Fitting Edge-to-Edge in White Box Area */}
+        <div className="flex flex-col gap-1 w-full">
           {/* Minimal Brand Kicker */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 border border-amber-500/35 backdrop-blur-md w-fit shadow-md">
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-black/75 border border-amber-500/35 backdrop-blur-md w-fit shadow-md mb-0.5">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#FF9F1C]" />
             <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-amber-300 font-mono">
               GULLYVERSE • INDIA KA APNA GAMING ADDA
             </span>
           </div>
 
-          {/* Single-Line Grand Bold Headline in GullyVerse Logo-Type Font Style */}
-          <div className="flex flex-col gap-1 w-full">
-            <h1 className="font-['Russo_One',sans-serif] text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-white uppercase leading-none drop-shadow-[0_5px_0_#000] drop-shadow-[0_12px_24px_rgba(0,0,0,0.95)]">
-              <span className="text-white drop-shadow-[0_4px_0_#000]">APNI GULLY, </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF] drop-shadow-[0_0_30px_rgba(255,183,3,0.55)]">
-                APNE GAMES!
-              </span>
-            </h1>
-            <p className="text-slate-200 text-xs sm:text-sm md:text-base font-semibold max-w-2xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-0.5">
-              Zero Downloads • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
-            </p>
-          </div>
+          {/* Grand Bold Headline Resized to Fill White Box Area on a Single Line */}
+          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.1rem,5.6vw,6.6rem)] tracking-tight text-white uppercase leading-none drop-shadow-[0_6px_0_#000] drop-shadow-[0_14px_28px_rgba(0,0,0,0.95)] whitespace-nowrap w-full">
+            <span className="text-white drop-shadow-[0_4px_0_#000]">APNI GULLY, </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF] drop-shadow-[0_0_35px_rgba(255,183,3,0.6)]">
+              APNE GAMES!
+            </span>
+          </h1>
+
+          <p className="text-slate-200 text-xs sm:text-sm md:text-base font-semibold max-w-2xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-0.5">
+            Zero Downloads • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
+          </p>
         </div>
 
-        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (HALF VISIBLE ON HOME SCREEN) --- */}
-        <div className="w-full flex flex-col gap-2 pt-1 pb-1">
+        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (TIGHT GAP, HALF VISIBLE ON HOME SCREEN) --- */}
+        <div className="w-full flex flex-col gap-1.5 pt-1 pb-1">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs uppercase font-black text-white tracking-wider">
               <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
