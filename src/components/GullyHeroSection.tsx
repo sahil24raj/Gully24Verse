@@ -5,15 +5,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/store/useAppStore';
 import { soundFx } from '@/lib/audio';
-import confetti from 'canvas-confetti';
 import {
   Play,
-  Users,
-  Compass,
   Gift,
   Flame,
   Zap,
-  Sparkles,
   ChevronRight,
   ChevronLeft
 } from 'lucide-react';
@@ -31,35 +27,6 @@ export const GullyHeroSection: React.FC = () => {
   const router = useRouter();
   const { user } = useAppStore();
   const dockScrollRef = useRef<HTMLDivElement>(null);
-
-  const handlePlayNow = () => {
-    try {
-      soundFx.playGameStart();
-    } catch {
-      // Audio safety
-    }
-    confetti({
-      particleCount: 50,
-      spread: 60,
-      origin: { y: 0.8 },
-      colors: ['#FF9F1C', '#00BFA6', '#F04438', '#FACC15']
-    });
-    router.push('/game/fun-race');
-  };
-
-  const handleExploreGully = () => {
-    try {
-      soundFx.playClick();
-    } catch {
-      // Audio safety
-    }
-    const el = document.getElementById('games');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      router.push('/games');
-    }
-  };
 
   const handleLaunchGame = (route: string) => {
     try {
@@ -207,62 +174,27 @@ export const GullyHeroSection: React.FC = () => {
         {/* Main Hero Row: Headline on Left, Widgets on Right */}
         <div className="flex flex-col lg:flex-row items-start justify-between gap-8 pt-6 sm:pt-10 lg:pt-14 min-h-[360px]">
           
-          {/* Left Column: Headlines & Call to Actions */}
-          <div className="max-w-2xl flex flex-col gap-4">
-            {/* Trust Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 border border-amber-500/30 backdrop-blur-md w-fit shadow-lg">
+          {/* Left Column: Focused High-Impact Branding */}
+          <div className="max-w-3xl flex flex-col gap-3">
+            {/* Minimal Brand Kicker */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-amber-500/30 backdrop-blur-md w-fit shadow-lg">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#FF9F1C]" />
-              <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-amber-300">
-                INSTANT PLAY • ZERO DOWNLOADS • 100% FREE
+              <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-amber-300 font-mono">
+                GULLYVERSE • INDIA KA APNA GAMING ADDA
               </span>
             </div>
 
-            {/* Main Headline */}
-            <div className="flex flex-col gap-1.5">
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white uppercase font-black leading-[1.02] drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
-                INDIA KA APNA <br />
-                <span className="text-[#00E5FF] drop-shadow-[0_0_24px_rgba(0,229,255,0.4)]">
-                  GAMING ADDA.
+            {/* Massive Bold Headline — APNI GULLY, APNE GAMES */}
+            <div className="flex flex-col gap-1">
+              <h1 className="text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-black leading-[0.96] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+                APNI GULLY, <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#00E5FF] to-white drop-shadow-[0_0_35px_rgba(0,229,255,0.4)]">
+                  APNE GAMES!
                 </span>
               </h1>
-              <p className="text-amber-400 font-black text-xl sm:text-2xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] mt-1">
-                Apni Gully, Apne Games!
+              <p className="text-slate-200 text-sm sm:text-base font-semibold max-w-xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-1.5">
+                Zero Downloads • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
               </p>
-              <p className="text-slate-200 text-sm sm:text-base max-w-xl leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] font-medium">
-                Play • Compete • Create • Win. Desi Games, Arcade Fun &amp; Multiplayer Battles with instant 6-character room codes.
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <button
-                onClick={handlePlayNow}
-                className="flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-[#FFB703] hover:bg-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-[0_0_28px_rgba(255,183,3,0.5)] hover:scale-[1.03] active:scale-[0.98] transition-all cursor-pointer"
-              >
-                <Play className="w-4 h-4 fill-slate-950" />
-                <span>PLAY NOW</span>
-              </button>
-
-              <button
-                onClick={handleExploreGully}
-                className="flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-black/60 hover:bg-black/80 text-white font-bold text-sm tracking-wide border border-white/30 hover:border-teal-400 transition-all hover:scale-[1.03] active:scale-[0.98] cursor-pointer backdrop-blur-md"
-              >
-                <Compass className="w-4 h-4 text-teal-400" />
-                <span>EXPLORE GULLY</span>
-              </button>
-            </div>
-
-            {/* Quick Perks */}
-            <div className="flex items-center gap-5 sm:gap-6 pt-2 text-xs text-slate-300 font-bold max-w-md">
-              <span className="flex items-center gap-1.5 text-amber-400 drop-shadow">
-                <Zap className="w-4 h-4 fill-amber-400" /> Instant Codes
-              </span>
-              <span className="flex items-center gap-1.5 text-teal-400 drop-shadow">
-                <Sparkles className="w-4 h-4 text-teal-400" /> 13 Desi Games
-              </span>
-              <span className="flex items-center gap-1.5 text-emerald-400 drop-shadow">
-                <Users className="w-4 h-4 text-emerald-400" /> Real Multiplayer
-              </span>
             </div>
           </div>
 
