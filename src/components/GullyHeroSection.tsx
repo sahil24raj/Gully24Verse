@@ -262,8 +262,6 @@ export const GullyHeroSection: React.FC = () => {
             ))}
           </div>
         </div>
-
-      </div>
     </section>
   );
 };
