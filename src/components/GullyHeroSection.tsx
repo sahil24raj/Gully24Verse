@@ -168,10 +168,10 @@ export const GullyHeroSection: React.FC = () => {
   const challengeProgress = Math.min(100, Math.max(15, (gamesPlayed / 3) * 100));
 
   return (
-    <section className="relative w-full overflow-hidden pt-[48vh] sm:pt-[50vh] lg:pt-[51vh] pb-8 px-4 sm:px-8 xl:px-14 select-none">
+    <section className="relative w-full overflow-hidden pt-[25vh] sm:pt-[28vh] lg:pt-[30vh] pb-8 px-4 sm:px-8 xl:px-14 select-none">
       <div className="max-w-[1720px] mx-auto flex flex-col gap-6 relative z-10">
         
-        {/* Main Hero Row: Headline on Left, Widgets on Right (EXACT PREVIOUS STYLE, ANCHORED BELOW GREEN LINE) */}
+        {/* Main Hero Row: Headline on Left, Widgets on Right (EXACT PREVIOUS STYLE, STARTING RIGHT BELOW WHITE LINE) */}
         <div className="flex flex-col lg:flex-row items-start justify-between gap-6">
           
           {/* Left Column: Focused High-Impact Branding */}
