@@ -163,40 +163,41 @@ export const GullyHeroSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-end pt-[50vh] sm:pt-[52vh] lg:pt-[53vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
-      <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-2.5 sm:gap-3.5 relative z-10">
-        
-        {/* Main Hero Row: Positioned Strictly Below the Background Gully Verse Graffiti */}
-        <div className="flex flex-col gap-1.5 w-full">
-          {/* Bigger Sleek Brand Kicker */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/80 border border-amber-500/40 backdrop-blur-md w-fit shadow-md mb-0.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_#FF9F1C]" />
-            <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-amber-300 font-mono">
-              GULLYVERSE • INDIA KA APNA GAMING ADDA
-            </span>
-          </div>
-
-          {/* Prominent Russo One Headline with Enlarged Font Size and Clean Natural Shadow */}
-          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.4rem,6vw,7rem)] tracking-tight text-white uppercase leading-none whitespace-nowrap drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
-            <span className="text-white">APNI GULLY, </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF]">
-              APNE GAMES!
-            </span>
-          </h1>
-
-          {/* Bigger Subtitle Text */}
-          <p className="text-slate-100 text-sm sm:text-base md:text-lg font-bold max-w-5xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] pt-1">
-            Zero Downloads • 100% Free-to-Play Browser-Based Games • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
-          </p>
+    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between px-4 sm:px-8 xl:px-14 pb-2 select-none">
+      {/* Top Main Hero Row: Starts Precisely at 55% of the Screen */}
+      <div
+        className="max-w-[1720px] mx-auto w-full flex flex-col gap-1.5 relative z-10"
+        style={{ paddingTop: 'calc(55vh - 80px)' }}
+      >
+        {/* Bigger Sleek Brand Kicker */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/80 border border-amber-500/40 backdrop-blur-md w-fit shadow-md mb-0.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_#FF9F1C]" />
+          <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-amber-300 font-mono">
+            GULLYVERSE • INDIA KA APNA GAMING ADDA
+          </span>
         </div>
 
-        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (HALF VISIBLE ON HOME SCREEN) --- */}
-        <div className="w-full flex flex-col gap-1.5 pt-2 pb-0">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs sm:text-sm uppercase font-black text-white tracking-wider">
-              <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
-              <span>QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
-            </div>
+        {/* Prominent Russo One Headline with Enlarged Font Size and Clean Natural Shadow */}
+        <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.4rem,6vw,7rem)] tracking-tight text-white uppercase leading-none whitespace-nowrap drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          <span className="text-white">APNI GULLY, </span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF]">
+            APNE GAMES!
+          </span>
+        </h1>
+
+        {/* Subtitle Text */}
+        <p className="text-slate-100 text-sm sm:text-base md:text-lg font-bold max-w-5xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] pt-1">
+          Zero Downloads • 100% Free-to-Play Browser-Based Games • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
+        </p>
+      </div>
+
+      {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY --- */}
+      <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-1.5 pt-4 pb-0 relative z-10">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs sm:text-sm uppercase font-black text-white tracking-wider">
+            <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
+            <span>QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
+          </div>
 
             <div className="flex items-center gap-2">
               {/* Left / Right Carousel Buttons */}
