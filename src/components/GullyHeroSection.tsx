@@ -8,7 +8,6 @@ import { soundFx } from '@/lib/audio';
 import {
   Play,
   Flame,
-  Zap,
   ChevronRight,
   ChevronLeft
 } from 'lucide-react';
@@ -167,46 +166,28 @@ export const GullyHeroSection: React.FC = () => {
     <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between pt-[33vh] sm:pt-[36vh] lg:pt-[38vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
       <div className="max-w-[1720px] mx-auto w-full flex flex-col justify-between flex-1 relative z-10 gap-3 sm:gap-4">
         
-        {/* Main Hero Row: Headline on Left, Minimal Instant Play Badge on Right (Below Graffiti "GULLY VERSE") */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-3">
-          
-          {/* Left Column: Focused High-Impact Branding Starting Directly Below Graffiti */}
-          <div className="max-w-3xl flex flex-col gap-1.5">
-            {/* Minimal Brand Kicker */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/65 border border-amber-500/30 backdrop-blur-md w-fit shadow-md">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#FF9F1C]" />
-              <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-amber-300 font-mono">
-                GULLYVERSE • INDIA KA APNA GAMING ADDA
+        {/* Main Hero Row: Focused Branding on a Single Bold Line Below Background "GULLY VERSE" (NO INSTANT PLAY WIDGET) */}
+        <div className="flex flex-col gap-1.5 w-full">
+          {/* Minimal Brand Kicker */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 border border-amber-500/35 backdrop-blur-md w-fit shadow-md">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#FF9F1C]" />
+            <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-amber-300 font-mono">
+              GULLYVERSE • INDIA KA APNA GAMING ADDA
+            </span>
+          </div>
+
+          {/* Single-Line Grand Bold Headline in GullyVerse Logo-Type Font Style */}
+          <div className="flex flex-col gap-1 w-full">
+            <h1 className="font-['Russo_One',sans-serif] text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-white uppercase leading-none drop-shadow-[0_5px_0_#000] drop-shadow-[0_12px_24px_rgba(0,0,0,0.95)]">
+              <span className="text-white drop-shadow-[0_4px_0_#000]">APNI GULLY, </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF] drop-shadow-[0_0_30px_rgba(255,183,3,0.55)]">
+                APNE GAMES!
               </span>
-            </div>
-
-            {/* Headline Resized Properly to Fit Below Green Line */}
-            <div className="flex flex-col gap-0.5">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-white uppercase font-black leading-[0.92] drop-shadow-[0_6px_24px_rgba(0,0,0,0.95)]">
-                APNI GULLY, <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#00E5FF] to-white drop-shadow-[0_0_35px_rgba(0,229,255,0.45)]">
-                  APNE GAMES!
-                </span>
-              </h1>
-              <p className="text-slate-200 text-xs sm:text-sm font-semibold max-w-xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-1">
-                Zero Downloads • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
-              </p>
-            </div>
+            </h1>
+            <p className="text-slate-200 text-xs sm:text-sm md:text-base font-semibold max-w-2xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-0.5">
+              Zero Downloads • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
+            </p>
           </div>
-
-          {/* Right Column: Clean Instant Play Badge */}
-          <div className="shrink-0 pb-1">
-            <div className="px-3.5 py-1.5 rounded-2xl bg-black/70 border border-emerald-500/30 backdrop-blur-md shadow-lg flex items-center gap-2">
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
-              <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                <span className="text-xs font-black text-emerald-400 font-mono tracking-wider">
-                  INSTANT PLAY • ZERO DOWNLOADS 🟢
-                </span>
-              </div>
-            </div>
-          </div>
-
         </div>
 
         {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (HALF VISIBLE ON HOME SCREEN) --- */}
