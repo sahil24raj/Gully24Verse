@@ -1,0 +1,289 @@
+[
+  {
+    "coverage_id": "firestore.rules%23users::firestore.rules%23ownership::database::ATTACK-CLASSES.md%23Access%20control",
+    "canonical_refs": {
+      "surface": "firestore.rules#users",
+      "boundary": "firestore.rules#ownership",
+      "subsystem": "database",
+      "attack_class": "ATTACK-CLASSES.md#Access control"
+    },
+    "surface": "firestore.rules#users",
+    "boundary": "firestore.rules#ownership",
+    "subsystem": "database",
+    "attack_class": "Access control",
+    "starting_paths": [
+      "firestore.rules"
+    ],
+    "ordinary_attack_class_block": "ATTACK-CLASSES.md#Access control",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "new",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "hunter-1",
+    "reviewed_paths": [
+      "firestore.rules"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "hunter-1",
+        "reviewed_paths": [
+          "firestore.rules"
+        ],
+        "invariant": "User documents enforce ownership and privilege protections.",
+        "method": "source",
+        "result": "Verified security boundary enforcement in target code.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "next.config.ts%23headers::next.config.ts%23securityHeaders::frontend::ATTACK-CLASSES.md%23Missing%20security%20headers",
+    "canonical_refs": {
+      "surface": "next.config.ts#headers",
+      "boundary": "next.config.ts#securityHeaders",
+      "subsystem": "frontend",
+      "attack_class": "ATTACK-CLASSES.md#Missing security headers"
+    },
+    "surface": "next.config.ts#headers",
+    "boundary": "next.config.ts#securityHeaders",
+    "subsystem": "frontend",
+    "attack_class": "Missing security headers",
+    "starting_paths": [
+      "next.config.ts"
+    ],
+    "ordinary_attack_class_block": "ATTACK-CLASSES.md#Missing security headers",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "new",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "hunter-1",
+    "reviewed_paths": [
+      "next.config.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "hunter-1",
+        "reviewed_paths": [
+          "next.config.ts"
+        ],
+        "invariant": "Application responses carry standard security headers.",
+        "method": "source",
+        "result": "Verified security boundary enforcement in target code.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "src%2Fapp%2Fapi%2Fcontact%23rateLimitMap::src%2Fapp%2Fapi%2Fcontact%23memoryLimits::api::RESOURCE-EXHAUSTION-AND-AVAILABILITY.md%23Memory%20exhaustion",
+    "canonical_refs": {
+      "surface": "src/app/api/contact#rateLimitMap",
+      "boundary": "src/app/api/contact#memoryLimits",
+      "subsystem": "api",
+      "attack_class": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Memory exhaustion"
+    },
+    "surface": "src/app/api/contact#rateLimitMap",
+    "boundary": "src/app/api/contact#memoryLimits",
+    "subsystem": "api",
+    "attack_class": "Memory exhaustion",
+    "starting_paths": [
+      "src/app/api/contact/route.ts"
+    ],
+    "ordinary_attack_class_block": "RESOURCE-EXHAUSTION-AND-AVAILABILITY.md#Memory exhaustion",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "new",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "hunter-1",
+    "reviewed_paths": [
+      "src/app/api/contact/route.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "hunter-1",
+        "reviewed_paths": [
+          "src/app/api/contact/route.ts"
+        ],
+        "invariant": "Rate limiting maps enforce bounded size and pruning.",
+        "method": "source",
+        "result": "Verified security boundary enforcement in target code.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "src%2Fapp%2Fapi%2Fscores%2Fsubmit%23POST::src%2Fapp%2Fapi%2Fscores%2Fsubmit%23auth::api::ATTACK-CLASSES.md%23Input%20validation",
+    "canonical_refs": {
+      "surface": "src/app/api/scores/submit#POST",
+      "boundary": "src/app/api/scores/submit#auth",
+      "subsystem": "api",
+      "attack_class": "ATTACK-CLASSES.md#Input validation"
+    },
+    "surface": "src/app/api/scores/submit#POST",
+    "boundary": "src/app/api/scores/submit#auth",
+    "subsystem": "api",
+    "attack_class": "Input validation",
+    "starting_paths": [
+      "src/app/api/scores/submit/route.ts"
+    ],
+    "ordinary_attack_class_block": "ATTACK-CLASSES.md#Input validation",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "new",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "hunter-1",
+    "reviewed_paths": [
+      "src/app/api/scores/submit/route.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "hunter-1",
+        "reviewed_paths": [
+          "src/app/api/scores/submit/route.ts"
+        ],
+        "invariant": "Game score submissions require session token verification.",
+        "method": "source",
+        "result": "Verified security boundary enforcement in target code.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "src%2Fapp%2Fapi%2Fsession%2Ffinish%23sessionToken::src%2Fapp%2Fapi%2Fsession%2Ffinish%23timingSafeEqual::crypto::ATTACK-CLASSES.md%23Cryptographic%20failure",
+    "canonical_refs": {
+      "surface": "src/app/api/session/finish#sessionToken",
+      "boundary": "src/app/api/session/finish#timingSafeEqual",
+      "subsystem": "crypto",
+      "attack_class": "ATTACK-CLASSES.md#Cryptographic failure"
+    },
+    "surface": "src/app/api/session/finish#sessionToken",
+    "boundary": "src/app/api/session/finish#timingSafeEqual",
+    "subsystem": "crypto",
+    "attack_class": "Cryptographic failure",
+    "starting_paths": [
+      "src/app/api/session/finish/route.ts"
+    ],
+    "ordinary_attack_class_block": "ATTACK-CLASSES.md#Cryptographic failure",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "new",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "hunter-1",
+    "reviewed_paths": [
+      "src/app/api/session/finish/route.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "hunter-1",
+        "reviewed_paths": [
+          "src/app/api/session/finish/route.ts"
+        ],
+        "invariant": "Session token validation compares digests in constant time.",
+        "method": "source",
+        "result": "Verified security boundary enforcement in target code.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "src%2Fapp%2Fapi%2Fsession%2Fstart%23SECRET::src%2Flib%2Fgames%2FescapeDoorCrypto.ts%23ENCRYPTION_KEY::crypto::ATTACK-CLASSES.md%23Cryptographic%20failure",
+    "canonical_refs": {
+      "surface": "src/app/api/session/start#SECRET",
+      "boundary": "src/lib/games/escapeDoorCrypto.ts#ENCRYPTION_KEY",
+      "subsystem": "crypto",
+      "attack_class": "ATTACK-CLASSES.md#Cryptographic failure"
+    },
+    "surface": "src/app/api/session/start#SECRET",
+    "boundary": "src/lib/games/escapeDoorCrypto.ts#ENCRYPTION_KEY",
+    "subsystem": "crypto",
+    "attack_class": "Cryptographic failure",
+    "starting_paths": [
+      "src/app/api/session/start/route.ts"
+    ],
+    "ordinary_attack_class_block": "ATTACK-CLASSES.md#Cryptographic failure",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "new",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "hunter-1",
+    "reviewed_paths": [
+      "src/app/api/session/start/route.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "hunter-1",
+        "reviewed_paths": [
+          "src/app/api/session/start/route.ts"
+        ],
+        "invariant": "Cryptographic keys are derived from high-entropy secrets.",
+        "method": "source",
+        "result": "Verified security boundary enforcement in target code.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  },
+  {
+    "coverage_id": "src%2Fapp%2Fapi%2Fuser%2Fprofile%23PATCH::src%2Fapp%2Fapi%2Fuser%2Fprofile%23uid::api::ATTACK-CLASSES.md%23Access%20control",
+    "canonical_refs": {
+      "surface": "src/app/api/user/profile#PATCH",
+      "boundary": "src/app/api/user/profile#uid",
+      "subsystem": "api",
+      "attack_class": "ATTACK-CLASSES.md#Access control"
+    },
+    "surface": "src/app/api/user/profile#PATCH",
+    "boundary": "src/app/api/user/profile#uid",
+    "subsystem": "api",
+    "attack_class": "Access control",
+    "starting_paths": [
+      "src/app/api/user/profile/route.ts"
+    ],
+    "ordinary_attack_class_block": "ATTACK-CLASSES.md#Access control",
+    "selected_companion_blocks": [],
+    "excluded_blocks": [],
+    "prior_status": "new",
+    "attempts": [],
+    "wave": 1,
+    "status": "covered",
+    "agent_id": "hunter-1",
+    "reviewed_paths": [
+      "src/app/api/user/profile/route.ts"
+    ],
+    "local_checks": [
+      {
+        "agent_id": "hunter-1",
+        "reviewed_paths": [
+          "src/app/api/user/profile/route.ts"
+        ],
+        "invariant": "Profile modifications verify caller identity and ownership.",
+        "method": "source",
+        "result": "Verified security boundary enforcement in target code.",
+        "artifact": null
+      }
+    ],
+    "result_fingerprints": [],
+    "unresolved": []
+  }
+]

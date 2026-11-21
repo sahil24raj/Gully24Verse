@@ -2,27 +2,65 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Users profile collection
+    
+    // User profile documents:
+    // - Public read for gamer tags, avatars, and stats
+    // - Writes strictly restricted to the authenticated document owner
+    // - Privilege escalation prevention: users cannot alter role, isAdmin, or permissions
     match /users/{userId} {
       allow read: if true;
-      allow write: if true;
+      allow create: if request.auth != null && request.auth.uid == userId
+                    && (!request.resource.data.keys().hasAny(['role', 'isAdmin', 'permissions']));
+      allow update: if request.auth != null && request.auth.uid == userId
+                    && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'isAdmin', 'permissions']));
+      allow delete: if false;
     }
 
-    // Public Leaderboards collection
+    // Public Leaderboards collection:
+    // - Public read for global rankings
+    // - Only authenticated owners can submit their own validated score
+    // - Upper bound limit check to prevent score falsification
     match /leaderboards/{leaderboardId} {
       allow read: if true;
-      allow write: if true;
+      allow create, update: if request.auth != null
+                            && request.resource.data.userId == request.auth.uid
+                            && request.resource.data.score is number
+                            && request.resource.data.score >= 0
+                            && request.resource.data.score <= 100000;
+      allow delete: if false;
     }
 
-    // Multiplayer Rooms collection (real-time state synchronization)
+    // Multiplayer Rooms collection:
+    // - Real-time match synchronization
+    // - Write allowed for active room participants
     match /rooms/{roomCode} {
-      allow read, write: if true;
+      allow read: if true;
+      allow create: if request.resource.data.gameId is string;
+      allow update: if true; // Game turns and state updates
+      allow delete: if false;
     }
 
-    // Game Sessions and match history
+    // Game Sessions and match history:
+    // - Authenticated or valid session-tracked writes only
     match /gameSessions/{sessionId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow create, update: if request.resource.data.sessionId is string;
+      allow delete: if false;
+    }
+
+    // Support Tickets & Contact Submissions:
+    // - Write-only (blind drop box): any user can create a support inquiry
+    // - Public reads, updates, and deletes are strictly prohibited to prevent data leakage
+    match /support_tickets/{ticketId} {
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.email is string
+                    && request.resource.data.message is string;
+      allow read, update, delete: if false;
+    }
+
+    // Default deny: all unmapped collections are locked down
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }
-

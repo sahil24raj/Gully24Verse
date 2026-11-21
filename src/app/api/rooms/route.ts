@@ -4,10 +4,21 @@ import { createRoomOnServer } from '@/lib/multiplayer/realtimeService';
 // In-memory rate limiting map: IP -> { count, resetAt }
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 
+const pruneRateLimitMap = (now: number) => {
+  if (rateLimitMap.size > 200) {
+    for (const [key, val] of rateLimitMap.entries()) {
+      if (val.resetAt <= now) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+};
+
 export async function POST(req: NextRequest) {
   try {
     const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'anonymous';
     const now = Date.now();
+    pruneRateLimitMap(now);
 
     // Rate limit: 20 room creations per minute per IP
     const currentRate = rateLimitMap.get(ip);

@@ -24,8 +24,23 @@ const rateLimitMap = new Map<string, number[]>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
 const MAX_REQUESTS_PER_WINDOW = 5;
 
+// Prune expired entries to prevent unbounded memory growth
+const pruneRateLimitMap = (now: number) => {
+  if (rateLimitMap.size > 200) {
+    for (const [key, timestamps] of rateLimitMap.entries()) {
+      const active = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+      if (active.length === 0) {
+        rateLimitMap.delete(key);
+      } else {
+        rateLimitMap.set(key, active);
+      }
+    }
+  }
+};
+
 const isRateLimited = (ip: string): boolean => {
   const now = Date.now();
+  pruneRateLimitMap(now);
   const timestamps = rateLimitMap.get(ip) || [];
   const validTimestamps = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
   

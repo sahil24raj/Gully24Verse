@@ -1,8 +1,11 @@
 import crypto from 'crypto';
+import { getGameSessionSecret } from '@/lib/security/sessionSecret';
 
-const RAW_SECRET = process.env.GAME_SESSION_SECRET || 'chill_arena_game_session_secret_key_2026';
-// Derive 32-byte key for AES-256-GCM
-const ENCRYPTION_KEY = crypto.createHash('sha256').update(RAW_SECRET).digest();
+// Derive 32-byte key for AES-256-GCM dynamically from secure session secret
+function getEncryptionKey(): Buffer {
+  const secret = getGameSessionSecret();
+  return crypto.createHash('sha256').update(secret).digest();
+}
 
 export interface RoundTokenPayload {
   sessionId: string;
@@ -107,7 +110,7 @@ export function getBaseXpForLevel(level: number): number {
  */
 export function encryptRoundToken(payload: RoundTokenPayload): string {
   const iv = crypto.randomBytes(12);
-  const cipher = crypto.createCipheriv('aes-256-gcm', ENCRYPTION_KEY, iv);
+  const cipher = crypto.createCipheriv('aes-256-gcm', getEncryptionKey(), iv);
   const jsonStr = JSON.stringify(payload);
   const encrypted = Buffer.concat([cipher.update(jsonStr, 'utf8'), cipher.final()]);
   const tag = cipher.getAuthTag();
@@ -128,7 +131,7 @@ export function decryptRoundToken(token: string): RoundTokenPayload | null {
     const enc = Buffer.from(encHex, 'hex');
     const tag = Buffer.from(tagHex, 'hex');
 
-    const decipher = crypto.createDecipheriv('aes-256-gcm', ENCRYPTION_KEY, iv);
+    const decipher = crypto.createDecipheriv('aes-256-gcm', getEncryptionKey(), iv);
     decipher.setAuthTag(tag);
     const decrypted = Buffer.concat([decipher.update(enc), decipher.final()]);
     const parsed: RoundTokenPayload = JSON.parse(decrypted.toString('utf8'));

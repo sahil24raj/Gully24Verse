@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { z } from 'zod';
-
-const SECRET = process.env.GAME_SESSION_SECRET || 'chill_arena_game_session_secret_key_2026';
+import { getGameSessionSecret } from '@/lib/security/sessionSecret';
 
 const StartSessionSchema = z.object({
   gameId: z.string().min(1),
@@ -27,9 +26,10 @@ export async function POST(req: NextRequest) {
     const startTime = Date.now();
     const seed = Math.floor(Math.random() * 1000000);
 
-    // Create cryptographic HMAC signature
+    // Create cryptographic HMAC signature using secure centralized secret
+    const secret = getGameSessionSecret();
     const payload = `${sessionId}|${gameId}|${uid}|${startTime}|${seed}`;
-    const sessionToken = crypto.createHmac('sha256', SECRET).update(payload).digest('hex');
+    const sessionToken = crypto.createHmac('sha256', secret).update(payload).digest('hex');
 
     return NextResponse.json({
       success: true,

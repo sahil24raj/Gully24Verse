@@ -57,6 +57,8 @@ export interface UserProfile {
   streak: number;
   lastLoginDate: string;
   rank?: string | number;
+  role?: 'admin' | 'moderator' | 'user';
+  isAdmin?: boolean;
   badges: Badge[];
   unlockedSkins: string[];
   equippedSkin: string;

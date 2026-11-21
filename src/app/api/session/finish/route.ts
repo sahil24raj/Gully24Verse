@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { z } from 'zod';
-
-const SECRET = process.env.GAME_SESSION_SECRET || 'chill_arena_game_session_secret_key_2026';
+import { getGameSessionSecret, timingSafeTokenCompare } from '@/lib/security/sessionSecret';
 
 interface GameRule {
   maxScore: number;
@@ -57,11 +56,12 @@ export async function POST(req: NextRequest) {
     const data = parsed.data;
     const { sessionId, sessionToken, gameId, startTime, seed, score, durationMs, uid = 'guest', currentHighScore = 0 } = data;
 
-    // 1. Verify Cryptographic Token
+    // 1. Verify Cryptographic Token with Constant-Time Comparison
+    const secret = getGameSessionSecret();
     const expectedPayload = `${sessionId}|${gameId}|${uid}|${startTime}|${seed}`;
-    const expectedToken = crypto.createHmac('sha256', SECRET).update(expectedPayload).digest('hex');
+    const expectedToken = crypto.createHmac('sha256', secret).update(expectedPayload).digest('hex');
 
-    if (sessionToken !== expectedToken) {
+    if (!timingSafeTokenCompare(sessionToken, expectedToken)) {
       return NextResponse.json(
         {
           success: false,

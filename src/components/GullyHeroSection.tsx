@@ -199,13 +199,13 @@ export const GullyHeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY --- */}
-      <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-1.5 pt-4 pb-0 relative z-10">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs sm:text-sm uppercase font-black text-white tracking-wider">
-            <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
-            <span>QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
-          </div>
+        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY --- */}
+        <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-1.5 pt-4 pb-0 relative z-10">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs sm:text-sm uppercase font-black text-white tracking-wider">
+              <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
+              <span>QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
+            </div>
 
             <div className="flex items-center gap-2">
               {/* Left / Right Carousel Buttons */}

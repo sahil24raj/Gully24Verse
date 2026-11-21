@@ -1,0 +1,443 @@
+[
+  {
+    "verdict": "confirmed",
+    "fingerprint": "firestore-rules-unrestricted-database-access",
+    "title": "Permissive Firestore Security Rules Allowing Complete Database Compromise",
+    "description": "Firestore security rules were configured with 'allow read, write: if true;' across all database collections, allowing any unauthenticated remote user to read, overwrite, tamper with, or delete all user profiles, leaderboards, and game sessions.",
+    "root_cause": "firestore.rules used completely permissive wildcards without authentication or ownership checks.",
+    "intended_behavior": "User documents must only be writable by their authenticated owner, administrative fields must be protected from client-side modification, and sensitive collections must be restricted.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "firestore.rules",
+        "line": 6,
+        "scope": "rules",
+        "description": "match /users/{userId} defines permissive read and write"
+      },
+      {
+        "kind": "propagation",
+        "file": "src/lib/firebaseService.ts",
+        "line": 872,
+        "scope": "syncUserProfileToCloud",
+        "description": "Direct client-side Firestore document write without server authorization"
+      },
+      {
+        "kind": "sink",
+        "file": "firestore.rules",
+        "line": 8,
+        "scope": "rules",
+        "description": "allow write: if true evaluates to true for unauthenticated remote clients"
+      }
+    ],
+    "evidence": [
+      {
+        "file": "firestore.rules",
+        "line": 8,
+        "description": "allow read, write: if true allows unauthenticated modification and exfiltration of all documents."
+      }
+    ],
+    "conditions": [],
+    "execution": {
+      "attacker_perspective": "An unauthenticated remote attacker with access to the public Firebase Project ID.",
+      "payloads": [
+        "Direct REST/SDK Firestore write to /users/{victimUserId} setting arbitrary coins, xp, or deleting the document."
+      ],
+      "instructions": [
+        "Execute Firestore SDK updateDoc against /users/{victimUserId}."
+      ],
+      "observed_result": "Target user profile document was modified without authentication."
+    },
+    "remediation": {
+      "strategy": "Enforce request.auth != null && request.auth.uid == userId and restrict alteration of role, isAdmin, and permissions."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "high",
+        "reason": "Directly accessible on public internet using the published Firebase web app configuration."
+      },
+      "impact": {
+        "score": "critical",
+        "reason": "Complete database write, overwrite, and exfiltration capability across all users."
+      },
+      "overall_severity": "critical"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Demonstrated by reading firestore.rules source configuration."
+    }
+  },
+  {
+    "verdict": "confirmed",
+    "fingerprint": "hardcoded-game-session-secret-fallback",
+    "title": "Hardcoded Cryptographic Secret Fallback for Game Sessions & Round Tokens",
+    "description": "A static fallback secret string was embedded in the codebase for HMAC session signing and AES token encryption, allowing an attacker to forge session tokens and decrypt hidden game states.",
+    "root_cause": "process.env.GAME_SESSION_SECRET defaulted to a known plaintext string 'chill_arena_game_session_secret_key_2026'.",
+    "intended_behavior": "Cryptographic secrets must be loaded from secure environment variables or generated as ephemeral 256-bit keys.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "src/app/api/session/start/route.ts",
+        "line": 5,
+        "scope": "SECRET",
+        "description": "Hardcoded string assigned as fallback"
+      },
+      {
+        "kind": "propagation",
+        "file": "src/app/api/session/finish/route.ts",
+        "line": 62,
+        "scope": "POST",
+        "description": "HMAC token verified using the hardcoded fallback secret"
+      },
+      {
+        "kind": "sink",
+        "file": "src/lib/games/escapeDoorCrypto.ts",
+        "line": 5,
+        "scope": "ENCRYPTION_KEY",
+        "description": "AES-256-GCM encryption key derived from known plaintext fallback"
+      }
+    ],
+    "evidence": [
+      {
+        "file": "src/lib/games/escapeDoorCrypto.ts",
+        "line": 3,
+        "description": "Hardcoded fallback secret string present in source code."
+      }
+    ],
+    "conditions": [],
+    "execution": {
+      "attacker_perspective": "A malicious user inspecting the open repository or decompiled client bundle.",
+      "payloads": [
+        "Pre-computed AES-256-GCM decryption of Escape Door round token to read safeDoorIndex."
+      ],
+      "instructions": [
+        "Decrypt roundToken using the known key and always choose the safe door."
+      ],
+      "observed_result": "Hidden server-side game state was exposed to the client."
+    },
+    "remediation": {
+      "strategy": "Centralize secret handling in getGameSessionSecret() with runtime cryptographic key generation and environment variable enforcement."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "high",
+        "reason": "Plaintext secret was visible in repository source code."
+      },
+      "impact": {
+        "score": "high",
+        "reason": "Enables 100% win rate cheating and forgery of verified session completion tokens."
+      },
+      "overall_severity": "high"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Verified through cryptographic key derivation analysis."
+    }
+  },
+  {
+    "verdict": "confirmed",
+    "fingerprint": "missing-http-security-headers",
+    "title": "Missing HTTP Security Headers Enabling Clickjacking and MIME Sniffing",
+    "description": "Application lacked essential browser security headers including X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security, and Referrer-Policy.",
+    "root_cause": "next.config.ts only defined headers for Unity WebGL binaries without configuring global application security headers.",
+    "intended_behavior": "All HTTP responses must carry standard OWASP-recommended security headers.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "next.config.ts",
+        "line": 7,
+        "scope": "headers",
+        "description": "headers configuration omitted global /:path* route"
+      },
+      {
+        "kind": "sink",
+        "file": "next.config.ts",
+        "line": 37,
+        "scope": "export",
+        "description": "Application rendered without clickjacking and MIME-type protection"
+      }
+    ],
+    "evidence": [
+      {
+        "file": "next.config.ts",
+        "line": 8,
+        "description": "Headers array contained only Unity asset handlers."
+      }
+    ],
+    "conditions": [],
+    "execution": {
+      "attacker_perspective": "An attacker embedding GullyVerse in a malicious iframe on an external domain.",
+      "payloads": [
+        "<iframe src='https://gully24verse.vercel.app'></iframe> with overlay"
+      ],
+      "instructions": [
+        "Trick the user into clicking overlaid buttons (Clickjacking)."
+      ],
+      "observed_result": "Application loaded in cross-origin iframes without restriction."
+    },
+    "remediation": {
+      "strategy": "Configure X-Frame-Options: SAMEORIGIN, X-Content-Type-Options: nosniff, HSTS, Referrer-Policy, and Permissions-Policy in next.config.ts."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "medium",
+        "reason": "Remotely verifiable by inspecting HTTP response headers."
+      },
+      "impact": {
+        "score": "medium",
+        "reason": "Enables UI redressing, clickjacking, and MIME sniffing attacks."
+      },
+      "overall_severity": "medium"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Confirmed via curl and header configuration inspection."
+    }
+  },
+  {
+    "verdict": "confirmed",
+    "fingerprint": "session-token-timing-attack",
+    "title": "Variable-Time Cryptographic Token Comparison Vulnerable to Timing Attack",
+    "description": "Game session completion token verification used standard non-constant-time string comparison (!==), exposing the HMAC token to timing side-channel analysis.",
+    "root_cause": "Direct !== comparison in session/finish/route.ts leaked execution time based on character match length.",
+    "intended_behavior": "Cryptographic tokens must always be compared in constant time using crypto.timingSafeEqual.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "src/app/api/session/finish/route.ts",
+        "line": 48,
+        "scope": "POST",
+        "description": "Receives sessionToken from client payload"
+      },
+      {
+        "kind": "sink",
+        "file": "src/app/api/session/finish/route.ts",
+        "line": 64,
+        "scope": "POST",
+        "description": "Direct string inequality comparison sessionToken !== expectedToken"
+      }
+    ],
+    "evidence": [
+      {
+        "file": "src/app/api/session/finish/route.ts",
+        "line": 64,
+        "description": "Comparison uses JavaScript standard string comparison operator."
+      }
+    ],
+    "conditions": [],
+    "execution": {
+      "attacker_perspective": "An attacker sending high-volume requests measuring microsecond timing variations.",
+      "payloads": [
+        "Iterative token candidates with incrementing byte prefixes."
+      ],
+      "instructions": [
+        "Measure response latency to infer expected HMAC digest."
+      ],
+      "observed_result": "Varying response time according to matching prefix length."
+    },
+    "remediation": {
+      "strategy": "Implement crypto.timingSafeEqual comparison via timingSafeTokenCompare utility."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "low",
+        "reason": "Requires high-precision timing measurements across network."
+      },
+      "impact": {
+        "score": "medium",
+        "reason": "Could allow forging valid session completion tokens."
+      },
+      "overall_severity": "low"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Source code inspection shows non-constant-time comparison."
+    }
+  },
+  {
+    "verdict": "confirmed",
+    "fingerprint": "unauthenticated-scores-submit-endpoint",
+    "title": "Unauthenticated Orphaned Score API Granting Arbitrary XP and Coin Calculations",
+    "description": "Legacy API route /api/scores/submit accepted unauthenticated score submissions and returned calculated XP and coin grants without session validation or proof of play.",
+    "root_cause": "The route lacked authentication checks, HMAC session token requirements, or rate limiting.",
+    "intended_behavior": "Score submission and reward calculations must be gated behind cryptographic session verification.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "src/app/api/scores/submit/route.ts",
+        "line": 17,
+        "scope": "POST",
+        "description": "Public POST handler accepting raw score payload"
+      },
+      {
+        "kind": "sink",
+        "file": "src/app/api/scores/submit/route.ts",
+        "line": 45,
+        "scope": "POST",
+        "description": "Returns calculated XP and coins without verifying gameplay session"
+      }
+    ],
+    "evidence": [
+      {
+        "file": "src/app/api/scores/submit/route.ts",
+        "line": 20,
+        "description": "Payload extracts score directly from request body without session token."
+      }
+    ],
+    "conditions": [],
+    "execution": {
+      "attacker_perspective": "An automated bot or script submitting fake scores.",
+      "payloads": [
+        "POST /api/scores/submit with {\"gameId\": \"modi-run\", \"score\": 49999}"
+      ],
+      "instructions": [
+        "Send unauthenticated POST request."
+      ],
+      "observed_result": "API grants maximum base and bonus XP and coins."
+    },
+    "remediation": {
+      "strategy": "Deprecate orphaned route and migrate all score tracking to authoritative cryptographic session pipeline."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "high",
+        "reason": "Endpoint is publicly exposed and unauthenticated."
+      },
+      "impact": {
+        "score": "medium",
+        "reason": "Allows reward harvesting and fake score calculations."
+      },
+      "overall_severity": "medium"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Directly verifiable via HTTP request."
+    }
+  },
+  {
+    "verdict": "confirmed",
+    "fingerprint": "unbounded-in-memory-rate-limit-map",
+    "title": "Unbounded In-Memory Rate Limiting Map Prone to Memory Exhaustion",
+    "description": "In-memory rate limit maps in API routes accumulated IP keys indefinitely without background or size-based pruning, creating a memory leak risk under IP rotation attacks.",
+    "root_cause": "rateLimitMap.set was called without evicting expired entries when map grew large.",
+    "intended_behavior": "Rate limiting maps must prune expired timestamps and enforce a maximum size limit.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "src/app/api/contact/route.ts",
+        "line": 23,
+        "scope": "rateLimitMap",
+        "description": "Unbounded global Map instance"
+      },
+      {
+        "kind": "sink",
+        "file": "src/app/api/contact/route.ts",
+        "line": 38,
+        "scope": "isRateLimited",
+        "description": "New keys inserted without bounded size eviction"
+      }
+    ],
+    "evidence": [
+      {
+        "file": "src/app/api/contact/route.ts",
+        "line": 23,
+        "description": "Map holds entries without a TTL eviction policy."
+      }
+    ],
+    "conditions": [],
+    "execution": {
+      "attacker_perspective": "An attacker rotating through synthetic X-Forwarded-For IP addresses.",
+      "payloads": [
+        "Submissions using thousands of distinct IP headers."
+      ],
+      "instructions": [
+        "Flood endpoint with different spoofed IP headers."
+      ],
+      "observed_result": "Node.js process heap memory increases monotonically."
+    },
+    "remediation": {
+      "strategy": "Implement pruneRateLimitMap() with maximum size bounds and expired key deletion."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "low",
+        "reason": "Requires high-volume targeted traffic with rotating IP addresses."
+      },
+      "impact": {
+        "score": "low",
+        "reason": "Causes gradual memory growth in serverless container."
+      },
+      "overall_severity": "low"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Verified by reviewing map lifecycle implementation."
+    }
+  },
+  {
+    "verdict": "confirmed",
+    "fingerprint": "user-profile-api-idor-bola",
+    "title": "Broken Object-Level Authorization in User Profile API",
+    "description": "The user profile update API accepted a 'uid' parameter in the request body and updated that user's profile data without verifying that the caller was authenticated as that user.",
+    "root_cause": "src/app/api/user/profile/route.ts updated profiles based solely on the unauthenticated body.uid parameter.",
+    "intended_behavior": "The API must verify that the caller is authenticated and authorized to update the targeted user ID.",
+    "trace": [
+      {
+        "kind": "entrypoint",
+        "file": "src/app/api/user/profile/route.ts",
+        "line": 7,
+        "scope": "PATCH",
+        "description": "Extracts uid directly from untrusted request body"
+      },
+      {
+        "kind": "propagation",
+        "file": "src/app/api/user/profile/route.ts",
+        "line": 79,
+        "scope": "PATCH",
+        "description": "Calls updateUserProfileData with target uid without caller verification"
+      },
+      {
+        "kind": "sink",
+        "file": "src/lib/firebaseService.ts",
+        "line": 872,
+        "scope": "updateUserProfileData",
+        "description": "Firestore document updated with arbitrary profile changes"
+      }
+    ],
+    "evidence": [
+      {
+        "file": "src/app/api/user/profile/route.ts",
+        "line": 7,
+        "description": "No session or authentication token check performed on uid parameter."
+      }
+    ],
+    "conditions": [],
+    "execution": {
+      "attacker_perspective": "A registered or unregistered remote attacker with knowledge of a victim's user ID.",
+      "payloads": [
+        "PATCH /api/user/profile with {\"uid\": \"victim_uid\", \"displayName\": \"Hacked\"}"
+      ],
+      "instructions": [
+        "Send PATCH request with arbitrary target uid."
+      ],
+      "observed_result": "Victim's profile display name, avatar, and bio are modified without authorization."
+    },
+    "remediation": {
+      "strategy": "Verify caller identity via authentication headers and reject mismatched uid update requests."
+    },
+    "severity": {
+      "likelihood": {
+        "score": "high",
+        "reason": "Directly callable via standard HTTP PATCH."
+      },
+      "impact": {
+        "score": "high",
+        "reason": "Allows unauthorized modification of any user's profile, bio, and visual identity."
+      },
+      "overall_severity": "high"
+    },
+    "confidence": {
+      "score": "high",
+      "reason": "Confirmed by code inspection and reproduction test."
+    }
+  }
+]

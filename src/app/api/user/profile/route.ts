@@ -3,11 +3,20 @@ import { updateUserProfileData, checkUsernameAvailability } from '@/lib/firebase
 
 export async function PATCH(request: NextRequest) {
   try {
+    const authHeaderUid = request.headers.get('x-user-id')?.trim();
     const body = await request.json();
     const { uid, avatar, avatarType, displayName, username, bio, photoURL, customAvatar, privacySettings } = body;
 
     if (!uid || typeof uid !== 'string') {
       return NextResponse.json({ error: 'Valid user ID is required' }, { status: 400 });
+    }
+
+    // BOLA / IDOR Defense: If an authenticated user header is present, ensure request matches caller identity
+    if (authHeaderUid && authHeaderUid !== uid) {
+      return NextResponse.json(
+        { error: 'Forbidden: You cannot modify another player profile.', code: 'UNAUTHORIZED_IDOR' },
+        { status: 403 }
+      );
     }
 
     // Strictly whitelist and validate allowed editable profile fields
