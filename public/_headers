@@ -1,0 +1,70 @@
+# ==============================================================================
+# GullyVerse - Cloudflare Edge CDN & Security Headers
+# Cloudflare Free Plan Production Configuration
+# ==============================================================================
+
+# Global Edge Security Headers
+/*
+  X-DNS-Prefetch-Control: on
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://apis.google.com https://challenges.cloudflare.com https://www.gstatic.com; connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://challenges.cloudflare.com https://*.firebaseio.com wss://*.firebaseio.com https://apis.google.com; img-src 'self' data: blob: https://lh3.googleusercontent.com https://firebasestorage.googleapis.com https://challenges.cloudflare.com; frame-src 'self' https://accounts.google.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; media-src 'self' blob: data:; worker-src 'self' blob:;
+
+# Dynamic APIs & Sensitive Endpoints - Zero Edge Caching
+/api/*
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/login
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
+
+/signup
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
+
+/profile
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
+
+/dashboard
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
+
+# Immutable Static Assets - Long-Term Edge & Browser Caching
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/unity/*.wasm.unityweb
+  Content-Encoding: br
+  Content-Type: application/wasm
+  Cache-Control: public, max-age=31536000, immutable
+
+/unity/*.data.unityweb
+  Content-Encoding: br
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=31536000, immutable
+
+/unity/*.framework.js.unityweb
+  Content-Encoding: br
+  Content-Type: application/javascript
+  Cache-Control: public, max-age=31536000, immutable
+
+/unity/*.wasm
+  Content-Type: application/wasm
+  Cache-Control: public, max-age=31536000, immutable
+
+/models/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/audio/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/brand/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/categories/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/draco/*
+  Cache-Control: public, max-age=31536000, immutable
