@@ -151,25 +151,25 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
     switch (game.id) {
       case 'jelly-run':
         return (
-          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-cyan-400">Loading Jelly Run 2048...</div>}>
+          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-cyan-400">Loading Jelly Jalwa...</div>}>
             <JellyRunGame />
           </React.Suspense>
         );
       case 'fun-race':
         return (
-          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-cyan-400">Loading Fun Race 3D...</div>}>
+          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-cyan-400">Loading Gully Race...</div>}>
             <FunRaceGame />
           </React.Suspense>
         );
       case 'giant-rush':
         return (
-          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-amber-400">Loading Giant Rush 3D...</div>}>
+          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-amber-400">Loading Pehelwan Rush...</div>}>
             <GiantRushGame />
           </React.Suspense>
         );
       case 'auto-rush':
         return (
-          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-[#FF9933]">Loading Auto Rush 3D...</div>}>
+          <React.Suspense fallback={<div className="p-8 text-center text-xs font-mono text-[#FF9933]">Loading Turri Run...</div>}>
             <AutoRushGame />
           </React.Suspense>
         );

@@ -123,9 +123,9 @@ export const INITIAL_RECENT_MATCHES: RecentMatch[] = [];
 export const GAMES_CATALOG: GameItem[] = [
   {
     id: 'jelly-run',
-    title: 'Jelly Run 2048 🍮✨',
+    title: 'Jelly Jalwa 🍮✨',
     slug: 'jelly-run',
-    tagline: 'Split, merge, and race! Steer squishy numbered jelly cubes, bypass center pillars, and hit 2048 on multiplier runways!',
+    tagline: 'Desi 2048 Jalwa! Steer squishy numbered jelly cubes, split around center pillars, and hit 2048 on multiplier runways!',
     description: 'The definitive 3D jelly runner puzzle! Guide your squishy, glowing numbered cubes down high-speed elevated aquatic tracks. Drag to steer into matching number cubes to merge into higher powers of 2. Tap or press Space to dynamically split your cube in two to bypass center pillars and deadly rotating sawblades, then fuse back together to double your score and launch down the multiplier runway!',
     category: '⚡ Action & Battle',
     categoryKey: 'action',
@@ -155,9 +155,9 @@ export const GAMES_CATALOG: GameItem[] = [
   },
   {
     id: 'fun-race',
-    title: 'Fun Race 3D 🏃💨',
+    title: 'Gully Race 🏃💨',
     slug: 'fun-race',
-    tagline: 'Hold to run, release to stop! Outsmart swinging hammers, rotating blades, and race rival bots to the finish line!',
+    tagline: 'Hold to sprint, release to brake! Outsmart swinging maces, rotating blades, and race rival bots to the gully finish line!',
     description: 'The definitive 3D parkour obstacle racing game! Hold your touch or click to sprint along vibrant elevated tracks over turquoise lagoons. Time your stops to evade spinning windmills, sinusoidal hammers, rotating drums, and pneumatic crushers. Outrun intelligent AI opponents and cross the finish line first!',
     category: '⚡ Action & Battle',
     categoryKey: 'action',
@@ -188,9 +188,9 @@ export const GAMES_CATALOG: GameItem[] = [
   },
   {
     id: 'giant-rush',
-    title: 'Giant Rush 3D 👊🔥',
+    title: 'Pehelwan Rush 👊🔥',
     slug: 'giant-rush',
-    tagline: 'Absorb same-color runners, grow into a colossal Titan, and punch the boss to the moon!',
+    tagline: 'Absorb same-color runners, grow into a colossal Pehelwan Titan, and punch the boss to the moon!',
     description: 'The iconic 3D chroma-matching hypercasual runner and brawler! Auto-run forward, steer smoothly across lanes, absorb runners matching your active color to grow massive, pass through color-changing laser gates, dodge spinning hazard blades, and unleash a mega Titan punch in the rapid-tap boss arena!',
     category: '⚡ Action & Battle',
     categoryKey: 'action',
@@ -222,9 +222,9 @@ export const GAMES_CATALOG: GameItem[] = [
   },
   {
     id: 'auto-rush',
-    title: 'Tirri Run 🛺💨',
+    title: 'Turri Run 🛺💨',
     slug: 'auto-rush',
-    tagline: 'The Gurugram Grand Prix! 8 Indian auto-rickshaws, real 3-wheel physics, drift & nitro!',
+    tagline: 'High-speed Indian auto-rickshaw highway racing on Cyber City, NH-48 Expressway & Old Delhi Red Fort!',
     description: 'The ultimate 3D Indian auto-rickshaw (Tirri) racing game! Reverse-engineered & inspired by autorush.autos, race against 7 intelligent rivals across Cyber City, NH-48 Expressway, Kartavya Path India Gate, and Old Delhi Red Fort. Realistic asphalt roads with yellow-black curbs, roadside houses (ghar) with water tanks, shops, and elevated Rapid Metro tracks!',
     category: '👥 Squad Vibes',
     categoryKey: 'squad',

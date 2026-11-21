@@ -85,32 +85,32 @@ export const GullyHeroSection: React.FC = () => {
   const quickLaunchGames: QuickGameCard[] = [
     {
       id: 'jelly-run',
-      name: 'Jelly Run 2048 🍮✨',
-      category: '2048 Runner',
+      name: 'Jelly Jalwa 🍮✨',
+      category: 'Desi 2048 Runner',
       route: '/game/jelly-run',
       image: '/games/jelly-run.jpg',
       borderColor: '#F43F5E'
     },
     {
       id: 'fun-race',
-      name: 'Fun Race 3D 🏃💨',
-      category: 'Obstacle Run',
+      name: 'Gully Race 🏃💨',
+      category: 'Desi Parkour',
       route: '/game/fun-race',
       image: '/games/fun-race.jpg',
       borderColor: '#00F0FF'
     },
     {
       id: 'auto-rush',
-      name: 'Auto Rush 🛺💨',
-      category: 'Desi Racing',
+      name: 'Turri Run 🛺💨',
+      category: 'Auto Rickshaw Racing',
       route: '/game/auto-rush',
       image: '/games/auto-rush.jpg',
       borderColor: '#EF4444'
     },
     {
       id: 'giant-rush',
-      name: 'Giant Rush 3D 👊🔥',
-      category: 'Chroma Brawler',
+      name: 'Pehelwan Rush 👊🔥',
+      category: 'Desi Akhaada Brawler',
       route: '/game/giant-rush',
       image: '/games/giant-rush.jpg',
       borderColor: '#FF9F1C'

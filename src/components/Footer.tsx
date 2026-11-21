@@ -64,18 +64,32 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col gap-3">
           <h4 className="font-label-lg text-white font-black tracking-wider uppercase">Featured Games</h4>
           <Link
+            href="/games/jelly-run"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
+          >
+            🍮 Jelly Jalwa (3D)
+          </Link>
+          <Link
+            href="/games/fun-race"
+            onClick={() => soundFx.playClick()}
+            className="font-body-sm hover:text-amber-400 transition-colors w-fit"
+          >
+            🏃 Gully Race (3D)
+          </Link>
+          <Link
             href="/games/giant-rush"
             onClick={() => soundFx.playClick()}
             className="font-body-sm hover:text-amber-400 transition-colors w-fit"
           >
-            👊 Giant Rush (3D)
+            👊 Pehelwan Rush (3D)
           </Link>
           <Link
             href="/games/auto-rush"
             onClick={() => soundFx.playClick()}
             className="font-body-sm hover:text-amber-400 transition-colors w-fit"
           >
-            🛺 Auto Rush (3D)
+            🛺 Turri Run (3D)
           </Link>
           <Link
             href="/games/chor-sipahi"

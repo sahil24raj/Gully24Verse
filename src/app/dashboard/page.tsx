@@ -341,7 +341,7 @@ export default function DashboardPage() {
             avatar: p.avatar || '🎮',
             level: 15 + (p.name.length % 20),
             status: 'online',
-            currentlyPlaying: match.gameTitle || 'Auto Rush 🚛',
+            currentlyPlaying: match.gameTitle || 'Turri Run 🛺',
             lastSeen: 'Active now',
             gamesTogether: 12 + (p.score % 25),
             gameId: match.gameId
@@ -358,7 +358,7 @@ export default function DashboardPage() {
         avatar: '🥷',
         level: 18,
         status: 'online',
-        currentlyPlaying: 'Auto Rush 🚛',
+        currentlyPlaying: 'Turri Run 🛺',
         lastSeen: 'Playing now',
         gamesTogether: 42,
         gameId: 'auto-rush'

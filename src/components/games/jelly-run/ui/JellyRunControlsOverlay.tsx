@@ -87,7 +87,7 @@ export const JellyRunControlsOverlay: React.FC<JellyRunControlsOverlayProps> = (
             <span className="text-5xl animate-bounce">🍮</span>
             <div className="flex flex-col gap-1">
               <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-                JELLY RUN <span className="text-amber-400">2048</span>
+                JELLY <span className="text-amber-400">JALWA</span>
               </h2>
               <p className="text-xs text-slate-300">
                 Drag to steer • Split around center pillars • Merge to reach 2048!

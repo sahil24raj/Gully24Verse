@@ -42,10 +42,10 @@ export default function JellyRunPage() {
             <span className="text-4xl">🍮✨</span>
             <div>
               <h1 className="text-2xl sm:text-3xl font-black text-white tracking-wide">
-                Jelly Run 2048
+                Jelly Jalwa
               </h1>
               <p className="text-xs font-mono text-cyan-400">
-                Deep Reverse-Engineered 3D Hypercasual Math Runner
+                Desi 3D Split & Merge 2048 Runner
               </p>
             </div>
           </div>

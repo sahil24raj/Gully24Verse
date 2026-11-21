@@ -42,10 +42,10 @@ export default function FunRacePage() {
             <span className="text-4xl">🏃💨</span>
             <div>
               <h1 className="text-2xl sm:text-3xl font-black text-white tracking-wide">
-                Fun Race 3D
+                Gully Race
               </h1>
               <p className="text-xs font-mono text-cyan-400">
-                Single-Touch 3D Parkour Obstacle Racing
+                Single-Touch 3D Desi Parkour Obstacle Racing
               </p>
             </div>
           </div>
