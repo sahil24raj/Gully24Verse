@@ -178,8 +178,8 @@ export const GullyHeroSection: React.FC = () => {
             </span>
           </div>
 
-          {/* Prominent Russo One Headline with Clean Natural Shadow */}
-          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.4rem,6vw,7rem)] tracking-tight text-white uppercase leading-none whitespace-nowrap drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          {/* Prominent Russo One Headline with Substantially Enlarged Font Size and Clean Natural Shadow */}
+          <h1 className="font-['Russo_One',sans-serif] text-[clamp(3.2rem,8vw,9.5rem)] tracking-tight text-white uppercase leading-none whitespace-nowrap drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
             <span className="text-white">APNI GULLY, </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF]">
               APNE GAMES!
@@ -187,13 +187,13 @@ export const GullyHeroSection: React.FC = () => {
           </h1>
 
           {/* Subtitle: Enlarged font, generous spaces, ending aligned with APNE GAMES! */}
-          <div className="w-full flex items-center justify-between text-slate-100 text-sm sm:text-base md:text-lg lg:text-[1.15rem] font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] pt-1">
+          <div className="w-full flex items-center justify-between text-slate-100 text-sm sm:text-base md:text-lg lg:text-[1.25rem] font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] pt-1.5">
             <span>Zero Downloads</span>
-            <span className="text-amber-400/90 font-black px-2 sm:px-3">•</span>
+            <span className="text-amber-400/90 font-black px-2 sm:px-4">•</span>
             <span>100% Free-to-Play Browser-Based Games</span>
-            <span className="text-amber-400/90 font-black px-2 sm:px-3">•</span>
+            <span className="text-amber-400/90 font-black px-2 sm:px-4">•</span>
             <span>Instant 1-Tap Play</span>
-            <span className="text-amber-400/90 font-black px-2 sm:px-3">•</span>
+            <span className="text-amber-400/90 font-black px-2 sm:px-4">•</span>
             <span>14 Desi 3D Hits &amp; Multiplayer</span>
           </div>
         </div>
