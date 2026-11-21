@@ -30,9 +30,16 @@ export const metadata: Metadata = {
     '6-character room codes'
   ],
   icons: {
-    icon: '/brand/gullyverse-icon.png',
-    shortcut: '/brand/gullyverse-icon.png',
-    apple: '/brand/gullyverse-icon.png',
+    icon: [
+      { url: '/brand/gullyverse-icon.png?v=3', type: 'image/png' },
+      { url: '/icon.png?v=3', type: 'image/png' },
+      { url: '/favicon.ico?v=3', sizes: 'any' }
+    ],
+    shortcut: '/brand/gullyverse-icon.png?v=3',
+    apple: [
+      { url: '/brand/gullyverse-icon.png?v=3' },
+      { url: '/apple-touch-icon.png?v=3' }
+    ],
   },
   openGraph: {
     title: "GullyVerse – India's Desi Browser Gaming Universe",

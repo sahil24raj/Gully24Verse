@@ -7,7 +7,6 @@ import { useAppStore } from '@/store/useAppStore';
 import { soundFx } from '@/lib/audio';
 import {
   Play,
-  Gift,
   Flame,
   Zap,
   ChevronRight,
@@ -164,18 +163,15 @@ export const GullyHeroSection: React.FC = () => {
     }
   ];
 
-  const gamesPlayed = user?.stats?.gamesPlayed || 0;
-  const challengeProgress = Math.min(100, Math.max(15, (gamesPlayed / 3) * 100));
-
   return (
-    <section className="relative w-full overflow-hidden pt-[25vh] sm:pt-[28vh] lg:pt-[30vh] pb-8 px-4 sm:px-8 xl:px-14 select-none">
-      <div className="max-w-[1720px] mx-auto flex flex-col gap-6 relative z-10">
+    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between pt-[44vh] sm:pt-[48vh] lg:pt-[50vh] pb-4 px-4 sm:px-8 xl:px-14 select-none">
+      <div className="max-w-[1720px] mx-auto w-full flex flex-col justify-between flex-1 relative z-10">
         
-        {/* Main Hero Row: Headline on Left, Widgets on Right (EXACT PREVIOUS STYLE, STARTING RIGHT BELOW WHITE LINE) */}
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-6">
+        {/* Main Hero Row: Massive Headline on Left, Minimal Platform Badge on Right */}
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
           
-          {/* Left Column: Focused High-Impact Branding */}
-          <div className="max-w-3xl flex flex-col gap-2.5">
+          {/* Left Column: Big Bold Grand Headline — APNI GULLY, APNE GAMES! */}
+          <div className="max-w-4xl flex flex-col gap-2.5">
             {/* Minimal Brand Kicker */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-amber-500/30 backdrop-blur-md w-fit shadow-lg">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#FF9F1C]" />
@@ -184,70 +180,37 @@ export const GullyHeroSection: React.FC = () => {
               </span>
             </div>
 
-            {/* Massive Bold Headline — APNI GULLY, APNE GAMES (Exact previous stacked style) */}
+            {/* Massive Grand Bold Headline */}
             <div className="flex flex-col gap-1">
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white uppercase font-black leading-[0.95] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+              <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight text-white uppercase font-black leading-[0.92] drop-shadow-[0_8px_32px_rgba(0,0,0,0.98)]">
                 APNI GULLY, <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#00E5FF] to-white drop-shadow-[0_0_35px_rgba(0,229,255,0.4)]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#00E5FF] to-white drop-shadow-[0_0_40px_rgba(0,229,255,0.45)]">
                   APNE GAMES!
                 </span>
               </h1>
-              <p className="text-slate-200 text-xs sm:text-sm md:text-base font-semibold max-w-xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-1">
+              <p className="text-slate-200 text-xs sm:text-sm md:text-base font-semibold max-w-xl tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-1.5">
                 Zero Downloads • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
               </p>
             </div>
           </div>
 
-          {/* Right Column: Hero Floating Glass Widgets (Exact previous style) */}
-          <div className="w-full lg:w-80 flex flex-col gap-3 shrink-0 lg:self-end">
-            
-            {/* 1. Daily Challenge Widget */}
-            <div
-              className="p-3.5 rounded-2xl bg-[#1B1B22]/90 border border-amber-500/30 backdrop-blur-md shadow-xl flex items-center justify-between gap-3 group"
-            >
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-1.5 text-amber-400 text-xs font-black uppercase tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-purple-400" />
-                  <span>DAILY CHALLENGE</span>
-                </div>
-                <p className="text-xs text-slate-200 font-semibold">
-                  Play 3 different games today!
-                </p>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="w-28 bg-black/60 h-2 rounded-full overflow-hidden">
-                    <div
-                      className="bg-[#FFB703] h-full rounded-full transition-all duration-300"
-                      style={{ width: `${challengeProgress}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="w-11 h-11 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-xl group-hover:scale-110 transition-transform shrink-0">
-                <Gift className="w-5 h-5 text-amber-400" />
-              </div>
-            </div>
-
-            {/* 2. Platform Status */}
-            <div className="px-4 py-2.5 rounded-2xl bg-[#1B1B22]/90 border border-emerald-500/30 backdrop-blur-md shadow-lg flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-amber-400" />
-                <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                  INSTANT PLAY
-                </span>
-              </div>
+          {/* Right Column: Clean Instant Play Badge (NO DAILY CHALLENGES) */}
+          <div className="shrink-0 pb-2">
+            <div className="px-4 py-2.5 rounded-2xl bg-black/70 border border-emerald-500/30 backdrop-blur-md shadow-lg flex items-center gap-2.5">
+              <Zap className="w-4 h-4 text-amber-400" />
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span className="text-xs font-black text-emerald-400 font-mono">
-                  ZERO DOWNLOADS 🟢
+                <span className="text-xs font-black text-emerald-400 font-mono tracking-wider">
+                  INSTANT PLAY • ZERO DOWNLOADS 🟢
                 </span>
               </div>
             </div>
-
           </div>
+
         </div>
 
-        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (SWIPE ALL 14 GAMES) --- */}
-        <div className="w-full flex flex-col gap-3 pt-2">
+        {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY (PEEKING AT BOTTOM OF SCREEN) --- */}
+        <div className="w-full flex flex-col gap-2.5 pt-8 sm:pt-12">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs uppercase font-black text-white tracking-wider">
               <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
@@ -281,7 +244,7 @@ export const GullyHeroSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Horizontally Scrollable & Swipeable Cards Container */}
+          {/* Horizontally Scrollable & Swipeable Cards Container (Peeking Dock) */}
           <div
             ref={dockScrollRef}
             className="flex items-center gap-3.5 sm:gap-4 overflow-x-auto scrollbar-none pb-2 pt-1 scroll-smooth snap-x snap-mandatory"

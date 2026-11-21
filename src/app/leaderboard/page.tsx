@@ -10,6 +10,13 @@ import {
 } from '@/lib/firebaseService';
 import { LeaderboardEntry } from '@/types';
 import { GamerAvatar } from '@/components/profile/GamerAvatar';
+import {
+  FrequentFriend,
+  isFriend,
+  saveFriend
+} from '@/lib/friendsService';
+import { UserPlus, UserCheck } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 const PAGE_SIZE = 25;
 
@@ -21,6 +28,7 @@ export default function LeaderboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [, setFriendsVersion] = useState(0);
 
   // Compute highest score of current user
   const highestUserScore = Math.max(0, ...Object.values(user.stats.highScores || {}));
@@ -53,8 +61,12 @@ export default function LeaderboardPage() {
       selectedGameFilter
     );
 
+    const handleFriendsUpdated = () => setFriendsVersion((v) => v + 1);
+    window.addEventListener('gullyverse_friends_updated', handleFriendsUpdated);
+
     return () => {
       if (typeof unsub === 'function') unsub();
+      window.removeEventListener('gullyverse_friends_updated', handleFriendsUpdated);
     };
   }, [selectedGameFilter, loadData]);
 
@@ -85,6 +97,28 @@ export default function LeaderboardPage() {
   const handlePageChange = (newPage: number) => {
     soundFx.playClick();
     setCurrentPage(Math.max(1, Math.min(newPage, totalPages)));
+  };
+
+  const handleAddFriend = async (entry: LeaderboardEntry) => {
+    soundFx.playClick();
+    const friend: FrequentFriend = {
+      id: `f_${entry.username.toLowerCase()}`,
+      username: entry.username,
+      displayName: entry.username,
+      avatar: entry.avatar || '🚀',
+      level: Math.max(1, Math.floor(entry.score / 1500) + 1),
+      status: 'online',
+      currentlyPlaying: entry.gameTitle || 'Ready for match',
+      lastSeen: 'Active now',
+      gamesTogether: 1,
+      gameId: 'fun-race'
+    };
+    await saveFriend(user.id, friend);
+    soundFx.playSuccess();
+    try {
+      confetti({ particleCount: 35, spread: 60, origin: { y: 0.8 } });
+    } catch {}
+    setFriendsVersion((v) => v + 1);
   };
 
   return (
@@ -118,69 +152,65 @@ export default function LeaderboardPage() {
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high border border-purple-500/20 text-[11px] font-label-sm text-neon-cyan hover:text-white transition-colors cursor-pointer"
           >
             <span className={`material-symbols-outlined text-sm ${isRefreshing ? 'animate-spin' : ''}`}>
-              refresh
+              sync
             </span>
-            <span>Refresh</span>
+            <span>{isRefreshing ? 'Syncing...' : 'Live Sync'}</span>
           </button>
         </div>
       </div>
 
-      {/* Game Filter Switcher */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 max-w-5xl mx-auto no-scrollbar">
-        <button
-          onClick={() => {
-            soundFx.playClick();
-            setSelectedGameFilter('all');
-            setCurrentPage(1);
-          }}
-          className={`px-4 py-2 rounded-xl font-label-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
-            selectedGameFilter === 'all'
-              ? 'bg-primary-container text-on-primary-container shadow-[0_0_16px_rgba(139,44,255,0.4)]'
-              : 'bg-surface-container border border-purple-500/10 text-soft-lavender hover:text-on-surface'
-          }`}
-        >
-          🌐 All Vibes Global
-        </button>
-
-        {GAMES_CATALOG.map((g) => (
+      {/* Filter and Search Bar */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-4xl mx-auto bg-surface-container p-3 rounded-2xl border border-purple-500/20 shadow-lg">
+        <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 scrollbar-none">
           <button
-            key={g.id}
             onClick={() => {
               soundFx.playClick();
-              setSelectedGameFilter(g.id);
+              setSelectedGameFilter('all');
               setCurrentPage(1);
             }}
-            className={`px-4 py-2 rounded-xl font-label-sm font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
-              selectedGameFilter === g.id
-                ? 'bg-primary-container text-on-primary-container shadow-[0_0_16px_rgba(139,44,255,0.4)]'
-                : 'bg-surface-container border border-purple-500/10 text-soft-lavender hover:text-on-surface'
+            className={`px-4 py-2 rounded-xl text-xs font-label-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+              selectedGameFilter === 'all'
+                ? 'bg-primary text-white shadow-[0_0_15px_rgba(139,44,255,0.4)]'
+                : 'text-soft-lavender hover:text-on-surface hover:bg-surface-container-high'
             }`}
           >
-            <span>{g.thumbnail}</span>
-            <span>{g.title}</span>
+            All Games 🏆
           </button>
-        ))}
-      </div>
 
-      {/* Search Bar */}
-      <div className="max-w-4xl mx-auto flex items-center gap-3">
-        <div className="relative flex-1">
-          <span className="material-symbols-outlined text-soft-lavender text-base absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-            search
-          </span>
+          {GAMES_CATALOG.slice(0, 7).map((game) => (
+            <button
+              key={game.id}
+              onClick={() => {
+                soundFx.playClick();
+                setSelectedGameFilter(game.id);
+                setCurrentPage(1);
+              }}
+              className={`px-3 py-2 rounded-xl text-xs font-label-sm font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                selectedGameFilter === game.id
+                  ? 'bg-primary text-white shadow-[0_0_15px_rgba(139,44,255,0.4)]'
+                  : 'text-soft-lavender hover:text-on-surface hover:bg-surface-container-high'
+              }`}
+            >
+              <span>{game.thumbnail}</span>
+              <span>{game.title}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="relative w-full sm:w-64 shrink-0">
           <input
             type="text"
-            placeholder="Search by player username..."
+            placeholder="Search by gamer username..."
             value={searchQuery}
             onChange={(e) => {
               setSearchQuery(e.target.value);
               setCurrentPage(1);
             }}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-container-low border border-purple-500/20 text-on-surface placeholder:text-soft-lavender/60 font-body-sm focus:outline-none focus:border-primary-container transition-colors"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-surface-container-low border border-purple-500/20 text-xs font-body-sm text-on-surface placeholder-soft-lavender/50 outline-none focus:border-neon-cyan transition-colors"
           />
-        </div>
-        <div className="font-label-sm text-soft-lavender shrink-0">
-          Showing <strong className="text-on-surface">{totalUsers}</strong> Players
+          <span className="material-symbols-outlined text-sm absolute left-3 top-2.5 text-soft-lavender">
+            search
+          </span>
         </div>
       </div>
 
@@ -238,6 +268,24 @@ export default function LeaderboardPage() {
             <div className="font-label-sm text-soft-lavender">{top2.gameTitle || 'Top Arena Match'}</div>
             <div className="font-headline-md text-neon-cyan font-bold mt-2">{top2.score.toLocaleString()} pts</div>
             <div className="font-label-sm text-neon-green font-bold mt-0.5">{top2.wins} Wins</div>
+
+            {top2.username.toLowerCase() !== user.username.toLowerCase() && (
+              <div className="mt-3 w-full">
+                {isFriend(user.id, top2.username) ? (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-neon-green font-bold bg-neon-green/10 px-3 py-1 rounded-full border border-neon-green/30">
+                    <UserCheck className="w-3 h-3" /> Friends
+                  </span>
+                ) : (
+                  <button
+                    onClick={() => handleAddFriend(top2)}
+                    className="w-full py-1.5 rounded-xl bg-neon-cyan/15 hover:bg-neon-cyan hover:text-slate-950 border border-neon-cyan/40 text-neon-cyan font-mono font-bold text-xs transition-all flex items-center justify-center gap-1 cursor-pointer"
+                  >
+                    <UserPlus className="w-3.5 h-3.5" />
+                    <span>+ Add Friend</span>
+                  </button>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Rank 1 (Champion) */}
@@ -251,6 +299,24 @@ export default function LeaderboardPage() {
             <span className="mt-2 font-label-sm px-2.5 py-0.5 rounded bg-tertiary/20 text-tertiary font-bold border border-tertiary/30">
               #1 ARENA SULTAN
             </span>
+
+            {top1.username.toLowerCase() !== user.username.toLowerCase() && (
+              <div className="mt-3 w-full">
+                {isFriend(user.id, top1.username) ? (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-neon-green font-bold bg-neon-green/10 px-3 py-1 rounded-full border border-neon-green/30">
+                    <UserCheck className="w-3 h-3" /> Friends
+                  </span>
+                ) : (
+                  <button
+                    onClick={() => handleAddFriend(top1)}
+                    className="w-full py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono font-bold text-xs transition-all flex items-center justify-center gap-1 shadow-md cursor-pointer"
+                  >
+                    <UserPlus className="w-3.5 h-3.5 fill-slate-950" />
+                    <span>+ Add Friend</span>
+                  </button>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Rank 3 */}
@@ -261,6 +327,24 @@ export default function LeaderboardPage() {
             <div className="font-label-sm text-soft-lavender">{top3.gameTitle || 'Top Arena Match'}</div>
             <div className="font-headline-md text-primary font-bold mt-2">{top3.score.toLocaleString()} pts</div>
             <div className="font-label-sm text-neon-green font-bold mt-0.5">{top3.wins} Wins</div>
+
+            {top3.username.toLowerCase() !== user.username.toLowerCase() && (
+              <div className="mt-3 w-full">
+                {isFriend(user.id, top3.username) ? (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-neon-green font-bold bg-neon-green/10 px-3 py-1 rounded-full border border-neon-green/30">
+                    <UserCheck className="w-3 h-3" /> Friends
+                  </span>
+                ) : (
+                  <button
+                    onClick={() => handleAddFriend(top3)}
+                    className="w-full py-1.5 rounded-xl bg-neon-cyan/15 hover:bg-neon-cyan hover:text-slate-950 border border-neon-cyan/40 text-neon-cyan font-mono font-bold text-xs transition-all flex items-center justify-center gap-1 cursor-pointer"
+                  >
+                    <UserPlus className="w-3.5 h-3.5" />
+                    <span>+ Add Friend</span>
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -303,17 +387,19 @@ export default function LeaderboardPage() {
           <div className="divide-y divide-purple-500/10">
             {paginatedData.map((entry) => {
               const isCurrentUser =
-                entry.username === user.username ||
-                (user.displayName && entry.username === user.displayName);
+                entry.username.toLowerCase() === user.username.toLowerCase() ||
+                (user.displayName && entry.username.toLowerCase() === user.displayName.toLowerCase());
+
+              const alreadyFriend = isFriend(user.id, entry.username);
 
               return (
                 <div
                   key={`${entry.rank}-${entry.username}-${entry.gameId || 'all'}`}
-                  className={`px-6 py-3.5 flex items-center justify-between transition-colors ${
+                  className={`px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3 transition-colors ${
                     isCurrentUser ? 'bg-primary-container/20 border-l-4 border-primary' : 'hover:bg-surface-container-high'
                   }`}
                 >
-                  <div className="flex items-center gap-3.5">
+                  <div className="flex items-center gap-3.5 min-w-0">
                     <span
                       className={`w-7 text-center font-headline-sm font-bold ${
                         entry.rank === 1
@@ -330,9 +416,9 @@ export default function LeaderboardPage() {
 
                     <GamerAvatar avatar={entry.avatar} size="md" rank={entry.badge} />
 
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-label-lg text-on-surface font-bold">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-label-lg text-on-surface font-bold truncate">
                           {entry.username}
                         </span>
                         {isCurrentUser && (
@@ -341,19 +427,41 @@ export default function LeaderboardPage() {
                           </span>
                         )}
                       </div>
-                      <span className="font-body-sm text-soft-lavender block text-xs">
+                      <span className="font-body-sm text-soft-lavender block text-xs truncate">
                         {entry.gameTitle || 'All Vibes Match'}
                       </span>
                     </div>
                   </div>
 
-                  <div className="text-right">
-                    <span className="font-headline-sm text-tertiary font-bold block">
-                      {entry.score.toLocaleString()} pts
-                    </span>
-                    <span className="font-label-sm text-neon-green">
-                      {entry.wins || 0} Wins
-                    </span>
+                  <div className="flex items-center gap-3 sm:gap-4 text-right shrink-0">
+                    {!isCurrentUser && (
+                      <div>
+                        {alreadyFriend ? (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-mono text-neon-green font-bold bg-neon-green/10 px-2.5 py-1 rounded-lg border border-neon-green/30">
+                            <UserCheck className="w-3.5 h-3.5" />
+                            <span className="hidden sm:inline">Squad Mate</span>
+                          </span>
+                        ) : (
+                          <button
+                            onClick={() => handleAddFriend(entry)}
+                            className="px-2.5 sm:px-3 py-1 rounded-lg bg-neon-cyan/15 hover:bg-neon-cyan hover:text-slate-950 border border-neon-cyan/40 text-neon-cyan font-mono font-bold text-[11px] sm:text-xs transition-all flex items-center gap-1 cursor-pointer active:scale-95 shadow-sm"
+                            title="Add to Your Squad"
+                          >
+                            <UserPlus className="w-3.5 h-3.5" />
+                            <span>+ Add Friend</span>
+                          </button>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="w-24 sm:w-28">
+                      <span className="font-headline-sm text-tertiary font-bold block">
+                        {entry.score.toLocaleString()} pts
+                      </span>
+                      <span className="font-label-sm text-neon-green">
+                        {entry.wins || 0} Wins
+                      </span>
+                    </div>
                   </div>
                 </div>
               );

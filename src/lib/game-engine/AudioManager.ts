@@ -160,6 +160,10 @@ class SoundEngine {
     });
   }
 
+  public playSuccess() {
+    this.playCorrect();
+  }
+
   public playLevelUp() {
     if (this.settings.muted) return;
     const notes = [440, 554.37, 659.25, 880];
