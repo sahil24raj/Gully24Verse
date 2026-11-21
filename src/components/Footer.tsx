@@ -52,11 +52,11 @@ export const Footer: React.FC = () => {
             Legends Leaderboard
           </Link>
           <Link
-            href="/shop"
+            href="/profile"
             onClick={() => soundFx.playClick()}
             className="font-body-sm hover:text-amber-400 transition-colors w-fit"
           >
-            Gully Coin Shop
+            My Profile &amp; Stats
           </Link>
         </div>
 

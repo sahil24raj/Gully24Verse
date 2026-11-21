@@ -29,7 +29,7 @@ interface QuickGameCard {
 
 export const GullyHeroSection: React.FC = () => {
   const router = useRouter();
-  const { openDailySpinModal, user } = useAppStore();
+  const { user } = useAppStore();
   const dockScrollRef = useRef<HTMLDivElement>(null);
 
   const handlePlayNow = () => {
@@ -271,8 +271,7 @@ export const GullyHeroSection: React.FC = () => {
             
             {/* 1. Daily Challenge Widget */}
             <div
-              onClick={() => openDailySpinModal()}
-              className="p-3.5 rounded-2xl bg-[#1B1B22]/90 hover:bg-[#1B1B22] border border-amber-500/30 backdrop-blur-md shadow-xl transition-all hover:scale-[1.02] cursor-pointer flex items-center justify-between gap-3 group"
+              className="p-3.5 rounded-2xl bg-[#1B1B22]/90 border border-amber-500/30 backdrop-blur-md shadow-xl flex items-center justify-between gap-3 group"
             >
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-1.5 text-amber-400 text-xs font-black uppercase tracking-wider">

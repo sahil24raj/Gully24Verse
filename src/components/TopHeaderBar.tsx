@@ -22,7 +22,7 @@ import {
 export const TopHeaderBar: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, openMultiplayerModal, logout, openAuthModal, openDailySpinModal } = useAppStore();
+  const { user, openMultiplayerModal, logout, openAuthModal } = useAppStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -91,6 +91,13 @@ export const TopHeaderBar: React.FC = () => {
   const currentCoins = user.coins || 0;
   const nextLevelXP = currentLevel * 1000;
   const xpPercent = Math.min(100, Math.floor((currentXP / nextLevelXP) * 100));
+
+  // Determine Google account photo URL or custom uploaded avatar
+  const effectiveAvatarSrc = isImageSource(user.photoURL)
+    ? user.photoURL
+    : isImageSource(user.avatar)
+    ? user.avatar
+    : null;
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#101014]/90 backdrop-blur-xl border-b border-amber-500/20 select-none shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
@@ -180,32 +187,16 @@ export const TopHeaderBar: React.FC = () => {
             </div>
           </Link>
 
-          {/* Coin Badge Chip */}
-          <Link
-            href="/shop"
-            onClick={() => soundFx.playCoin()}
-            className="flex items-center gap-1.5 bg-[#1B1B22] px-3.5 py-2 rounded-2xl border border-amber-500/30 hover:border-amber-400 transition-colors shadow-md"
+          {/* Gully Coins Vault Counter */}
+          <div
+            className="flex items-center gap-1.5 bg-[#1B1B22] px-3.5 py-2 rounded-2xl border border-amber-500/30 text-amber-400 shadow-md select-none"
             title="Gully Coins"
           >
             <span className="text-sm leading-none">🪙</span>
-            <span className="text-xs text-amber-400 font-black">{currentCoins.toLocaleString()}</span>
-          </Link>
+            <span className="text-xs font-black">{currentCoins.toLocaleString()}</span>
+          </div>
 
-          {/* Daily Spin / Notifications Trigger with Pulsing Neon Dot */}
-          <button
-            onClick={() => {
-              soundFx.playClick();
-              openDailySpinModal();
-            }}
-            className="relative p-2.5 rounded-2xl bg-[#1B1B22] text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer border border-white/10 shadow-md"
-            title="Notifications & Daily Rewards"
-            aria-label="Notifications"
-          >
-            <Bell className="w-4 h-4 text-slate-200" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_#00BFA6]" />
-          </button>
-
-          {/* User Profile Avatar with Rocket icon badge & dropdown */}
+          {/* User Profile Avatar with Google Account Photo & direct My Profile menu */}
           <div className="relative" ref={userMenuRef}>
             <div
               onClick={() => {
@@ -213,18 +204,19 @@ export const TopHeaderBar: React.FC = () => {
                 setUserMenuOpen(!userMenuOpen);
               }}
               className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#1B1B22] border border-white/10 hover:border-amber-500/50 cursor-pointer transition-all shadow-md group"
-              title="User Menu"
+              title="My Profile"
             >
               <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-amber-500/80 group-hover:ring-teal-400 transition-all flex items-center justify-center bg-[#252530]">
-                {isImageSource(user.avatar) || isImageSource(user.photoURL) ? (
+                {effectiveAvatarSrc ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src={user.avatar || user.photoURL}
+                    src={effectiveAvatarSrc}
                     alt={user.displayName || user.username || 'User Avatar'}
                     className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <span className="text-sm select-none">🚀</span>
+                  <span className="text-sm select-none">{user.avatar || '🚀'}</span>
                 )}
               </div>
               <span className="text-[10px] text-slate-400 group-hover:text-white transition-colors pr-1">
@@ -232,67 +224,52 @@ export const TopHeaderBar: React.FC = () => {
               </span>
             </div>
 
-            {/* Dropdown Menu */}
+            {/* Dropdown Menu — STRICTLY My Profile & Sign Out (No Dashboard, No Shop) */}
             {userMenuOpen && (
-              <div className="absolute right-0 mt-3 w-56 rounded-2xl bg-[#1B1B22]/95 backdrop-blur-2xl border border-white/15 p-2 shadow-[0_10px_40px_rgba(0,0,0,0.85)] z-50 animate-in fade-in zoom-in-95 duration-150">
-                <div className="px-3 py-2 border-b border-white/10 mb-1">
-                  <div className="font-bold text-xs text-white truncate">
-                    {user.displayName || user.username}
+              <div className="absolute right-0 mt-3 w-60 rounded-2xl bg-[#1B1B22]/98 backdrop-blur-2xl border border-white/15 p-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.85)] z-50 animate-in fade-in zoom-in-95 duration-150">
+                {/* Profile Header Card */}
+                <div className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 mb-2 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full overflow-hidden shrink-0 border border-amber-500/60 ring-2 ring-black/40">
+                    {effectiveAvatarSrc ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={effectiveAvatarSrc}
+                        alt="Profile"
+                        className="w-full h-full object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-sm bg-[#252530]">🚀</div>
+                    )}
                   </div>
-                  <div className="text-[10px] text-teal-400 font-bold">
-                    {user.authType === 'guest' ? 'Desi Guest Player' : 'Verified Gully Gamer'}
+                  <div className="flex flex-col min-w-0">
+                    <div className="font-black text-xs text-white truncate">
+                      {user.displayName || user.username}
+                    </div>
+                    <div className="text-[10px] text-slate-400 font-mono truncate">
+                      {user.email || `@${user.username}`}
+                    </div>
+                    <div className="text-[9px] text-teal-400 font-bold uppercase tracking-wider mt-0.5">
+                      {user.authType === 'google' ? 'Google Gamer 🟢' : user.authType === 'guest' ? 'Desi Guest Player' : 'Verified Gamer'}
+                    </div>
                   </div>
                 </div>
 
-                <Link
-                  href="/dashboard"
-                  onClick={() => {
-                    soundFx.playClick();
-                    setUserMenuOpen(false);
-                  }}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-white hover:bg-white/10 transition-colors"
-                >
-                  <LayoutDashboard className="w-4 h-4 text-amber-400" />
-                  <span>Gamer Dashboard</span>
-                </Link>
-
+                {/* Single Focused Action: My Profile */}
                 <Link
                   href="/profile"
                   onClick={() => {
                     soundFx.playClick();
                     setUserMenuOpen(false);
                   }}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-white hover:bg-white/10 transition-colors"
+                  className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-black text-white hover:bg-amber-500/20 hover:text-amber-300 border border-transparent hover:border-amber-500/30 transition-all"
                 >
-                  <User className="w-4 h-4 text-teal-400" />
+                  <User className="w-4 h-4 text-amber-400" />
                   <span>My Profile &amp; Stats</span>
                 </Link>
 
-                <Link
-                  href="/shop"
-                  onClick={() => {
-                    soundFx.playClick();
-                    setUserMenuOpen(false);
-                  }}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-white hover:bg-white/10 transition-colors"
-                >
-                  <ShoppingBag className="w-4 h-4 text-amber-400" />
-                  <span>Rewards Shop</span>
-                </Link>
-
-                <button
-                  onClick={() => {
-                    soundFx.playClick();
-                    setUserMenuOpen(false);
-                    openMultiplayerModal(GAMES_CATALOG[0]);
-                  }}
-                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-white hover:bg-white/10 transition-colors text-left cursor-pointer"
-                >
-                  <Users className="w-4 h-4 text-teal-400" />
-                  <span>Host Squad Lobby</span>
-                </button>
-
-                <div className="pt-1 mt-1 border-t border-white/10">
+                {/* Authentication Controls */}
+                <div className="pt-1.5 mt-1.5 border-t border-white/10">
                   {user.authType === 'guest' ? (
                     <button
                       onClick={() => {
@@ -300,10 +277,10 @@ export const TopHeaderBar: React.FC = () => {
                         setUserMenuOpen(false);
                         openAuthModal();
                       }}
-                      className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors cursor-pointer"
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors cursor-pointer shadow-md"
                     >
                       <Sparkles className="w-4 h-4" />
-                      <span>Sign In / Save Progress</span>
+                      <span>Sign In with Google</span>
                     </button>
                   ) : (
                     <button
@@ -312,7 +289,7 @@ export const TopHeaderBar: React.FC = () => {
                         setUserMenuOpen(false);
                         logout();
                       }}
-                      className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-red-400 hover:bg-red-500/20 transition-colors text-left cursor-pointer"
+                      className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-red-400 hover:bg-red-500/15 transition-colors text-left cursor-pointer"
                     >
                       <LogOut className="w-4 h-4" />
                       <span>Sign Out</span>

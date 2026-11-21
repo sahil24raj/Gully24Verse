@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import { TopHeaderBar } from '@/components/TopHeaderBar';
 import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/AuthModal';
-import { DailySpinModal } from '@/components/DailySpinModal';
 import { GullySpotlightBackground } from '@/components/GullySpotlightBackground';
 import { useAppStore } from '@/store/useAppStore';
 
@@ -40,7 +39,6 @@ export function AppDashboardLayout({ children }: AppDashboardLayoutProps) {
 
       {/* Global Modals */}
       <AuthModal />
-      <DailySpinModal />
     </div>
   );
 }

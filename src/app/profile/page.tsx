@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAppStore, GAMES_CATALOG } from '@/store/useAppStore';
 import { soundFx } from '@/lib/audio';
-import { GamerAvatar, isImageSource } from '@/components/profile/GamerAvatar';
+import { GamerAvatar, isImageSource, formatMemberSince } from '@/components/profile/GamerAvatar';
 import {
   User,
   Trophy,
@@ -493,7 +493,7 @@ function ProfileContent() {
 
               {/* Gamer Bio */}
               <p className="text-sm text-slate-300 max-w-lg italic font-sans">
-                &ldquo;{user.bio || 'Grinding games. Chasing high scores.'}&rdquo;
+                &ldquo;{(user.bio || 'Grinding games. Chasing high scores.').replace(/Chill Arena/gi, 'GullyVerse')}&rdquo;
               </p>
 
               {/* Badges / Quick Metrics */}
@@ -508,7 +508,7 @@ function ProfileContent() {
                 </span>
                 <span className="flex items-center gap-1.5 text-slate-400">
                   <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                  Member since {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Launch Season'}
+                  Member since {formatMemberSince(user.createdAt)}
                 </span>
               </div>
             </div>

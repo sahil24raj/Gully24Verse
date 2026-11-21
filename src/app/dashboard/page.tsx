@@ -41,7 +41,7 @@ import {
 } from 'lucide-react';
 import { useAppStore, GAMES_CATALOG, GameItem } from '@/store/useAppStore';
 import { soundFx } from '@/lib/audio';
-import { GamerAvatar, isImageSource } from '@/components/profile/GamerAvatar';
+import { GamerAvatar, isImageSource, formatMemberSince } from '@/components/profile/GamerAvatar';
 import { subscribeToCloudLeaderboard } from '@/lib/firebaseService';
 import { LeaderboardEntry } from '@/types';
 import { MultiplayerLobbyModal } from '@/components/MultiplayerLobbyModal';
@@ -148,15 +148,7 @@ export default function DashboardPage() {
 
   // Member Since Date
   const memberSince = useMemo(() => {
-    try {
-      if (user.createdAt) {
-        const d = new Date(user.createdAt);
-        return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-      }
-    } catch {
-      // fallback
-    }
-    return 'Nov 2026';
+    return formatMemberSince(user.createdAt);
   }, [user.createdAt]);
 
   // Copy Player ID
@@ -477,25 +469,25 @@ export default function DashboardPage() {
         <div className="absolute top-0 left-12 right-12 h-[2px] bg-gradient-to-r from-transparent via-neon-cyan to-transparent" />
 
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/10">
-          {/* Avatar & User Details */}
+          {/* Avatar & User Details (Unified Real Google Profile Picture & Meta) */}
           <div className="flex items-start sm:items-center gap-5 sm:gap-6">
             <div className="relative shrink-0">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-tr from-primary-container/40 to-neon-cyan/30 border-2 border-neon-cyan p-1 shadow-[0_0_30px_rgba(0,240,255,0.4)] overflow-hidden flex items-center justify-center">
-                {isImageSource(user.avatar) ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={user.avatar}
-                    alt={user.displayName || user.username}
-                    className="w-full h-full object-cover rounded-2xl"
-                  />
-                ) : (
-                  <span className="text-4xl sm:text-5xl select-none">{user.avatar || '🚀'}</span>
-                )}
-              </div>
-              <div className="absolute -bottom-2 -right-1 px-2.5 py-0.5 rounded-full bg-primary-container text-white font-black text-[10px] tracking-wider uppercase border border-purple-500/50 shadow-lg font-mono">
-                LVL {currentLevel}
-              </div>
-              <div className="absolute -top-1 -left-1 w-4 h-4 rounded-full bg-neon-green border-2 border-slate-950 shadow-[0_0_10px_#48F078]" title="Online" />
+              <GamerAvatar
+                avatar={user.avatar}
+                photoURL={user.photoURL}
+                avatarType={user.avatarType}
+                size="xl"
+                showOnline={true}
+                isOnline={true}
+                showLevel={true}
+                level={currentLevel}
+                rank={String(user.rank || 'Bronze II')}
+                glowEffect={true}
+                onClick={() => {
+                  soundFx.playClick();
+                  router.push('/profile');
+                }}
+              />
             </div>
 
             <div className="space-y-1.5">
@@ -503,15 +495,26 @@ export default function DashboardPage() {
                 <h2 className="text-2xl sm:text-3xl font-black text-white font-display tracking-wide uppercase drop-shadow-md">
                   {user.displayName || user.username}
                 </h2>
+                {user.authType === 'google' && (
+                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[11px] font-mono text-cyan-300 font-bold shadow-sm">
+                    <span>Google Gamer 🟢</span>
+                  </div>
+                )}
                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-neon-green/10 border border-neon-green/30 text-[11px] font-mono text-neon-green font-bold shadow-sm">
                   <span className="w-2 h-2 rounded-full bg-neon-green shadow-[0_0_8px_#48F078] animate-pulse" />
                   <span>ONLINE</span>
                 </div>
               </div>
 
-              {/* Username & Player ID */}
+              {/* Username, Email & Player ID */}
               <div className="flex items-center gap-3 text-xs font-mono text-soft-lavender flex-wrap">
                 <span className="text-primary font-bold">@{user.username}</span>
+                {user.email && (
+                  <>
+                    <span>•</span>
+                    <span className="text-slate-300 font-sans font-semibold">{user.email}</span>
+                  </>
+                )}
                 <span>•</span>
                 <button
                   onClick={handleCopyId}
@@ -528,9 +531,9 @@ export default function DashboardPage() {
                 </span>
               </div>
 
-              {/* Bio */}
+              {/* Bio (Sanitized & Consistent) */}
               <p className="text-xs sm:text-sm text-slate-300 font-sans max-w-xl pt-1">
-                {user.bio || 'Dominating the Grand Trunk Highway in Auto Rush & claiming the Supreme Kursi in GullyVerse.'}
+                {(user.bio || 'Dominating the Grand Trunk Highway in Turri Run & claiming the Supreme Kursi in GullyVerse.').replace(/Chill Arena/gi, 'GullyVerse')}
               </p>
             </div>
           </div>
@@ -593,7 +596,7 @@ export default function DashboardPage() {
                 {(user.coins || 0).toLocaleString()}
               </span>
             </div>
-            <span className="text-[10px] font-mono text-soft-lavender mt-1">Ready for Shop</span>
+            <span className="text-[10px] font-mono text-soft-lavender mt-1">Gully Vault</span>
           </div>
 
           <div className="p-3.5 rounded-2xl bg-surface-container-low/80 border border-white/10 flex flex-col justify-between">

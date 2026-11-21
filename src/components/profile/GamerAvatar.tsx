@@ -40,6 +40,24 @@ export function isImageSource(src?: string): boolean {
   );
 }
 
+export function formatMemberSince(createdAt: any): string {
+  if (!createdAt) return 'Nov 2026';
+  try {
+    let d: Date;
+    if (typeof createdAt === 'object' && createdAt !== null && 'seconds' in createdAt) {
+      d = new Date(createdAt.seconds * 1000);
+    } else if (typeof createdAt === 'string' || typeof createdAt === 'number') {
+      d = new Date(createdAt);
+    } else {
+      return 'Nov 2026';
+    }
+    if (isNaN(d.getTime())) return 'Nov 2026';
+    return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  } catch {
+    return 'Nov 2026';
+  }
+}
+
 export const GamerAvatar: React.FC<GamerAvatarProps> = ({
   avatar = '🎮',
   photoURL,
@@ -58,8 +76,11 @@ export const GamerAvatar: React.FC<GamerAvatarProps> = ({
   const [imgError, setImgError] = useState(false);
   const sizeConfig = SIZE_MAP[size] || SIZE_MAP.md;
 
-  // Determine effective image source
-  const imageSource = !imgError && (isImageSource(avatar) ? avatar : isImageSource(photoURL) ? photoURL : null);
+  // Prioritize real Google profile picture or image URL whenever available
+  const effectivePhoto = isImageSource(photoURL) ? photoURL : null;
+  const effectiveAvatar = isImageSource(avatar) ? avatar : null;
+  const preferredSource = effectivePhoto || effectiveAvatar;
+  const imageSource = !imgError ? preferredSource : null;
 
   // Border & Glow based on rank tier
   const getRankGlow = () => {
