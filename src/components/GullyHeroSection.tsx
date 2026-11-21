@@ -166,10 +166,10 @@ export const GullyHeroSection: React.FC = () => {
     <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-end pt-[34vh] sm:pt-[36vh] lg:pt-[37vh] pb-0 px-4 sm:px-8 xl:px-14 select-none">
       <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-1 sm:gap-2 relative z-10">
         
-        {/* Main Hero Row: Massive Grand Headline with Heavy Contrast Shadow for Bright Street Light */}
-        <div className="flex flex-col gap-1 w-full bg-gradient-to-r from-black/75 via-black/45 to-transparent p-3 sm:p-5 rounded-3xl backdrop-blur-[3px] border border-white/10 shadow-[0_12px_45px_rgba(0,0,0,0.85)]">
+        {/* Main Hero Row: Massive Grand Headline Resized to Fill User's White Bounding Box Area */}
+        <div className="flex flex-col gap-1 w-full">
           {/* Minimal Brand Kicker */}
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-black/90 border border-amber-500/50 backdrop-blur-md w-fit shadow-[0_4px_16px_rgba(0,0,0,0.9)] mb-0.5">
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-black/85 border border-amber-500/45 backdrop-blur-md w-fit shadow-[0_4px_16px_rgba(0,0,0,0.95)] mb-0.5">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_#FF9F1C]" />
             <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-amber-300 font-mono drop-shadow-[0_2px_4px_#000]">
               GULLYVERSE • INDIA KA APNA GAMING ADDA
@@ -177,7 +177,7 @@ export const GullyHeroSection: React.FC = () => {
           </div>
 
           {/* Grand Bold Headline Resized to Fill White Box Area on a Single Line with Heavy 3D Black Shadows */}
-          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.3rem,6vw,7rem)] tracking-tight text-white uppercase leading-none whitespace-nowrap w-full [filter:drop-shadow(0_4px_0_#000)_drop-shadow(0_8px_0_#000)_drop-shadow(0_14px_24px_rgba(0,0,0,1))_drop-shadow(0_0_40px_rgba(0,0,0,0.95))]">
+          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.5rem,7.5vw,9.5rem)] tracking-tight text-white uppercase leading-[0.92] whitespace-nowrap w-full origin-left transform scale-y-[1.12] [filter:drop-shadow(0_4px_0_#000)_drop-shadow(0_8px_0_#000)_drop-shadow(0_14px_28px_rgba(0,0,0,1))_drop-shadow(0_0_40px_rgba(0,0,0,0.95))]">
             <span className="text-white [text-shadow:_0_4px_0_#000,_0_8px_0_#000,_0_14px_25px_rgba(0,0,0,1)]">
               APNI GULLY,{' '}
             </span>
@@ -186,7 +186,7 @@ export const GullyHeroSection: React.FC = () => {
             </span>
           </h1>
 
-          <p className="text-slate-100 text-xs sm:text-sm md:text-base font-bold max-w-2xl tracking-wide [text-shadow:_0_2px_4px_#000,_0_4px_12px_rgba(0,0,0,0.95),_0_0_20px_rgba(0,0,0,0.9)] pt-0.5">
+          <p className="text-slate-100 text-xs sm:text-sm md:text-base font-bold max-w-2xl tracking-wide [text-shadow:_0_2px_4px_#000,_0_4px_12px_rgba(0,0,0,0.95),_0_0_20px_rgba(0,0,0,0.9)] pt-1 sm:pt-2">
             Zero Downloads • Instant 1-Tap Play • 14 Desi 3D Hits &amp; Multiplayer
           </p>
         </div>
