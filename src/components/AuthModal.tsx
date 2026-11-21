@@ -149,16 +149,19 @@ export const AuthModal = () => {
               </div>
             </div>
 
-            {authError.code === 'auth/popup-blocked' && (
+            {(authError.code === 'auth/popup-blocked' || 
+              authError.code === 'auth/popup-closed-by-user' || 
+              authError.code === 'auth/cancelled-popup-request' ||
+              authError.code === 'auth/unauthorized-domain') && (
               <button
                 onClick={() => {
                   soundFx.playClick();
                   useAppStore.getState().loginWithGoogleRedirect();
                 }}
-                className="w-full py-2 px-3 rounded-xl bg-blue-600/30 hover:bg-blue-600/40 border border-blue-500/50 text-blue-200 text-[11px] font-mono font-bold flex items-center justify-center gap-1.5 transition-all"
+                className="w-full py-2 px-3 rounded-xl bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/50 text-blue-200 text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-all shadow-md"
               >
-                <LogIn className="w-3.5 h-3.5 text-blue-400" />
-                <span>Sign In via Google Fullscreen (Redirect)</span>
+                <LogIn className="w-4 h-4 text-blue-400" />
+                <span>Open Google Sign-In in Full Window (Redirect) ➔</span>
               </button>
             )}
           </div>
