@@ -388,41 +388,41 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 pb-24">
+    <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6 sm:space-y-10 pb-24">
       {/* Real-time Multiplayer Modal */}
       <MultiplayerLobbyModal />
 
       {/* Top Header Command Banner */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-3xl bg-[#1B1B22]/80 border border-purple-500/20 backdrop-blur-xl shadow-2xl">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 xs:p-5 sm:p-6 rounded-3xl bg-[#1B1B22]/80 border border-purple-500/20 backdrop-blur-xl shadow-2xl">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-neon-green font-bold uppercase tracking-wider mb-1">
             <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
             <span>GULLYVERSE // GAMER COMMAND CENTER</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white font-display tracking-tight uppercase">
+          <h1 className="text-xl xs:text-2xl sm:text-3xl font-black text-white font-display tracking-tight uppercase">
             GULLY COMMAND CENTER
           </h1>
         </div>
 
         {/* Create Squad & Leaderboard Fast Access Buttons */}
-        <div className="flex items-center gap-2.5 flex-wrap w-full sm:w-auto">
+        <div className="flex flex-col xs:flex-row items-stretch sm:items-center gap-2 xs:gap-2.5 w-full sm:w-auto">
           <button
             onClick={() => {
               soundFx.playClick();
               openMultiplayerModal(GAMES_CATALOG[0]);
             }}
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-primary text-slate-950 font-bold text-xs uppercase tracking-wider font-display flex items-center gap-2 shadow-[0_0_20px_rgba(255,159,28,0.4)] hover:opacity-95 active:scale-95 transition-all cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-primary text-slate-950 font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,159,28,0.4)] hover:opacity-95 active:scale-95 transition-all cursor-pointer"
           >
-            <Users className="w-4 h-4 fill-slate-950" />
+            <Users className="w-4 h-4 fill-slate-950 shrink-0" />
             <span>CREATE SQUAD ROOM</span>
           </button>
 
           <a
             href="#leaderboard-section"
             onClick={() => soundFx.playClick()}
-            className="px-4 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright border border-purple-500/30 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center gap-2 transition-all cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright border border-purple-500/30 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
-            <Crown className="w-4 h-4 text-amber-400" />
+            <Crown className="w-4 h-4 text-amber-400 shrink-0" />
             <span>GLOBAL LEADERBOARD</span>
           </a>
         </div>
@@ -431,13 +431,13 @@ export default function DashboardPage() {
       {/* =========================================================================
           1. GAMER IDENTITY & COMBAT PASSPORT (HERO PASSPORT)
           ========================================================================= */}
-      <div className="relative rounded-3xl bg-[#1B1B22]/85 border border-purple-500/30 overflow-hidden p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-6">
+      <div className="relative rounded-3xl bg-[#1B1B22]/85 border border-purple-500/30 overflow-hidden p-4 xs:p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5 sm:space-y-6">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 sm:gap-6 relative z-10">
           {/* Avatar and Primary Identity */}
-          <div className="flex items-start sm:items-center gap-5">
-            <div className="relative">
+          <div className="flex items-start sm:items-center gap-3.5 xs:gap-5 w-full">
+            <div className="relative shrink-0">
               <GamerAvatar
                 avatar={user.avatar}
                 photoURL={user.photoURL}
@@ -452,59 +452,59 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-2.5 flex-wrap">
-                <h2 className="text-2xl sm:text-3xl font-black text-white font-display uppercase tracking-tight">
+            <div className="space-y-1.5 min-w-0 flex-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-xl xs:text-2xl sm:text-3xl font-black text-white font-display uppercase tracking-tight break-words">
                   {user.displayName || user.username}
                 </h2>
-                <span className="px-2.5 py-0.5 rounded-full bg-neon-green/10 border border-neon-green/30 text-[10px] font-mono font-bold text-neon-green flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded-full bg-neon-green/10 border border-neon-green/30 text-[9px] xs:text-[10px] font-mono font-bold text-neon-green flex items-center gap-1 shrink-0">
                   <span className="w-1.5 h-1.5 rounded-full bg-neon-green animate-ping" />
                   ONLINE
                 </span>
               </div>
 
-              <div className="flex items-center gap-3 text-xs font-mono text-soft-lavender flex-wrap">
-                <span className="text-amber-400 font-semibold">@{user.username}</span>
-                <span>•</span>
+              <div className="flex items-center gap-1.5 xs:gap-2.5 text-[11px] xs:text-xs font-mono text-soft-lavender flex-wrap">
+                <span className="text-amber-400 font-semibold truncate">@{user.username}</span>
+                <span className="text-slate-600 hidden xs:inline">•</span>
                 <button
                   onClick={handleCopyId}
-                  className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer bg-surface-container-high/60 px-2 py-0.5 rounded-md border border-white/5"
+                  className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer bg-surface-container-high/60 px-2 py-0.5 rounded-md border border-white/5 truncate max-w-[130px] xs:max-w-none"
                   title="Copy Gamer ID"
                 >
-                  <span>ID: {displayPlayerId}</span>
-                  {copiedId ? <Check className="w-3 h-3 text-neon-green" /> : <Copy className="w-3 h-3" />}
+                  <span className="truncate">ID: {displayPlayerId}</span>
+                  {copiedId ? <Check className="w-3 h-3 text-neon-green shrink-0" /> : <Copy className="w-3 h-3 shrink-0" />}
                 </button>
-                <span>•</span>
-                <span className="flex items-center gap-1 text-slate-400">
-                  <Calendar className="w-3 h-3" />
+                <span className="text-slate-600 hidden xs:inline">•</span>
+                <span className="flex items-center gap-1 text-slate-400 text-[10px] xs:text-xs">
+                  <Calendar className="w-3 h-3 shrink-0" />
                   Joined {formatMemberSince(user.createdAt)}
                 </span>
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-300 font-sans max-w-xl italic">
+              <p className="text-xs sm:text-sm text-slate-300 font-sans max-w-xl italic break-words">
                 {user.bio ? `"${user.bio}"` : 'Ready to conquer the GullyVerse leaderboard! 🎮'}
               </p>
             </div>
           </div>
 
           {/* Quick Edit Profile Button */}
-          <div className="flex items-center gap-3 w-full lg:w-auto">
+          <div className="flex items-center gap-3 w-full lg:w-auto pt-1 lg:pt-0">
             <button
               onClick={() => {
                 soundFx.playClick();
                 setIsEditModalOpen(true);
               }}
-              className="w-full lg:w-auto px-5 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright border border-purple-500/30 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+              className="w-full lg:w-auto px-4 xs:px-5 py-2.5 rounded-xl bg-purple-950/70 hover:bg-purple-900/80 border border-purple-500/40 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg active:scale-95"
             >
-              <Edit3 className="w-4 h-4 text-neon-cyan" />
+              <Edit3 className="w-4 h-4 text-neon-cyan shrink-0" />
               <span>EDIT PROFILE</span>
             </button>
           </div>
         </div>
 
         {/* Interests & Gaming Vibes Tags */}
-        <div className="pt-2 border-t border-white/10 flex items-center gap-2 flex-wrap">
-          <span className="text-[11px] font-mono text-soft-lavender uppercase font-bold mr-1">
+        <div className="pt-2 border-t border-white/10 flex items-center gap-1.5 xs:gap-2 flex-wrap">
+          <span className="text-[10px] xs:text-[11px] font-mono text-soft-lavender uppercase font-bold mr-1 shrink-0">
             GAMING VIBES:
           </span>
           {(user.interests && user.interests.length > 0 ? user.interests : ['racing', 'truck', 'meme', 'squad']).map((interestId) => {
@@ -512,7 +512,7 @@ export default function DashboardPage() {
             return (
               <span
                 key={interestId}
-                className="px-3 py-1 rounded-full bg-surface-container-high border border-purple-500/20 text-xs font-mono text-white flex items-center gap-1.5 shadow-sm"
+                className="px-2.5 py-0.5 xs:px-3 xs:py-1 rounded-full bg-surface-container-high border border-purple-500/20 text-[10px] xs:text-xs font-mono text-white flex items-center gap-1.5 shadow-sm"
               >
                 <span>{item?.label || interestId}</span>
               </span>
@@ -521,14 +521,14 @@ export default function DashboardPage() {
         </div>
 
         {/* 6 Key Operational Combat Stats Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 xs:gap-3 pt-3">
           {/* Level & XP */}
-          <div className="p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between">
-            <span className="text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider">
+          <div className="p-3 xs:p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between min-w-0">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider truncate">
               LEVEL &amp; XP
             </span>
             <div className="my-1.5">
-              <span className="text-xl sm:text-2xl font-black text-white font-display">
+              <span className="text-lg xs:text-xl sm:text-2xl font-black text-white font-display truncate block">
                 LVL {currentLevel}
               </span>
               <div className="w-full bg-black/60 h-1.5 rounded-full mt-2 overflow-hidden">
@@ -538,85 +538,85 @@ export default function DashboardPage() {
                 />
               </div>
             </div>
-            <span className="text-[10px] font-mono text-neon-cyan font-semibold">
+            <span className="text-[9px] xs:text-[10px] font-mono text-neon-cyan font-semibold truncate">
               {currentXP.toLocaleString()} XP
             </span>
           </div>
 
           {/* Coins Balance */}
-          <div className="p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between">
-            <span className="text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider">
+          <div className="p-3 xs:p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between min-w-0">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider truncate">
               COINS BALANCE
             </span>
-            <div className="my-1.5 flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-xs">
+            <div className="my-1.5 flex items-center gap-1.5 xs:gap-2">
+              <div className="w-5 h-5 xs:w-6 xs:h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-xs shrink-0">
                 🪙
               </div>
-              <span className="text-xl sm:text-2xl font-black text-amber-400 font-display">
+              <span className="text-lg xs:text-xl sm:text-2xl font-black text-amber-400 font-display truncate">
                 {user.coins.toLocaleString()}
               </span>
             </div>
-            <span className="text-[10px] font-mono text-soft-lavender">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender truncate">
               Gully Rewards
             </span>
           </div>
 
           {/* Games Played */}
-          <div className="p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between">
-            <span className="text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider">
+          <div className="p-3 xs:p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between min-w-0">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider truncate">
               GAMES PLAYED
             </span>
             <div className="my-1.5">
-              <span className="text-xl sm:text-2xl font-black text-white font-display">
+              <span className="text-lg xs:text-xl sm:text-2xl font-black text-white font-display truncate block">
                 {gamesPlayed}
               </span>
             </div>
-            <span className="text-[10px] font-mono text-soft-lavender">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender truncate">
               Total Sessions
             </span>
           </div>
 
           {/* Total Wins */}
-          <div className="p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between">
-            <span className="text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider">
+          <div className="p-3 xs:p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between min-w-0">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider truncate">
               TOTAL WINS
             </span>
             <div className="my-1.5">
-              <span className="text-xl sm:text-2xl font-black text-neon-green font-display">
+              <span className="text-lg xs:text-xl sm:text-2xl font-black text-neon-green font-display truncate block">
                 {totalWins}
               </span>
             </div>
-            <span className="text-[10px] font-mono text-soft-lavender">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender truncate">
               Match Victories
             </span>
           </div>
 
           {/* Win Rate */}
-          <div className="p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between">
-            <span className="text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider">
+          <div className="p-3 xs:p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between min-w-0">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider truncate">
               WIN RATE
             </span>
             <div className="my-1.5">
-              <span className="text-xl sm:text-2xl font-black text-neon-cyan font-display">
+              <span className="text-lg xs:text-xl sm:text-2xl font-black text-neon-cyan font-display truncate block">
                 {winRate}%
               </span>
             </div>
-            <span className="text-[10px] font-mono text-soft-lavender">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender truncate">
               Combat Precision
             </span>
           </div>
 
           {/* Best Score */}
-          <div className="p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between">
-            <span className="text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider">
+          <div className="p-3 xs:p-4 rounded-2xl bg-[#14141A]/90 border border-purple-500/20 flex flex-col justify-between min-w-0">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender uppercase font-bold tracking-wider truncate">
               BEST SCORE
             </span>
             <div className="my-1.5">
-              <span className="text-xl sm:text-2xl font-black text-amber-400 font-display">
+              <span className="text-lg xs:text-xl sm:text-2xl font-black text-amber-400 font-display truncate block">
                 {bestScore.toLocaleString()}
               </span>
             </div>
-            <span className="text-[10px] font-mono text-soft-lavender">
+            <span className="text-[9px] xs:text-[10px] font-mono text-soft-lavender truncate">
               High Record
             </span>
           </div>
@@ -1103,32 +1103,33 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Right: Add Friend Button + Score & Wins */}
-                    <div className="flex items-center gap-3 sm:gap-5 text-right shrink-0">
+                    <div className="flex items-center gap-1.5 xs:gap-3 sm:gap-5 text-right shrink-0">
                       {!isCurrentUser && (
                         <div>
                           {alreadyFriend ? (
-                            <span className="inline-flex items-center gap-1 text-[11px] font-mono text-neon-green font-bold bg-neon-green/10 px-2.5 py-1 rounded-lg border border-neon-green/30">
-                              <UserCheck className="w-3.5 h-3.5" />
+                            <span className="inline-flex items-center gap-1 text-[10px] xs:text-[11px] font-mono text-neon-green font-bold bg-neon-green/10 px-2 xs:px-2.5 py-1 rounded-lg border border-neon-green/30">
+                              <UserCheck className="w-3 xs:w-3.5 h-3 xs:h-3.5" />
                               <span className="hidden sm:inline">Squad Mate</span>
                             </span>
                           ) : (
                             <button
                               onClick={() => handleAddFriendFromLeaderboard(entry)}
-                              className="px-2.5 sm:px-3 py-1 rounded-lg bg-neon-cyan/15 hover:bg-neon-cyan hover:text-slate-950 border border-neon-cyan/40 text-neon-cyan font-mono font-bold text-[11px] sm:text-xs transition-all flex items-center gap-1 cursor-pointer active:scale-95 shadow-sm"
+                              className="px-2 xs:px-2.5 sm:px-3 py-1 rounded-lg bg-neon-cyan/15 hover:bg-neon-cyan hover:text-slate-950 border border-neon-cyan/40 text-neon-cyan font-mono font-bold text-[10px] xs:text-[11px] sm:text-xs transition-all flex items-center gap-1 cursor-pointer active:scale-95 shadow-sm"
                               title="Add to Your Squad"
                             >
-                              <UserPlus className="w-3.5 h-3.5" />
-                              <span>+ Add Friend</span>
+                              <UserPlus className="w-3 xs:w-3.5 h-3 xs:h-3.5" />
+                              <span className="hidden xs:inline">+ Add Friend</span>
+                              <span className="xs:hidden">+ Add</span>
                             </button>
                           )}
                         </div>
                       )}
 
-                      <div className="w-24 sm:w-32">
-                        <div className="text-sm sm:text-base font-black text-amber-400 font-mono">
+                      <div className="min-w-[65px] xs:w-24 sm:w-32">
+                        <div className="text-xs xs:text-sm sm:text-base font-black text-amber-400 font-mono">
                           {entry.score.toLocaleString()} pts
                         </div>
-                        <div className="text-[10px] sm:text-xs font-mono text-neon-green font-bold">
+                        <div className="text-[9px] xs:text-[10px] sm:text-xs font-mono text-neon-green font-bold">
                           {entry.wins} Wins
                         </div>
                       </div>
