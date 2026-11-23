@@ -37,6 +37,7 @@ export const AutoRushGame: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [isPortrait, setIsPortrait] = useState(false);
+  const [dismissPortraitPrompt, setDismissPortraitPrompt] = useState(false);
 
   // Live Race State
   const [countdown, setCountdown] = useState<number | null>(null);
@@ -140,11 +141,39 @@ export const AutoRushGame: React.FC = () => {
     };
   }, [screen, toggleFullscreen]);
 
+  // Responsive ResizeObserver for canvas & Three.js 3D viewport
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        if (width > 0 && height > 0) {
+          if (canvasRef.current) {
+            canvasRef.current.width = width;
+            canvasRef.current.height = height;
+          }
+          if (threeEngineRef.current) {
+            threeEngineRef.current.resize(width, height);
+          }
+        }
+      }
+    });
+
+    ro.observe(container);
+    return () => ro.disconnect();
+  }, []);
+
   // Orientation Check
   useEffect(() => {
     const checkOrientation = () => {
       if (typeof window !== 'undefined') {
-        setIsPortrait(window.innerHeight > window.innerWidth && window.innerWidth < 768);
+        const portrait = window.innerHeight > window.innerWidth && window.innerWidth < 768;
+        setIsPortrait(portrait);
+        if (!portrait) {
+          setDismissPortraitPrompt(false);
+        }
       }
     };
     checkOrientation();
@@ -338,17 +367,31 @@ export const AutoRushGame: React.FC = () => {
       className={`relative w-full bg-[#060B1E] flex items-center justify-center select-none font-sans transition-all duration-300 ${
         isFullscreen
           ? 'fixed inset-0 z-[9999] w-screen h-screen rounded-none border-0'
-          : 'h-[620px] max-h-[88vh] rounded-3xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]'
+          : 'w-full aspect-[16/10] sm:aspect-[16/9] min-h-[340px] md:min-h-[480px] max-h-[88vh] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]'
       }`}
     >
-      {/* Mobile Orientation Prompt */}
-      {isPortrait && (
-        <div className="absolute inset-0 z-50 bg-[#060B1E] flex flex-col items-center justify-center p-6 text-center text-white space-y-4">
+      {/* Mobile Orientation Prompt (Non-blocking with landscape shortcut & continue option) */}
+      {isPortrait && !dismissPortraitPrompt && (
+        <div className="absolute inset-0 z-50 bg-[#060B1E]/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center text-white space-y-4">
           <RotateCw className="w-12 h-12 text-[#FF9933] animate-spin" />
-          <h3 className="text-2xl font-black uppercase text-[#FFD700]">ROTATE TO LANDSCAPE</h3>
-          <p className="text-sm text-gray-300 max-w-xs">
+          <h3 className="text-xl sm:text-2xl font-black uppercase text-[#FFD700]">ROTATE TO LANDSCAPE</h3>
+          <p className="text-xs sm:text-sm text-gray-300 max-w-xs">
             TIRRI RUN 🛺 is engineered for horizontal 16:9 arcade street racing.
           </p>
+          <div className="flex flex-col sm:flex-row gap-2.5 w-full max-w-xs pt-2">
+            <button
+              onClick={toggleFullscreen}
+              className="w-full py-2.5 px-4 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-xs uppercase rounded-xl shadow-lg transition-transform active:scale-95 cursor-pointer"
+            >
+              Play Fullscreen Landscape
+            </button>
+            <button
+              onClick={() => setDismissPortraitPrompt(true)}
+              className="w-full py-2 px-4 bg-white/10 hover:bg-white/20 text-gray-300 font-bold text-xs rounded-xl border border-white/10 transition-colors cursor-pointer"
+            >
+              Continue in Portrait
+            </button>
+          </div>
         </div>
       )}
 

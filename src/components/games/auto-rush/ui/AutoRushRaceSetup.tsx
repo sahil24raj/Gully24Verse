@@ -33,7 +33,7 @@ export const AutoRushRaceSetup: React.FC<AutoRushRaceSetupProps> = ({
   };
 
   return (
-    <div className="absolute inset-0 z-40 bg-[#060B1E] flex flex-col p-4 sm:p-6 select-none overflow-hidden text-white">
+    <div className="absolute inset-0 z-40 bg-[#060B1E] flex flex-col p-3 xs:p-4 sm:p-6 select-none overflow-y-auto no-scrollbar text-white">
       {/* Top Header */}
       <div className="flex items-center justify-between border-b border-white/10 pb-3">
         <button

@@ -65,11 +65,11 @@ export const AutoRushHUD: React.FC<AutoRushHUDProps> = ({
       )}
 
       {/* Top Bar: Lap Counter, Timers, Race Position, Controls */}
-      <div className="flex items-start justify-between w-full max-w-5xl mx-auto">
+      <div className="flex items-start justify-between w-full max-w-5xl mx-auto gap-1.5 sm:gap-3">
         {/* Left: Position Badge & Lap Counter */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           {/* Brand Tag */}
-          <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-black/60 border border-purple-500/30 rounded-xl backdrop-blur-md">
+          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 bg-black/60 border border-purple-500/30 rounded-xl backdrop-blur-md">
             <span className="text-base">🛺</span>
             <span className="text-xs font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-cyan-400 uppercase tracking-wider">
               TIRRI RUN
@@ -77,79 +77,79 @@ export const AutoRushHUD: React.FC<AutoRushHUDProps> = ({
           </div>
 
           {/* Race Position */}
-          <div className="px-3 sm:px-4 py-2 bg-[#0B1536]/90 border-2 border-[#FFD700] rounded-2xl shadow-xl flex items-baseline gap-1 backdrop-blur-md">
-            <span className="text-3xl sm:text-4xl font-black text-[#FFD700]">
+          <div className="px-2.5 sm:px-4 py-1 sm:py-2 bg-[#0B1536]/90 border-2 border-[#FFD700] rounded-xl sm:rounded-2xl shadow-xl flex items-baseline gap-1 backdrop-blur-md">
+            <span className="text-2xl sm:text-4xl font-black text-[#FFD700]">
               {position}
             </span>
-            <span className="text-xs sm:text-sm font-black text-amber-300">
+            <span className="text-[10px] sm:text-sm font-black text-amber-300">
               {getPositionSuffix(position)}
             </span>
-            <span className="text-[10px] sm:text-xs text-gray-400 font-bold ml-1">
+            <span className="text-[9px] sm:text-xs text-gray-400 font-bold ml-0.5 sm:ml-1">
               / {totalRacers}
             </span>
           </div>
 
           {/* Lap Counter */}
-          <div className="px-3 sm:px-4 py-2 bg-[#0B1536]/90 border border-white/20 rounded-2xl shadow-lg flex flex-col backdrop-blur-md">
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-gray-400">
+          <div className="px-2.5 sm:px-4 py-1 sm:py-2 bg-[#0B1536]/90 border border-white/20 rounded-xl sm:rounded-2xl shadow-lg flex flex-col backdrop-blur-md">
+            <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest text-gray-400">
               LAP
             </span>
-            <span className="text-lg sm:text-xl font-black text-white">
+            <span className="text-sm sm:text-xl font-black text-white">
               {Math.min(playerState.lap, totalLaps)} / {totalLaps}
             </span>
           </div>
         </div>
 
         {/* Center: Live Lap Times */}
-        <div className="bg-[#0B1536]/90 border border-white/15 rounded-2xl px-3 sm:px-5 py-1.5 shadow-lg flex flex-col items-center">
-          <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+        <div className="bg-[#0B1536]/90 border border-white/15 rounded-xl sm:rounded-2xl px-2.5 sm:px-5 py-1 sm:py-1.5 shadow-lg flex flex-col items-center">
+          <div className="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-wider">
             LAP TIME
           </div>
-          <div className="text-lg sm:text-xl font-mono font-black text-cyan-300">
+          <div className="text-sm sm:text-xl font-mono font-black text-cyan-300">
             {formatTime(playerState.currentLapTime)}
           </div>
           {playerState.bestLapTime > 0 && (
-            <div className="text-[10px] text-amber-300 font-mono">
+            <div className="text-[9px] sm:text-[10px] text-amber-300 font-mono hidden xs:block">
               BEST: {formatTime(playerState.bestLapTime)}
             </div>
           )}
         </div>
 
         {/* Right: Pause & Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <button
             onClick={onHorn}
-            className="pointer-events-auto p-2 sm:p-2.5 bg-[#FF9933]/90 hover:bg-[#FF9933] border border-[#FFD700] rounded-xl text-black font-black transition-all transform hover:scale-105 active:scale-95 shadow-md flex items-center gap-1 text-xs"
+            className="pointer-events-auto p-1.5 sm:p-2.5 bg-[#FF9933]/90 hover:bg-[#FF9933] border border-[#FFD700] rounded-lg sm:rounded-xl text-black font-black transition-all transform hover:scale-105 active:scale-95 shadow-md flex items-center gap-1 text-xs"
             title="Horn (H)"
           >
-            <Volume2 className="w-4 h-4" />
+            <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span className="hidden sm:inline">HORN</span>
           </button>
 
           <button
             onClick={onToggleCamera}
-            className="pointer-events-auto p-2 sm:p-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white transition-all transform hover:scale-105 active:scale-95"
+            className="pointer-events-auto p-1.5 sm:p-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg sm:rounded-xl text-white transition-all transform hover:scale-105 active:scale-95"
             title="Change Camera (C)"
           >
-            <Camera className="w-4 h-4" />
+            <Camera className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
 
           {onToggleFullscreen && (
             <button
               onClick={onToggleFullscreen}
-              className="pointer-events-auto p-2 sm:p-2.5 bg-white/10 hover:bg-white/20 border border-[#00D2FF]/40 rounded-xl text-[#00D2FF] hover:text-white transition-all transform hover:scale-105 active:scale-95"
+              className="pointer-events-auto p-1.5 sm:p-2.5 bg-white/10 hover:bg-white/20 border border-[#00D2FF]/40 rounded-lg sm:rounded-xl text-[#00D2FF] hover:text-white transition-all transform hover:scale-105 active:scale-95"
               title={isFullscreen ? 'Exit Fullscreen (F)' : 'Fullscreen (F)'}
             >
-              {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+              {isFullscreen ? <Minimize className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Maximize className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
             </button>
           )}
 
           <button
             onClick={onPause}
-            className="pointer-events-auto p-2 sm:p-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white transition-all transform hover:scale-105 active:scale-95"
+            className="pointer-events-auto p-1.5 sm:p-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg sm:rounded-xl text-white transition-all transform hover:scale-105 active:scale-95"
             title="Pause (Esc / P)"
           >
-            <Pause className="w-4 h-4" />
+            <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
         </div>
       </div>
@@ -168,18 +168,18 @@ export const AutoRushHUD: React.FC<AutoRushHUDProps> = ({
         )}
       </div>
 
-      {/* Bottom Bar: Speedometer Gauge, Gear & Nitro Meter */}
-      <div className="flex items-end justify-between w-full max-w-5xl mx-auto">
+      {/* Bottom Bar: Speedometer Gauge, Gear & Nitro Meter (Lifted above mobile pedals on touch screens) */}
+      <div className="flex items-end justify-between w-full max-w-5xl mx-auto pb-20 xs:pb-24 md:pb-0 pointer-events-none gap-2">
         {/* Left: Nitro Power Gauge */}
-        <div className="bg-[#0B1536]/90 border border-white/20 rounded-2xl p-3 shadow-xl w-36 sm:w-48 space-y-1">
-          <div className="flex items-center justify-between text-[10px] font-black uppercase text-amber-300">
+        <div className="bg-[#0B1536]/90 border border-white/20 rounded-xl sm:rounded-2xl p-2 sm:p-3 shadow-xl w-28 xs:w-36 sm:w-48 space-y-1 backdrop-blur-md pointer-events-auto">
+          <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-black uppercase text-amber-300">
             <span className="flex items-center gap-1">
-              <Flame className={`w-3.5 h-3.5 ${playerState.isNitroActive ? 'text-cyan-400 animate-bounce' : 'text-[#FF9933]'}`} />
-              NITRO BOOST
+              <Flame className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${playerState.isNitroActive ? 'text-cyan-400 animate-bounce' : 'text-[#FF9933]'}`} />
+              NITRO
             </span>
             <span>{Math.round(playerState.nitroRemaining)}%</span>
           </div>
-          <div className="h-3 bg-black/60 rounded-full border border-white/10 overflow-hidden p-0.5">
+          <div className="h-2.5 sm:h-3 bg-black/60 rounded-full border border-white/10 overflow-hidden p-0.5">
             <div
               className={`h-full rounded-full transition-all duration-75 ${
                 playerState.isNitroActive
@@ -189,25 +189,25 @@ export const AutoRushHUD: React.FC<AutoRushHUDProps> = ({
               style={{ width: `${Math.max(0, playerState.nitroRemaining)}%` }}
             />
           </div>
-          <div className="text-[9px] text-gray-400 font-semibold text-right">
+          <div className="text-[8px] sm:text-[9px] text-gray-400 font-semibold text-right hidden xs:block">
             Hold [SPACE] or Nitro
           </div>
         </div>
 
         {/* Right: Indian Auto-Rickshaw Speedometer Dial */}
-        <div className="bg-[#0B1536]/95 border-2 border-[#FFD700] rounded-3xl p-3 sm:p-4 shadow-2xl flex items-center gap-3">
+        <div className="bg-[#0B1536]/95 border-2 border-[#FFD700] rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-2xl flex items-center gap-2 sm:gap-3 backdrop-blur-md pointer-events-auto">
           <div className="text-right">
-            <div className="text-3xl sm:text-5xl font-black text-white font-mono tracking-tight">
+            <div className="text-2xl sm:text-5xl font-black text-white font-mono tracking-tight leading-none">
               {playerState.speedKmh}
             </div>
-            <div className="text-[10px] font-extrabold uppercase text-[#FFD700] tracking-widest -mt-1">
+            <div className="text-[8px] sm:text-[10px] font-extrabold uppercase text-[#FFD700] tracking-widest mt-0.5">
               KM / H
             </div>
           </div>
 
-          <div className="w-10 h-10 rounded-xl bg-black/60 border border-white/20 flex flex-col items-center justify-center text-cyan-300 font-black">
-            <span className="text-[8px] text-gray-400">GEAR</span>
-            <span className="text-base">{playerState.gear}</span>
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-black/60 border border-white/20 flex flex-col items-center justify-center text-cyan-300 font-black">
+            <span className="text-[7px] sm:text-[8px] text-gray-400">GEAR</span>
+            <span className="text-xs sm:text-base">{playerState.gear}</span>
           </div>
         </div>
       </div>

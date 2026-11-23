@@ -133,7 +133,7 @@ export const PickYourVibeSection: React.FC = () => {
                 return (
                   <div
                     key={game.id}
-                    className="w-[320px] sm:w-[380px] lg:w-[410px] snap-center shrink-0 rounded-3xl bg-[#1B1B22]/90 backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl border border-white/10 hover:border-amber-500/50 hover:shadow-[0_0_35px_rgba(255,159,28,0.25)] transition-all duration-300 group"
+                    className="w-[84vw] min-w-[275px] max-w-[340px] sm:w-[380px] lg:w-[410px] snap-center shrink-0 rounded-3xl bg-[#1B1B22]/90 backdrop-blur-md p-4 xs:p-5 sm:p-6 flex flex-col justify-between shadow-xl border border-white/10 hover:border-amber-500/50 hover:shadow-[0_0_35px_rgba(255,159,28,0.25)] transition-all duration-300 group"
                   >
                     <div className="flex flex-col gap-3">
                       <Link

@@ -16,7 +16,7 @@ export const GullySpotlightBackground: React.FC = () => {
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    let radius = Math.min(Math.max(window.innerWidth * 0.32, 380), 580);
+    let radius = Math.min(Math.max(window.innerWidth * 0.35, 260), 960);
 
     // Initial position: center of viewport
     let currentX = window.innerWidth * 0.5;
@@ -28,7 +28,7 @@ export const GullySpotlightBackground: React.FC = () => {
     let animId: number;
 
     const handleResize = () => {
-      radius = Math.min(Math.max(window.innerWidth * 0.32, 380), 580);
+      radius = Math.min(Math.max(window.innerWidth * 0.35, 260), 960);
       if (glowLight) {
         glowLight.style.width = `${radius * 2}px`;
         glowLight.style.height = `${radius * 2}px`;

@@ -211,7 +211,7 @@ export const HeroTrendingCarousel: React.FC = () => {
           {TOP_BATTLES.map((battle) => (
             <div
               key={battle.id}
-              className={`min-w-[340px] sm:min-w-[400px] max-w-[420px] snap-start shrink-0 rounded-3xl bg-[#1B1B22] p-5 sm:p-6 flex flex-col justify-between shadow-2xl ${battle.hoverGlow} transition-all duration-300 group border border-white/10 hover:border-amber-500/50`}
+              className={`w-[84vw] min-w-[275px] max-w-[350px] sm:min-w-[380px] sm:max-w-[420px] snap-start shrink-0 rounded-3xl bg-[#1B1B22] p-4 xs:p-5 sm:p-6 flex flex-col justify-between shadow-2xl ${battle.hoverGlow} transition-all duration-300 group border border-white/10 hover:border-amber-500/50`}
             >
               <div className="flex flex-col gap-3">
                 {/* Clean Top Bar (Above Cover) */}

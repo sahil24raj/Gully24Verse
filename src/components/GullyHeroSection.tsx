@@ -163,56 +163,65 @@ export const GullyHeroSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between px-4 sm:px-8 xl:px-14 pb-2 select-none">
-      {/* Top Main Hero Row: Starts Precisely at the White Line Marker (~45% of screen) */}
+    <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between px-3 xs:px-4 sm:px-8 xl:px-14 pb-3 select-none">
+      {/* Top Main Hero Row: Responsive dynamic placement (comfortable padding on mobile, sweet-spot on desktop/TV) */}
       <div
-        className="max-w-[1720px] mx-auto w-full flex flex-col gap-2 relative z-10"
-        style={{ paddingTop: 'calc(45vh - 80px)' }}
+        className="max-w-[1720px] mx-auto w-full flex flex-col gap-2 relative z-10 pt-4 xs:pt-6 sm:pt-10 md:pt-14 lg:pt-[calc(42vh-80px)] 2xl:pt-[calc(46vh-80px)]"
       >
-        <div className="w-fit flex flex-col gap-2">
-          {/* Bigger Sleek Brand Kicker */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/80 border border-amber-500/40 backdrop-blur-md w-fit shadow-md mb-0.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_#FF9F1C]" />
-            <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-amber-300 font-mono">
+        <div className="w-full max-w-full flex flex-col gap-2">
+          {/* Sleek Brand Kicker */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-amber-500/40 backdrop-blur-md w-fit shadow-md mb-0.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_#FF9F1C] shrink-0" />
+            <span className="text-[10px] xs:text-xs sm:text-sm font-black uppercase tracking-wider text-amber-300 font-mono truncate">
               GULLYVERSE • INDIA KA APNA GAMING ADDA
             </span>
           </div>
 
-          {/* Prominent Russo One Headline - Perfectly Balanced Sweet Spot (No Clipping) */}
-          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.6rem,6.7vw,7.4rem)] tracking-tight text-white uppercase leading-none whitespace-nowrap drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
-            <span className="text-white">APNI GULLY, </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF]">
+          {/* Prominent Russo One Headline - 100% Responsive on Phone, Tablet, Laptop, and TV */}
+          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.1rem,6.4vw,7.2rem)] tracking-tight text-white uppercase leading-[1.08] sm:leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] max-w-full">
+            <span className="block sm:inline text-white">APNI GULLY, </span>
+            <span className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF]">
               APNE GAMES!
             </span>
           </h1>
 
-          {/* Subtitle: Clean spacing, crisp text, right-aligned with headline without overflowing */}
-          <div className="w-full flex items-center justify-between text-slate-100 text-xs sm:text-sm md:text-base lg:text-[1.05rem] font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] pt-1">
-            <span>Zero Downloads</span>
-            <span className="text-amber-400/90 font-black px-1.5 sm:px-2.5">•</span>
-            <span>100% Free-to-Play Browser-Based Games</span>
-            <span className="text-amber-400/90 font-black px-1.5 sm:px-2.5">•</span>
-            <span>Instant 1-Tap Play</span>
-            <span className="text-amber-400/90 font-black px-1.5 sm:px-2.5">•</span>
-            <span>14 Desi 3D Hits &amp; Multiplayer</span>
+          {/* Subtitle Badges: Responsive Glassmorphism Pills that wrap gracefully on mobile */}
+          <div className="w-full flex flex-wrap items-center gap-1.5 sm:gap-2.5 text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-[1.02rem] font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] pt-1">
+            <span className="inline-flex items-center gap-1 bg-black/70 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
+              ⚡ Zero Downloads
+            </span>
+            <span className="text-amber-400/90 font-black hidden sm:inline">•</span>
+            <span className="inline-flex items-center gap-1 bg-black/70 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
+              🎮 100% Free Browser Games
+            </span>
+            <span className="text-amber-400/90 font-black hidden sm:inline">•</span>
+            <span className="inline-flex items-center gap-1 bg-black/70 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
+              🔥 Instant 1-Tap Play
+            </span>
+            <span className="text-amber-400/90 font-black hidden sm:inline">•</span>
+            <span className="inline-flex items-center gap-1 bg-black/70 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
+              🇮🇳 14 Desi 3D Hits &amp; Multiplayer
+            </span>
           </div>
         </div>
       </div>
 
         {/* --- BOTTOM DOCK: QUICK LAUNCH GAMES • 1-TAP PLAY --- */}
         <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-1.5 pt-4 pb-0 relative z-10">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs sm:text-sm uppercase font-black text-white tracking-wider">
-              <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
-              <span>QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm uppercase font-black text-white tracking-wider truncate">
+              <Flame className="w-4 h-4 text-amber-400 fill-amber-400 shrink-0" />
+              <span className="hidden sm:inline">QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
+              <span className="sm:hidden font-black">QUICK LAUNCH • 1-TAP PLAY</span>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               {/* Left / Right Carousel Buttons */}
               <button
                 onClick={() => handleDockScroll(-340)}
                 className="w-7 h-7 rounded-lg bg-black/70 hover:bg-black/95 border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
                 title="Scroll Left"
+                aria-label="Scroll dock left"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -220,15 +229,16 @@ export const GullyHeroSection: React.FC = () => {
                 onClick={() => handleDockScroll(340)}
                 className="w-7 h-7 rounded-lg bg-black/70 hover:bg-black/95 border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
                 title="Scroll Right"
+                aria-label="Scroll dock right"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
 
               <Link
                 href="/games"
-                className="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 transition-colors ml-2"
+                className="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-0.5 transition-colors ml-1 sm:ml-2"
               >
-                <span>View Vault</span>
+                <span className="hidden xs:inline">View</span> Vault
                 <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>
