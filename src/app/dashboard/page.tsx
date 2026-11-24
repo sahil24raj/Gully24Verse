@@ -405,13 +405,13 @@ export default function DashboardPage() {
         </div>
 
         {/* Create Squad & Leaderboard Fast Access Buttons */}
-        <div className="flex flex-col xs:flex-row items-stretch sm:items-center gap-2 xs:gap-2.5 w-full sm:w-auto min-w-0">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto min-w-0">
           <button
             onClick={() => {
               soundFx.playClick();
               openMultiplayerModal(GAMES_CATALOG[0]);
             }}
-            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-primary text-slate-950 font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,159,28,0.4)] hover:opacity-95 active:scale-95 transition-all cursor-pointer whitespace-nowrap shrink-0"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-primary text-slate-950 font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,159,28,0.4)] hover:opacity-95 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
           >
             <Users className="w-4 h-4 fill-slate-950 shrink-0" />
             <span>CREATE SQUAD ROOM</span>
@@ -420,7 +420,7 @@ export default function DashboardPage() {
           <a
             href="#leaderboard-section"
             onClick={() => soundFx.playClick()}
-            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright border border-purple-500/30 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 transition-all cursor-pointer whitespace-nowrap shrink-0"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright border border-purple-500/30 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 transition-all cursor-pointer whitespace-nowrap"
           >
             <Crown className="w-4 h-4 text-amber-400 shrink-0" />
             <span>GLOBAL LEADERBOARD</span>
