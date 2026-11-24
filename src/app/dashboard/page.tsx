@@ -388,30 +388,30 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6 sm:space-y-10 pb-24">
+    <div className="w-full max-w-7xl mx-auto min-w-0 px-3 xs:px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6 sm:space-y-10 pb-24 overflow-x-hidden">
       {/* Real-time Multiplayer Modal */}
       <MultiplayerLobbyModal />
 
       {/* Top Header Command Banner */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 xs:p-5 sm:p-6 rounded-3xl bg-[#1B1B22]/80 border border-purple-500/20 backdrop-blur-xl shadow-2xl">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-neon-green font-bold uppercase tracking-wider mb-1">
-            <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
-            <span>GULLYVERSE // GAMER COMMAND CENTER</span>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 xs:p-5 sm:p-6 rounded-3xl bg-[#1B1B22]/80 border border-purple-500/20 backdrop-blur-xl shadow-2xl w-full min-w-0">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 text-xs font-mono text-neon-green font-bold uppercase tracking-wider mb-1 truncate">
+            <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse shrink-0" />
+            <span className="truncate">GULLYVERSE // GAMER COMMAND CENTER</span>
           </div>
-          <h1 className="text-xl xs:text-2xl sm:text-3xl font-black text-white font-display tracking-tight uppercase">
+          <h1 className="text-xl xs:text-2xl sm:text-3xl font-black text-white font-display tracking-tight uppercase truncate">
             GULLY COMMAND CENTER
           </h1>
         </div>
 
         {/* Create Squad & Leaderboard Fast Access Buttons */}
-        <div className="flex flex-col xs:flex-row items-stretch sm:items-center gap-2 xs:gap-2.5 w-full sm:w-auto">
+        <div className="flex flex-col xs:flex-row items-stretch sm:items-center gap-2 xs:gap-2.5 w-full sm:w-auto min-w-0">
           <button
             onClick={() => {
               soundFx.playClick();
               openMultiplayerModal(GAMES_CATALOG[0]);
             }}
-            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-primary text-slate-950 font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,159,28,0.4)] hover:opacity-95 active:scale-95 transition-all cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-primary text-slate-950 font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,159,28,0.4)] hover:opacity-95 active:scale-95 transition-all cursor-pointer whitespace-nowrap shrink-0"
           >
             <Users className="w-4 h-4 fill-slate-950 shrink-0" />
             <span>CREATE SQUAD ROOM</span>
@@ -420,7 +420,7 @@ export default function DashboardPage() {
           <a
             href="#leaderboard-section"
             onClick={() => soundFx.playClick()}
-            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright border border-purple-500/30 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 transition-all cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright border border-purple-500/30 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 transition-all cursor-pointer whitespace-nowrap shrink-0"
           >
             <Crown className="w-4 h-4 text-amber-400 shrink-0" />
             <span>GLOBAL LEADERBOARD</span>
@@ -431,12 +431,12 @@ export default function DashboardPage() {
       {/* =========================================================================
           1. GAMER IDENTITY & COMBAT PASSPORT (HERO PASSPORT)
           ========================================================================= */}
-      <div className="relative rounded-3xl bg-[#1B1B22]/85 border border-purple-500/30 overflow-hidden p-4 xs:p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5 sm:space-y-6">
+      <div className="relative rounded-3xl bg-[#1B1B22]/85 border border-purple-500/30 overflow-hidden p-4 xs:p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5 sm:space-y-6 w-full min-w-0">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 sm:gap-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 sm:gap-6 relative z-10 w-full min-w-0">
           {/* Avatar and Primary Identity */}
-          <div className="flex items-start sm:items-center gap-3.5 xs:gap-5 w-full">
+          <div className="flex items-start sm:items-center gap-3.5 xs:gap-5 w-full min-w-0">
             <div className="relative shrink-0">
               <GamerAvatar
                 avatar={user.avatar}
@@ -488,13 +488,13 @@ export default function DashboardPage() {
           </div>
 
           {/* Quick Edit Profile Button */}
-          <div className="flex items-center gap-3 w-full lg:w-auto pt-1 lg:pt-0">
+          <div className="flex items-center gap-3 w-full lg:w-auto pt-1 lg:pt-0 shrink-0">
             <button
               onClick={() => {
                 soundFx.playClick();
                 setIsEditModalOpen(true);
               }}
-              className="w-full lg:w-auto px-4 xs:px-5 py-2.5 rounded-xl bg-purple-950/70 hover:bg-purple-900/80 border border-purple-500/40 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg active:scale-95"
+              className="w-full lg:w-auto px-4 xs:px-5 py-2.5 rounded-xl bg-purple-950/70 hover:bg-purple-900/80 border border-purple-500/40 text-white font-bold text-xs uppercase tracking-wider font-display flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg active:scale-95 whitespace-nowrap"
             >
               <Edit3 className="w-4 h-4 text-neon-cyan shrink-0" />
               <span>EDIT PROFILE</span>
@@ -503,7 +503,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Interests & Gaming Vibes Tags */}
-        <div className="pt-2 border-t border-white/10 flex items-center gap-1.5 xs:gap-2 flex-wrap">
+        <div className="pt-2 border-t border-white/10 flex items-center gap-1.5 xs:gap-2 flex-wrap w-full min-w-0">
           <span className="text-[10px] xs:text-[11px] font-mono text-soft-lavender uppercase font-bold mr-1 shrink-0">
             GAMING VIBES:
           </span>
@@ -626,7 +626,7 @@ export default function DashboardPage() {
       {/* =========================================================================
           2. RECENTLY PLAYED ARENA GAMES
           ========================================================================= */}
-      <div className="space-y-4">
+      <div className="space-y-4 w-full min-w-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <Clock className="w-5 h-5 text-neon-cyan" />
@@ -724,7 +724,7 @@ export default function DashboardPage() {
       {/* =========================================================================
           3. YOUR SQUAD – REAL SOCIAL GAMING SYSTEM (NO FAKE HARDCODED USERS)
           ========================================================================= */}
-      <div className="space-y-4">
+      <div className="space-y-4 w-full min-w-0">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 flex-wrap">
             <Users className="w-5 h-5 text-neon-green" />
@@ -856,12 +856,12 @@ export default function DashboardPage() {
       {/* =========================================================================
           4. PROPER FULL GLOBAL LEADERBOARD & PODIUM (AS REQUESTED BY USER)
           ========================================================================= */}
-      <div id="leaderboard-section" className="space-y-6 pt-4">
+      <div id="leaderboard-section" className="space-y-6 pt-4 w-full min-w-0 max-w-full">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4 w-full min-w-0">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono text-amber-300 font-bold uppercase tracking-wider mb-1.5">
-              <Crown className="w-3.5 h-3.5 text-amber-400" />
+              <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span>GULLYVERSE COMPETITIVE HALL OF FAME</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-white font-display tracking-tight uppercase">
@@ -904,7 +904,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Game Filters Scrollable Row */}
-        <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
+        <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1 w-full max-w-full min-w-0">
           {LEADERBOARD_GAME_FILTERS.map((f) => (
             <button
               key={f.id}
@@ -913,7 +913,7 @@ export default function DashboardPage() {
                 setSelectedGameFilter(f.id);
                 setLeaderboardPage(1);
               }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
                 selectedGameFilter === f.id
                   ? 'bg-amber-500 text-slate-950 shadow-[0_0_12px_rgba(255,159,28,0.5)]'
                   : 'bg-surface-container border border-white/10 text-soft-lavender hover:text-white hover:bg-surface-container-high'
@@ -926,7 +926,7 @@ export default function DashboardPage() {
 
         {/* Top 3 Podium Cards (Center: #1 Gold, Left: #2 Silver, Right: #3 Bronze) */}
         {filteredLeaderboardData.length >= 3 && leaderboardPage === 1 && !leaderboardSearchQuery && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto pt-6 items-end">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto pt-6 items-end w-full min-w-0">
             {/* Rank 2 (Silver) */}
             <div className="bg-[#1B1B22]/90 border border-slate-300/30 rounded-3xl p-5 text-center flex flex-col items-center order-2 sm:order-1 shadow-xl hover:border-slate-200 transition-all">
               <span className="text-3xl mb-1">🥈</span>
@@ -1026,7 +1026,7 @@ export default function DashboardPage() {
         )}
 
         {/* Full Leaderboard Standings Table */}
-        <div className="max-w-4xl mx-auto rounded-3xl bg-[#1B1B22]/90 border border-purple-500/25 overflow-hidden shadow-2xl">
+        <div className="w-full max-w-4xl mx-auto rounded-3xl bg-[#1B1B22]/90 border border-purple-500/25 overflow-hidden shadow-2xl min-w-0">
           <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between text-xs font-mono font-bold text-soft-lavender uppercase tracking-wider">
             <span>ARENA PLAYERS ({totalLeaderboardPlayers})</span>
             <span>SCORE &amp; STATS</span>

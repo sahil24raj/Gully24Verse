@@ -30,8 +30,8 @@ export function AppDashboardLayout({ children }: AppDashboardLayoutProps) {
       <TopHeaderBar />
 
       {/* Main Full-Width Content Area Floating Above Gully Environment */}
-      <main className="flex-1 w-full pt-20 min-h-screen relative z-10">
-        <div className="flex flex-col w-full relative">
+      <main className="flex-1 w-full pt-20 min-h-screen relative z-10 min-w-0 overflow-x-hidden">
+        <div className="flex flex-col w-full relative min-w-0">
           {children}
           <Footer />
         </div>

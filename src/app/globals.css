@@ -57,6 +57,9 @@
   --color-error: #F04438;
   --color-error-container: #7F1D1D;
   
+  --breakpoint-xs: 380px;
+  
+  --font-display: 'Space Grotesk', sans-serif;
   --font-display-hero: 'Space Grotesk', sans-serif;
   --font-headline: 'Space Grotesk', sans-serif;
   --font-body: 'Space Grotesk', sans-serif;
