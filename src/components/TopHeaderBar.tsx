@@ -7,7 +7,7 @@ import { useAppStore, GAMES_CATALOG } from '@/store/useAppStore';
 import { soundFx } from '@/lib/audio';
 import { isImageSource } from '@/components/profile/GamerAvatar';
 import { normalizeRoomCode } from '@/lib/multiplayer/roomCodeGenerator';
-import { GullyVerseLogo } from '@/components/GullyVerseLogo';
+import { MastiverseLogo } from '@/components/MastiverseLogo';
 import {
   User,
   ShoppingBag,
@@ -100,12 +100,12 @@ export const TopHeaderBar: React.FC = () => {
     : null;
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#101014]/90 backdrop-blur-xl border-b border-amber-500/20 select-none shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+    <header className="sticky top-0 z-50 w-full bg-[#080D1B]/95 backdrop-blur-2xl border-b border-[#315CFF]/20 select-none shadow-[0_4px_30px_rgba(0,0,0,0.7)]">
       <div className="max-w-[1720px] mx-auto px-4 sm:px-8 xl:px-14 h-16 flex items-center justify-between gap-4">
         
-        {/* Left Section: GullyVerse 3D Brand Logo & Primary Navigation */}
+        {/* Left Section: MASTIVERSE Brand Logo & Primary Navigation */}
         <div className="flex items-center gap-6 shrink-0">
-          <GullyVerseLogo size="md" />
+          <MastiverseLogo size="md" variant="horizontal" />
 
           {/* Desktop Navigation Bar (HOME | ALL GAMES | DASHBOARD) */}
           <nav className="hidden xl:flex items-center gap-2">
@@ -114,7 +114,7 @@ export const TopHeaderBar: React.FC = () => {
               onClick={() => soundFx.playClick()}
               className={`px-4 py-2 transition-all rounded-xl font-black text-xs uppercase tracking-wider ${
                 pathname === '/'
-                  ? 'bg-[#FFB703] text-slate-950 shadow-[0_0_18px_rgba(255,183,3,0.45)]'
+                  ? 'bg-gradient-to-r from-[#315CFF] to-[#2446D8] text-white shadow-[0_0_20px_rgba(49,92,255,0.45)]'
                   : 'text-slate-300 hover:text-white hover:bg-white/5 font-bold'
               }`}
             >
@@ -125,7 +125,7 @@ export const TopHeaderBar: React.FC = () => {
               onClick={() => soundFx.playClick()}
               className={`px-4 py-2 transition-all rounded-xl text-xs uppercase tracking-wider ${
                 pathname.startsWith('/games')
-                  ? 'bg-[#FFB703] text-slate-950 font-black shadow-[0_0_18px_rgba(255,183,3,0.45)]'
+                  ? 'bg-gradient-to-r from-[#315CFF] to-[#2446D8] text-white font-black shadow-[0_0_20px_rgba(49,92,255,0.45)]'
                   : 'text-slate-300 hover:text-white hover:bg-white/5 font-bold'
               }`}
             >
@@ -136,7 +136,7 @@ export const TopHeaderBar: React.FC = () => {
               onClick={() => soundFx.playClick()}
               className={`px-4 py-2 transition-all rounded-xl text-xs uppercase tracking-wider ${
                 pathname.startsWith('/dashboard')
-                  ? 'bg-[#FFB703] text-slate-950 font-black shadow-[0_0_18px_rgba(255,183,3,0.45)]'
+                  ? 'bg-gradient-to-r from-[#315CFF] to-[#2446D8] text-white font-black shadow-[0_0_20px_rgba(49,92,255,0.45)]'
                   : 'text-slate-300 hover:text-white hover:bg-white/5 font-bold'
               }`}
             >
@@ -145,17 +145,17 @@ export const TopHeaderBar: React.FC = () => {
           </nav>
         </div>
 
-        {/* Center: Search Bar matching Reference Screenshot */}
+        {/* Center: Search Bar */}
         <div className="hidden lg:flex flex-1 max-w-md mx-4">
           <form
             onSubmit={handleSearchSubmit}
-            className="w-full flex items-center bg-[#1B1B22]/90 hover:bg-[#1B1B22] px-4 py-2 rounded-2xl border border-white/10 focus-within:border-amber-500/60 transition-all shadow-inner"
+            className="w-full flex items-center bg-[#101A33]/90 hover:bg-[#101A33] px-4 py-2 rounded-2xl border border-white/10 focus-within:border-[#315CFF]/70 transition-all shadow-inner"
           >
-            <Search className="w-4 h-4 text-amber-400 mr-2 shrink-0" />
+            <Search className="w-4 h-4 text-[#315CFF] mr-2 shrink-0" />
             <input
               ref={searchInputRef}
               type="text"
-              placeholder="Search gully games, room code..."
+              placeholder="Search Mastiverse games, rooms..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent border-none outline-none font-body text-xs text-white placeholder:text-slate-400 w-full"
@@ -166,47 +166,47 @@ export const TopHeaderBar: React.FC = () => {
           </form>
         </div>
 
-        {/* Right Section: Level & XP, Coins, Notifications Bell, User Avatar */}
+        {/* Right Section: Level & XP, Coins, User Avatar */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* Level & XP Progress Chip */}
           <Link
             href="/profile"
             onClick={() => soundFx.playClick()}
-            className="hidden sm:flex flex-col gap-1 bg-[#1B1B22] px-3.5 py-1.5 rounded-2xl border border-white/10 hover:border-amber-500/40 transition-colors"
-            title="Gully Level & Progress"
+            className="hidden sm:flex flex-col gap-1 bg-[#101A33] px-3.5 py-1.5 rounded-2xl border border-white/10 hover:border-[#315CFF]/40 transition-colors"
+            title="Mastiverse Level & Progress"
           >
             <div className="flex items-center justify-between gap-3 leading-none">
-              <span className="text-[11px] text-amber-400 font-black">LVL {currentLevel}</span>
+              <span className="text-[11px] text-[#FF8A35] font-black">LVL {currentLevel}</span>
               <span className="text-[10px] text-slate-400 font-bold">{currentXP.toLocaleString()} XP</span>
             </div>
             <div className="w-20 h-1.5 bg-black/60 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-amber-500 to-teal-400 rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-[#315CFF] to-[#FF8A35] rounded-full transition-all duration-500"
                 style={{ width: `${Math.max(10, xpPercent)}%` }}
               />
             </div>
           </Link>
 
-          {/* Gully Coins Vault Counter */}
+          {/* Coins Vault Counter */}
           <div
-            className="flex items-center gap-1.5 bg-[#1B1B22] px-3.5 py-2 rounded-2xl border border-amber-500/30 text-amber-400 shadow-md select-none"
-            title="Gully Coins"
+            className="flex items-center gap-1.5 bg-[#101A33] px-3.5 py-2 rounded-2xl border border-[#FF8A35]/30 text-[#FF8A35] shadow-md select-none"
+            title="Mastiverse Coins"
           >
             <span className="text-sm leading-none">🪙</span>
             <span className="text-xs font-black">{currentCoins.toLocaleString()}</span>
           </div>
 
-          {/* User Profile Avatar with Google Account Photo & direct My Profile menu */}
+          {/* User Profile Avatar */}
           <div className="relative" ref={userMenuRef}>
             <div
               onClick={() => {
                 soundFx.playClick();
                 setUserMenuOpen(!userMenuOpen);
               }}
-              className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#1B1B22] border border-white/10 hover:border-amber-500/50 cursor-pointer transition-all shadow-md group"
+              className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#101A33] border border-white/10 hover:border-[#315CFF]/50 cursor-pointer transition-all shadow-md group"
               title="My Profile"
             >
-              <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-amber-500/80 group-hover:ring-teal-400 transition-all flex items-center justify-center bg-[#252530]">
+              <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-[#315CFF]/80 group-hover:ring-[#FF8A35] transition-all flex items-center justify-center bg-[#172344]">
                 {effectiveAvatarSrc ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -249,8 +249,8 @@ export const TopHeaderBar: React.FC = () => {
                     <div className="text-[10px] text-slate-400 font-mono truncate">
                       {user.email || `@${user.username}`}
                     </div>
-                    <div className="text-[9px] text-teal-400 font-bold uppercase tracking-wider mt-0.5">
-                      {user.authType === 'google' ? 'Google Gamer 🟢' : user.authType === 'guest' ? 'Desi Guest Player' : 'Verified Gamer'}
+                    <div className="text-[9px] text-[#315CFF] font-bold uppercase tracking-wider mt-0.5">
+                      {user.authType === 'google' ? 'Google Gamer 🟢' : user.authType === 'guest' ? 'Mastiverse Guest Player' : 'Verified Gamer'}
                     </div>
                   </div>
                 </div>
@@ -316,14 +316,14 @@ export const TopHeaderBar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-[#101014]/98 backdrop-blur-2xl border-b border-amber-500/20 px-4 py-4 flex flex-col gap-3 animate-in slide-in-from-top-2 duration-150">
-          <form onSubmit={handleSearchSubmit} className="flex items-center bg-[#1B1B22] px-3 py-2 rounded-xl border border-white/10">
-            <Search className="w-4 h-4 text-slate-400 mr-2" />
+        <div className="xl:hidden bg-[#080D1B]/98 backdrop-blur-2xl border-b border-[#315CFF]/20 px-4 py-4 flex flex-col gap-3 animate-in slide-in-from-top-2 duration-150">
+          <form onSubmit={handleSearchSubmit} className="flex items-center bg-[#101A33] px-3 py-2 rounded-xl border border-white/10">
+            <Search className="w-4 h-4 text-[#315CFF] mr-2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search gully games, room code..."
+              placeholder="Search Mastiverse games, room code..."
               className="bg-transparent border-none outline-none text-xs text-white w-full placeholder:text-slate-400"
             />
           </form>
@@ -365,7 +365,7 @@ export const TopHeaderBar: React.FC = () => {
               setMobileMenuOpen(false);
               openMultiplayerModal();
             }}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider mt-2 cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#315CFF] to-[#FF8A35] text-white font-black text-sm uppercase tracking-wider mt-2 cursor-pointer"
           >
             <Users className="w-4 h-4" />
             CREATE SQUAD ROOM

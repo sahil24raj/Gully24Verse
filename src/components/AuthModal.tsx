@@ -107,26 +107,26 @@ export const AuthModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-md glass-panel p-6 rounded-3xl border border-[#00F0FF]/40 shadow-2xl shadow-cyan-950/60 bg-[#0c1017]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#080D1B]/85 backdrop-blur-md animate-fadeIn">
+      <div className="relative w-full max-w-md glass-panel p-6 rounded-3xl border border-[#315CFF]/40 shadow-2xl shadow-[#080D1B] bg-[#080D1B]">
         <button
           onClick={() => {
             soundFx.playClick();
             closeAuthModal();
           }}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white p-1.5 rounded-xl bg-slate-900/80 border border-gray-800 transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-white p-1.5 rounded-xl bg-[#101A33] border border-white/10 transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
 
         <div className="flex flex-col items-center text-center mb-5">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#00F0FF] via-purple-500 to-[#ADFF2F] p-0.5 mb-3 shadow-lg shadow-[#00F0FF]/30">
-            <div className="w-full h-full bg-[#080b10] rounded-[14px] flex items-center justify-center text-3xl">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#315CFF] via-[#2446D8] to-[#FF8A35] p-0.5 mb-3 shadow-lg shadow-[#315CFF]/30">
+            <div className="w-full h-full bg-[#080D1B] rounded-[14px] flex items-center justify-center text-3xl">
               {selectedAvatar}
             </div>
           </div>
           <h3 className="text-xl font-black text-white tracking-wide font-display">
-            Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#ADFF2F]">GullyVerse</span>
+            Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#315CFF] via-[#60A5FA] to-[#FF8A35]">MASTIVERSE</span>
           </h3>
           <p className="text-xs text-gray-400 mt-1 font-sans">
             Sync your high scores, climb real global leaderboards, earn genuine XP and badges!

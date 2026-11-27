@@ -170,36 +170,41 @@ export const GullyHeroSection: React.FC = () => {
       >
         <div className="w-full max-w-full flex flex-col gap-2">
           {/* Sleek Brand Kicker */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-amber-500/40 backdrop-blur-md w-fit shadow-md mb-0.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_10px_#FF9F1C] shrink-0" />
-            <span className="text-[10px] xs:text-xs sm:text-sm font-black uppercase tracking-wider text-amber-300 font-mono truncate">
-              GULLYVERSE • INDIA KA APNA GAMING ADDA
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#080D1B]/85 border border-[#315CFF]/40 backdrop-blur-md w-fit shadow-md mb-0.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#315CFF] animate-pulse shadow-[0_0_10px_#315CFF] shrink-0" />
+            <span className="text-[10px] xs:text-xs sm:text-sm font-black uppercase tracking-wider text-slate-200 font-mono truncate">
+              MASTIVERSE • APNA GAME. APNI DUNIYA.
             </span>
           </div>
 
-          {/* Prominent Russo One Headline - 100% Responsive on Phone, Tablet, Laptop, and TV */}
-          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.1rem,6.4vw,7.2rem)] tracking-tight text-white uppercase leading-[1.08] sm:leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] max-w-full">
-            <span className="block sm:inline text-white">APNI GULLY, </span>
-            <span className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-[#FFB703] via-[#FF9F1C] to-[#00F0FF]">
-              APNE GAMES!
+          {/* Prominent Headline — Apna Game. Apni Duniya. */}
+          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.1rem,6.4vw,7.2rem)] tracking-tight text-white uppercase leading-[1.08] sm:leading-none drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] max-w-full">
+            <span className="block sm:inline text-white">APNA GAME, </span>
+            <span className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-[#315CFF] via-[#60A5FA] to-[#FF8A35]">
+              APNI DUNIYA.
             </span>
           </h1>
 
+          {/* Mastiverse Supporting Tagline */}
+          <p className="font-body text-slate-200 text-xs xs:text-sm sm:text-base md:text-lg max-w-2xl font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] pt-0.5">
+            Your playground for crazy games, epic challenges and unlimited masti.
+          </p>
+
           {/* Subtitle Badges: Responsive Glassmorphism Pills that wrap gracefully on mobile */}
           <div className="w-full flex flex-wrap items-center gap-1.5 sm:gap-2.5 text-slate-100 text-[11px] sm:text-xs md:text-sm lg:text-[1.02rem] font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] pt-1">
-            <span className="inline-flex items-center gap-1 bg-black/70 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
+            <span className="inline-flex items-center gap-1 bg-[#080D1B]/80 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
               ⚡ Zero Downloads
             </span>
-            <span className="text-amber-400/90 font-black hidden sm:inline">•</span>
-            <span className="inline-flex items-center gap-1 bg-black/70 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
+            <span className="text-[#315CFF] font-black hidden sm:inline">•</span>
+            <span className="inline-flex items-center gap-1 bg-[#080D1B]/80 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
               🎮 100% Free Browser Games
             </span>
-            <span className="text-amber-400/90 font-black hidden sm:inline">•</span>
-            <span className="inline-flex items-center gap-1 bg-black/70 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
+            <span className="text-[#315CFF] font-black hidden sm:inline">•</span>
+            <span className="inline-flex items-center gap-1 bg-[#080D1B]/80 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
               🔥 Instant 1-Tap Play
             </span>
-            <span className="text-amber-400/90 font-black hidden sm:inline">•</span>
-            <span className="inline-flex items-center gap-1 bg-black/70 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
+            <span className="text-[#315CFF] font-black hidden sm:inline">•</span>
+            <span className="inline-flex items-center gap-1 bg-[#080D1B]/80 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-sm shadow-sm">
               🇮🇳 14 Desi 3D Hits &amp; Multiplayer
             </span>
           </div>
@@ -210,8 +215,8 @@ export const GullyHeroSection: React.FC = () => {
         <div className="max-w-[1720px] mx-auto w-full flex flex-col gap-1.5 pt-4 pb-0 relative z-10">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm uppercase font-black text-white tracking-wider truncate">
-              <Flame className="w-4 h-4 text-amber-400 fill-amber-400 shrink-0" />
-              <span className="hidden sm:inline">QUICK LAUNCH GAMES • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
+              <Flame className="w-4 h-4 text-[#FF8A35] fill-[#FF8A35] shrink-0" />
+              <span className="hidden sm:inline">MASTIVERSE QUICK LAUNCH • 1-TAP PLAY ({quickLaunchGames.length} GAMES • SWIPE TO EXPLORE)</span>
               <span className="sm:hidden font-black">QUICK LAUNCH • 1-TAP PLAY</span>
             </div>
 
@@ -219,7 +224,7 @@ export const GullyHeroSection: React.FC = () => {
               {/* Left / Right Carousel Buttons */}
               <button
                 onClick={() => handleDockScroll(-340)}
-                className="w-7 h-7 rounded-lg bg-black/70 hover:bg-black/95 border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
+                className="w-7 h-7 rounded-lg bg-[#080D1B]/80 hover:bg-[#101A33] border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
                 title="Scroll Left"
                 aria-label="Scroll dock left"
               >
@@ -227,7 +232,7 @@ export const GullyHeroSection: React.FC = () => {
               </button>
               <button
                 onClick={() => handleDockScroll(340)}
-                className="w-7 h-7 rounded-lg bg-black/70 hover:bg-black/95 border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
+                className="w-7 h-7 rounded-lg bg-[#080D1B]/80 hover:bg-[#101A33] border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
                 title="Scroll Right"
                 aria-label="Scroll dock right"
               >
@@ -236,7 +241,7 @@ export const GullyHeroSection: React.FC = () => {
 
               <Link
                 href="/games"
-                className="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-0.5 transition-colors ml-1 sm:ml-2"
+                className="text-xs text-[#FF8A35] hover:text-[#FFA959] font-bold flex items-center gap-0.5 transition-colors ml-1 sm:ml-2"
               >
                 <span className="hidden xs:inline">View</span> Vault
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -253,7 +258,7 @@ export const GullyHeroSection: React.FC = () => {
               <div
                 key={game.id}
                 onClick={() => handleLaunchGame(game.route)}
-                className="group relative shrink-0 w-[175px] sm:w-[195px] md:w-[215px] aspect-[16/10] rounded-2xl overflow-hidden cursor-pointer border-2 transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] shadow-xl hover:shadow-[0_0_24px_rgba(255,183,3,0.35)] snap-start"
+                className="group relative shrink-0 w-[175px] sm:w-[195px] md:w-[215px] aspect-[16/10] rounded-2xl overflow-hidden cursor-pointer border-2 transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] shadow-xl hover:shadow-[0_0_24px_rgba(49,92,255,0.4)] snap-start"
                 style={{ borderColor: game.borderColor }}
               >
                 {/* Game Cover Image */}
@@ -265,13 +270,13 @@ export const GullyHeroSection: React.FC = () => {
                 />
 
                 {/* Dark Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent flex flex-col justify-end p-2">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080D1B]/95 via-[#080D1B]/35 to-transparent flex flex-col justify-end p-2">
                   <div className="flex items-center justify-between gap-1">
                     {/* Actual Game Name on Each Card */}
-                    <span className="text-xs sm:text-[13px] font-black text-white group-hover:text-amber-300 transition-colors truncate drop-shadow">
+                    <span className="text-xs sm:text-[13px] font-black text-white group-hover:text-[#FF8A35] transition-colors truncate drop-shadow">
                       {game.name}
                     </span>
-                    <div className="w-5 h-5 rounded-full bg-[#FFB703] text-slate-950 flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                    <div className="w-5 h-5 rounded-full bg-[#FF8A35] text-slate-950 flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
                       <Play className="w-2.5 h-2.5 fill-slate-950 ml-0.5" />
                     </div>
                   </div>

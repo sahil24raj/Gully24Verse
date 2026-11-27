@@ -106,32 +106,31 @@ export const GullySpotlightBackground: React.FC = () => {
       className="fixed inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden"
     >
       {/* 
-        LAYER 1: The 3D Indian Gully Mohalla artwork clearly visible everywhere
-        with enhanced base clarity, vibrancy, and cinematic contrast (Chai Tapri, Neon Arcade, Auto, Cycle, Street).
+        LAYER 1: Base Indian gaming street environment with cinematic navy contrast
       */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-[1.01]"
         style={{
           backgroundImage: "url('/brand/gully-environment.jpg')",
-          filter: 'brightness(0.72) contrast(1.1) saturate(1.08)'
+          filter: 'brightness(0.68) contrast(1.15) saturate(1.05)'
         }}
       />
 
       {/* 
-        Subtle Cinematic Scrim (Keeps header & dock readable while letting 70%+ center background shine through unclouded)
+        Subtle Cinematic Scrim in Midnight Navy (Keeps header & dock readable while letting center scene breathe)
       */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#101014]/40 via-transparent to-[#101014]/45" />
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#080D1B]/60 via-[#101A33]/25 to-[#080D1B]/85" />
 
       {/* 
         LAYER 2 (SPOTLIGHT REVEAL):
-        Super-saturated, glowing original Gully artwork revealed under the cursor spotlight.
+        Vibrant, atmospheric environment revealed under the interactive cursor spotlight.
       */}
       <div
         ref={brightLayerRef}
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-[1.01] will-change-[mask-image]"
         style={{
           backgroundImage: "url('/brand/gully-environment.jpg')",
-          filter: 'brightness(1.32) contrast(1.2) saturate(1.4)',
+          filter: 'brightness(1.28) contrast(1.2) saturate(1.35)',
           WebkitMaskImage:
             'radial-gradient(circle 380px at 50% 36%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
           maskImage:
@@ -140,17 +139,17 @@ export const GullySpotlightBackground: React.FC = () => {
       />
 
       {/* 
-        ACCENT CURSOR LIGHT GLOW (Soft warm Saffron & Teal street-arcade halo)
+        ACCENT CURSOR LIGHT GLOW (Atmospheric Electric Blue #315CFF & Saffron #FF8A35 halo)
       */}
       <div
         ref={glowLightRef}
-        className="absolute top-0 left-0 rounded-full pointer-events-none mix-blend-screen opacity-70 will-change-transform"
+        className="absolute top-0 left-0 rounded-full pointer-events-none mix-blend-screen opacity-75 will-change-transform"
         style={{
           width: '760px',
           height: '760px',
           transform: 'translate3d(calc(50vw - 380px), calc(36vh - 380px), 0)',
           background:
-            'radial-gradient(circle, rgba(255, 159, 28, 0.28) 0%, rgba(0, 191, 166, 0.16) 40%, rgba(0,0,0,0) 70%)'
+            'radial-gradient(circle, rgba(49, 92, 255, 0.26) 0%, rgba(255, 138, 53, 0.16) 38%, rgba(16, 26, 51, 0.08) 55%, rgba(0,0,0,0) 72%)'
         }}
       />
     </div>

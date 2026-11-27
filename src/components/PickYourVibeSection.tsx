@@ -32,12 +32,12 @@ export const PickYourVibeSection: React.FC = () => {
       <div className="max-w-[1720px] mx-auto flex flex-col gap-8">
         {/* Header */}
         <div className="flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-[#1B1B22]/90 border border-amber-500/25 text-amber-400 text-xs uppercase tracking-widest font-black shadow-md">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-[#101A33]/90 border border-[#315CFF]/30 text-[#FF8A35] text-xs uppercase tracking-widest font-black shadow-md">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>GULLY CATEGORIES &amp; MODES</span>
+            <span>MASTIVERSE CATEGORIES &amp; MODES</span>
           </div>
           <h2 className="font-headline-xl uppercase text-white tracking-tight mt-2 text-3xl sm:text-4xl font-black">
-            CHOOSE YOUR GULLY VIBE
+            CHOOSE YOUR GAME VIBE
           </h2>
           <p className="font-body-lg text-slate-300 max-w-2xl mt-1">
             From unhinged 4-player bluffing to nostalgic last-bench school games and high-octane 3D street racing.
@@ -45,7 +45,7 @@ export const PickYourVibeSection: React.FC = () => {
         </div>
 
         {/* Category Pills Navigation - Exactly matching All Games */}
-        <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-[#1B1B22]/90 border border-white/10 backdrop-blur-xl max-w-5xl mx-auto shadow-lg">
+        <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-[#101A33]/90 border border-[#315CFF]/20 backdrop-blur-xl max-w-5xl mx-auto shadow-lg">
           {GULLY_CATEGORIES.map((config) => {
             const isActive = activeTab === config.key;
             return (
@@ -54,7 +54,7 @@ export const PickYourVibeSection: React.FC = () => {
                 onClick={() => handleTabChange(config.key)}
                 className={`px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-extrabold transition-all flex items-center gap-2 cursor-pointer ${
                   isActive
-                    ? 'bg-amber-500 text-slate-950 shadow-[0_0_20px_rgba(255,159,28,0.4)] font-black'
+                    ? 'bg-gradient-to-r from-[#315CFF] to-[#2446D8] text-white shadow-[0_0_20px_rgba(49,92,255,0.45)] font-black'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -62,7 +62,7 @@ export const PickYourVibeSection: React.FC = () => {
                 <span>{config.label}</span>
                 <span
                   className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
-                    isActive ? 'bg-black/20 text-slate-950' : 'bg-white/10 text-amber-400'
+                    isActive ? 'bg-black/25 text-white' : 'bg-white/10 text-[#FF8A35]'
                   }`}
                 >
                   {config.gameIds.length}
@@ -75,13 +75,13 @@ export const PickYourVibeSection: React.FC = () => {
         {/* Category Showcase Panel */}
         <div className="flex flex-col gap-6">
           {/* Banner */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#1B1B22]/95 via-[#24242E]/90 to-[#1B1B22]/95 backdrop-blur-md border border-amber-500/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#080D1B]/95 via-[#101A33]/90 to-[#080D1B]/95 backdrop-blur-md border border-[#315CFF]/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl relative overflow-hidden">
             <div className="flex flex-col gap-1.5 z-10">
               <div className="flex items-center gap-2">
                 <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider ${configBadgeStyle(currentConfig.key)}`}>
                   {currentConfig.emoji} {currentConfig.tag}
                 </span>
-                <span className="text-[11px] text-teal-400 font-black">
+                <span className="text-[11px] text-[#315CFF] font-black">
                   {currentConfig.gameIds.length} Games Ready
                 </span>
               </div>
@@ -97,7 +97,7 @@ export const PickYourVibeSection: React.FC = () => {
               <Link
                 href={`/games?cat=${currentConfig.key}`}
                 onClick={() => soundFx.playClick()}
-                className="px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider bg-amber-500 text-slate-950 hover:scale-105 active:scale-95 transition-transform flex items-center gap-2 shadow-md"
+                className="px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider bg-[#FF8A35] text-slate-950 hover:bg-[#FFA959] hover:scale-105 active:scale-95 transition-transform flex items-center gap-2 shadow-md"
               >
                 <span>EXPLORE ALL GAMES</span>
                 <ChevronRight className="w-4 h-4" />
@@ -133,7 +133,7 @@ export const PickYourVibeSection: React.FC = () => {
                 return (
                   <div
                     key={game.id}
-                    className="w-[84vw] min-w-[275px] max-w-[340px] sm:w-[380px] lg:w-[410px] snap-center shrink-0 rounded-3xl bg-[#1B1B22]/90 backdrop-blur-md p-4 xs:p-5 sm:p-6 flex flex-col justify-between shadow-xl border border-white/10 hover:border-amber-500/50 hover:shadow-[0_0_35px_rgba(255,159,28,0.25)] transition-all duration-300 group"
+                    className="w-[84vw] min-w-[275px] max-w-[340px] sm:w-[380px] lg:w-[410px] snap-center shrink-0 rounded-3xl bg-[#080D1B]/95 backdrop-blur-md p-4 xs:p-5 sm:p-6 flex flex-col justify-between shadow-xl border border-white/10 hover:border-[#315CFF]/60 hover:shadow-[0_0_35px_rgba(49,92,255,0.25)] transition-all duration-300 group"
                   >
                     <div className="flex flex-col gap-3">
                       <Link
@@ -157,7 +157,7 @@ export const PickYourVibeSection: React.FC = () => {
                         <span className="flex items-center gap-1">
                           {game.multiplayer ? '👥 MULTIPLAYER' : '🕹️ SOLO ARCADE'} • {game.duration}
                         </span>
-                        <span className="text-teal-400 uppercase tracking-wider font-extrabold">• {game.difficulty} IQ</span>
+                        <span className="text-[#315CFF] uppercase tracking-wider font-extrabold">• {game.difficulty} IQ</span>
                       </div>
 
                       <div className="px-1 flex flex-col items-center text-center gap-1.5">
@@ -166,7 +166,7 @@ export const PickYourVibeSection: React.FC = () => {
                           onClick={() => soundFx.playClick()}
                           className="w-full"
                         >
-                          <h4 className="text-xl sm:text-2xl font-black text-white truncate group-hover:text-amber-400 transition-colors text-center">
+                          <h4 className="text-xl sm:text-2xl font-black text-white truncate group-hover:text-[#FF8A35] transition-colors text-center">
                             {game.title}
                           </h4>
                         </Link>
@@ -180,9 +180,9 @@ export const PickYourVibeSection: React.FC = () => {
                       <Link
                         href={`/games/${game.slug || game.id}`}
                         onClick={() => soundFx.playClick()}
-                        className="flex-1 py-3 px-4 rounded-xl bg-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md text-center flex items-center justify-center gap-1.5"
+                        className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#315CFF] to-[#2446D8] text-white font-black text-xs uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_15px_rgba(49,92,255,0.35)] text-center flex items-center justify-center gap-1.5"
                       >
-                        <Play className="w-3.5 h-3.5 fill-slate-950" />
+                        <Play className="w-3.5 h-3.5 fill-white" />
                         <span>PLAY NOW</span>
                       </Link>
                       {game.multiplayer && (
@@ -191,9 +191,9 @@ export const PickYourVibeSection: React.FC = () => {
                             soundFx.playClick();
                             openMultiplayerModal(game);
                           }}
-                          className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.02] cursor-pointer flex items-center justify-center gap-1.5 border border-white/10"
+                          className="px-5 py-3 rounded-xl bg-[#101A33] hover:bg-[#172344] text-white font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.02] cursor-pointer flex items-center justify-center gap-1.5 border border-[#FF8A35]/30"
                         >
-                          <Users className="w-3.5 h-3.5 text-teal-400" />
+                          <Users className="w-3.5 h-3.5 text-[#FF8A35]" />
                           <span>SQUAD</span>
                         </button>
                       )}

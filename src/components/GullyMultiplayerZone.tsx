@@ -45,8 +45,8 @@ export const GullyMultiplayerZone: React.FC = () => {
 
   const handleShareInvite = () => {
     soundFx.playClick();
-    const url = typeof window !== 'undefined' ? window.location.origin : 'https://vibe24arena.vercel.app';
-    const text = `Aaja GullyVerse pe squad battle khelte hain! Room code bana diya hai: ${url}`;
+    const url = typeof window !== 'undefined' ? window.location.origin : 'https://gullyverse.pages.dev';
+    const text = `Aaja Mastiverse pe squad battle khelte hain! Room code bana diya hai: ${url}`;
     navigator.clipboard.writeText(text);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
@@ -61,9 +61,9 @@ export const GullyMultiplayerZone: React.FC = () => {
         <div className="flex flex-col gap-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/20 text-teal-400 text-xs font-black uppercase tracking-wider border border-teal-500/30">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#101A33] text-[#315CFF] text-xs font-black uppercase tracking-wider border border-[#315CFF]/30">
                 <Users className="w-3.5 h-3.5" />
-                <span>MULTIPLAYER ZONE</span>
+                <span>MASTIVERSE SQUAD ARENA</span>
               </div>
               <h2 className="font-headline-xl uppercase text-white tracking-tight mt-2 text-3xl sm:text-4xl font-black">
                 APNA SQUAD BANAO!
@@ -76,9 +76,9 @@ export const GullyMultiplayerZone: React.FC = () => {
             <div className="flex items-center gap-3">
               <button
                 onClick={handleCreateRoom}
-                className="px-6 py-3 rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 font-black text-xs uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-[0_0_24px_rgba(0,191,166,0.35)] cursor-pointer flex items-center gap-2"
+                className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#315CFF] to-[#2446D8] text-white font-black text-xs uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-[0_0_24px_rgba(49,92,255,0.45)] cursor-pointer flex items-center gap-2"
               >
-                <Sparkles className="w-4 h-4 fill-slate-950" />
+                <Sparkles className="w-4 h-4 fill-white" />
                 <span>+ CREATE SQUAD ROOM</span>
               </button>
             </div>
@@ -211,7 +211,7 @@ export const GullyMultiplayerZone: React.FC = () => {
                 onClick={() => {
                   soundFx.playClick();
                   const url = encodeURIComponent(window.location.origin + '/games');
-                  const text = encodeURIComponent('Aaja GullyVerse pe squad match khelte hai! Room link: ');
+                  const text = encodeURIComponent('Aaja Mastiverse pe squad match khelte hai! Room link: ');
                   window.open(`https://api.whatsapp.com/send?text=${text}${url}`, '_blank');
                 }}
                 className="w-full py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 border border-emerald-500/30 cursor-pointer"

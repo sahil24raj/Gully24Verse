@@ -306,7 +306,7 @@ export default function DashboardPage() {
     soundFx.playSuccess();
     try {
       confetti({ particleCount: 35, spread: 60, origin: { y: 0.8 } });
-    } catch {}
+    } catch { }
     refreshFriends();
   };
 
@@ -322,7 +322,7 @@ export default function DashboardPage() {
         soundFx.playSuccess();
         try {
           confetti({ particleCount: 40, spread: 70, origin: { y: 0.6 } });
-        } catch {}
+        } catch { }
         setAddFriendResult({ type: 'success', text: res.message });
         setAddFriendInput('');
         refreshFriends();
@@ -374,7 +374,7 @@ export default function DashboardPage() {
       soundFx.playSuccess();
       try {
         confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
-      } catch {}
+      } catch { }
       setSaveSuccess(true);
       setTimeout(() => {
         setIsEditModalOpen(false);
@@ -395,12 +395,12 @@ export default function DashboardPage() {
       {/* Top Header Command Banner */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 xs:p-5 sm:p-6 rounded-3xl bg-[#1B1B22]/80 border border-purple-500/20 backdrop-blur-xl shadow-2xl w-full min-w-0">
         <div className="min-w-0">
-          <div className="flex items-center gap-2 text-xs font-mono text-neon-green font-bold uppercase tracking-wider mb-1 truncate">
-            <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse shrink-0" />
-            <span className="truncate">GULLYVERSE // GAMER COMMAND CENTER</span>
+          <div className="flex items-center gap-2 text-xs font-mono text-[#FF8A35] font-bold uppercase tracking-wider mb-1 truncate">
+            <span className="w-2 h-2 rounded-full bg-[#315CFF] animate-pulse shrink-0" />
+            <span className="truncate">MASTIVERSE // GAMER COMMAND CENTER</span>
           </div>
           <h1 className="text-xl xs:text-2xl sm:text-3xl font-black text-white font-display tracking-tight uppercase truncate">
-            GULLY COMMAND CENTER
+            MASTIVERSE COMMAND CENTER
           </h1>
         </div>
 
@@ -482,7 +482,7 @@ export default function DashboardPage() {
               </div>
 
               <p className="text-xs sm:text-sm text-slate-300 font-sans max-w-xl italic break-words">
-                {user.bio ? `"${user.bio}"` : 'Ready to conquer the GullyVerse leaderboard! 🎮'}
+                {user.bio ? `"${user.bio}"` : 'Ready to conquer the Mastiverse leaderboard! 🎮'}
               </p>
             </div>
           </div>
@@ -862,7 +862,7 @@ export default function DashboardPage() {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono text-amber-300 font-bold uppercase tracking-wider mb-1.5">
               <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span>GULLYVERSE COMPETITIVE HALL OF FAME</span>
+              <span>MASTIVERSE COMPETITIVE HALL OF FAME</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-white font-display tracking-tight uppercase">
               GLOBAL RANKINGS &amp; PODIUM
@@ -913,11 +913,10 @@ export default function DashboardPage() {
                 setSelectedGameFilter(f.id);
                 setLeaderboardPage(1);
               }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
-                selectedGameFilter === f.id
-                  ? 'bg-amber-500 text-slate-950 shadow-[0_0_12px_rgba(255,159,28,0.5)]'
-                  : 'bg-surface-container border border-white/10 text-soft-lavender hover:text-white hover:bg-surface-container-high'
-              }`}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer shrink-0 ${selectedGameFilter === f.id
+                ? 'bg-amber-500 text-slate-950 shadow-[0_0_12px_rgba(255,159,28,0.5)]'
+                : 'bg-surface-container border border-white/10 text-soft-lavender hover:text-white hover:bg-surface-container-high'
+                }`}
             >
               {f.label}
             </button>
@@ -1057,24 +1056,22 @@ export default function DashboardPage() {
                 return (
                   <div
                     key={`${entry.rank}-${entry.username}-${entry.gameId || 'all'}`}
-                    className={`px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3 transition-colors ${
-                      isCurrentUser
-                        ? 'bg-amber-500/15 border-l-4 border-amber-400'
-                        : 'hover:bg-surface-container-high'
-                    }`}
+                    className={`px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3 transition-colors ${isCurrentUser
+                      ? 'bg-amber-500/15 border-l-4 border-amber-400'
+                      : 'hover:bg-surface-container-high'
+                      }`}
                   >
                     {/* Left: Rank & Player Info */}
                     <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                       <span
-                        className={`w-7 text-center font-mono font-black text-sm sm:text-base ${
-                          entry.rank === 1
-                            ? 'text-amber-400'
-                            : entry.rank === 2
+                        className={`w-7 text-center font-mono font-black text-sm sm:text-base ${entry.rank === 1
+                          ? 'text-amber-400'
+                          : entry.rank === 2
                             ? 'text-slate-300'
                             : entry.rank === 3
-                            ? 'text-amber-600'
-                            : 'text-slate-400'
-                        }`}
+                              ? 'text-amber-600'
+                              : 'text-slate-400'
+                          }`}
                       >
                         #{entry.rank}
                       </span>
@@ -1201,7 +1198,7 @@ export default function DashboardPage() {
             </div>
 
             <p className="text-xs text-soft-lavender leading-relaxed">
-              Enter the exact username of any GullyVerse player to recruit them to your gaming squad.
+              Enter the exact username of any Mastiverse player to recruit them to your gaming squad.
             </p>
 
             <form onSubmit={handleAddFriendByUsernameSubmit} className="space-y-4">
@@ -1228,11 +1225,10 @@ export default function DashboardPage() {
               {/* Status Message */}
               {addFriendResult && (
                 <div
-                  className={`p-3 rounded-xl text-xs font-mono flex items-center gap-2 ${
-                    addFriendResult.type === 'success'
-                      ? 'bg-neon-green/10 border border-neon-green/30 text-neon-green'
-                      : 'bg-red-500/10 border border-red-500/30 text-red-400'
-                  }`}
+                  className={`p-3 rounded-xl text-xs font-mono flex items-center gap-2 ${addFriendResult.type === 'success'
+                    ? 'bg-neon-green/10 border border-neon-green/30 text-neon-green'
+                    : 'bg-red-500/10 border border-red-500/30 text-red-400'
+                    }`}
                 >
                   {addFriendResult.type === 'success' ? (
                     <Check className="w-4 h-4 shrink-0" />
@@ -1325,11 +1321,10 @@ export default function DashboardPage() {
                           setSelectedAvatar(emoji);
                           setCustomAvatarUrl('');
                         }}
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center text-xl transition-all cursor-pointer ${
-                          selectedAvatar === emoji && !customAvatarUrl
-                            ? 'bg-primary border-2 border-neon-cyan scale-110 shadow-[0_0_12px_rgba(0,240,255,0.6)]'
-                            : 'bg-surface-container hover:bg-surface-container-high'
-                        }`}
+                        className={`w-9 h-9 rounded-xl flex items-center justify-center text-xl transition-all cursor-pointer ${selectedAvatar === emoji && !customAvatarUrl
+                          ? 'bg-primary border-2 border-neon-cyan scale-110 shadow-[0_0_12px_rgba(0,240,255,0.6)]'
+                          : 'bg-surface-container hover:bg-surface-container-high'
+                          }`}
                       >
                         {emoji}
                       </button>

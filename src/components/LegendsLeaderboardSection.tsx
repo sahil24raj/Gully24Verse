@@ -69,12 +69,12 @@ export const LegendsLeaderboardSection: React.FC = () => {
         {/* Section Title & Filter Tabs */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-amber-400 font-black uppercase tracking-widest text-xs">
+            <div className="inline-flex items-center gap-1.5 text-[#FF8A35] font-black uppercase tracking-widest text-xs">
               <Trophy className="w-4 h-4" />
-              <span>GULLY ROLL OF HONOR</span>
+              <span>MASTIVERSE ROLL OF HONOR</span>
             </div>
             <h2 className="font-headline-xl uppercase text-white tracking-tight mt-1 text-3xl sm:text-4xl font-black">
-              GULLY KE TOP PLAYERS 👑
+              MASTIVERSE KE TOP PLAYERS 👑
             </h2>
             <p className="font-body-md text-slate-300">
               Real verified rankings and battle scores from authentic matches.
@@ -82,7 +82,7 @@ export const LegendsLeaderboardSection: React.FC = () => {
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#1B1B22]/90 backdrop-blur-md self-start sm:self-auto border border-white/10">
+          <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#101A33]/90 backdrop-blur-md self-start sm:self-auto border border-[#315CFF]/20">
             <button
               onClick={() => {
                 soundFx.playClick();
@@ -90,7 +90,7 @@ export const LegendsLeaderboardSection: React.FC = () => {
               }}
               className={`px-4 py-1.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
                 activeFilter === 'today'
-                  ? 'bg-amber-500 text-slate-950 shadow-md font-black'
+                  ? 'bg-[#FF8A35] text-slate-950 shadow-md font-black'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -103,7 +103,7 @@ export const LegendsLeaderboardSection: React.FC = () => {
               }}
               className={`px-4 py-1.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
                 activeFilter === 'week'
-                  ? 'bg-amber-500 text-slate-950 shadow-md font-black'
+                  ? 'bg-[#FF8A35] text-slate-950 shadow-md font-black'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -116,7 +116,7 @@ export const LegendsLeaderboardSection: React.FC = () => {
               }}
               className={`px-4 py-1.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
                 activeFilter === 'all'
-                  ? 'bg-amber-500 text-slate-950 shadow-md font-black'
+                  ? 'bg-[#FF8A35] text-slate-950 shadow-md font-black'
                   : 'text-slate-400 hover:text-white'
               }`}
             >

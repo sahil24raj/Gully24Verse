@@ -250,8 +250,8 @@ export function useMultiplayerRoom({
     if (navigator.share) {
       navigator
         .share({
-          title: `Play ${room?.gameTitle || 'Multiplayer Game'} on GullyVerse`,
-          text: `Join my 1v1 battle room (#${normalizedCode}) on GullyVerse!`,
+          title: `Play ${room?.gameTitle || 'Multiplayer Game'} on Mastiverse`,
+          text: `Join my 1v1 battle room (#${normalizedCode}) on Mastiverse!`,
           url: link
         })
         .catch(() => {});

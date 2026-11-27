@@ -182,7 +182,7 @@ export const GameLifecycleWrapper: React.FC<GameLifecycleWrapperProps> = ({
     soundFx.playClick();
     if (typeof window !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(
-        `🎮 I scored ${score} pts in ${gameTitle} on GullyVerse! Can you beat me? https://gully24verse.vercel.app/game/${gameId}`
+        `🎮 I scored ${score} pts in ${gameTitle} on Mastiverse! Can you beat me? https://gullyverse.pages.dev/game/${gameId}`
       );
       alert('Score duel copied to clipboard!');
     }

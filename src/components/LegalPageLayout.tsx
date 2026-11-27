@@ -68,7 +68,7 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
           
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold tracking-wider uppercase mb-3">
             <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-            <span>GullyVerse Official Documentation • {category}</span>
+            <span>Mastiverse Official Documentation • {category}</span>
           </div>
 
           <h1 className="font-['Russo_One',sans-serif] text-3xl sm:text-4xl md:text-5xl text-white uppercase tracking-tight leading-tight mb-3 drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">

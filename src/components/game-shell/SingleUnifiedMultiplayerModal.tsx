@@ -160,7 +160,7 @@ export const SingleUnifiedMultiplayerModal: React.FC<SingleUnifiedMultiplayerMod
             </div>
             <div>
               <div className="text-[10px] font-mono text-[#06B6D4] font-bold uppercase tracking-wider">
-                GULLYVERSE • MULTIPLAYER
+                MASTIVERSE • MULTIPLAYER
               </div>
               <h2 className="text-base sm:text-lg font-black text-white font-display truncate">
                 {gameTitle}

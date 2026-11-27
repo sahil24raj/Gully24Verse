@@ -2,58 +2,61 @@
 @import "tailwindcss";
 
 @theme {
-  /* GullyVerse Core Color Tokens */
-  --color-background: #101014;
-  --color-surface: #1B1B22;
-  --color-surface-dim: #101014;
-  --color-surface-bright: #262630;
-  --color-surface-container-lowest: #0B0B0E;
-  --color-surface-container-low: #15151B;
-  --color-surface-container: #1B1B22;
-  --color-surface-container-high: #24242E;
-  --color-surface-container-highest: #2E2E3A;
-  --color-surface-purple: #171524;
-  --color-surface-glass: rgba(27, 27, 34, 0.75);
-  --color-border-glass: rgba(255, 159, 28, 0.22);
+  /* MASTIVERSE Premium Gaming Brand Tokens */
+  --color-background: #080D1B;
+  --color-surface: #101A33;
+  --color-surface-dim: #080D1B;
+  --color-surface-bright: #172344;
+  --color-surface-container-lowest: #050811;
+  --color-surface-container-low: #0C1326;
+  --color-surface-container: #101A33;
+  --color-surface-container-high: #172344;
+  --color-surface-container-highest: #1F2E59;
+  --color-surface-purple: #131A38;
+  --color-surface-glass: rgba(16, 26, 51, 0.75);
+  --color-border-glass: rgba(49, 92, 255, 0.22);
   
-  --color-on-surface: #F8FAFC;
+  --color-on-surface: #FFFFFF;
   --color-on-surface-variant: #94A3B8;
-  --color-inverse-surface: #F8FAFC;
-  --color-inverse-on-surface: #1B1B22;
+  --color-inverse-surface: #FFFFFF;
+  --color-inverse-on-surface: #080D1B;
   
-  /* Primary: Electric Saffron */
-  --color-primary: #FF9F1C;
-  --color-on-primary: #101014;
-  --color-primary-container: #FF9F1C;
-  --color-on-primary-container: #101014;
-  --color-inverse-primary: #FFAF38;
+  /* Primary: Electric Blue */
+  --color-primary: #315CFF;
+  --color-on-primary: #FFFFFF;
+  --color-primary-container: #315CFF;
+  --color-on-primary-container: #FFFFFF;
+  --color-inverse-primary: #557BFF;
   
-  /* Secondary: Desi Teal */
-  --color-secondary: #00BFA6;
-  --color-on-secondary: #101014;
-  --color-secondary-container: #00A892;
-  --color-on-secondary-container: #E6FAF7;
+  /* Secondary: Royal Blue */
+  --color-secondary: #2446D8;
+  --color-on-secondary: #FFFFFF;
+  --color-secondary-container: #1A33A8;
+  --color-on-secondary-container: #F0F4FF;
   
-  /* Accent: Street Red */
-  --color-accent: #F04438;
-  --color-tertiary: #FF9F1C;
-  --color-on-tertiary: #101014;
-  --color-tertiary-container: #FF9F1C;
-  --color-on-tertiary-container: #101014;
-  --color-tertiary-fixed: #FFD285;
-  --color-tertiary-fixed-dim: #FF9F1C;
+  /* Accent: Saffron */
+  --color-accent: #FF8A35;
+  --color-tertiary: #FF8A35;
+  --color-on-tertiary: #080D1B;
+  --color-tertiary-container: #FF8A35;
+  --color-on-tertiary-container: #080D1B;
+  --color-tertiary-fixed: #FFB37C;
+  --color-tertiary-fixed-dim: #FF8A35;
   --color-on-tertiary-fixed: #2E1500;
   
-  --color-neon-saffron: #FF9F1C;
+  --color-electric-blue: #315CFF;
+  --color-royal-blue: #2446D8;
+  --color-saffron: #FF8A35;
+  --color-neon-saffron: #FF8A35;
   --color-neon-teal: #00BFA6;
   --color-neon-red: #F04438;
   --color-neon-gold: #FACC15;
   --color-neon-green: #22C55E;
-  --color-neon-cyan: #00BFA6;
+  --color-neon-cyan: #315CFF;
   --color-soft-lavender: #CBD5E1;
   
-  --color-outline: #475569;
-  --color-outline-variant: #334155;
+  --color-outline: #334155;
+  --color-outline-variant: #1E293B;
   --color-error: #F04438;
   --color-error-container: #7F1D1D;
   
@@ -79,20 +82,23 @@
 
 @layer base {
   :root {
-    --bg-canvas: #101014;
-    --bg-surface: #1B1B22;
-    --bg-container: #1B1B22;
-    --bg-container-high: #24242E;
-    --text-primary: #F8FAFC;
+    --bg-canvas: #080D1B;
+    --bg-surface: #101A33;
+    --bg-container: #101A33;
+    --bg-container-high: #172344;
+    --text-primary: #FFFFFF;
     --text-muted: #94A3B8;
-    --neon-saffron: #FF9F1C;
+    --electric-blue: #315CFF;
+    --royal-blue: #2446D8;
+    --saffron: #FF8A35;
+    --neon-saffron: #FF8A35;
     --neon-teal: #00BFA6;
     --neon-red: #F04438;
-    --neon-purple: #FF9F1C;
-    --neon-violet: #00BFA6;
+    --neon-purple: #315CFF;
+    --neon-violet: #2446D8;
     --neon-yellow: #FACC15;
     --neon-green: #22C55E;
-    --neon-cyan: #00BFA6;
+    --neon-cyan: #315CFF;
   }
 
   html {
@@ -101,8 +107,8 @@
   }
 
   body {
-    background-color: #101014;
-    color: #F8FAFC;
+    background-color: #080D1B;
+    color: #FFFFFF;
     font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
   }
@@ -231,48 +237,60 @@
   letter-spacing: 0.08em;
 }
 
-/* GullyVerse Glassmorphism & Cyber Glow Styling */
-.va-glass-card, .gv-glass-card {
-  background: rgba(27, 27, 34, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 159, 28, 0.15);
+/* MASTIVERSE Premium Design Tokens & Utilities */
+.mv-glass-card, .va-glass-card, .gv-glass-card {
+  background: rgba(16, 26, 51, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(49, 92, 255, 0.22);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.va-glass-card:hover, .gv-glass-card:hover {
-  border-color: rgba(255, 159, 28, 0.45);
-  box-shadow: 0 0 30px rgba(255, 159, 28, 0.25);
+.mv-glass-card:hover, .va-glass-card:hover, .gv-glass-card:hover {
+  border-color: rgba(49, 92, 255, 0.55);
+  box-shadow: 0 0 35px rgba(49, 92, 255, 0.3);
 }
 
-.va-btn-tertiary, .gv-btn-primary {
-  background: linear-gradient(135deg, #FF9F1C 0%, #FF8A00 100%);
-  color: #101014;
+/* Primary Electric Blue CTA */
+.mv-btn-primary {
+  background: linear-gradient(135deg, #315CFF 0%, #2446D8 100%);
+  color: #FFFFFF;
   font-weight: 800;
-  box-shadow: 0 0 25px rgba(255, 159, 28, 0.45);
+  box-shadow: 0 0 25px rgba(49, 92, 255, 0.45);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-.va-btn-tertiary:hover, .gv-btn-primary:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 35px rgba(255, 159, 28, 0.65);
+.mv-btn-primary:hover {
+  background: linear-gradient(135deg, #4C73FF 0%, #315CFF 100%);
+  box-shadow: 0 0 35px rgba(49, 92, 255, 0.65);
+  transform: translateY(-1px) scale(1.02);
 }
 
-.va-btn-tertiary:active, .gv-btn-primary:active {
-  transform: scale(0.97);
-}
-
-.va-btn-primary-glow, .gv-btn-secondary {
-  background: linear-gradient(135deg, #00BFA6 0%, #009688 100%);
-  color: #101014;
+/* Saffron Accent CTA */
+.mv-btn-accent, .va-btn-tertiary, .gv-btn-primary {
+  background: linear-gradient(135deg, #FF8A35 0%, #E05F05 100%);
+  color: #080D1B;
   font-weight: 800;
-  box-shadow: 0 0 22px rgba(0, 191, 166, 0.4);
+  box-shadow: 0 0 25px rgba(255, 138, 53, 0.45);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.mv-btn-accent:hover, .va-btn-tertiary:hover, .gv-btn-primary:hover {
+  background: linear-gradient(135deg, #FFA866 0%, #FF8A35 100%);
+  box-shadow: 0 0 35px rgba(255, 138, 53, 0.65);
+  transform: translateY(-1px) scale(1.02);
+}
 
-.va-btn-primary-glow:hover, .gv-btn-secondary:hover {
-  background: linear-gradient(135deg, #00D6BA 0%, #00BFA6 100%);
-  box-shadow: 0 0 32px rgba(0, 191, 166, 0.6);
+/* Royal Blue Secondary */
+.mv-btn-secondary, .va-btn-primary-glow, .gv-btn-secondary {
+  background: rgba(49, 92, 255, 0.15);
+  color: #FFFFFF;
+  border: 1px solid rgba(49, 92, 255, 0.4);
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mv-btn-secondary:hover, .va-btn-primary-glow:hover, .gv-btn-secondary:hover {
+  background: rgba(49, 92, 255, 0.3);
+  border-color: #315CFF;
+  box-shadow: 0 0 25px rgba(49, 92, 255, 0.35);
   transform: translateY(-1px);
 }
 

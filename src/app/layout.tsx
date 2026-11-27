@@ -3,56 +3,58 @@ import './globals.css';
 import { AppDashboardLayout } from '@/components/AppDashboardLayout';
 
 export const viewport: Viewport = {
-  themeColor: '#101014',
+  themeColor: '#080D1B',
   width: 'device-width',
   initialScale: 1,
 };
 
 export const metadata: Metadata = {
-  title: "GullyVerse – India's Desi Browser Gaming Universe",
-  description: "Play free Indian-style browser games instantly. Challenge friends, create squads and enjoy multiplayer gaming on GullyVerse. Zero downloads, unlimited masti. Gully Se Gaming Tak.",
+  title: "MASTIVERSE — Apna Game. Apni Duniya. | India's Premium Gaming Universe",
+  description: "Experience MASTIVERSE — the ultimate Indian gaming entertainment ecosystem. Play original 3D action, street racing, arcade brawls and squad multiplayer instantly with zero downloads. Apna Game. Apni Duniya.",
   keywords: [
-    'GullyVerse',
-    'Gully Se Gaming Tak',
-    'India Ka Apna Gaming Adda',
+    'MASTIVERSE',
+    'Apna Game Apni Duniya',
+    'Mastiverse Originals',
+    'Mastiverse Arcade',
+    'Mastiverse Racing',
+    'Mastiverse Multiplayer',
+    'Indian gaming ecosystem',
     'desi browser games',
-    'Indian multiplayer games',
     'Jelly Jalwa',
-    'Gully Race 3D',
-    'Pehelwan Rush 3D',
-    'Turri Run 3D',
+    'Gully Race',
+    'Pehelwan Rush',
+    'Turri Run',
     'Tirri Run',
+    'GenZ Protest Run',
     'Book Cricket',
     'Spin Cricket',
-    'Pen Flip Battle',
-    'hostel gaming',
-    'free online games India',
-    '6-character room codes'
+    'online multiplayer India',
+    'room codes gaming'
   ],
   icons: {
     icon: [
-      { url: '/brand/gullyverse-icon.png?v=3', type: 'image/png' },
-      { url: '/icon.png?v=3', type: 'image/png' },
-      { url: '/favicon.ico?v=3', sizes: 'any' }
+      { url: '/brand/mastiverse-icon.png?v=4', type: 'image/png' },
+      { url: '/icon.png?v=4', type: 'image/png' },
+      { url: '/favicon.ico?v=4', sizes: 'any' }
     ],
-    shortcut: '/brand/gullyverse-icon.png?v=3',
+    shortcut: '/brand/mastiverse-icon.png?v=4',
     apple: [
-      { url: '/brand/gullyverse-icon.png?v=3' },
-      { url: '/apple-touch-icon.png?v=3' }
+      { url: '/brand/mastiverse-icon.png?v=4' },
+      { url: '/apple-icon.png?v=4' }
     ],
   },
   openGraph: {
-    title: "GullyVerse – India's Desi Browser Gaming Universe",
-    description: "Apni Gully. Apne Dost. Apne Games. Play free desi browser games instantly — no downloads, no waiting. Gully Se Gaming Tak.",
-    images: ['/brand/gullyverse-logo.png'],
+    title: "MASTIVERSE — Apna Game. Apni Duniya.",
+    description: "India's premier gaming universe. Play Mastiverse Originals, street racers, and multiplayer battles with friends worldwide.",
+    images: ['/brand/mastiverse-logo.png'],
     type: 'website',
     locale: 'en_IN',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "GullyVerse – India's Desi Browser Gaming Universe",
-    description: "Apni Gully. Apne Dost. Apne Games. Play free desi browser games instantly. Gully Se Gaming Tak.",
-    images: ['/brand/gullyverse-logo.png'],
+    title: "MASTIVERSE — Apna Game. Apni Duniya.",
+    description: "India's premier gaming universe. Play free 3D games instantly. Zero downloads, pure masti.",
+    images: ['/brand/mastiverse-logo.png'],
   }
 };
 

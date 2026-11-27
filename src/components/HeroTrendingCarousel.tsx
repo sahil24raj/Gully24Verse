@@ -167,26 +167,26 @@ export const HeroTrendingCarousel: React.FC = () => {
 
   return (
     <section className="w-full px-4 sm:px-8 xl:px-14 py-8 relative select-none">
-      <div className="max-w-[1720px] mx-auto p-6 sm:p-8 xl:p-10 rounded-3xl sm:rounded-[36px] bg-[#121217]/80 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.55)] flex flex-col gap-6">
+      <div className="max-w-[1720px] mx-auto p-6 sm:p-8 xl:p-10 rounded-3xl sm:rounded-[36px] bg-[#101A33]/85 backdrop-blur-xl border border-[#315CFF]/20 shadow-[0_20px_60px_rgba(0,0,0,0.65)] flex flex-col gap-6">
         {/* Section Header with Carousel Navigation */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-1.5 text-amber-400 font-bold uppercase tracking-widest text-xs">
-              <Flame className="w-4 h-4 fill-amber-400" />
-              <span>GULLY TRENDING</span>
+            <div className="flex items-center gap-1.5 text-[#FF8A35] font-bold uppercase tracking-widest text-xs">
+              <Flame className="w-4 h-4 fill-[#FF8A35]" />
+              <span>MASTIVERSE TRENDING</span>
             </div>
             <h2 className="font-headline-xl uppercase text-white tracking-tight mt-1 text-3xl sm:text-4xl font-black">
               AAJ KYA KHELEIN?
             </h2>
             <p className="font-body-lg text-slate-300">
-              Jump straight into the most played desi rooms across India right now.
+              Jump straight into the most played rooms across India right now.
             </p>
           </div>
 
           <div className="flex items-center gap-2 self-start sm:self-auto">
             <button
               onClick={() => handleScroll(-440)}
-              className="w-12 h-12 rounded-2xl bg-[#1B1B22] hover:bg-[#262630] text-white flex items-center justify-center transition-all shadow-md active:scale-95 cursor-pointer border border-white/10"
+              className="w-12 h-12 rounded-2xl bg-[#080D1B] hover:bg-[#172344] text-white flex items-center justify-center transition-all shadow-md active:scale-95 cursor-pointer border border-white/10"
               title="Previous Battles"
               aria-label="Previous Battles"
             >
@@ -194,7 +194,7 @@ export const HeroTrendingCarousel: React.FC = () => {
             </button>
             <button
               onClick={() => handleScroll(440)}
-              className="w-12 h-12 rounded-2xl bg-[#1B1B22] hover:bg-[#262630] text-white flex items-center justify-center transition-all shadow-md active:scale-95 cursor-pointer border border-white/10"
+              className="w-12 h-12 rounded-2xl bg-[#080D1B] hover:bg-[#172344] text-white flex items-center justify-center transition-all shadow-md active:scale-95 cursor-pointer border border-white/10"
               title="Next Battles"
               aria-label="Next Battles"
             >
@@ -211,7 +211,7 @@ export const HeroTrendingCarousel: React.FC = () => {
           {TOP_BATTLES.map((battle) => (
             <div
               key={battle.id}
-              className={`w-[84vw] min-w-[275px] max-w-[350px] sm:min-w-[380px] sm:max-w-[420px] snap-start shrink-0 rounded-3xl bg-[#1B1B22] p-4 xs:p-5 sm:p-6 flex flex-col justify-between shadow-2xl ${battle.hoverGlow} transition-all duration-300 group border border-white/10 hover:border-amber-500/50`}
+              className={`w-[84vw] min-w-[275px] max-w-[350px] sm:min-w-[380px] sm:max-w-[420px] snap-start shrink-0 rounded-3xl bg-[#080D1B]/95 p-4 xs:p-5 sm:p-6 flex flex-col justify-between shadow-2xl ${battle.hoverGlow} transition-all duration-300 group border border-white/10 hover:border-[#315CFF]/60`}
             >
               <div className="flex flex-col gap-3">
                 {/* Clean Top Bar (Above Cover) */}
@@ -219,8 +219,8 @@ export const HeroTrendingCarousel: React.FC = () => {
                   <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[11px] uppercase tracking-wider ${battle.badgeBg}`}>
                     {battle.badge}
                   </span>
-                  <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-black/40 border border-white/10 text-amber-400 text-xs font-bold">
-                    <Star className="w-3.5 h-3.5 fill-amber-400" />
+                  <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-black/40 border border-white/10 text-[#FF8A35] text-xs font-bold">
+                    <Star className="w-3.5 h-3.5 fill-[#FF8A35]" />
                     <span>{battle.rating}</span>
                   </div>
                 </div>
@@ -244,7 +244,7 @@ export const HeroTrendingCarousel: React.FC = () => {
                 </div>
 
                 <div className="px-1 flex flex-col gap-1">
-                  <h3 className="text-xl sm:text-2xl font-black text-white truncate group-hover:text-amber-400 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-black text-white truncate group-hover:text-[#FF8A35] transition-colors">
                     {battle.title}
                   </h3>
                   <p className="text-xs text-slate-300 leading-relaxed line-clamp-2 min-h-[36px]">
@@ -256,16 +256,16 @@ export const HeroTrendingCarousel: React.FC = () => {
               <div className="flex items-center gap-2.5 mt-5 pt-3 border-t border-white/10">
                 <button
                   onClick={() => handlePlayNow(battle)}
-                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-xs uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#315CFF] to-[#2446D8] text-white font-black text-xs uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(49,92,255,0.4)] cursor-pointer flex items-center justify-center gap-2"
                 >
-                  <Play className="w-4 h-4 fill-slate-950" />
+                  <Play className="w-4 h-4 fill-white" />
                   <span>PLAY NOW</span>
                 </button>
                 <button
                   onClick={() => handleActionRoom(battle)}
-                  className="px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.02] cursor-pointer border border-white/10 flex items-center gap-1.5"
+                  className="px-4 py-3 rounded-xl bg-[#101A33] hover:bg-[#172344] text-white font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.02] cursor-pointer border border-[#FF8A35]/30 flex items-center gap-1.5"
                 >
-                  <Users className="w-3.5 h-3.5 text-teal-400" />
+                  <Users className="w-3.5 h-3.5 text-[#FF8A35]" />
                   <span>{battle.buttonActionType}</span>
                 </button>
               </div>
