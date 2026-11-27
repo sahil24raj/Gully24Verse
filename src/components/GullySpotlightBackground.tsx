@@ -111,7 +111,7 @@ export const GullySpotlightBackground: React.FC = () => {
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-[1.01]"
         style={{
-          backgroundImage: "url('/brand/mastiverse-environment.jpg')",
+          backgroundImage: "url('/brand/mastiverse-cover-v2.jpg')",
           filter: 'brightness(0.68) contrast(1.15) saturate(1.05)'
         }}
       />
@@ -129,7 +129,7 @@ export const GullySpotlightBackground: React.FC = () => {
         ref={brightLayerRef}
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-[1.01] will-change-[mask-image]"
         style={{
-          backgroundImage: "url('/brand/mastiverse-environment.jpg')",
+          backgroundImage: "url('/brand/mastiverse-cover-v2.jpg')",
           filter: 'brightness(1.28) contrast(1.2) saturate(1.35)',
           WebkitMaskImage:
             'radial-gradient(circle 380px at 50% 36%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
