@@ -54,17 +54,16 @@ const mPortalSvg = `
         stroke-width="16"
         stroke-linecap="round" />
 
-  <path d="M126 374 L126 144 L218 232 L218 308 L184 274 L184 374 Z"
+  <!-- Exact Cover Portal Emblem: Floating Top V-Chevron + Two Angled Lower Pillars -->
+  <path d="M116 118 L256 226 L396 118 L396 202 L256 314 L116 202 Z"
         fill="url(#mLetter)"
         filter="url(#portalGlow)" />
-  <path d="M386 374 L386 144 L294 232 L294 308 L328 274 L328 374 Z"
+  <path d="M116 238 L204 308 L204 412 L116 354 Z"
         fill="url(#mLetter)"
         filter="url(#portalGlow)" />
-  <path d="M174 134 L256 218 L338 134 L338 194 L256 278 L174 194 Z"
-        fill="#FFFFFF"
+  <path d="M396 238 L308 308 L308 412 L396 354 Z"
+        fill="url(#mLetter)"
         filter="url(#portalGlow)" />
-  <path d="M256 294 L276 322 L256 350 L236 322 Z"
-        fill="#FF8A35" />
 </svg>
 `;
 

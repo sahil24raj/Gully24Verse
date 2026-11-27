@@ -100,26 +100,21 @@ export const MastiverseLogo: React.FC<MastiverseLogoProps> = ({
           strokeLinecap="round"
         />
 
-        {/* Bold Split-Wing "M" + Nested "V" Portal Emblem (Matches Cover Portal) */}
-        {/* Left Outer Wing */}
+        {/* Exact Cover Portal Emblem: Floating Top V-Chevron + Two Angled Lower Pillars */}
+        {/* Upper V-Chevron */}
         <path
-          d="M126 374 L126 144 L218 232 L218 308 L184 274 L184 374 Z"
+          d="M116 118 L256 226 L396 118 L396 202 L256 314 L116 202 Z"
           fill="url(#mvMLetter)"
         />
-        {/* Right Outer Wing */}
+        {/* Lower-Left Angled Pillar */}
         <path
-          d="M386 374 L386 144 L294 232 L294 308 L328 274 L328 374 Z"
+          d="M116 238 L204 308 L204 412 L116 354 Z"
           fill="url(#mvMLetter)"
         />
-        {/* Floating Center "V" Chevron */}
+        {/* Lower-Right Angled Pillar */}
         <path
-          d="M174 134 L256 218 L338 134 L338 194 L256 278 L174 194 Z"
-          fill={variant === 'monochrome' ? '#FFFFFF' : '#FFFFFF'}
-        />
-        {/* Subtle Saffron Core Spark at Bottom of V */}
-        <path
-          d="M256 294 L276 322 L256 350 L236 322 Z"
-          fill={variant === 'monochrome' ? '#E2E8F0' : '#FF8A35'}
+          d="M396 238 L308 308 L308 412 L396 354 Z"
+          fill="url(#mvMLetter)"
         />
       </svg>
     </div>
