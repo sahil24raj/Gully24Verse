@@ -45,7 +45,7 @@ export const GullyMultiplayerZone: React.FC = () => {
 
   const handleShareInvite = () => {
     soundFx.playClick();
-    const url = typeof window !== 'undefined' ? window.location.origin : 'https://gullyverse.pages.dev';
+    const url = typeof window !== 'undefined' ? window.location.origin : 'https://mastiverse.pages.dev';
     const text = `Aaja Mastiverse pe squad battle khelte hain! Room code bana diya hai: ${url}`;
     navigator.clipboard.writeText(text);
     setCopiedLink(true);

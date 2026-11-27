@@ -103,23 +103,23 @@ export const GullySpotlightBackground: React.FC = () => {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden"
+      className="fixed inset-x-0 top-16 bottom-0 w-full pointer-events-none select-none z-0 overflow-hidden bg-[#080D1B]"
     >
       {/* 
-        LAYER 1: Base Indian gaming street environment with cinematic navy contrast
+        LAYER 1: Base Indian gaming street environment starting cleanly below the 64px navbar
       */}
       <div
-        className="absolute inset-0 w-full h-full bg-cover bg-[50%_18%] bg-no-repeat"
+        className="absolute inset-0 w-full h-full bg-cover bg-[50%_10%] bg-no-repeat"
         style={{
           backgroundImage: "url('/brand/mastiverse-cover-v2.jpg')",
-          filter: 'brightness(0.75) contrast(1.12) saturate(1.06)'
+          filter: 'brightness(0.78) contrast(1.12) saturate(1.06)'
         }}
       />
 
       {/* 
         Subtle Cinematic Scrim in Midnight Navy (Keeps top sign bright & bottom text ultra-readable)
       */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#080D1B]/35 via-transparent to-[#080D1B]/90" />
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#080D1B]/15 via-transparent to-[#080D1B]/90" />
 
       {/* 
         LAYER 2 (SPOTLIGHT REVEAL):
@@ -127,7 +127,7 @@ export const GullySpotlightBackground: React.FC = () => {
       */}
       <div
         ref={brightLayerRef}
-        className="absolute inset-0 w-full h-full bg-cover bg-[50%_18%] bg-no-repeat will-change-[mask-image]"
+        className="absolute inset-0 w-full h-full bg-cover bg-[50%_10%] bg-no-repeat will-change-[mask-image]"
         style={{
           backgroundImage: "url('/brand/mastiverse-cover-v2.jpg')",
           filter: 'brightness(1.28) contrast(1.18) saturate(1.32)',
