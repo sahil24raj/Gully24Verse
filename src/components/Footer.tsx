@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { soundFx } from '@/lib/audio';
-import { GullyVerseLogo } from '@/components/GullyVerseLogo';
+import { MastiverseLogo } from '@/components/MastiverseLogo';
 import { ExternalLink, ShieldCheck, Heart } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
         
         {/* Brand Column */}
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <GullyVerseLogo size="lg" />
+          <MastiverseLogo size="lg" />
           <p className="font-body-sm text-slate-400 max-w-sm leading-relaxed mt-2 text-xs sm:text-sm">
             India&apos;s premier browser gaming universe. Play 100% free games, challenge your hostel squad, drift auto-rickshaws, and dominate national leaderboards with zero downloads.
           </p>

@@ -4,11 +4,11 @@ import { LegalPageLayout } from '@/components/LegalPageLayout';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Community Guidelines – GullyVerse',
-  description: 'Community standards, social code of conduct, and player safety guidelines for GullyVerse.',
+  title: 'Community Guidelines – Mastiverse',
+  description: 'Community standards, social code of conduct, and player safety guidelines for Mastiverse.',
   openGraph: {
-    title: 'Community Guidelines – GullyVerse',
-    description: 'Community standards, social code of conduct, and player safety guidelines for GullyVerse.',
+    title: 'Community Guidelines – Mastiverse',
+    description: 'Community standards, social code of conduct, and player safety guidelines for Mastiverse.',
     url: 'https://gully24verse.vercel.app/community-guidelines'
   }
 };
@@ -35,7 +35,7 @@ export default function CommunityGuidelinesPage() {
           1. The Gully Spirit
         </h2>
         <p>
-          GullyVerse is inspired by the vibrant camaraderie of Indian street gaming: where friends play hard, roast each other with desi banter, and celebrate every victory together. While friendly rivalry and humor are warmly embraced, mutual respect is the foundation of our entire community.
+          Mastiverse is inspired by the vibrant camaraderie of Indian street gaming: where friends play hard, roast each other with desi banter, and celebrate every victory together. While friendly rivalry and humor are warmly embraced, mutual respect is the foundation of our entire community.
         </p>
       </section>
 
@@ -76,7 +76,7 @@ export default function CommunityGuidelinesPage() {
           4. Username &amp; Profile Standards
         </h2>
         <p>
-          Your gamer tag represents you on public leaderboards. Usernames containing sexually explicit content, religious slurs, abuse, or impersonation of official GullyVerse administrators will be forcibly renamed or deleted.
+          Your gamer tag represents you on public leaderboards. Usernames containing sexually explicit content, religious slurs, abuse, or impersonation of official Mastiverse administrators will be forcibly renamed or deleted.
         </p>
       </section>
 

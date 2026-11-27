@@ -90,7 +90,7 @@ export default function AccountDeletionPage() {
           </div>
           <div className="flex items-start gap-2">
             <span className="text-amber-400 font-bold">Step 2:</span>
-            <span>Or write directly to <span className="font-mono text-white">privacy@gullyverse.com</span> from the email address registered with your account.</span>
+            <span>Or write directly to <span className="font-mono text-white">privacy@mastiverse.in</span> from the email address registered with your account.</span>
           </div>
           <div className="flex items-start gap-2">
             <span className="text-amber-400 font-bold">Step 3:</span>

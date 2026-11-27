@@ -95,7 +95,7 @@ export default function ContactPage() {
 
   return (
     <LegalPageLayout
-      title="Contact GullyVerse Support"
+      title="Contact Mastiverse Support"
       subtitle="Have an issue with a game room, bug to report, or general inquiry? Our team and automated ticketing system are here to assist."
       category="Support"
       tableOfContents={toc}
@@ -267,8 +267,8 @@ export default function ContactPage() {
         </p>
         <div className="p-4 rounded-xl bg-black/60 border border-white/10 text-xs space-y-1 font-mono text-slate-300">
           <div><strong className="text-white">Designation:</strong> Grievance Redressal Officer</div>
-          <div><strong className="text-white">Platform:</strong> GullyVerse (SR24Plus)</div>
-          <div><strong className="text-white">Email:</strong> grievance@gullyverse.com / support@gullyverse.com</div>
+          <div><strong className="text-white">Platform:</strong> Mastiverse (SR24Plus)</div>
+          <div><strong className="text-white">Email:</strong> grievance@mastiverse.in / support@mastiverse.in</div>
           <div><strong className="text-white">Jurisdiction:</strong> New Delhi, Republic of India</div>
         </div>
       </section>

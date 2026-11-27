@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { ArrowLeft, Flame } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Truck Run 🚛💨 — Desi Truck Highway Racing Game | GullyVerse',
+  title: 'Truck Run 🚛💨 — Desi Truck Highway Racing Game | Mastiverse',
   description:
-    'Drive the iconic Indian Tata 1613 heavy cargo truck (Desi Lorry) down the Grand Trunk Highway in full 3D Unity graphics! Blast musical horns, collect coins, avoid traffic, and conquer the Punjabi Dhaba corridors on GullyVerse.'
+    'Drive the iconic Indian Tata 1613 heavy cargo truck (Desi Lorry) down the Grand Trunk Highway in full 3D Unity graphics! Blast musical horns, collect coins, avoid traffic, and conquer the Punjabi Dhaba corridors on Mastiverse.'
 };
 
 export default function TruckRunPage() {

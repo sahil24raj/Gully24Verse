@@ -3,11 +3,11 @@ import { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Third-Party Services Disclosure – GullyVerse',
-  description: 'Full transparency regarding third-party cloud infrastructure, analytics, and authentication providers used by GullyVerse.',
+  title: 'Third-Party Services Disclosure – Mastiverse',
+  description: 'Full transparency regarding third-party cloud infrastructure, analytics, and authentication providers used by Mastiverse.',
   openGraph: {
-    title: 'Third-Party Services Disclosure – GullyVerse',
-    description: 'Full transparency regarding third-party cloud infrastructure, analytics, and authentication providers used by GullyVerse.',
+    title: 'Third-Party Services Disclosure – Mastiverse',
+    description: 'Full transparency regarding third-party cloud infrastructure, analytics, and authentication providers used by Mastiverse.',
     url: 'https://gully24verse.vercel.app/third-party-services'
   }
 };
@@ -23,7 +23,7 @@ export default function ThirdPartyServicesPage() {
   return (
     <LegalPageLayout
       title="Third-Party Services Disclosure"
-      subtitle="Complete architectural transparency regarding external cloud services, authentication APIs, and CDN networks supporting GullyVerse."
+      subtitle="Complete architectural transparency regarding external cloud services, authentication APIs, and CDN networks supporting Mastiverse."
       category="Compliance"
       tableOfContents={toc}
       requiresOwnerInput={false}
@@ -33,7 +33,7 @@ export default function ThirdPartyServicesPage() {
           1. Transparency Overview
         </h2>
         <p>
-          In accordance with the Digital Personal Data Protection Act, 2023, GullyVerse discloses all external services and Data Processors utilized to deliver instant gameplay, host multiplayer sync, and protect platform security.
+          In accordance with the Digital Personal Data Protection Act, 2023, Mastiverse discloses all external services and Data Processors utilized to deliver instant gameplay, host multiplayer sync, and protect platform security.
         </p>
       </section>
 
@@ -85,7 +85,7 @@ export default function ThirdPartyServicesPage() {
           3. Data Sharing &amp; Non-Sale Guarantee
         </h2>
         <p>
-          GullyVerse <strong>never sells or trades personal user data</strong> to third-party data brokers, advertising aggregators, or marketing firms. External providers are strictly engaged under contractual data processing agreements to perform technical hosting and database operations.
+          Mastiverse <strong>never sells or trades personal user data</strong> to third-party data brokers, advertising aggregators, or marketing firms. External providers are strictly engaged under contractual data processing agreements to perform technical hosting and database operations.
         </p>
       </section>
 

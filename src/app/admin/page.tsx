@@ -23,7 +23,7 @@ export default function AdminPage() {
     e.preventDefault();
     setAuthError('');
     // Client-side developer unlock gate
-    if (passcode.trim() === 'GULLYVERSE_STUDIO_2026' || passcode.trim() === 'SR24PLUS_ADMIN') {
+    if (passcode.trim() === 'MASTIVERSE_STUDIO_2026' || passcode.trim() === 'SR24PLUS_ADMIN') {
       soundFx.playPowerUp();
       setIsUnlocked(true);
     } else {
@@ -56,7 +56,7 @@ export default function AdminPage() {
         <div className="space-y-2">
           <h2 className="text-2xl font-black text-white">Administrator Restricted</h2>
           <p className="text-xs text-slate-400">
-            This dashboard is restricted to verified GullyVerse studio engineers and administrators.
+            This dashboard is restricted to verified Mastiverse studio engineers and administrators.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function AdminPage() {
     <div className="space-y-8 pb-12">
       <div className="text-center space-y-2">
         <h1 className="text-3xl font-black text-white flex items-center justify-center gap-2">
-          <Shield className="w-8 h-8 text-cyan-400" /> GullyVerse Developer &amp; Studio Dashboard
+          <Shield className="w-8 h-8 text-cyan-400" /> Mastiverse Developer &amp; Studio Dashboard
         </h1>
         <p className="text-xs text-gray-400">Manage catalog games, engines, deployment pipelines, and game features</p>
       </div>

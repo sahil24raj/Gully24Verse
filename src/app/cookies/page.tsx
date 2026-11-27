@@ -3,11 +3,11 @@ import { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy – GullyVerse',
-  description: 'Learn about how GullyVerse uses browser cookies and local storage to preserve your game progress, audio settings, and authentication.',
+  title: 'Cookie Policy – Mastiverse',
+  description: 'Learn about how Mastiverse uses browser cookies and local storage to preserve your game progress, audio settings, and authentication.',
   openGraph: {
-    title: 'Cookie Policy – GullyVerse',
-    description: 'Learn about how GullyVerse uses browser cookies and local storage to preserve your game progress, audio settings, and authentication.',
+    title: 'Cookie Policy – Mastiverse',
+    description: 'Learn about how Mastiverse uses browser cookies and local storage to preserve your game progress, audio settings, and authentication.',
     url: 'https://gully24verse.vercel.app/cookies'
   }
 };
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function CookiesPage() {
   const toc = [
     { id: 'what-are-cookies', title: '1. What Are Cookies & Local Storage?' },
-    { id: 'types-used', title: '2. Technologies Used by GullyVerse' },
+    { id: 'types-used', title: '2. Technologies Used by Mastiverse' },
     { id: 'purposes', title: '3. Purposes of Cookie Usage' },
     { id: 'third-party', title: '4. Third-Party Cookies' },
     { id: 'managing-cookies', title: '5. How to Manage or Disable Cookies' }
@@ -24,7 +24,7 @@ export default function CookiesPage() {
   return (
     <LegalPageLayout
       title="Cookie Policy"
-      subtitle="This policy explains how GullyVerse uses HTTP cookies, browser local storage, and session identifiers to power instant browser gameplay and preserve your stats."
+      subtitle="This policy explains how Mastiverse uses HTTP cookies, browser local storage, and session identifiers to power instant browser gameplay and preserve your stats."
       category="Legal"
       tableOfContents={toc}
       requiresOwnerInput={false}
@@ -34,13 +34,13 @@ export default function CookiesPage() {
           1. What Are Cookies &amp; Local Storage?
         </h2>
         <p>
-          Cookies are small text files placed on your computer or mobile device when you visit a website. In addition to standard HTTP cookies, modern web applications like GullyVerse utilize HTML5 <strong>Web Storage (localStorage and sessionStorage)</strong>. These storage mechanisms allow your browser to remember your preferences (like sound mute states, active game high scores, and user avatars) between sessions without requiring server round-trips.
+          Cookies are small text files placed on your computer or mobile device when you visit a website. In addition to standard HTTP cookies, modern web applications like Mastiverse utilize HTML5 <strong>Web Storage (localStorage and sessionStorage)</strong>. These storage mechanisms allow your browser to remember your preferences (like sound mute states, active game high scores, and user avatars) between sessions without requiring server round-trips.
         </p>
       </section>
 
       <section id="types-used" className="flex flex-col gap-3 scroll-mt-28">
         <h2 className="font-['Russo_One',sans-serif] text-xl text-white uppercase tracking-wide">
-          2. Technologies Used by GullyVerse
+          2. Technologies Used by Mastiverse
         </h2>
         <div className="space-y-3 my-2">
           <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
@@ -81,7 +81,7 @@ export default function CookiesPage() {
           4. Third-Party Cookies
         </h2>
         <p>
-          When you use Google Sign-In, Google may set cookies on its authentication domain (<code>accounts.google.com</code>) to authenticate your Google profile securely. GullyVerse does not control Google&apos;s authentication cookies. We do not use third-party behavioral advertising cookies or commercial tracking pixels.
+          When you use Google Sign-In, Google may set cookies on its authentication domain (<code>accounts.google.com</code>) to authenticate your Google profile securely. Mastiverse does not control Google&apos;s authentication cookies. We do not use third-party behavioral advertising cookies or commercial tracking pixels.
         </p>
       </section>
 
@@ -93,7 +93,7 @@ export default function CookiesPage() {
           You can restrict or block cookies through your browser settings. However, please note that disabling essential cookies and local storage will reset your local game progress, logout active sessions, and restore default audio settings upon page refresh.
         </p>
         <p className="text-xs text-slate-400">
-          To clear GullyVerse local storage manually, open your browser Developer Tools (F12) &gt; Application &gt; Local Storage &gt; Clear All.
+          To clear Mastiverse local storage manually, open your browser Developer Tools (F12) &gt; Application &gt; Local Storage &gt; Clear All.
         </p>
       </section>
     </LegalPageLayout>

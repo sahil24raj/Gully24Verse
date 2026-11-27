@@ -346,7 +346,7 @@ export const Gully3DHeroCanvas: React.FC = () => {
       <div className="w-full h-full flex items-center justify-center bg-[#101014] rounded-3xl border border-amber-500/20">
         <div className="text-center p-6">
           <span className="text-4xl">🕹️ 🚛</span>
-          <p className="text-amber-400 font-bold mt-2">GullyVerse Indian Street Arcade</p>
+          <p className="text-amber-400 font-bold mt-2">Mastiverse Indian Street Arcade</p>
         </div>
       </div>
     );

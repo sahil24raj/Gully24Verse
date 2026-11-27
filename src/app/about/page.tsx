@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { Gamepad2, Users, Flame, Heart, Code2, Globe2, Sparkles, ExternalLink } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About GullyVerse – India’s Desi Browser Gaming Universe',
-  description: 'Learn about GullyVerse, our story, mission, and how we bring nostalgic Indian street games to the digital world with zero downloads.',
+  title: 'About Mastiverse – India’s Desi Browser Gaming Universe',
+  description: 'Learn about Mastiverse, our story, mission, and how we bring nostalgic Indian street games to the digital world with zero downloads.',
   openGraph: {
-    title: 'About GullyVerse – India’s Desi Browser Gaming Universe',
-    description: 'Learn about GullyVerse, our story, mission, and how we bring nostalgic Indian street games to the digital world with zero downloads.',
+    title: 'About Mastiverse – India’s Desi Browser Gaming Universe',
+    description: 'Learn about Mastiverse, our story, mission, and how we bring nostalgic Indian street games to the digital world with zero downloads.',
     url: 'https://gully24verse.vercel.app/about'
   }
 };
@@ -20,12 +20,12 @@ export default function AboutPage() {
     { id: 'mission', title: 'Our Mission' },
     { id: 'games-ecosystem', title: 'Desi Gaming Ecosystem' },
     { id: 'creator', title: 'Built by SR24Plus' },
-    { id: 'future', title: 'The Future of GullyVerse' }
+    { id: 'future', title: 'The Future of Mastiverse' }
   ];
 
   return (
     <LegalPageLayout
-      title="About GullyVerse"
+      title="About Mastiverse"
       subtitle="Bringing the thrill, banter, and nostalgia of Indian street games into an instant, zero-download digital arena."
       category="Company"
       tableOfContents={toc}
@@ -33,7 +33,7 @@ export default function AboutPage() {
     >
       {/* Brand Statement Callout */}
       <div className="p-6 rounded-2xl bg-gradient-to-r from-amber-500/15 via-black/40 to-cyan-500/15 border border-amber-500/30 text-white font-medium text-base sm:text-lg leading-relaxed shadow-lg">
-        &ldquo;GullyVerse brings the excitement of gaming, competition, and desi culture together in one digital universe. From hostel rooms to local gullies, gaming has always been about community.&rdquo;
+        &ldquo;Mastiverse brings the excitement of gaming, competition, and desi culture together in one digital universe. From hostel rooms to local gullies, gaming has always been about community.&rdquo;
       </div>
 
       {/* 1. Our Story */}
@@ -49,7 +49,7 @@ export default function AboutPage() {
           However, modern mobile gaming became plagued by 10-gigabyte downloads, mandatory pay-to-win microtransactions, and aggressive ad spam. We asked a simple question: <em>Why can&apos;t gaming be instant, fun, and culturally authentic?</em>
         </p>
         <p>
-          <strong>GullyVerse was born out of this spirit.</strong> A high-performance WebGL and HTML5 gaming portal where you tap once and start playing in less than two seconds — on any phone, laptop, or low-spec browser. No installations. No waiting. Pure desi gaming.
+          <strong>Mastiverse was born out of this spirit.</strong> A high-performance WebGL and HTML5 gaming portal where you tap once and start playing in less than two seconds — on any phone, laptop, or low-spec browser. No installations. No waiting. Pure desi gaming.
         </p>
       </section>
 
@@ -94,7 +94,7 @@ export default function AboutPage() {
           <span>3. The Desi Gaming Ecosystem</span>
         </h2>
         <p>
-          GullyVerse hosts a handcrafted lineup of 14+ instant games across 3D sports, racers, brawlers, and satirical party duels:
+          Mastiverse hosts a handcrafted lineup of 14+ instant games across 3D sports, racers, brawlers, and satirical party duels:
         </p>
         <ul className="list-disc list-inside space-y-1.5 text-slate-300 text-sm ml-2">
           <li><strong>Turri Run 🛺:</strong> High-speed 3D auto-rickshaw drift racer through chaotic Chandni Chowk neon lanes.</li>
@@ -126,7 +126,7 @@ export default function AboutPage() {
               <span className="text-xs uppercase font-mono text-amber-400 tracking-wider">Creator &amp; Architect</span>
               <h3 className="text-2xl font-black text-white font-['Russo_One',sans-serif]">SR24Plus</h3>
               <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
-                GullyVerse is engineered and designed by SR24Plus using the SR24Plus Engineering Toolkit, focusing on lightweight web performance, 60fps canvas rendering, and scalable cloud architecture.
+                Mastiverse is engineered and designed by SR24Plus using the SR24Plus Engineering Toolkit, focusing on lightweight web performance, 60fps canvas rendering, and scalable cloud architecture.
               </p>
             </div>
           </div>
@@ -146,7 +146,7 @@ export default function AboutPage() {
       <section id="future" className="flex flex-col gap-4 scroll-mt-28">
         <h2 className="font-['Russo_One',sans-serif] text-xl sm:text-2xl text-white uppercase tracking-wide flex items-center gap-2.5">
           <Sparkles className="w-5 h-5 text-cyan-400" />
-          <span>5. The Future of GullyVerse</span>
+          <span>5. The Future of Mastiverse</span>
         </h2>
         <p>
           We are continuously developing new multiplayer experiences, tournament brackets for college fests, community custom rooms, and creator tools. We believe that gaming belongs in the browser, accessible to every Indian gamer regardless of device specs or internet speed.

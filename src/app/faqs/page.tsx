@@ -4,11 +4,11 @@ import { LegalPageLayout } from '@/components/LegalPageLayout';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Frequently Asked Questions (FAQs) – GullyVerse',
-  description: 'Find answers to common questions about games, multiplayer rooms, account syncing, and browser performance on GullyVerse.',
+  title: 'Frequently Asked Questions (FAQs) – Mastiverse',
+  description: 'Find answers to common questions about games, multiplayer rooms, account syncing, and browser performance on Mastiverse.',
   openGraph: {
-    title: 'Frequently Asked Questions (FAQs) – GullyVerse',
-    description: 'Find answers to common questions about games, multiplayer rooms, account syncing, and browser performance on GullyVerse.',
+    title: 'Frequently Asked Questions (FAQs) – Mastiverse',
+    description: 'Find answers to common questions about games, multiplayer rooms, account syncing, and browser performance on Mastiverse.',
     url: 'https://gully24verse.vercel.app/faqs'
   }
 };
@@ -17,10 +17,10 @@ export default function FAQsPage() {
   const faqs = [
     {
       q: 'Do I need to download or install anything to play?',
-      a: 'Absolutely not! All 14+ games on GullyVerse run directly in your web browser using HTML5, WebGL, and Three.js. You can play on mobile, tablet, laptop, or desktop with 1 tap.'
+      a: 'Absolutely not! All 14+ games on Mastiverse run directly in your web browser using HTML5, WebGL, and Three.js. You can play on mobile, tablet, laptop, or desktop with 1 tap.'
     },
     {
-      q: 'Is GullyVerse free to play?',
+      q: 'Is Mastiverse free to play?',
       a: 'Yes, 100% free! There are zero paywalls, zero subscription fees, and no real-money gambling. All points, coins, and levels are purely virtual for fun and competitive rankings.'
     },
     {

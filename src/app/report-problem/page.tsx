@@ -61,7 +61,7 @@ export default function ReportProblemPage() {
   return (
     <LegalPageLayout
       title="Report a Problem or Bug"
-      subtitle="Help us keep GullyVerse bug-free, balanced, and enjoyable. Report gameplay glitches, multiplayer issues, or player misconduct."
+      subtitle="Help us keep Mastiverse bug-free, balanced, and enjoyable. Report gameplay glitches, multiplayer issues, or player misconduct."
       category="Support"
       tableOfContents={toc}
       requiresOwnerInput={false}

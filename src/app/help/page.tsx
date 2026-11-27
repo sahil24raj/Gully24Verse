@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { Gamepad2, Users, Trophy, Cpu, ShieldCheck, Mail, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Help Center & Guides – GullyVerse',
-  description: 'Player guides, controls, multiplayer room setup, and troubleshooting for GullyVerse games.',
+  title: 'Help Center & Guides – Mastiverse',
+  description: 'Player guides, controls, multiplayer room setup, and troubleshooting for Mastiverse games.',
   openGraph: {
-    title: 'Help Center & Guides – GullyVerse',
-    description: 'Player guides, controls, multiplayer room setup, and troubleshooting for GullyVerse games.',
+    title: 'Help Center & Guides – Mastiverse',
+    description: 'Player guides, controls, multiplayer room setup, and troubleshooting for Mastiverse games.',
     url: 'https://gully24verse.vercel.app/help'
   }
 };
@@ -46,7 +46,7 @@ export default function HelpCenterPage() {
 
   return (
     <LegalPageLayout
-      title="GullyVerse Help Center"
+      title="Mastiverse Help Center"
       subtitle="Comprehensive player manuals, controls, multiplayer instructions, and performance optimization guides."
       category="Support"
       tableOfContents={toc}

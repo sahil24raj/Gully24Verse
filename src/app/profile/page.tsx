@@ -66,7 +66,7 @@ const ARENA_ACHIEVEMENTS: AchievementItem[] = [
   {
     id: 'b_first_game',
     name: 'First Step',
-    description: 'Complete your first arena match in GullyVerse',
+    description: 'Complete your first arena match in Mastiverse',
     icon: '🎮',
     category: 'combat',
     condition: (u) => (u.stats?.gamesPlayed || 0) >= 1
@@ -130,7 +130,7 @@ const ARENA_ACHIEVEMENTS: AchievementItem[] = [
   {
     id: 'b_brain_genius',
     name: 'Mind Over Matter',
-    description: 'Reach Level 5 or higher in GullyVerse',
+    description: 'Reach Level 5 or higher in Mastiverse',
     icon: '🧠',
     category: 'mastery',
     condition: (u) => (u.level || 1) >= 5
@@ -493,7 +493,7 @@ function ProfileContent() {
 
               {/* Gamer Bio */}
               <p className="text-sm text-slate-300 max-w-lg italic font-sans">
-                &ldquo;{(user.bio || 'Grinding games. Chasing high scores.').replace(/Chill Arena/gi, 'GullyVerse')}&rdquo;
+                &ldquo;{(user.bio || 'Grinding games. Chasing high scores.').replace(/Chill Arena/gi, 'Mastiverse')}&rdquo;
               </p>
 
               {/* Badges / Quick Metrics */}
@@ -837,7 +837,7 @@ function ProfileContent() {
                 value={bio}
                 onChange={(e) => setBio(e.target.value.slice(0, 180))}
                 rows={3}
-                placeholder="Grinding one game at a time. Chasing high scores in GullyVerse."
+                placeholder="Grinding one game at a time. Chasing high scores in Mastiverse."
                 className="w-full px-4 py-3 bg-[#070A14] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-[#00F0FF] transition-colors resize-none"
               />
             </div>
@@ -1252,7 +1252,7 @@ function ProfileContent() {
           <div className="p-4 rounded-xl bg-slate-900/60 border border-white/5 text-[11px] text-slate-400 space-y-1">
             <span className="font-bold text-slate-300 block">🔒 Privacy Guarantee:</span>
             <p>
-              GullyVerse never exposes private account tokens, passwords, raw session identifiers, or internal user database keys. Public profiles only show your gamer tag, achievements, and non-sensitive gameplay metrics.
+              Mastiverse never exposes private account tokens, passwords, raw session identifiers, or internal user database keys. Public profiles only show your gamer tag, achievements, and non-sensitive gameplay metrics.
             </p>
           </div>
 
@@ -1279,7 +1279,7 @@ export default function ProfilePage() {
       fallback={
         <div className="p-16 text-center text-slate-400 font-mono text-sm flex items-center justify-center gap-3">
           <Loader2 className="w-6 h-6 animate-spin text-[#00F0FF]" />
-          <span>Loading GullyVerse Profile...</span>
+          <span>Loading Mastiverse Profile...</span>
         </div>
       }
     >

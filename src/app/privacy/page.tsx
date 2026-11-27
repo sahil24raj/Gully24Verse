@@ -4,11 +4,11 @@ import { LegalPageLayout } from '@/components/LegalPageLayout';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy – GullyVerse (DPDPA 2023 Compliant)',
-  description: 'Understand how GullyVerse collects, processes, and protects your personal data in accordance with the Digital Personal Data Protection Act, 2023.',
+  title: 'Privacy Policy – Mastiverse (DPDPA 2023 Compliant)',
+  description: 'Understand how Mastiverse collects, processes, and protects your personal data in accordance with the Digital Personal Data Protection Act, 2023.',
   openGraph: {
-    title: 'Privacy Policy – GullyVerse (DPDPA 2023 Compliant)',
-    description: 'Understand how GullyVerse collects, processes, and protects your personal data in accordance with the Digital Personal Data Protection Act, 2023.',
+    title: 'Privacy Policy – Mastiverse (DPDPA 2023 Compliant)',
+    description: 'Understand how Mastiverse collects, processes, and protects your personal data in accordance with the Digital Personal Data Protection Act, 2023.',
     url: 'https://gully24verse.vercel.app/privacy'
   }
 };
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
   return (
     <LegalPageLayout
       title="Privacy Policy"
-      subtitle="GullyVerse is committed to safeguarding your personal data in strict compliance with India's Digital Personal Data Protection Act, 2023 (DPDPA 2023) and the Information Technology Act, 2000."
+      subtitle="Mastiverse is committed to safeguarding your personal data in strict compliance with India's Digital Personal Data Protection Act, 2023 (DPDPA 2023) and the Information Technology Act, 2000."
       category="Legal"
       tableOfContents={toc}
       requiresOwnerInput={true}
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
           1. Introduction &amp; Overview
         </h2>
         <p>
-          This Privacy Policy explains how GullyVerse (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) collects, uses, processes, stores, and protects personal data belonging to users (&ldquo;Data Principals&rdquo;) who access our casual browser gaming universe.
+          This Privacy Policy explains how Mastiverse (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) collects, uses, processes, stores, and protects personal data belonging to users (&ldquo;Data Principals&rdquo;) who access our casual browser gaming universe.
         </p>
         <p>
           We operate as a Data Fiduciary under the provisions of the <strong>Digital Personal Data Protection Act, 2023 (DPDPA)</strong> and the <strong>Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011</strong>.
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
           2. Information We Collect
         </h2>
         <p>
-          In keeping with our commitment to privacy by design, GullyVerse strictly collects only the minimal data necessary to deliver instant browser gameplay and multiplayer leaderboards:
+          In keeping with our commitment to privacy by design, Mastiverse strictly collects only the minimal data necessary to deliver instant browser gameplay and multiplayer leaderboards:
         </p>
         <div className="space-y-3 my-2">
           <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
@@ -108,7 +108,7 @@ export default function PrivacyPage() {
           5. Third-Party Service Providers
         </h2>
         <p>
-          GullyVerse integrates with trusted third-party cloud infrastructure providers:
+          Mastiverse integrates with trusted third-party cloud infrastructure providers:
         </p>
         <ul className="list-disc list-inside space-y-1 text-sm pl-2">
           <li><strong>Google Firebase:</strong> Cloud authentication, Firestore database, and security rules.</li>
@@ -156,7 +156,7 @@ export default function PrivacyPage() {
           7. Children’s Privacy &amp; Age Restrictions
         </h2>
         <p>
-          GullyVerse does not knowingly process personal data of children under 18 years of age without verifiable parental consent in accordance with Section 9 of the DPDPA 2023. Our casual games feature no gambling, no predatory purchasing loops, and no adult content.
+          Mastiverse does not knowingly process personal data of children under 18 years of age without verifiable parental consent in accordance with Section 9 of the DPDPA 2023. Our casual games feature no gambling, no predatory purchasing loops, and no adult content.
         </p>
       </section>
 
@@ -178,8 +178,8 @@ export default function PrivacyPage() {
         </p>
         <div className="p-4 rounded-xl bg-black/60 border border-white/10 text-xs font-mono space-y-1">
           <div><strong className="text-white">Designation:</strong> Data Protection &amp; Grievance Officer</div>
-          <div><strong className="text-white">Entity:</strong> GullyVerse (SR24Plus)</div>
-          <div><strong className="text-white">Email:</strong> privacy@gullyverse.com / grievance@gullyverse.com</div>
+          <div><strong className="text-white">Entity:</strong> Mastiverse (SR24Plus)</div>
+          <div><strong className="text-white">Email:</strong> privacy@mastiverse.in / grievance@mastiverse.in</div>
           <div><strong className="text-white">Response Window:</strong> Within 15 calendar days as mandated by IT Rules 2021</div>
           <div><strong className="text-white">Country:</strong> Republic of India</div>
         </div>

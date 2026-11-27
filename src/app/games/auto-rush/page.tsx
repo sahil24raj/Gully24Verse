@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, Flame } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Tirri Run 🛺💨 — Indian Auto-Rickshaw Racing Game | GullyVerse',
+  title: 'Tirri Run 🛺💨 — Indian Auto-Rickshaw Racing Game | Mastiverse',
   description:
     'Race an authentic Indian auto-rickshaw (Tirri) against 7 rivals through Gurugram and Delhi — Cyber City, NH-48, Kartavya Path and the Red Fort. Real 3-wheel physics, drift, nitro, garage upgrades, and realistic city tracks inspired by autorush.autos.'
 };

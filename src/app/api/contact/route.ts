@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Thank you! Your message has been received by GullyVerse Support.',
+      message: 'Thank you! Your message has been received by Mastiverse Support.',
       ticketId: `GV-${Date.now().toString(36).toUpperCase()}`
     });
   } catch (err: unknown) {

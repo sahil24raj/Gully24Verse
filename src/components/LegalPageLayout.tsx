@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { GullyVerseLogo } from '@/components/GullyVerseLogo';
+import { MastiverseLogo } from '@/components/MastiverseLogo';
 import { soundFx } from '@/lib/audio';
 import {
   ShieldCheck,
@@ -93,7 +93,7 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
             <div className="mt-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 flex items-start gap-3">
               <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
               <div className="flex-1 leading-relaxed">
-                <strong className="text-amber-300">Compliance Notice:</strong> This document outlines GullyVerse&apos;s legal and operational practices for Indian jurisdiction. Certain bracketed terms (such as registered entity names or official grievance officer emails) are configurable placeholders awaiting final confirmation. Consult an Indian legal advisor before commercial deployment.
+                <strong className="text-amber-300">Compliance Notice:</strong> This document outlines Mastiverse&apos;s legal and operational practices for Indian jurisdiction. Certain bracketed terms (such as registered entity names or official grievance officer emails) are configurable placeholders awaiting final confirmation. Consult an Indian legal advisor before commercial deployment.
               </div>
             </div>
           )}
@@ -126,7 +126,7 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-amber-400" />
                 <span>Legal &amp; Grievance Redressal:</span>
-                <span className="text-slate-200 font-mono">support@gullyverse.com</span>
+                <span className="text-slate-200 font-mono">support@mastiverse.in</span>
               </div>
             </div>
           </div>
@@ -171,10 +171,10 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({
             <div className="bg-black/50 border border-white/5 rounded-2xl p-5 text-xs text-slate-400 flex flex-col gap-3">
               <div className="flex items-center gap-2 text-white font-bold">
                 <span className="text-amber-400">🎮</span>
-                <span>GullyVerse Fair Play</span>
+                <span>Mastiverse Fair Play</span>
               </div>
               <p className="text-[11px] leading-relaxed text-slate-400">
-                GullyVerse is a zero-download desi browser gaming platform. We do not support real-money wagering, predatory betting, or unlicensed gambling.
+                Mastiverse is a zero-download desi browser gaming platform. We do not support real-money wagering, predatory betting, or unlicensed gambling.
               </p>
               <div className="pt-2 text-[10px] font-mono text-slate-500 border-t border-white/5">
                 Built with ❤️ by SR24Plus

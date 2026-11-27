@@ -104,7 +104,7 @@ export default function LoginPage() {
             <Gamepad2 className="w-7 h-7 text-[#00F0FF]" />
           </div>
           <h1 className="text-3xl font-black tracking-tight text-white flex items-center justify-center gap-2">
-            Welcome to <span className="bg-gradient-to-r from-[#FFB703] via-[#00F0FF] to-white bg-clip-text text-transparent">GullyVerse</span>
+            Welcome to <span className="bg-gradient-to-r from-[#FFB703] via-[#00F0FF] to-white bg-clip-text text-transparent">Mastiverse</span>
           </h1>
           <p className="text-sm text-slate-400 mt-2">
             Sign in to sync high scores, rank up on leaderboards, and claim rewards
@@ -148,7 +148,7 @@ export default function LoginPage() {
                   required
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
-                  placeholder="gamer@gullyverse.in or Gully_Master"
+                  placeholder="gamer@mastiverse.in or Gully_Master"
                   className="w-full pl-10 pr-4 py-3 bg-[#0a0d18]/90 border border-white/10 rounded-xl text-white placeholder-slate-600 text-sm focus:outline-none focus:border-[#00F0FF] focus:ring-1 focus:ring-[#00F0FF] transition-all"
                 />
               </div>
@@ -269,7 +269,7 @@ export default function LoginPage() {
           {/* Sign Up Link */}
           <div className="text-center mt-6 pt-4 border-t border-white/5">
             <p className="text-xs text-slate-400">
-              New to GullyVerse?{' '}
+              New to Mastiverse?{' '}
               <Link href="/signup" className="text-[#00F0FF] font-bold hover:underline">
                 Create Free Account
               </Link>

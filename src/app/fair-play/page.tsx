@@ -4,11 +4,11 @@ import { LegalPageLayout } from '@/components/LegalPageLayout';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Fair Play & Anti-Cheat Policy – GullyVerse',
-  description: 'Understand the fair play rules, anti-cheat detection, and penalty guidelines for competitive matches and leaderboards on GullyVerse.',
+  title: 'Fair Play & Anti-Cheat Policy – Mastiverse',
+  description: 'Understand the fair play rules, anti-cheat detection, and penalty guidelines for competitive matches and leaderboards on Mastiverse.',
   openGraph: {
-    title: 'Fair Play & Anti-Cheat Policy – GullyVerse',
-    description: 'Understand the fair play rules, anti-cheat detection, and penalty guidelines for competitive matches and leaderboards on GullyVerse.',
+    title: 'Fair Play & Anti-Cheat Policy – Mastiverse',
+    description: 'Understand the fair play rules, anti-cheat detection, and penalty guidelines for competitive matches and leaderboards on Mastiverse.',
     url: 'https://gully24verse.vercel.app/fair-play'
   }
 };
@@ -25,7 +25,7 @@ export default function FairPlayPage() {
   return (
     <LegalPageLayout
       title="Fair Play & Anti-Cheat Policy"
-      subtitle="Ensuring honest competition, genuine leaderboards, and sportsmanship across all GullyVerse 3D hits and multiplayer lobbies."
+      subtitle="Ensuring honest competition, genuine leaderboards, and sportsmanship across all Mastiverse 3D hits and multiplayer lobbies."
       category="Compliance"
       tableOfContents={toc}
       requiresOwnerInput={false}
@@ -35,7 +35,7 @@ export default function FairPlayPage() {
           1. Fair Play Philosophy
         </h2>
         <p>
-          At GullyVerse, we believe gaming is only enjoyable when victories are earned through reflexes, strategy, and skill. When you top the national leaderboard in <em>Turri Run</em> or outwit your squad in <em>Chor Sipahi</em>, you should know that your rank represents true achievement.
+          At Mastiverse, we believe gaming is only enjoyable when victories are earned through reflexes, strategy, and skill. When you top the national leaderboard in <em>Turri Run</em> or outwit your squad in <em>Chor Sipahi</em>, you should know that your rank represents true achievement.
         </p>
       </section>
 
@@ -43,7 +43,7 @@ export default function FairPlayPage() {
         <h2 className="font-['Russo_One',sans-serif] text-xl text-white uppercase tracking-wide">
           2. Prohibited Exploits &amp; Cheats
         </h2>
-        <p>The following practices are strictly prohibited on GullyVerse:</p>
+        <p>The following practices are strictly prohibited on Mastiverse:</p>
         <ul className="list-disc list-inside space-y-1.5 text-sm pl-2">
           <li><strong>Memory Modification:</strong> Using Cheat Engine or browser memory inspectors to alter variables like speed, coins, or collision invulnerability.</li>
           <li><strong>Score Injection &amp; API Tampering:</strong> Directly crafting HTTP requests to submit falsified high scores or simulated multiplayer results.</li>
@@ -58,7 +58,7 @@ export default function FairPlayPage() {
           3. Automated Detection &amp; Cryptographic Validation
         </h2>
         <p>
-          GullyVerse employs real-time server-side and client-side anomaly detection:
+          Mastiverse employs real-time server-side and client-side anomaly detection:
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-2 text-xs">
           <div className="p-3 rounded-lg bg-black/40 border border-white/5">
@@ -99,7 +99,7 @@ export default function FairPlayPage() {
           <Link href="/report-problem" className="text-amber-400 underline font-semibold">
             Report a Problem page
           </Link>{' '}
-          or write to <span className="text-slate-100 font-mono text-xs">fairplay@gullyverse.com</span>.
+          or write to <span className="text-slate-100 font-mono text-xs">fairplay@mastiverse.in</span>.
         </p>
       </section>
     </LegalPageLayout>

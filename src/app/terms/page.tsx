@@ -4,11 +4,11 @@ import { LegalPageLayout } from '@/components/LegalPageLayout';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Terms and Conditions – GullyVerse',
-  description: 'Read the official Terms of Service and Conditions governing the use of the GullyVerse online gaming platform.',
+  title: 'Terms and Conditions – Mastiverse',
+  description: 'Read the official Terms of Service and Conditions governing the use of the Mastiverse online gaming platform.',
   openGraph: {
-    title: 'Terms and Conditions – GullyVerse',
-    description: 'Read the official Terms of Service and Conditions governing the use of the GullyVerse online gaming platform.',
+    title: 'Terms and Conditions – Mastiverse',
+    description: 'Read the official Terms of Service and Conditions governing the use of the Mastiverse online gaming platform.',
     url: 'https://gully24verse.vercel.app/terms'
   }
 };
@@ -32,7 +32,7 @@ export default function TermsPage() {
   return (
     <LegalPageLayout
       title="Terms and Conditions"
-      subtitle="These Terms and Conditions govern your access to and use of GullyVerse, its browser games, real-time multiplayer services, and community features."
+      subtitle="These Terms and Conditions govern your access to and use of Mastiverse, its browser games, real-time multiplayer services, and community features."
       category="Legal"
       tableOfContents={toc}
       requiresOwnerInput={true}
@@ -42,7 +42,7 @@ export default function TermsPage() {
           1. Acceptance of Terms
         </h2>
         <p>
-          By accessing or using GullyVerse (&ldquo;the Platform&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;), whether via desktop or mobile web browsers, you acknowledge that you have read, understood, and agree to be legally bound by these Terms and Conditions (&ldquo;Terms&rdquo;) and our Privacy Policy. If you do not agree to these Terms, you must immediately cease accessing or using the Platform.
+          By accessing or using Mastiverse (&ldquo;the Platform&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;), whether via desktop or mobile web browsers, you acknowledge that you have read, understood, and agree to be legally bound by these Terms and Conditions (&ldquo;Terms&rdquo;) and our Privacy Policy. If you do not agree to these Terms, you must immediately cease accessing or using the Platform.
         </p>
         <p>
           These Terms constitute an electronic record in accordance with the provisions of the Information Technology Act, 2000 and the Indian Contract Act, 1872, and the rules framed thereunder.
@@ -54,7 +54,7 @@ export default function TermsPage() {
           2. Eligibility &amp; Age Requirements
         </h2>
         <p>
-          GullyVerse provides casual browser entertainment suitable for all ages. However, to register an authenticated account (via Google Auth or email) or engage in social multiplayer chat features, you must be at least 13 years old (or the legal age of consent in your jurisdiction). If you are under 18 years of age, you represent that you are accessing the Platform with the consent and supervision of a parent or legal guardian.
+          Mastiverse provides casual browser entertainment suitable for all ages. However, to register an authenticated account (via Google Auth or email) or engage in social multiplayer chat features, you must be at least 13 years old (or the legal age of consent in your jurisdiction). If you are under 18 years of age, you represent that you are accessing the Platform with the consent and supervision of a parent or legal guardian.
         </p>
       </section>
 
@@ -63,12 +63,12 @@ export default function TermsPage() {
           3. User Accounts &amp; Security
         </h2>
         <p>
-          GullyVerse supports guest sessions (persisted via local device storage) as well as cloud-synced accounts authenticated through Firebase Authentication. You are responsible for maintaining the confidentiality of your login credentials and for all activities that occur under your account.
+          Mastiverse supports guest sessions (persisted via local device storage) as well as cloud-synced accounts authenticated through Firebase Authentication. You are responsible for maintaining the confidentiality of your login credentials and for all activities that occur under your account.
         </p>
         <ul className="list-disc list-inside space-y-1 text-sm pl-2">
           <li>You must provide accurate, non-misleading information when choosing a username.</li>
           <li>Usernames containing profanity, hate speech, vulgarity, or impersonation of others are strictly prohibited.</li>
-          <li>You must promptly notify GullyVerse support if you suspect unauthorized access to your account.</li>
+          <li>You must promptly notify Mastiverse support if you suspect unauthorized access to your account.</li>
         </ul>
       </section>
 
@@ -77,7 +77,7 @@ export default function TermsPage() {
           4. Game Rules &amp; Fair Play
         </h2>
         <p>
-          GullyVerse prides itself on authentic competition. All players must adhere to our{' '}
+          Mastiverse prides itself on authentic competition. All players must adhere to our{' '}
           <Link href="/fair-play" className="text-amber-400 underline font-semibold">
             Fair Play Policy
           </Link>
@@ -89,7 +89,7 @@ export default function TermsPage() {
         <h2 className="font-['Russo_One',sans-serif] text-xl text-white uppercase tracking-wide">
           5. Prohibited Conduct
         </h2>
-        <p>While using GullyVerse, you agree that you will NOT:</p>
+        <p>While using Mastiverse, you agree that you will NOT:</p>
         <ul className="list-disc list-inside space-y-1.5 text-sm pl-2">
           <li>Use automated scripts, bots, scrapers, or crawlers to access the platform.</li>
           <li>Attempt to reverse engineer, decompile, or disassemble any game code, shader, or engine binary.</li>
@@ -104,7 +104,7 @@ export default function TermsPage() {
           6. Intellectual Property
         </h2>
         <p>
-          The GullyVerse trademark, brand identity, logo, UI/UX designs, sound architecture, original software code, and editorial content are the intellectual property of [Platform Operator / SR24Plus] and protected under the Indian Copyright Act, 1957. Third-party open-source libraries (such as Three.js, Matter.js, Howler.js, and Lucide Icons) are acknowledged under their respective permissive open-source licenses.
+          The Mastiverse trademark, brand identity, logo, UI/UX designs, sound architecture, original software code, and editorial content are the intellectual property of [Platform Operator / SR24Plus] and protected under the Indian Copyright Act, 1957. Third-party open-source libraries (such as Three.js, Matter.js, Howler.js, and Lucide Icons) are acknowledged under their respective permissive open-source licenses.
         </p>
       </section>
 
@@ -113,7 +113,7 @@ export default function TermsPage() {
           7. Virtual Points, XP &amp; Leaderboards
         </h2>
         <p>
-          GullyVerse is <strong>100% free-to-play</strong>. Coins, XP, badges, and virtual skins are strictly in-game markers of progression. They carry <strong>no real-world monetary value</strong>, cannot be exchanged for cash, and do not constitute real-money wagering or gambling under any Indian state or central laws.
+          Mastiverse is <strong>100% free-to-play</strong>. Coins, XP, badges, and virtual skins are strictly in-game markers of progression. They carry <strong>no real-world monetary value</strong>, cannot be exchanged for cash, and do not constitute real-money wagering or gambling under any Indian state or central laws.
         </p>
       </section>
 
@@ -122,7 +122,7 @@ export default function TermsPage() {
           8. Service Availability &amp; Disclaimers
         </h2>
         <p>
-          GullyVerse is provided on an &ldquo;AS IS&rdquo; and &ldquo;AS AVAILABLE&rdquo; basis without warranties of any kind, whether express or implied. We do not warrant that the games will be uninterrupted, error-free, or compatible with every browser hardware configuration.
+          Mastiverse is provided on an &ldquo;AS IS&rdquo; and &ldquo;AS AVAILABLE&rdquo; basis without warranties of any kind, whether express or implied. We do not warrant that the games will be uninterrupted, error-free, or compatible with every browser hardware configuration.
         </p>
       </section>
 
@@ -131,7 +131,7 @@ export default function TermsPage() {
           9. Limitation of Liability
         </h2>
         <p>
-          To the maximum extent permitted by applicable Indian law, GullyVerse and its developers (SR24Plus) shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the platform.
+          To the maximum extent permitted by applicable Indian law, Mastiverse and its developers (SR24Plus) shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the platform.
         </p>
       </section>
 
@@ -165,8 +165,8 @@ export default function TermsPage() {
           For queries regarding these Terms or to submit a formal grievance, please contact us at:
         </p>
         <div className="p-4 rounded-xl bg-black/60 border border-white/10 text-xs font-mono space-y-1">
-          <div><strong className="text-white">Legal Inquiry:</strong> legal@gullyverse.com</div>
-          <div><strong className="text-white">Support Helpdesk:</strong> support@gullyverse.com</div>
+          <div><strong className="text-white">Legal Inquiry:</strong> legal@mastiverse.in</div>
+          <div><strong className="text-white">Support Helpdesk:</strong> support@mastiverse.in</div>
           <div><strong className="text-white">Portal:</strong> <Link href="/contact" className="text-amber-400 underline">gully24verse.vercel.app/contact</Link></div>
         </div>
       </section>

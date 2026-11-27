@@ -197,7 +197,7 @@ export default function SignUpPage() {
             <Sparkles className="w-7 h-7 text-[#ADFF2F]" />
           </div>
           <h1 className="text-3xl font-black tracking-tight text-white flex items-center justify-center gap-2">
-            Join <span className="bg-gradient-to-r from-[#FFB703] via-[#00F0FF] to-white bg-clip-text text-transparent">GullyVerse</span>
+            Join <span className="bg-gradient-to-r from-[#FFB703] via-[#00F0FF] to-white bg-clip-text text-transparent">Mastiverse</span>
           </h1>
           <p className="text-sm text-slate-400 mt-1">
             Create your official gamer passport & unlock cloud saves
@@ -426,7 +426,7 @@ export default function SignUpPage() {
                   className="w-4 h-4 mt-0.5 rounded bg-[#0a0d18] border-white/20 text-[#ADFF2F] focus:ring-0 cursor-pointer accent-[#ADFF2F]"
                 />
                 <span className="text-xs text-slate-300 leading-snug">
-                  I agree to the GullyVerse{' '}
+                  I agree to the Mastiverse{' '}
                   <span className="text-[#00F0FF] underline">Terms of Service</span>,{' '}
                   <span className="text-[#00F0FF] underline">Fair Play Anti-Cheat Policy</span>, and Cloud Profile Sync.
                 </span>
