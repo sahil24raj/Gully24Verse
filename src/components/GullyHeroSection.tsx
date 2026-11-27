@@ -166,11 +166,11 @@ export const GullyHeroSection: React.FC = () => {
     <section className="relative w-full overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between px-3 xs:px-4 sm:px-8 xl:px-14 pb-3 select-none">
       {/* Top Main Hero Row: Responsive dynamic placement (comfortable padding on mobile, sweet-spot on desktop/TV) */}
       <div
-        className="max-w-[1720px] mx-auto w-full flex flex-col gap-2 relative z-10 pt-4 xs:pt-6 sm:pt-10 md:pt-14 lg:pt-[calc(42vh-80px)] 2xl:pt-[calc(46vh-80px)]"
+        className="max-w-[1720px] mx-auto w-full flex flex-col gap-2 relative z-10 pt-28 xs:pt-32 sm:pt-40 md:pt-48 lg:pt-[calc(52vh-64px)] 2xl:pt-[calc(55vh-64px)]"
       >
         <div className="w-full max-w-full flex flex-col gap-2">
           {/* Sleek Brand Kicker */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#080D1B]/85 border border-[#315CFF]/40 backdrop-blur-md w-fit shadow-md mb-0.5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#080D1B]/90 border border-[#315CFF]/50 backdrop-blur-md w-fit shadow-md mb-0.5">
             <span className="w-2.5 h-2.5 rounded-full bg-[#315CFF] animate-pulse shadow-[0_0_10px_#315CFF] shrink-0" />
             <span className="text-[10px] xs:text-xs sm:text-sm font-black uppercase tracking-wider text-slate-200 font-mono truncate">
               MASTIVERSE • APNA GAME. APNI DUNIYA.
@@ -178,9 +178,9 @@ export const GullyHeroSection: React.FC = () => {
           </div>
 
           {/* Prominent Headline — Apna Game. Apni Duniya. */}
-          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2.1rem,6.4vw,7.2rem)] tracking-tight text-white uppercase leading-[1.08] sm:leading-none drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] max-w-full">
+          <h1 className="font-['Russo_One',sans-serif] text-[clamp(2rem,5.4vw,6.2rem)] tracking-tight text-white uppercase leading-[1.08] sm:leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.98)] max-w-full">
             <span className="block sm:inline text-white">APNA GAME, </span>
-            <span className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-[#315CFF] via-[#60A5FA] to-[#FF8A35]">
+            <span className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-[#60A5FA] via-[#93C5FD] to-[#FF8A35]">
               APNI DUNIYA.
             </span>
           </h1>

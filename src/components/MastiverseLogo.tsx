@@ -43,7 +43,7 @@ export const MastiverseLogo: React.FC<MastiverseLogoProps> = ({
     if (onClick) onClick();
   };
 
-  // Dedicated M-Portal Celestial Vector Symbol
+  // Iconic M-Portal Vector Symbol matching the Mastiverse Portal Cover
   const renderIcon = () => (
     <div
       className="relative shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
@@ -55,64 +55,56 @@ export const MastiverseLogo: React.FC<MastiverseLogoProps> = ({
         viewBox="0 0 512 512"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full drop-shadow-[0_0_16px_rgba(49,92,255,0.45)]"
+        className="w-full h-full drop-shadow-[0_0_16px_rgba(49,92,255,0.55)]"
       >
         <defs>
           <radialGradient id="mvBg" cx="50%" cy="50%" r="65%">
-            <stop offset="0%" stop-color="#101A33" />
-            <stop offset="70%" stop-color="#080D1B" />
+            <stop offset="0%" stopColor="#14275C" />
+            <stop offset="75%" stopColor="#080D1B" />
           </radialGradient>
-          <linearGradient id="mvPylonL" x1="100" y1="80" x2="256" y2="400" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color={variant === 'monochrome' ? '#FFFFFF' : '#315CFF'} />
-            <stop offset="100%" stop-color={variant === 'monochrome' ? '#94A3B8' : '#2446D8'} />
+          <linearGradient id="mvPortalRim" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor={variant === 'monochrome' ? '#FFFFFF' : '#60A5FA'} />
+            <stop offset="50%" stopColor={variant === 'monochrome' ? '#CBD5E1' : '#315CFF'} />
+            <stop offset="100%" stopColor={variant === 'monochrome' ? '#94A3B8' : '#2446D8'} />
           </linearGradient>
-          <linearGradient id="mvPylonR" x1="412" y1="80" x2="256" y2="400" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color={variant === 'monochrome' ? '#E2E8F0' : '#4C73FF'} />
-            <stop offset="100%" stop-color={variant === 'monochrome' ? '#64748B' : '#315CFF'} />
+          <linearGradient id="mvMLetter" x1="256" y1="120" x2="256" y2="390" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="100%" stopColor={variant === 'monochrome' ? '#E2E8F0' : '#BAE6FD'} />
           </linearGradient>
-          <radialGradient id="mvSaffron" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color={variant === 'monochrome' ? '#FFFFFF' : '#FFA866'} />
-            <stop offset="60%" stop-color={variant === 'monochrome' ? '#CBD5E1' : '#FF8A35'} />
-            <stop offset="100%" stop-color={variant === 'monochrome' ? '#64748B' : '#E05F05'} />
-          </radialGradient>
         </defs>
 
-        {/* Hexagonal Portal Frame */}
+        {/* Chamfered Octagonal Portal Frame (Matches Cover Archway) */}
         <path
-          d="M256 32 L468 154 L468 358 L256 480 L44 358 L44 154 Z"
+          d="M148 48 L364 48 L464 148 L464 364 L364 464 L148 464 L48 364 L48 148 Z"
           fill="url(#mvBg)"
-          stroke={variant === 'monochrome' ? '#FFFFFF' : '#315CFF'}
-          strokeWidth="12"
+          stroke="url(#mvPortalRim)"
+          strokeWidth="18"
           strokeLinejoin="round"
         />
 
-        {/* Floating Celestial Crown / Crest */}
+        {/* Inner Electric-Blue Glowing Portal Ring */}
         <path
-          d="M256 86 L284 128 L256 150 L228 128 Z"
-          fill={variant === 'monochrome' ? '#FFFFFF' : '#FF8A35'}
+          d="M168 88 L344 88 L424 168 L424 344 L344 424 L168 424 L88 344 L88 168 Z"
+          fill="#0B1536"
+          stroke={variant === 'monochrome' ? '#FFFFFF' : '#60A5FA'}
+          strokeOpacity="0.45"
+          strokeWidth="6"
+          strokeLinejoin="round"
         />
 
-        {/* Geometric Left & Right M Wings */}
+        {/* Saffron Accent Brackets (Left & Right Portal Energy) */}
         <path
-          d="M100 380 L100 162 L188 94 L256 244 L256 304 L176 178 L148 200 L148 380 Z"
-          fill="url(#mvPylonL)"
-          stroke={variant === 'monochrome' ? '#CBD5E1' : '#4C73FF'}
-          strokeWidth="3"
-        />
-        <path
-          d="M412 380 L412 162 L324 94 L256 244 L256 304 L336 178 L364 200 L364 380 Z"
-          fill="url(#mvPylonR)"
-          stroke={variant === 'monochrome' ? '#E2E8F0' : '#6E90FF'}
-          strokeWidth="3"
+          d="M32 200 L32 312 M480 200 L480 312"
+          stroke={variant === 'monochrome' ? '#FFFFFF' : '#FF8A35'}
+          strokeWidth="16"
+          strokeLinecap="round"
         />
 
-        {/* Celestial Saffron Core */}
-        <circle cx="256" cy="336" r="44" fill="url(#mvSaffron)" />
+        {/* Bold Split-Wing Geometric "M" (Directly matching Cover Portal M) */}
         <path
-          d="M256 296 L264 328 L296 336 L264 344 L256 376 L248 344 L216 336 L248 328 Z"
-          fill="#FFFFFF"
+          d="M132 368 L132 144 L256 268 L380 144 L380 368 L322 368 L322 256 L256 324 L190 256 L190 368 Z"
+          fill="url(#mvMLetter)"
         />
-        <circle cx="256" cy="336" r="10" fill="#FFE5D1" />
       </svg>
     </div>
   );

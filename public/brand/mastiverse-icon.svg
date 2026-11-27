@@ -1,127 +1,45 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Background Gradient -->
     <radialGradient id="bgGrad" cx="50%" cy="50%" r="65%">
-      <stop offset="0%" stop-color="#101A33" />
-      <stop offset="60%" stop-color="#080D1B" />
-      <stop offset="100%" stop-color="#050811" />
+      <stop offset="0%" stop-color="#14275C" />
+      <stop offset="75%" stop-color="#080D1B" />
     </radialGradient>
-
-    <!-- Electric to Royal Blue Pylon Gradient -->
-    <linearGradient id="leftPylonGrad" x1="100" y1="80" x2="256" y2="400" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#315CFF" />
-      <stop offset="60%" stop-color="#2446D8" />
-      <stop offset="100%" stop-color="#142680" />
+    <linearGradient id="portalRim" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="50%" stop-color="#315CFF" />
+      <stop offset="100%" stop-color="#2446D8" />
     </linearGradient>
-
-    <linearGradient id="rightPylonGrad" x1="412" y1="80" x2="256" y2="400" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#4C73FF" />
-      <stop offset="60%" stop-color="#315CFF" />
-      <stop offset="100%" stop-color="#1A33A8" />
+    <linearGradient id="mLetter" x1="256" y1="120" x2="256" y2="390" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#BAE6FD" />
     </linearGradient>
-
-    <!-- Center Crest Facet Gradient -->
-    <linearGradient id="crestGrad" x1="256" y1="120" x2="256" y2="290" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#315CFF" />
-      <stop offset="100%" stop-color="#101A33" />
-    </linearGradient>
-
-    <!-- Saffron Cosmic Energy Core -->
-    <radialGradient id="saffronCore" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FFA866" />
-      <stop offset="45%" stop-color="#FF8A35" />
-      <stop offset="85%" stop-color="#E05F05" />
-      <stop offset="100%" stop-color="#8A3200" stop-opacity="0" />
-    </radialGradient>
-
-    <!-- Portal Hex Ring Glow -->
-    <linearGradient id="hexBorder" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#315CFF" stop-opacity="0.8" />
-      <stop offset="50%" stop-color="#FF8A35" stop-opacity="0.9" />
-      <stop offset="100%" stop-color="#2446D8" stop-opacity="0.8" />
-    </linearGradient>
-
-    <!-- Glow Filter -->
     <filter id="portalGlow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="12" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
-
-    <filter id="coreGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="18" result="coreBlur" />
-      <feComposite in="SourceGraphic" in2="coreBlur" operator="over" />
-    </filter>
   </defs>
 
-  <!-- Ambient Outer Glow -->
-  <circle cx="256" cy="256" r="210" fill="#315CFF" opacity="0.12" filter="url(#portalGlow)" />
-  <circle cx="256" cy="300" r="100" fill="#FF8A35" opacity="0.18" filter="url(#coreGlow)" />
+  <circle cx="256" cy="256" r="220" fill="#315CFF" opacity="0.16" filter="url(#portalGlow)" />
 
-  <!-- Outer Portal Shield / Hexagon Frame -->
-  <path d="M256 32 L468 154 L468 358 L256 480 L44 358 L44 154 Z" 
-        fill="url(#bgGrad)" 
-        stroke="url(#hexBorder)" 
-        stroke-width="5" 
+  <path d="M148 48 L364 48 L464 148 L464 364 L364 464 L148 464 L48 364 L48 148 Z"
+        fill="url(#bgGrad)"
+        stroke="url(#portalRim)"
+        stroke-width="18"
         stroke-linejoin="round" />
 
-  <!-- Inner Ambient Geometric Grid Facets -->
-  <path d="M256 32 L256 480" stroke="#315CFF" stroke-width="1.5" stroke-opacity="0.15" stroke-dasharray="6 6" />
-  <path d="M44 154 L468 358" stroke="#315CFF" stroke-width="1.5" stroke-opacity="0.1" />
-  <path d="M468 154 L44 358" stroke="#315CFF" stroke-width="1.5" stroke-opacity="0.1" />
+  <path d="M168 88 L344 88 L424 168 L424 344 L344 424 L168 424 L88 344 L88 168 Z"
+        fill="#0B1536"
+        stroke="#60A5FA"
+        stroke-opacity="0.45"
+        stroke-width="6"
+        stroke-linejoin="round" />
 
-  <!-- The Floating Celestial Portal Crown / Top Diamond Chevron -->
-  <path d="M256 86 L284 128 L256 150 L228 128 Z" 
-        fill="#FF8A35" 
+  <path d="M32 200 L32 312 M480 200 L480 312"
+        stroke="#FF8A35"
+        stroke-width="16"
+        stroke-linecap="round" />
+
+  <path d="M132 368 L132 144 L256 268 L380 144 L380 368 L322 368 L322 256 L256 324 L190 256 L190 368 Z"
+        fill="url(#mLetter)"
         filter="url(#portalGlow)" />
-  <path d="M256 94 L276 126 L256 142 L236 126 Z" 
-        fill="#FFE5D1" />
-
-  <!-- === THE MASTIVERSE "M" PYLONS & PORTAL CHASM === -->
-
-  <!-- Left Pylon Wing -->
-  <path d="M100 380 L100 162 L188 94 L256 244 L256 304 L176 178 L148 200 L148 380 Z" 
-        fill="url(#leftPylonGrad)" 
-        stroke="#4C73FF" 
-        stroke-width="2" 
-        stroke-linejoin="round" />
-
-  <!-- Left Pylon Chamfer / Inner Facet -->
-  <path d="M148 200 L176 178 L256 304 L224 336 L148 380 Z" 
-        fill="#182A70" 
-        opacity="0.85" />
-
-  <!-- Right Pylon Wing (Mirror with highlight) -->
-  <path d="M412 380 L412 162 L324 94 L256 244 L256 304 L336 178 L364 200 L364 380 Z" 
-        fill="url(#rightPylonGrad)" 
-        stroke="#6E90FF" 
-        stroke-width="2" 
-        stroke-linejoin="round" />
-
-  <!-- Right Pylon Chamfer / Inner Facet -->
-  <path d="M364 200 L336 178 L256 304 L288 336 L364 380 Z" 
-        fill="#223CA6" 
-        opacity="0.9" />
-
-  <!-- Central Crest Keystone -->
-  <path d="M256 244 L284 290 L256 322 L228 290 Z" 
-        fill="url(#crestGrad)" 
-        stroke="#315CFF" 
-        stroke-width="2" />
-
-  <!-- Central Celestial Saffron Portal Core (The Energy Core) -->
-  <g filter="url(#coreGlow)">
-    <circle cx="256" cy="336" r="42" fill="url(#saffronCore)" />
-    <!-- 8-Point Cosmic Star Gate in Core -->
-    <path d="M256 296 L264 328 L296 336 L264 344 L256 376 L248 344 L216 336 L248 328 Z" fill="#FFFFFF" />
-    <circle cx="256" cy="336" r="9" fill="#FFF2E5" />
-  </g>
-
-  <!-- Lower Portal Gate Pedestal Base -->
-  <path d="M188 420 L256 450 L324 420 L304 394 L256 410 L208 394 Z" 
-        fill="#101A33" 
-        stroke="#315CFF" 
-        stroke-width="2" />
-
-  <!-- Bottom Accent Saffron Light Blade -->
-  <path d="M220 442 L256 456 L292 442 L256 448 Z" fill="#FF8A35" />
 </svg>
