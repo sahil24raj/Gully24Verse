@@ -1,4 +1,4 @@
-name: Deploy GullyVerse to Cloudflare Pages
+name: Deploy Mastiverse to Cloudflare Pages
 
 on:
   push:
@@ -40,4 +40,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || 'f4b8da9a3b8a296479520487e37783a7' }}
-          command: pages deploy cloudflare-dist --project-name=gullyverse --branch=main
+          command: pages deploy cloudflare-dist --project-name=mastiverse --branch=main
